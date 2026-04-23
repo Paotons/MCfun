@@ -1,0 +1,116 @@
+{
+	"empty_colon_param_backet" : {
+		"type" : "colon_param_backet",
+		"data" : {},
+	},
+	
+	"rich_string_quotation" : {
+		"type" : "param_backet",
+		"data" : [{"type" : "rich_string", "description" : "text"}]
+	},
+	"selector_quotation" : {
+		"type" : "param_backet",
+		"data" : [{"type" : "selector", "description" : "target"}]
+	},
+	"item_name_quotation" : {
+		"type" : "param_backet",
+		"data" : [{"type" : "spaceitem", "detail" : "item_name", "description" : "item_name"}],
+	},
+	
+	"block_name_quotation" : {
+		"type" : "param_backet",
+		"data" : [{"type" : "spaceitem", "detail" : "block_name", "description" : "block_name"}],
+	},
+	"block_names_quotation" : {
+		"type" : "array_backet",
+		"data" : [{"type" : "quotation", "detail" : "block_name_quotation"}],
+	},
+	
+	"selector_body" : {
+		"type" : "equal_param_backet",
+		"data" : {
+			"name" : {"type" : "rich_string"},
+			"tag" : {"type" : "word", "cmd" : ["completion list tag"]},
+			"type" : {"type" : "spaceitem", "detail" : "entity_name"},
+			"hasitem" : {"type" : "dictionary", "detail" : "selector_hasitem"},
+			"score" : {"type" : "dictionary", "detail" : "selector_score"},
+			
+			"m" : {"type" : "option", "detial" : "using_entry", "items" : ["game_mode_name"]},
+			
+			"r" : {"type" : "float"},
+			"rm" : {"type" : "float"},
+			"c" : {"type" : "int"},
+			"l" : {"type" : "int"},
+			"lm" : {"type" : "int"},
+			
+			"x" : {"type" : "coord"},
+			"y" : {"type" : "coord"},
+			"z" : {"type" : "coord"},
+			"dx" : {"type" : "coord"},
+			"dy" : {"type" : "coord"},
+			"dz" : {"type" : "coord"},
+		}
+	},
+	"selector_hasitem" : {
+		"type" : "equal_param_backet",
+		"data" : {
+			"item" : {"type" : "spaceitem", "detail" : "item_name", "description" : "item"},
+			"quantity" : {"type" : "int", "description" : "number"},
+			"location" : {"type" : "point_path", "detail" : "slot_entity_name", "description" : "slot"},
+			"slot" : {"type" : "int", "description" : "slot_index"},
+			"data" : {"type" : "int", "description" : "item_data"},
+		}
+	},
+	"selector_score" : {
+		"type" : "equal_param_backet",
+		"detail" : "using_key",
+		"data" : {
+			"key" : {"type" : "word", "description" : "scoreboard", "cmd" : ["completion list scoreboard"]},
+			"value" : {"type" : "scope", "description" : "score"},
+		},
+	},
+	
+	
+	"item_component" : {
+		"type" : "colon_param_backet",
+		"data" : {
+			"\"can_place_on\"" : {"type" : "dictionary", "detail" : "item_component_blocks"},
+			"\"can_destory\"" : {"type" : "dictionary", "detail" : "item_component_blocks"},
+			"\"keep_on_death\"" : {"type" : "dictionary", "detail" : "empty_colon_param_backet"},
+			"\"item_lock\"" : {"type" : "dictionary", "detail" : "item_component_item_lock"},
+		},
+	},
+	"item_component_blocks" : {
+		"type" : "colon_param_backet",
+		"data" : {
+			"\"blocks\"" : {"type" : "array", "detail" : "block_names_quotation"},
+		}
+	},
+	"item_component_item_lock" : {
+		"type" : "colon_param_backet",
+		"data" : {
+			"\"mode\"" : {"type" : "quotation", "detail" : "item_component_item_lock_mode"}
+		}
+	},
+	"item_component_item_lock_mode" : {
+		"type" : "param_backet",
+		"data" : [{"type" : "option", "items" : ["lock_in_slot", "lock_in_inventory"]}]
+	},
+	
+	
+	"t_show" : {
+		"type" : "colon_param_backet",
+		"data" : {
+			"\"rawtext\"" : {"type" : "array", "detail" : "t_show_rawtext"},
+			"\"text\"" : {"type" : "quotation", "detail" : "rich_string_quotation"},
+			"\"selector\"" : {"type" : "quotation", "detail" : "selector_quotation"}
+		}
+	},
+	"t_show_rawtext" : {
+		"type" : "array_backet",
+		"detail" : "is_same",
+		"data" : [
+			{"type" : "dictionary", "detail" : "t_show"}
+		]
+	}
+}

@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://qdpxrft1cgpy"]
+
+[ext_resource type="JSON" path="res://resource/Grammer.json" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://dbsguqbxsn3im" path="res://script/Highlight/Highlight.gd" id="1_uu6xs"]
+[ext_resource type="JSON" path="res://resource/GrammerLaw.json" id="3_cm0pq"]
+[ext_resource type="JSON" path="res://resource/GrammerEntry.json" id="3_r0du0"]
+
+[sub_resource type="GDScript" id="GDScript_cm0pq"]
+script/source = "extends Button
+
+
+
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0du0"]
+bg_color = Color(0.08235294, 0.08235294, 0.08235294, 1)
+
+[sub_resource type="SyntaxHighlighter" id="SyntaxHighlighter_r0du0"]
+script = ExtResource("1_uu6xs")
+metadata/_custom_type_script = "uid://dbsguqbxsn3im"
+
+[sub_resource type="GDScript" id="GDScript_r0du0"]
+script/source = "extends FunctionEdit
+
+@export var _error_hint_label : Label
+
+func _errors_list_changed() -> void:
+	var line := find_has_error_command()
+	if line == -1:
+		_error_hint_label.set_text(\"\")
+		return
+	
+	var command := get_command_element(line)
+	var head_err : ElementError
+	var err_column := 0xFFFF_FFFF
+	for err in command.errors:
+		if err.column < err_column:
+			head_err = err
+			err_column = head_err.column
+	_error_hint_label.set_text(\"错误 (%d, %d) %s\" % [line, head_err.column, head_err.string])
+
+func _ready() -> void:
+	super()
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_r0du0"]
+font_color = Color(1, 0, 0, 1)
+
+[node name="Main" type="Control" unique_id=565597061]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Base" type="VBoxContainer" parent="." unique_id=749474620]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Base" unique_id=787189636]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="Base/MarginContainer" unique_id=307924583]
+layout_mode = 2
+
+[node name="Tool" type="HBoxContainer" parent="Base/MarginContainer" unique_id=1157877602]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Base/MarginContainer/Tool" unique_id=2059129879]
+layout_mode = 2
+text = "项目"
+script = SubResource("GDScript_cm0pq")
+
+[node name="CodeEdit" type="CodeEdit" parent="Base" unique_id=12574861 node_paths=PackedStringArray("_error_hint_label")]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0du0")
+scroll_smooth = true
+scroll_past_end_of_file = true
+minimap_draw = true
+caret_blink = true
+syntax_highlighter = SubResource("SyntaxHighlighter_r0du0")
+highlight_current_line = true
+draw_tabs = true
+line_folding = true
+gutters_draw_line_numbers = true
+gutters_draw_fold_gutter = true
+code_completion_enabled = true
+indent_size = 8
+auto_brace_completion_enabled = true
+auto_brace_completion_pairs = {
+"\"": "\"",
+"'": "'",
+"(": ")",
+"<": ">",
+"[": "]",
+"{": "}"
+}
+script = SubResource("GDScript_r0du0")
+_error_hint_label = NodePath("../MarginContainer2/HBoxContainer/error_hint")
+grammer_json = ExtResource("1_glv2v")
+grammer_law_json = ExtResource("3_cm0pq")
+grammer_entry_json = ExtResource("3_r0du0")
+_test_data = "\"   @e [type=hh:gg]\""
+metadata/_custom_type_script = "uid://qbixiwedac0a"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Base" unique_id=519901684]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+
+[node name="Panel" type="Panel" parent="Base/MarginContainer2" unique_id=1897303777]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Base/MarginContainer2" unique_id=475979752]
+layout_mode = 2
+
+[node name="error_hint" type="Label" parent="Base/MarginContainer2/HBoxContainer" unique_id=1979650555]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_r0du0")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=983930926]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer" unique_id=1129993534]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel" unique_id=317096448]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 1.0
+
+[node name="Panel" type="Panel" parent="MarginContainer/Panel/MarginContainer" unique_id=2067959569]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer" unique_id=457791559]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer" unique_id=1165981498]
+layout_mode = 2
+
+[node name="new" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2079438211]
+layout_mode = 2
+text = "新建"
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1602867223]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1871225813]
+layout_mode = 2
+text = "搜索"
+
+[connection signal="caret_changed" from="Base/CodeEdit" to="Base/CodeEdit" method="_on_caret_changed"]
