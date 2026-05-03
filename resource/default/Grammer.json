@@ -1,0 +1,474 @@
+{
+
+	"reload" : [
+		{"id" : 0, "extends" : -1, "is_end" : true},
+	],
+	"seed" : [
+		{"id" : 0, "extends" : -1, "is_end" : true},
+	],
+	"list" : [
+		{"id" : 0, "extends" : -1, "is_end" : true},
+	],
+	
+	"me" : [
+		{"id" : 0, "extends" : -1, "type" : "rich_string", "is_end" : true, "description" : "text"},
+	],
+	"say" : [
+		{"id" : 0, "extends" : -1, "type" : "rich_string", "is_end" : true, "description" : "text"},
+	],
+	
+	"setworldspawn" : [
+		{"id" : 0, "extends" : -1, "type" : "coords", "is_end" : true, "description" : "position"},
+		{"id" : 1, "extends" : -1, "is_end" : true},
+	],
+	
+	"alwaysday" : [
+		{"id" : 0, "extends" : -1, "is_end" : true},
+		{"id" : 1, "extends" : 0, "type" : "bool"},
+	],
+	"deop" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true},
+	],
+	"op" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true},
+	],
+	"kick" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true},
+	],
+	
+	"defaultgemode" : [
+		{"id" : 0, "extends" : -1, "type" : "option", "detail" :  "using_entry", "items" : ["game_mode_name"], "is_end" : true},
+	],
+	"gamerule" : [
+		{"id" : 0, "extends" : -1, "goto" : [1, 2], "type" : "option", "detail" : "using_entry", "items" : ["game_rule_name_to_int", "game_rule_name_to_bool"], "is_end" : true},
+		
+		{"goto" : 999 },
+		{"id" : 1, "extends" : 0, "type" : "int", "description" : "value"},
+		
+		{"goto" : 999 },
+		{"id" : 2, "extends" : 0, "type" : "bool", "description" : "value"},
+		
+		{"id" : 999},
+	],
+	
+	"time" : [
+		{"id" : 0, "extends" : -1, "goto" : [1, 1, 2], "type" : "option", "items" : ["set", "add", "query"]},
+		
+		{"goto" : 999},
+		{"id" : 1, "extends" : 0, "goto" : 999, "type" : "int", "is_end" : true, "description" : "tick"},
+		{"id" : 2, "extends" : 0, "type" : "option", "items" : ["day", "sunset", "noon", "night", "midnight"]},
+		{"id" : 3, "extends" : 2, "goto" : 999, "is_end" : true},
+		
+		{"goto" : 999},
+		{"id" : 4, "extends" : 0, "type" : "option", "items" : ["daytime", "gametime", "day"]},
+		{"id" : 5, "extends" : 4, "goto" : 999, "is_end" : true},
+		
+		{"id" : 999},
+	],
+	"weather" : [
+		{"id" : 0, "extends" : -1, "type" : "option", "items" : ["clear", "rain", "thunder"], "is_end" : true},
+		{"id" : 1, "extends" : 0, "type" : "int", "description" : "delta"}
+	],
+	
+	"execute" : [
+		{"id" : 0, "goto" : [1, 1, 950, 11, 3, 3, 9, 15, 17, 19, 23], "type" : "option", "items" : ["as", "at", "run", "positioned", "if", "unless", "in", "align", "anchored", "facing", "rotated"]},
+
+		{"id" : 899, "goto" : 999},
+		{"id" : 1, "extends" : 0, "goto" : 0, "type" : "selector", "description" : "target"},
+
+		{"goto" : 999},
+		{"id" : 2, "extends" : 3, "goto" : 0, "type" : "selector", "description" : "target"},
+
+		{"goto" : 999},
+		{"id" : 3, "extends" : 0, "goto" : [2, 4, 6, 28], "type" : "option", "items" : ["entity", "block", "blocks", "score"]},
+
+		{"goto" : 999},
+		{"id" : 4, "extends" : 3, "type" : "coords", "description" : "position"},
+		{"id" : 5, "extends" : 4, "goto" : 0, "type" : "spaceitem", "detail" : "block_name", "description" : "block_name"},
+
+		{"goto" : 999},
+		{"id" : 6, "extends" : 3, "type" : "coords", "description" : "start"},
+		{"id" : 7, "extends" : 6, "type" : "coords", "description" : "end"},
+		{"id" : 8, "extends" : 7, "goto" : 0, "type" : "spaceitem", "detail" : "block_name", "description" : "block_name"},
+
+		{"goto" : 999},
+		{"id" : 9, "extends" : 0, "type" : "option", "items" : ["overworld", "the_nether", "the_end"]},
+		{"id" : 10, "extends" : 9, "goto" : 0},
+
+		{"goto" : 999},
+		{"id" : 11, "extends" : 0, "goto" : 0, "type" : "coords", "description" : "target"},
+		{"id" : 12, "extends" : 0, "type" : "option", "items" : ["as"]},
+		{"id" : 13, "extends" : 12, "items" : ["cmp"]},
+		{"id" : 14, "extends" : 13, "goto" : 0, "type" : "selector"},
+
+		{"goto" : 999},
+		{"id" : 15, "extends" : 0, "type" : "option", "items" : ["x", "y", "z", "xy", "xz", "yz", "xyz"]},
+		{"id" : 16, "extends" : 15, "goto" : 0},
+
+		{"goto" : 999},
+		{"id" : 17, "extends" : 0, "type" : "option", "items" : ["feet", "eyes"]},
+		{"id" : 18, "extends" : 17, "goto" : 0},
+
+		{"goto" : 999},
+		{"id" : 19, "extends" : 0, "goto" : 0, "type" : "coords"},
+		{"id" : 20, "extends" : 0, "type" : "option", "items" : ["entity"]},
+		{"id" : 21, "extends" : 20, "items" : ["cmp"]},
+		{"id" : 22, "extends" : 21, "goto" : 0, "type" : "selector", "description" : "target"},
+
+		{"goto" : 999},
+		{"id" : 23, "extends" : 0, "type" : "float", "description" : "rx"},
+		{"id" : 24, "extends" : 23, "goto" : 0, "type" : "float", "description" : "ry"},
+		{"id" : 25, "extends" : 0, "type" : "option", "items" : ["as"]},
+		{"id" : 26, "extends" : 25, "items" : ["cmp"]},
+		{"id" : 27, "extends" : 26, "goto" : 0, "type" : "selector", "description" : "target"},
+
+		{"goto" : 999},
+		{"id" : 28, "extends" : 3, "type" : "selector", "description" : "target"},
+		{"id" : 29, "extends" : 28, "type" : "word", "description" : "scroeboard", "cmd" : ["completion list scoreboard"]},
+		{"id" : 30, "extends" : 29, "goto" : [31, 32, 32, 32, 32, 32], "type" : "option", "items" : ["matches", "=", ">=", "<=", "<", ">"]},
+
+		{"goto" : 999},
+		{"id" : 31, "extends" : 30, "goto" : 0, "type" : "scope", "description" : "scroe"},
+
+		{"goto" : 999},
+		{"id" : 32, "extends" : 30, "type" : "selector", "description" : "to_target"},
+		{"id" : 33, "extends" : 32, "goto" : 0, "type" : "word", "description" : "to_scroeboard", "cmd" : ["completion list scoreboard"]},
+
+		{"id" : 998, "goto" : 999},
+		{"id" : 950, "extends" : 0, "type" : "command", "description" : "subcommand"},
+		{"id" : 999, "extends" : 900},
+	],
+	
+	"scoreboard" : [
+		{"id" : 0, "extends" : -1, "goto" : [1, 9] , "type" : "option", "items" : ["objectives", "players"]},
+		
+		{"goto" : 999},
+		{"id" : 1, "extends" : 0, "goto" : [2, 5, 6, 8], "type" : "option", "items" : ["add", "remove", "setdisplay", "list"]},
+		
+		{"goto" : 999},
+		{"id" : 2, "extends" : 1, "type" : "word", "description" : "scoreboard_name", "cmd" : ["list scoreboard add self"]},
+		{"id" : 3, "extends" : 2, "type" : "option", "items" : ["dummy"], "is_end" : true},
+		{"id" : 4, "extends" : 3, "type" : "rich_string", "description" : "display_name"},
+		
+		{"goto" : 999},
+		{"id" : 5, "extends" : 1, "goto" : 999, "type" : "word", "is_end" : true, "description" : "scoreboard_name", "cmd" : ["completion list scoreboard"]},
+		
+		{"goto" : 999},
+		{"id" : 6, "extends" : 1, "type" : "option", "items" : ["sidebar", "belowName", "list"]},
+		{"id" : 7, "extends" : 6, "type" : "word", "is_end" : true, "description" : "scoreboard_name", "cmd" : ["completion list scoreboard"]},
+		
+		{"goto" : 999},
+		{"id" : 8, "extends" : 1, "is_end" : true},
+		
+		{"goto" : 999},
+		{"id" : 9, "extends" : 0, "goto" : [10, 10, 10, 13, 15, 16], "type" : "option", "items" : ["set", "add", "remove", "reset", "list", "operation"]},
+		
+		{"goto" : 999},
+		{"id" : 10, "extends" : 9, "type" : "selector"},
+		{"id" : 11, "extends" : 10, "type" : "word", "description" : "scoreboard_name", "cmd" : ["completion list scoreboard"]},
+		{"id" : 12, "extends" : 11, "type" : "int", "is_end" : true, "description" : "score"},
+		
+		{"goto" : 999},
+		{"id" : 13, "extends" : 9, "type" : "selector"},
+		{"id" : 14, "extends" : 13, "type" : "word", "is_end" : true, "description" : "scoreboard_name", "cmd" : ["completion list scoreboard"]},
+		
+		{"goto" : 999},
+		{"id" : 15, "extends" : 9, "type" : "selector", "is_end" : true},
+		
+		{"goto" : 999},
+		{"id" : 16, "extends" : 9, "type" : "selector"},
+		{"id" : 17, "extends" : 16, "type" : "word", "description" : "scoreboard_name", "cmd" : ["completion list scoreboard"]},
+		{"id" : 18, "extends" : 17, "type" : "option", "items" : ["=", "+=", "-=", "*=", "/=", "%=", "<", ">"]},
+		{"id" : 19, "extends" : 18, "type" : "selector"},
+		{"id" : 20, "extends" : 19, "type" : "word", "is_end" : true, "description" : "scoreboard_name", "cmd" : ["completion list scoreboard"]},
+		
+		{"id" : 999},
+	],
+	
+	"kill" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true},
+	],
+	"summon" : [
+		{"id" : 0, "extends" : -1, "goto" : 1, "type" : "spaceitem", "detail" : "entity_name", "is_end" : true, "description" : "entity"},
+		
+		{"goto" : 999},
+		{"id" : 1, "extends" : 0, "goto" : 5, "type" : "coords", "description" : "position"},
+		{"id" : 2, "extends" : 0, "type" : "rich_string", "description" : "name"},
+		{"id" : 3, "extends" : 2, "goto" : 4, "items" : ["cmp"]},
+		
+		{"goto" : 999},
+		{"id" : 4, "extends" : 3, "type" : "coords"},
+		
+		{"goto" : 999},
+		{"id" : 5, "extends" : 1, "goto" : 8, "type" : "coord", "is_end" : false, "description" : "rx"},
+		{"id" : 6, "extends" : 1, "type" : "option", "items" : ["facing"], "is_end" : false},
+		{"id" : 7, "extends" : 6, "goto" : 9, "items" : ["cmp"]},
+		
+		{"goto" : 999},
+		{"id" : 8, "extends" : 5, "goto" : 12, "type" : "coord", "is_end" : true, "description" : "ry"},
+		
+		{"goto" : 999},
+		{"id" : 9, "extends" : 7, "goto" : 12, "type" : "coords", "is_end" : true},
+		{"id" : 10, "extends" : 7, "type" : "selector", "is_end" : true},
+		{"id" : 11, "extends" : 10, "goto" : 12, "items" : ["cmp"]},
+		
+		{"goto" : 999},
+		{"id" : 12, "type" : "spaceitem", "detail" : "entity_event_name", "description" : "event"},
+		
+		{"id" : 999},
+	],
+	"gamemode" : [
+		{"id" : 0, "extends" : -1, "type" : "option", "detail" : "using_entry", "items" : ["game_mode_name"], "is_end" : true},
+		{"id" : 1, "extends" : 0, "type" : "selector", "description" : "target"}
+	],
+	"give" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "tatget"},
+		{"id" : 1, "extends" : 0, "type" : "spaceitem", "detail" : "item_name", "is_end" : true, "description" : "item_name"},
+		{"id" : 2, "extends" : 1, "type" : "int", "description" : "number"},
+		{"id" : 3, "extends" : 2, "type" : "int", "description" : "data"},
+		{"id" : 4, "extends" : 3, "type" : "dictionary", "detail" : "item_component", "description" : "item_component"},
+	],
+	"clear" : [
+		{"id" : 0, "extends" : -1, "is_end" : true},
+		{"id" : 1, "extends" : -1, "type" : "selector"},
+		{"id" : 2, "extends" : 1, "type" : "spaceitem", "detail" : "item_name", "description" : "item_name"},
+		{"id" : 3, "extends" : 2, "type" : "int", "description" : "max_count"},
+	],
+	"tp" : [
+		{"id" : 0, "extends" : -1, "goto" : 2, "type" : "selector", "is_end" : true, "description" : "target"},
+		{"id" : 1, "extends" : -1, "type" : "coords", "is_end" : true, "description" : "to"},
+		{"id" : 800, "extends" : 1, "goto" : 5, "items" : ["cmp"]},
+
+		{"goto" : 999},
+		{"id" : 2, "extends" : 0, "goto" : 998, "type" : "selector", "is_end" : true, "description" : "to_target"},
+		{"id" : 3, "extends" : 0, "type" : "coords", "is_end" : true, "description" : "to"},
+		{"id" : 4, "extends" : 3, "goto" : 5, "items" : ["cmp"]},
+
+		{"goto" : 999},
+		{"id" : 5, "goto" : 8, "type" : "float", "is_end" : false, "description" : "rx"},
+		{"id" : 6, "type" : "option", "items" : ["facing"]},
+		{"id" : 7, "extends" : 6, "goto" : 9, "items" : ["cmp"]},
+
+		{"goto" : 999},
+		{"id" : 8, "extends" : 5, "goto" : 998, "type" : "float", "is_end" : true, "description" : "ry"},
+
+		{"goto" : 999},
+		{"id" : 9, "goto" : 998, "type" : "coords"},
+		{"id" : 10, "type" : "option", "items" : ["entity"]},
+		{"id" : 11, "extends" : 10, "goto" : 12, "items" : ["cmp"]},
+
+		{"goto" : 999},
+		{"id" : 12, "extends" : 11, "goto" : 998, "type" : "selector"},
+
+		{"goto" : 999},
+		{"id" : 998, "type" : "bool", "description" : "update_chunk"},
+
+		{"id" : 999}
+	],
+	"effect" : [
+		{"id" : 0, "extends" : -1, "type" : "selector"},
+		{"id" : 1, "extends" : 0, "goto" : [2, 3], "type" : "option", "detail" : "using_entry", "items" : ["effect_clear", "effective"]},
+		
+		{"goto" : 999},
+		{"id" : 2, "extends" : 1, "type" : "option", "detail" : "using_entry", "items" : ["effective"], "is_end" : true},
+		
+		{"goto" : 999},
+		{"id" : 3, "extends" : 1, "type" : "int", "description" : "strong"},
+		{"id" : 4, "extends" : 3, "type" : "int", "description" : "time", "is_end" : true},
+		{"id" : 5, "extends" : 4, "type" : "bool", "description" : "show"},
+		
+		{"id" : 999},
+	],
+	"tag" : [
+		{"id" : 0, "extends" : -1, "type" : "selector"},
+		{"id" : 1, "extends" : 0, "goto" : [2, 3, 4], "type" : "option", "items" : ["add", "remove", "list"]},
+		
+		{"goto" : 999},
+		{"id" : 2, "extends" : 1, "type" : "string", "is_end" : true, "description" : "tag", "cmd" : ["list tag add self"]},
+		
+		{"goto" : 999},
+		{"id" : 3, "extends" : 1, "type" : "word", "is_end" : true, "description" : "tag", "cmd" : ["completion list tag"]},
+		
+		{"goto" : 999},
+		{"id" : 4, "extends" : 1, "is_end" : true},
+		
+		{"id" : 999},
+	],
+	
+	"replaceitem" : [
+		{"id" : 0, "extends" : -1, "goto" : [1, 3], "type" : "option", "items" : ["entity", "block"]},
+		{"goto" : 999},
+		
+		{"id" : 1, "extends" : 0, "type" : "selector", "description" : "target"},
+		{"id" : 2, "extends" : 1, "goto" : 5, "type" : "point_path", "detail" : "slot_entity_name", "description" : "slot"},
+		
+		{"goto" : 999},
+		{"id" : 3, "entends" : 0, "type" : "coords", "description" : "position"},
+		{"id" : 4, "extends" : 3, "goto" : 5, "type" : "point_path", "detail" : "slot_block_name", "description" : "slot"},
+		
+		{"goto" : 999},
+		{"id" : 5, "type" : "int", "description" : "slot_index"},
+		{"id" : 6, "extends" : 5, "type" : "spaceitem", "detail" : "item_name", "is_end" : true, "description" : "item_name"},
+		{"id" : 7, "extends" : 6, "type" : "int", "description" : "item_count"},
+		{"id" : 8, "extends" : 7, "type" : "int", "description" : "item_data"},
+		{"id" : 9, "extends" : 8, "type" : "dictionary", "detail" : "item_component", "description" : "item_component"},
+		
+		{"id" : 999},
+	],
+	
+	"tellraw" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "target"},
+		{"id" : 1, "extends" : 0, "type" : "dictionary", "detail" : "t_show", "is_end" : true},
+	],
+	
+	"help" : [
+		{"id" : 0, "extends" : -1, "is_end" : true},
+		{"id" : 1, "extends" : 0, "type" : "string", "description" : "command_name"}
+	],
+	
+	"tell" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "target"},
+		{"id" : 1, "extends" : 0, "type" : "rich_string", "description" : "message", "is_end" : true}
+	],
+	"msg" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "target"},
+		{"id" : 1, "extends" : 0, "type" : "rich_string", "description" : "message", "is_end" : true}
+	],
+	"w" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "target"},
+		{"id" : 1, "extends" : 0, "type" : "rich_string", "description" : "message", "is_end" : true}
+	],
+	
+	"spawnpoint" : [
+		{"id" : 0, "extends" : -1, "is_end" : true},
+		{"id" : 1, "extends" : 0, "type" : "selector", "description" : "target"},
+		{"id" : 2, "extends" : 1, "type" : "coords", "description" : "position", "is_end" : true}
+	],
+	
+	"setblock" : [
+		{"id" : 0, "extends" : -1, "type" : "coords", "description" : "position"},
+		{"id" : 1, "extends" : 0, "type" : "spaceitem", "detail" : "block_name", "is_end" : true, "description" : "block_name"},
+		{"id" : 2, "extends" : 1, "type" : "option", "items" : ["destroy", "keep", "replace"]}
+	],
+	"fill" : [
+		{"id" : 0, "extends" : -1, "type" : "coords", "description" : "from"},
+		{"id" : 1, "extends" : 0, "type" : "coords", "description" : "to"},
+		{"id" : 2, "extends" : 1, "type" : "spaceitem", "detail" : "block_name", "description" : "block_name"},
+		{"id" : 3, "extends" : 2, "type" : "int", "is_end" : true, "description" : "block_data"},
+		{"id" : 4, "extends" : 3, "type" : "option", "items" : ["destroy", "hollow", "keep", "outline", "replace"]}
+	],
+	
+	"title" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "target"},
+		{"id" : 1, "extends" : 0, "type" : "option", "items" : ["clear", "reset", "title", "subtitle", "actionbar"]},
+		{"id" : 2, "extends" : 1, "type" : "rich_string", "description" : "text", "is_end" : true}
+	],
+	
+	"xp" : [
+		{"id" : 0, "extends" : -1, "type" : "int", "description" : "amount"},
+		{"id" : 1, "extends" : 0, "type" : "option", "items" : ["L"], "is_end" : true},
+		{"id" : 2, "extends" : 1, "type" : "selector", "description" : "target"}
+	],
+	
+	"enchant" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "target"},
+		{"id" : 1, "extends" : 0, "type" : "string", "is_end" : true, "description" : "enchantment_name"},
+		{"id" : 2, "extends" : 1, "type" : "int", "description" : "level"}
+	],
+	
+	"playsound" : [
+		{"id" : 0, "extends" : -1, "type" : "point_path", "detail" : "sound_name", "description" : "sound_name"},
+		{"id" : 1, "extends" : 0, "type" : "selector", "is_end" : true, "description" : "target"},
+		{"id" : 2, "extends" : 1, "type" : "coords", "description" : "position"},
+		{"id" : 3, "extends" : 2, "type" : "float", "description" : "volume"},
+		{"id" : 4, "extends" : 3, "type" : "float", "description" : "pitch"},
+		{"id" : 5, "extends" : 4, "type" : "float", "description" : "minimum_volume"}
+	],
+	
+	"stopsound" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true, "description" : "target"},
+		{"id" : 1, "extends" : 0, "type" : "point_path", "detail" : "sound_name", "description" : "sound_name"}
+	],
+	
+	"particle" : [
+		{"id" : 0, "extends" : -1, "type" : "string", "is_end" : true, "description" : "particle_name"},
+		{"id" : 1, "extends" : 0, "type" : "coords", "description" : "position"},
+		{"id" : 2, "extends" : 1, "type" : "float", "description" : "xd"},
+		{"id" : 3, "extends" : 2, "type" : "float", "description" : "yd"},
+		{"id" : 4, "extends" : 3, "type" : "float", "description" : "zd"},
+		{"id" : 5, "extends" : 4, "type" : "float", "description" : "speed"},
+		{"id" : 6, "extends" : 5, "type" : "int", "description" : "count"},
+		{"id" : 7, "extends" : 6, "type" : "string", "description" : "mode"}
+	],
+	
+	"locate" : [
+		{"id" : 0, "extends" : -1, "type" : "string", "description" : "structure_name", "is_end" : true}
+	],
+	
+	"difficulty" : [
+		{"id" : 0, "extends" : -1, "type" : "option", "items" : ["peaceful", "easy", "normal", "hard", "p", "e", "n", "h"], "is_end" : true}
+	],
+	
+	"toggledownfall" : [
+		{"id" : 0, "extends" : -1, "is_end" : true}
+	],
+	
+	"spreadplayers" : [
+		{"id" : 0, "extends" : -1, "type" : "float", "description" : "x_center"},
+		{"id" : 1, "extends" : 0, "type" : "float", "description" : "z_center"},
+		{"id" : 2, "extends" : 1, "type" : "float", "description" : "spread_distance"},
+		{"id" : 3, "extends" : 2, "type" : "float", "is_end" : true, "description" : "max_range"},
+		{"id" : 4, "extends" : 3, "type" : "bool", "description" : "respect_teams"},
+		{"id" : 5, "extends" : 4, "type" : "selector", "description" : "targets"}
+	],
+	
+	"testfor" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "target", "is_end" : true}
+	],
+	
+	"testforblock" : [
+		{"id" : 0, "extends" : -1, "type" : "coords", "description" : "position"},
+		{"id" : 1, "extends" : 0, "type" : "spaceitem", "detail" : "block_name", "is_end" : true, "description" : "block_name"},
+		{"id" : 2, "extends" : 1, "type" : "int", "description" : "block_data"}
+	],
+	
+	"function" : [
+		{"id" : 0, "extends" : -1, "type" : "string", "description" : "function_name", "is_end" : true}
+	],
+	
+	"clone" : [
+		{"id" : 0, "extends" : -1, "type" : "coords", "description" : "from"},
+		{"id" : 1, "extends" : 0, "type" : "coords", "description" : "to"},
+		{"id" : 2, "extends" : 1, "type" : "coords", "description" : "destination"},
+		{"id" : 3, "extends" : 2, "type" : "option", "items" : ["replace", "masked", "filtered"], "is_end" : true}
+	],
+
+	"save" : [
+		{"id" : 0, "extends" : -1, "type" : "option", "items" : ["hold", "query", "resume"], "is_end" : true}
+	],
+
+	"setmaxplayers" : [
+		{"id" : 0, "extends" : -1, "type" : "int", "description" : "max_players", "is_end" : true}
+	],
+	
+	"ability" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "target"},
+		{"id" : 1, "extends" : 0, "type" : "option", "items" : ["mayfly", "flyspeed", "instabuild", "invulnerable", "mute", "worldbuilder"]},
+		{"id" : 2, "extends" : 1, "type" : "bool", "description" : "value", "is_end" : true}
+	],
+	
+	"tickingarea" : [
+		{"id" : 0, "extends" : -1, "type" : "option", "items" : ["add", "remove", "remove_all", "list"]},
+		{"id" : 1, "extends" : 0, "type" : "coords", "description" : "from"},
+		{"id" : 2, "extends" : 1, "type" : "coords", "description" : "to"},
+		{"id" : 3, "extends" : 2, "type" : "string", "description" : "name", "is_end" : true}
+	],
+	
+	"camerashake" : [
+		{"id" : 0, "extends" : -1, "type" : "option", "items" : ["add", "stop"]},
+		{"id" : 1, "extends" : 0, "type" : "float", "description" : "intensity"},
+		{"id" : 2, "extends" : 1, "type" : "float", "description" : "duration"},
+		{"id" : 3, "extends" : 2, "type" : "option", "items" : ["positional", "rotational"], "is_end" : true}
+	],
+	
+}

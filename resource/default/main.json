@@ -1,0 +1,5 @@
+{
+	"main" : "Grammer.json",
+	"entry" : "GrammerEntry.json",
+	"law" : "GrammerLaw.json",
+}

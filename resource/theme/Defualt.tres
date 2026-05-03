@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://by8ql6ujn08f8"]
+
+[ext_resource type="StyleBox" uid="uid://cfgpu5k3njrjl" path="res://resource/theme/ButtonPressedOrHoverStyle.tres" id="1_10473"]
+
+[resource]
+Button/styles/hover_pressed = ExtResource("1_10473")
+Button/styles/pressed = ExtResource("1_10473")

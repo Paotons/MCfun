@@ -1,0 +1,127 @@
+[gd_scene format=3 uid="uid://drwb32b3l5onw"]
+
+[ext_resource type="Texture2D" uid="uid://sv55didabwke" path="res://icon.svg" id="1_g0glm"]
+
+[sub_resource type="GDScript" id="GDScript_lv77k"]
+script/source = "extends TextureRect
+
+func _ready() -> void:
+	texture = load(ProjectSettings.get_setting(\"application/config/icon\")) as Texture2D
+"
+
+[sub_resource type="GDScript" id="GDScript_e344j"]
+script/source = "@tool
+extends Label
+
+func _ready() -> void:
+	text = \"v\" + ProjectSettings.get_setting(\"application/config/version\", \"Unknow\") as String
+"
+
+[node name="AboutMe" type="Window" unique_id=1705403622]
+oversampling_override = 1.0
+title = "关于"
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+transient = true
+exclusive = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1515261207]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=379867680]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/MarginContainer" unique_id=220869537]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer" unique_id=806723083]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1851994601]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=1513177772]
+layout_mode = 2
+texture = ExtResource("1_g0glm")
+expand_mode = 2
+script = SubResource("GDScript_lv77k")
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=795752185]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "MCfun"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=52784765]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=515419801]
+layout_mode = 2
+text = "v0.1.0"
+script = SubResource("GDScript_e344j")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1031317699]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=785451180]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=1041304246]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "开发者"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=1384548682]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1130111758]
+layout_mode = 2
+text = "创始人：泡桐树(Paotons)
+"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1550313070]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer3" unique_id=1460868560]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer3" unique_id=1371526946]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "特别感谢"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer3" unique_id=544613924]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=690102801]
+layout_mode = 2
+text = "Mojang 创造了游戏主体
+
+Godot 提供了引擎
+"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=462260626]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=478300315]
+layout_mode = 2
+text = "关闭"
+
+[connection signal="close_requested" from="." to="." method="hide"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="hide"]

@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bn8koofeod6if"]
+
+[ext_resource type="Script" uid="uid://ddtueh8w1a55b" path="res://scene/ProjectListContainer.gd" id="1_cv2fd"]
+
+[node name="ProjectListContainer" type="MarginContainer" unique_id=1235808997]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+mouse_filter = 0
+script = ExtResource("1_cv2fd")
+
+[node name="Panel" type="Panel" parent="." unique_id=907684194]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1184951597]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=884861686]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=338084860]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Project"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1494285464]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.5019608)
+text = "storage/project 2026.1.1"

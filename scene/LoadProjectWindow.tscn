@@ -1,0 +1,141 @@
+[gd_scene format=3 uid="uid://q873r67430sn"]
+
+[sub_resource type="GDScript" id="GDScript_7vk0i"]
+script/source = "extends LineEdit
+
+func _ready() -> void:
+	text = ProjectManager.project_list_path
+
+func _on_file_dialog_dir_selected(dir: String) -> void:
+	text = dir
+"
+
+[sub_resource type="GDScript" id="GDScript_u0kf3"]
+script/source = "extends Button
+
+func _get_project_name() -> String:
+	return $\"../MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ProjectName\".text
+func _get_project_path() -> String:
+	return $\"../MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath\".text
+func get_project_name() -> String:
+	return _get_project_name().validate_filename()
+func get_project_path() -> String:
+	return _get_project_path()
+
+func is_valid() -> bool:
+	var nam := get_project_name()
+	if not nam.is_valid_filename():
+		return false
+	
+	var path := _get_project_path()
+	if not(path.is_absolute_path() or path.is_relative_path()):
+		return false
+	elif not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(path)):
+		return false
+	
+	if not FileAccess.file_exists(path.path_join(Project.PROJECT_CONFIG_PATH)):
+		return false
+	return true
+
+func test_is_vaild() -> void:
+	disabled = not is_valid()
+
+func _pressed() -> void:
+	if not is_valid():
+		return
+	var nam := get_project_name()
+	var path := get_project_path()
+	ProjectManager.add_project_list(nam, path)
+	var project := ProjectManager.get_project(nam)
+	project.set_project_name(nam)
+	get_window().close_requested.emit()
+
+"
+
+[sub_resource type="GDScript" id="GDScript_7nifj"]
+script/source = "extends FileDialog
+
+func _ready() -> void:
+	current_dir = ProjectManager.project_list_path
+"
+
+[node name="LoadProjectWindow" type="Window" unique_id=944477413]
+oversampling_override = 1.0
+title = "导入项目"
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+visible = false
+
+[node name="Panel" type="Panel" parent="." unique_id=754769394]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1772353088]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=496703873]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer" unique_id=1728617207]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/MarginContainer" unique_id=512493574]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer" unique_id=174461276]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1602190811]
+layout_mode = 2
+text = "名称："
+
+[node name="ProjectName" type="LineEdit" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=248696767]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer" unique_id=84038946]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1067204082]
+layout_mode = 2
+text = "路径："
+
+[node name="ProjectPath" type="LineEdit" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1524012199]
+layout_mode = 2
+size_flags_horizontal = 3
+script = SubResource("GDScript_7vk0i")
+
+[node name="Button" type="Button" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1881291201]
+layout_mode = 2
+text = "LOC"
+
+[node name="load" type="Button" parent="VBoxContainer" unique_id=1982959239]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+text = "导入"
+script = SubResource("GDScript_u0kf3")
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=675339959]
+oversampling_override = 1.0
+title = "Open a Directory"
+size = Vector2i(1152, 648)
+file_mode = 2
+access = 2
+script = SubResource("GDScript_7nifj")
+
+[connection signal="focus_exited" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ProjectName" to="VBoxContainer/load" method="test_is_vaild"]
+[connection signal="focus_exited" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" to="VBoxContainer/load" method="test_is_vaild"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/Button" to="FileDialog" method="popup_centered_clamped"]
+[connection signal="dir_selected" from="FileDialog" to="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" method="_on_file_dialog_dir_selected"]

@@ -1,0 +1,170 @@
+[gd_scene format=3 uid="uid://qyqgjfqhms20"]
+
+[sub_resource type="GDScript" id="GDScript_najlv"]
+resource_name = "Tree"
+script/source = "@tool
+extends Tree
+signal tree_index_selected(index : int)
+
+enum ItemIndex {
+	## 根。
+	ROOT,
+	
+	## 通用。
+	NORMAL,
+	## 配置。
+	NORMAL_CONFIG,
+}
+var items : Array[TreeItem]
+
+## 对应的选项节点。
+@export var option_nodes : Array[Control]
+## 当前的选项节点。
+var current_option_node : Control
+
+@export_tool_button(\"Update\") var update_items_callable = update_tree_item
+
+func _ready() -> void:
+	update_tree_item()
+	item_selected.connect(_on_item_selected)
+	items[ItemIndex.NORMAL_CONFIG].select(0)
+
+func _on_item_selected() -> void:
+	var selected := get_selected()
+	var index := items.find(selected)
+	
+	var node := option_nodes[index] if index < option_nodes.size() else null
+	if node != null:
+		if current_option_node != null:
+			current_option_node.hide()
+		current_option_node = node
+		node.show()
+	
+	tree_index_selected.emit(index)
+
+func update_tree_item() -> void:
+	var root := create_item()
+	
+	var normal := root.create_child()
+	normal.set_text(0, \"通用\")
+	var normal_config := normal.create_child()
+	normal_config.set_text(0, \"配置\")
+	
+	items = [
+		root,
+			normal,
+				normal_config,
+	]
+"
+
+[sub_resource type="GDScript" id="GDScript_rqyeg"]
+script/source = "extends LineEdit
+
+func _ready() -> void:
+	var project := ProjectManager.get_current_project()
+	set_text(project.get_project_name())
+
+func _on_editing_toggled(toggled_on: bool) -> void:
+	if toggled_on: # 开始编辑
+		return
+	var project := ProjectManager.get_current_project()
+	var nam := project.get_project_name()
+	if not text.is_valid_filename() or ProjectManager.has_project(text):
+		set_text(nam)
+	ProjectManager.remove_project_list(nam)
+	ProjectManager.add_project_list(text, ProjectSettings.localize_path(project.get_project_path()))
+	project.set_project_name(text)
+"
+
+[sub_resource type="GDScript" id="GDScript_vjpg7"]
+script/source = "extends LineEdit
+
+func _ready() -> void:
+	var project := ProjectManager.get_current_project()
+	set_text(project.get_project_path())
+"
+
+[node name="ProjectSetting" type="Window" unique_id=216988942]
+oversampling_override = 1.0
+title = "项目设置"
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+
+[node name="Panel" type="Panel" parent="." unique_id=1862995989]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1935366874]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer" unique_id=740629824]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Tree" type="Tree" parent="VBoxContainer/HSplitContainer" unique_id=1241859039 node_paths=PackedStringArray("option_nodes")]
+layout_mode = 2
+size_flags_horizontal = 3
+hide_root = true
+script = SubResource("GDScript_najlv")
+option_nodes = [null, null, NodePath("../MarginContainer/MarginContainer/NormalConfig")]
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HSplitContainer" unique_id=176810618]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 7.0
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HSplitContainer/MarginContainer" unique_id=545645670]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HSplitContainer/MarginContainer" unique_id=1393430643]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 5
+
+[node name="NormalConfig" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer" unique_id=380378952]
+visible = false
+layout_mode = 2
+
+[node name="ProjectName" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig" unique_id=1100544815]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName" unique_id=1129127225]
+layout_mode = 2
+text = "项目名称："
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName" unique_id=1896777267]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_rqyeg")
+
+[node name="ProjectPath" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig" unique_id=1415418683]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectPath" unique_id=1727260768]
+layout_mode = 2
+text = "项目路径："
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectPath" unique_id=359083599]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+editable = false
+script = SubResource("GDScript_vjpg7")
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=1152094523]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "关闭"
+
+[connection signal="editing_toggled" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName/LineEdit" to="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName/LineEdit" method="_on_editing_toggled"]
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="hide"]

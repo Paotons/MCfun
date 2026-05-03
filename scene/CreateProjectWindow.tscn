@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://c0bsig1h45sj5"]
+
+[sub_resource type="GDScript" id="GDScript_i4nqj"]
+script/source = "extends LineEdit
+
+func _ready() -> void:
+	text = ProjectManager.project_list_path
+
+func _on_file_dialog_dir_selected(dir: String) -> void:
+	text = dir
+"
+
+[sub_resource type="GDScript" id="GDScript_ry5r1"]
+script/source = "extends Button
+
+
+func _ready() -> void:
+	test_is_valid()
+
+func _pressed() -> void:
+	if not is_valid():
+		return
+	var nam := get_project_name()
+	var path := get_project_path()
+	
+	var dir := DirAccess.open(path)
+	if not dir.dir_exists(nam):
+		dir.make_dir(nam)
+	path = path.path_join(nam)
+	
+	ProjectManager.create_project(nam, path)
+	get_window().close_requested.emit()
+
+## 检测一次。
+func test_is_valid() -> void:
+	disabled = not is_valid()
+
+func is_valid() -> bool:
+	var nam := _get_project_name()
+	if not nam.is_valid_filename():
+		return false
+	var path := _get_project_path()
+	if not (path.is_absolute_path() or path.is_relative_path()):
+		return false
+	elif not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(path)):
+		return false
+	elif ProjectManager.has_project(nam):
+		return false
+	return true
+
+func _get_project_name() -> String:
+	return $\"../../HBoxContainer/ProjectName\".text as String
+func get_project_name() -> String:
+	return _get_project_name().validate_filename()
+
+func _get_project_path() -> String:
+	return $\"../../HBoxContainer2/ProjectPath\".text as String
+func get_project_path() -> String:
+	return _get_project_path()
+"
+
+[sub_resource type="GDScript" id="GDScript_f4o77"]
+script/source = "extends FileDialog
+
+func _ready() -> void:
+	set_current_dir(ProjectManager.project_list_path)
+"
+
+[node name="CreateProjectWindow" type="Window" unique_id=136878735]
+oversampling_override = 1.0
+title = "创建项目"
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+visible = false
+
+[node name="Panel" type="Panel" parent="." unique_id=1994488812]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1230755829]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1018053557]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1445241831]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1733808950]
+layout_mode = 2
+text = "名称："
+
+[node name="ProjectName" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1636120132]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2101753830]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=57412762]
+layout_mode = 2
+text = "路径："
+
+[node name="ProjectPath" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=107378591]
+layout_mode = 2
+size_flags_horizontal = 3
+script = SubResource("GDScript_i4nqj")
+
+[node name="Locate" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1489654073]
+layout_mode = 2
+text = "Loc"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1422979558]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=739030240]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "创建"
+script = SubResource("GDScript_ry5r1")
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=24903102]
+oversampling_override = 1.0
+title = "Open a Directory"
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+file_mode = 2
+access = 2
+script = SubResource("GDScript_f4o77")
+
+[connection signal="close_requested" from="." to="." method="hide"]
+[connection signal="focus_exited" from="MarginContainer/VBoxContainer/HBoxContainer/ProjectName" to="MarginContainer/VBoxContainer/HBoxContainer3/Button" method="test_is_valid"]
+[connection signal="focus_exited" from="MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" to="MarginContainer/VBoxContainer/HBoxContainer3/Button" method="test_is_valid"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/Locate" to="FileDialog" method="popup_file_dialog"]
+[connection signal="dir_selected" from="FileDialog" to="MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" method="_on_file_dialog_dir_selected"]
+[connection signal="visibility_changed" from="FileDialog" to="MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" method="_on_file_dialog_visibility_changed"]

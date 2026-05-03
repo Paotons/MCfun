@@ -1,0 +1,157 @@
+[gd_scene format=3 uid="uid://diyi5chw3itl4"]
+
+[ext_resource type="Script" uid="uid://xubfrpnsxr36" path="res://scene/ProjectExportSettingWindow.gd" id="1_xymlg"]
+
+[sub_resource type="GDScript" id="GDScript_w0g4x"]
+script/source = "extends LineEdit
+
+func _ready() -> void:
+	_initial_export_directory()
+	var path := _get_default_export_directory()
+	set_text(path)
+	_get_export_path_window().set_current_dir(path)
+
+# 获取默认导出目录。
+func _get_default_export_directory() -> String:
+	var project := ProjectManager.get_current_project()
+	return FileSystem.data_root.path_join(\"cache/projects\").path_join(project.get_project_name()).path_join(\"exports\")
+# 初始化导出目录。
+func _initial_export_directory() -> void:
+	var path := _get_default_export_directory()
+	if not DirAccess.dir_exists_absolute(path):
+		var dir := DirAccess.open(FileSystem.data_root)
+		dir.make_dir_recursive(path)
+
+func _get_export_path_window() -> FileDialog:
+	return $\"../../../../../ExportPathWindow\"
+
+func _on_export_path_window_dir_selected(dir: String) -> void:
+	set_text(dir)
+"
+
+[sub_resource type="GDScript" id="GDScript_y64do"]
+script/source = "extends LineEdit
+
+func _ready() -> void:
+	var project := ProjectManager.get_current_project()
+	set_text(project.get_project_name())
+"
+
+[node name="ProjectExportSetting" type="AcceptDialog" unique_id=1489223026]
+oversampling_override = 1.0
+title = "导出项目"
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+visible = true
+ok_button_text = "导出"
+dialog_hide_on_ok = false
+script = ExtResource("1_xymlg")
+
+[node name="Panel" type="Panel" parent="." unique_id=1792288751]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1158808713]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer" unique_id=958890383]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer" unique_id=1664738685]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Test" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1429040511]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1624964880]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=878283917]
+layout_mode = 2
+text = "路径："
+
+[node name="Path" type="LineEdit" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=480722160]
+layout_mode = 2
+size_flags_horizontal = 3
+script = SubResource("GDScript_w0g4x")
+
+[node name="Locate" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=883815384]
+layout_mode = 2
+text = "LOC"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1123303469]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=1197869985]
+layout_mode = 2
+text = "名称："
+
+[node name="name" type="LineEdit" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=1380853674]
+layout_mode = 2
+size_flags_horizontal = 3
+script = SubResource("GDScript_y64do")
+
+[node name="ExportPathWindow" type="FileDialog" parent="." unique_id=1750826255]
+oversampling_override = 1.0
+title = "Open a Directory"
+size = Vector2i(1152, 648)
+file_mode = 2
+access = 2
+
+[node name="Exporting" type="Panel" parent="." unique_id=1649155543]
+visible = false
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 1144.0
+offset_bottom = 599.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Exporting" unique_id=1336315176]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -29.0
+offset_right = 36.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Exporting/VBoxContainer" unique_id=2084658049]
+layout_mode = 2
+text = "正在导出"
+horizontal_alignment = 1
+
+[node name="CapyPath" type="Button" parent="Exporting/VBoxContainer" unique_id=310472649]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "复制目录"
+
+[connection signal="canceled" from="." to="." method="close"]
+[connection signal="close_requested" from="." to="." method="close"]
+[connection signal="text_changed" from="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Path" to="." method="_on_path_text_changed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Locate" to="ExportPathWindow" method="popup_centered_clamped"]
+[connection signal="text_changed" from="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2/name" to="." method="_on_name_text_changed"]
+[connection signal="dir_selected" from="ExportPathWindow" to="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Path" method="_on_export_path_window_dir_selected"]
+[connection signal="pressed" from="Exporting/VBoxContainer/CapyPath" to="." method="_on_capy_path_pressed"]

@@ -1,0 +1,704 @@
+[gd_scene format=3 uid="uid://bx5ycqgxhmmr7"]
+
+[ext_resource type="JSON" path="res://resource/default/Grammer.json" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://dbsguqbxsn3im" path="res://script/Highlight/Highlight.gd" id="1_uu6xs"]
+[ext_resource type="Script" uid="uid://c56tb0y6fuj01" path="res://scene/FileListContainer.gd" id="1_w0n44"]
+[ext_resource type="JSON" path="res://resource/default/GrammerEntry.json" id="3_r0du0"]
+[ext_resource type="JSON" path="res://resource/default/GrammerLaw.json" id="3_yiwpq"]
+[ext_resource type="PackedScene" uid="uid://daio2odmv7kgw" path="res://scene/EditSetting.tscn" id="5_pdkdi"]
+[ext_resource type="PackedScene" uid="uid://qyqgjfqhms20" path="res://scene/ProjectSetting.tscn" id="6_w0n44"]
+[ext_resource type="PackedScene" uid="uid://b1mh5o58v8e5g" path="res://scene/FileSystem.tscn" id="8_qyh5x"]
+[ext_resource type="PackedScene" uid="uid://diyi5chw3itl4" path="res://scene/ProjectExportSetting.tscn" id="9_kijkp"]
+
+[sub_resource type="GDScript" id="GDScript_ktujv"]
+resource_name = "ProjectMenuButton"
+script/source = "extends MenuButton
+
+## 项目列表。
+const PROJECT_LIST_PACKED := preload(\"res://scene/Project.tscn\")
+
+enum ItemIndex {
+	## 设置。
+	SETTING,
+	
+	## 分割符。
+	SEPARATOR,
+	## 导出。
+	EXPORT,
+	
+	## 分割符。
+	SEPARATOR2,
+	## 退出至列表。
+	EXIT_TO_LIST,
+}
+
+func _ready() -> void:
+	get_popup().index_pressed.connect(_on_popup_index_pressed)
+
+func _on_popup_index_pressed(index : int) -> void:
+	match index:
+		ItemIndex.SETTING: _on_open_project_setting()
+		
+		ItemIndex.EXPORT: _on_item_export()
+		
+		ItemIndex.EXIT_TO_LIST: _on_item_exit_to_list()
+
+# 获取项目设置的窗口。
+func _get_project_window() -> Window:
+	return $\"../../../../../ProjectSetting\"
+# 获取项目导出设置窗口。
+func _get_project_export_winodw() -> Window:
+	return $\"../../../../../ProjectExportSetting\"
+
+func _on_open_project_setting() -> void:
+	_get_project_window().popup_centered_clamped()
+func _on_item_exit_to_list() -> void:
+	ProjectManager.current_project = null
+	get_tree().change_scene_to_packed.call_deferred(PROJECT_LIST_PACKED)
+func _on_item_export() -> void:
+	_get_project_export_winodw().popup_centered_clamped()
+
+"
+
+[sub_resource type="GDScript" id="GDScript_w0n44"]
+resource_name = "FileMenuButton"
+script/source = "extends MenuButton
+
+@onready var _list_container := $\"../../../../HSplitContainer/FileList/MarginContainer/FileListContainer\" as FileListContainer
+
+enum ItemIndex {
+	## 保存。
+	SAVE,
+	## 全部保存。
+	SAVE_ALL,
+	
+	## 分割符。
+	SEPATATOR,
+	## 撤销。
+	UNDO,
+	## 重做。
+	REDO,
+	
+	## 分割符。
+	SEPATATOR2,
+	## 打开。
+	OPEN,
+	
+	## 分割符。
+	SEPATATOR3,
+	## 关闭。
+	CLOSE,
+	## 清空。
+	CLEAR,
+	
+	## 分割符。
+	SEPATATOR4,
+	## 创建。
+	SYSTEM,
+}
+
+# 获取列表窗口。
+func _get_file_list_window() -> FileDialog:
+	return $\"../../../../../FileListWindow\"
+# 获取创建文件都窗口。
+func _get_filesystem_window() -> FileSystemWindow:
+	return $\"../../../../../FileSystem\"
+
+func _ready() -> void:
+	get_popup().index_pressed.connect(_on_popup_index_pressed)
+func _on_popup_index_pressed(index : int) -> void:
+	match index:
+		ItemIndex.SAVE: _on_item_save()
+		ItemIndex.SAVE_ALL: _on_item_save_all()
+		
+		ItemIndex.UNDO: _on_item_undo()
+		ItemIndex.REDO: _on_item_redo()
+		
+		ItemIndex.OPEN: _on_item_open()
+		
+		ItemIndex.CLOSE: _on_item_close()
+		
+		ItemIndex.SYSTEM: _on_item_system()
+
+func _on_item_save() -> void:
+	_list_container.save_file(_list_container.get_selected())
+func _on_item_save_all() -> void:
+	for path in _list_container.get_files():
+		_list_container.save_file(path)
+
+
+func _on_item_undo() -> void:
+	_list_container.undo()
+func _on_item_redo() -> void:
+	_list_container.redo()
+
+func _on_item_open() -> void:
+	var window := _get_file_list_window()
+	window.popup_centered_clamped()
+
+func _on_item_close() -> void:
+	var path := _list_container.get_selected()
+	if path.is_empty():
+		return
+	
+	_list_container.close_file(path)
+
+func _on_item_system() -> void:
+	_get_filesystem_window().popup_centered_clamped()
+
+func _on_file_list_window_file_selected(path: String) -> void:
+	_list_container.open_file(path)
+
+func _on_file_system_file_open(path: String) -> void:
+	_list_container.open_file(path)
+"
+
+[sub_resource type="GDScript" id="GDScript_hr7lf"]
+resource_name = "EditMenuButton"
+script/source = "extends MenuButton
+
+enum ItemIndex {
+	## 撤销。
+	UNDO,
+	## 重做。
+	REDO,
+	
+	## 分割符。
+	SEPARATOR,
+	
+	## 剪切。
+	CUT,
+	## 复制。
+	COPY,
+	## 粘贴。
+	PASTE,
+	
+	## 分割符。
+	SEPARATOR2,
+	## 全选。
+	SELECT_ALL,
+	## 选择行。
+	SELECT_LINE,
+	
+}
+
+func _ready() -> void:
+	get_popup().index_pressed.connect(_on_popup_index_pressed)
+
+func _on_popup_index_pressed(index : int) -> void:
+	match index:
+		ItemIndex.UNDO : _on_undo()
+		ItemIndex.REDO : _on_redo()
+		
+		ItemIndex.CUT : _on_cut()
+		ItemIndex.COPY : _on_copy()
+		ItemIndex.PASTE : _on_paste()
+		
+		ItemIndex.SELECT_ALL : _on_select_all()
+		ItemIndex.SELECT_LINE : _on_select_line()
+
+func _on_undo() -> void:
+	var edit := GL.get_edit()
+	if edit.has_undo():
+		edit.undo()
+func _on_redo() -> void:
+	var edit := GL.get_edit()
+	if edit.has_redo():
+		edit.redo()
+
+func _on_cut() -> void:
+	var edit := GL.get_edit()
+	edit.cut()
+func _on_copy() -> void:
+	var edit := GL.get_edit()
+	edit.copy()
+func _on_paste() -> void:
+	var edit := GL.get_edit()
+	edit.paste()
+
+func _on_select_all() -> void:
+	var edit := GL.get_edit()
+	edit.select_all()
+func _on_select_line() -> void:
+	var edit := GL.get_edit()
+	var line := edit.get_caret_line()
+	if line + 1 < edit.get_line_count():
+		edit.select(line, 0, line + 1, 0)
+	else:
+		var column := edit.get_line(line).length()
+		edit.select(line, 0, line, column)
+
+
+
+"
+
+[sub_resource type="GDScript" id="GDScript_yiwpq"]
+resource_name = "Setting"
+script/source = "extends Button
+
+@export var window : Window
+
+func _pressed() -> void:
+	if window.visible:
+		window.hide()
+	else:
+		window.popup_centered_clamped()
+"
+
+[sub_resource type="GDScript" id="GDScript_pdkdi"]
+resource_name = "FileList"
+script/source = "extends MarginContainer
+
+func _on_show_hide_file_list_button_pressed() -> void:
+	visible = not visible
+
+
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0du0"]
+bg_color = Color(0.08235294, 0.08235294, 0.08235294, 1)
+
+[sub_resource type="SyntaxHighlighter" id="SyntaxHighlighter_r0du0"]
+script = ExtResource("1_uu6xs")
+metadata/_custom_type_script = "uid://dbsguqbxsn3im"
+
+[sub_resource type="GDScript" id="GDScript_r0du0"]
+resource_name = "Edit"
+script/source = "extends FunctionEdit
+
+@export var _error_hint_label : Label
+
+## 用于检测配置文件高亮颜色的选择。
+const CONFIG_HIGHLIGHT_COLOR_SELECT := \"HighLightColor\"
+## 用于检测配置文件编辑器行为。
+const CONFIG_BEHAVIOR := \"EditBehavior\"
+# 文件保存的缓存目录。
+var _files_chche_directory : DirAccess
+## 当前编辑的文件。
+var current_file_path : String
+## 当前编辑的文件是否发生更改。
+var is_current_file_changed : bool
+
+func _errors_list_changed() -> void:
+	var line := find_has_error_command()
+	if line == -1:
+		_error_hint_label.set_text(\"\")
+		return
+	
+	var command := get_command_element(line)
+	var head_err : ElementError
+	var err_column := 0xFFFF_FFFF
+	for err in command.errors:
+		if err.column < err_column:
+			head_err = err
+			err_column = head_err.column
+	_error_hint_label.set_text(\"错误 (%d, %d) %s\" % [line, head_err.column, head_err.string])
+
+func _ready() -> void:
+	super()
+	text_changed.connect(_on_text_changed)
+	_init_config()
+	_init_files_chache_directory()
+
+func _on_text_changed() -> void:
+	if current_file_path.is_empty():
+		return
+	
+	if not is_current_file_changed:
+		is_current_file_changed = true
+		_get_file_list_container().set_file_saved_state(current_file_path, false)
+
+#region 初始化。
+# 初始化缓存文件目录。
+func _init_files_chache_directory() -> void:
+	var path := FileSystem.data_root.path_join(\"cache/projects\").path_join(
+		ProjectManager.get_current_project().get_project_name()).path_join(\"files\")
+	
+	if DirAccess.dir_exists_absolute(path):
+		FileSystem.remove_directory(path)
+	
+	var data_root := DirAccess.open(FileSystem.data_root)
+	data_root.make_dir_recursive(path)
+	
+	_files_chche_directory = DirAccess.open(path)
+# 初始化配置文件。
+func _init_config() -> void:
+	var config := FileSystem.config
+	if config == null:
+		return
+	if config.has_section(CONFIG_BEHAVIOR):
+		_init_config_behavior()
+	if config.has_section(CONFIG_HIGHLIGHT_COLOR_SELECT):
+		_init_config_highlight_color()
+# 初始化配置文件行为。
+func _init_config_behavior() -> void:
+	var config := FileSystem.config
+	double_input_disabled = not config.get_value(CONFIG_BEHAVIOR, \"double_input_enabled\", true)
+# 初始化配置文件高亮。
+func _init_config_highlight_color() -> void:
+	var config := FileSystem.config
+	for key in config.get_section_keys(CONFIG_HIGHLIGHT_COLOR_SELECT):
+		var value = config.get_value(CONFIG_HIGHLIGHT_COLOR_SELECT, key)
+		if not value is Color:
+			continue
+		var color := value as Color
+		set_highlight_color(key, color)
+#endregion
+
+#region 文件的工具。
+# 获取文件在缓存里的数据路径。
+func _get_path_at_chache(path : String) -> String:
+	var data_root := FileSystem.data_root
+	if not path.begins_with(data_root):
+		push_error(\"Not in data_root.\")
+		return \"\"
+	path = path.substr(data_root.length() + (0 if data_root.ends_with(\"/\") else 1))
+	return _files_chche_directory.get_current_dir().path_join(path)
+# 加载文件。
+func _load_file(path : String) -> void:
+	var cache_file := _get_path_at_chache(path)
+	var txt : String
+	
+	if FileAccess.file_exists(cache_file):
+		txt = FileAccess.get_file_as_string(cache_file)
+	else:
+		txt = FileAccess.get_file_as_string(path)
+	
+	set_function_text(txt)
+# 把当前编辑的文件保存到缓存。
+func _save_to_chche() -> void:
+	var path := _get_path_at_chache(current_file_path)
+	
+	if path.is_empty():
+		return
+	
+	if not DirAccess.dir_exists_absolute(path):
+		_files_chche_directory.make_dir_recursive(path.get_base_dir())
+	
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	file.store_string(get_text())
+	file.close()
+# 移除在缓存的文件。
+func _remove_cache_file(path : String) -> void:
+	var cache_path := _get_path_at_chache(path)
+	if FileAccess.file_exists(cache_path):
+		DirAccess.remove_absolute(cache_path)
+#endregion
+
+# 获取文件列表容器。
+func _get_file_list_container() -> FileListContainer:
+	return $\"../../FileList/MarginContainer/FileListContainer\"
+# 切换。
+func _on_file_list_container_selected_changed(path: String) -> void:
+	assert(path.is_empty() or FileAccess.file_exists(path), \"Not find any file.\")
+	
+	if not current_file_path.is_empty():
+		_save_to_chche()
+	
+	current_file_path = path
+	is_current_file_changed = false
+	
+	if path.is_empty():
+		editable = false
+		set_function_text(\"\")
+	else:
+		editable = true
+		_load_file(path)
+
+func _on_file_list_container_closed(path: String) -> void:
+	_remove_cache_file(path)
+# 保存。
+func _on_file_list_container_saved(path: String) -> void:
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	if current_file_path == path:
+		file.store_string(get_text())
+	else:
+		var cache_path := _get_path_at_chache(path)
+		if FileAccess.file_exists(cache_path):
+			var string := FileAccess.get_file_as_string(cache_path)
+			file.store_string(string)
+	file.close()
+	
+	_remove_cache_file(path)
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_r0du0"]
+font_color = Color(1, 0, 0, 1)
+
+[sub_resource type="GDScript" id="GDScript_qyh5x"]
+script/source = "extends FileDialog
+
+func _ready() -> void:
+	set_current_path(ProjectManager.get_current_project().get_project_path())
+"
+
+[sub_resource type="GDScript" id="GDScript_kijkp"]
+script/source = "extends AcceptDialog
+
+## 直接关闭。
+signal close
+## 保存并关闭。
+signal save_and_close
+
+func _ready() -> void:
+	add_button(\"不保存并关闭\", false, \"0\")
+	add_button(\"取消\", false, \"1\")
+
+func _get_file_list_container() -> FileListContainer:
+	return $\"../Base/HSplitContainer/FileList/MarginContainer/FileListContainer\"
+
+func _on_confirmed() -> void:
+	save_and_close.emit()
+	hide()
+
+func _on_custom_action(action: StringName) -> void:
+	if action == &\"0\":
+		close.emit()
+	elif action == &\"1\":
+		pass
+"
+
+[node name="Edit" type="Control" unique_id=1792355344]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Base" type="VBoxContainer" parent="." unique_id=749474620]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Base" unique_id=787189636]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="Base/MarginContainer" unique_id=307924583]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Base/MarginContainer" unique_id=159070420]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Base/MarginContainer/MarginContainer" unique_id=1667696846]
+layout_mode = 2
+
+[node name="project" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=5126462]
+layout_mode = 2
+text = "项目"
+item_count = 5
+popup/item_0/text = "设置"
+popup/item_0/id = 0
+popup/item_1/id = 1
+popup/item_1/separator = true
+popup/item_2/text = "导出"
+popup/item_2/id = 2
+popup/item_3/id = 3
+popup/item_3/separator = true
+popup/item_4/text = "退出至列表"
+popup/item_4/id = 4
+script = SubResource("GDScript_ktujv")
+
+[node name="file" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=1567331877]
+layout_mode = 2
+text = "文件"
+item_count = 12
+popup/item_0/text = "保存"
+popup/item_0/id = 0
+popup/item_1/text = "保存全部"
+popup/item_1/id = 1
+popup/item_2/id = 2
+popup/item_2/separator = true
+popup/item_3/text = "撤销"
+popup/item_3/id = 3
+popup/item_4/text = "重做"
+popup/item_4/id = 4
+popup/item_5/id = 5
+popup/item_5/separator = true
+popup/item_6/text = "打开"
+popup/item_6/id = 6
+popup/item_7/id = 7
+popup/item_7/separator = true
+popup/item_8/text = "关闭"
+popup/item_8/id = 8
+popup/item_9/text = "清空"
+popup/item_9/id = 9
+popup/item_10/id = 10
+popup/item_10/separator = true
+popup/item_11/text = "系统"
+popup/item_11/id = 11
+script = SubResource("GDScript_w0n44")
+
+[node name="edit" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=856299228]
+layout_mode = 2
+text = "编辑"
+item_count = 9
+popup/item_0/text = "撤销"
+popup/item_0/id = 0
+popup/item_1/text = "重做"
+popup/item_1/id = 1
+popup/item_2/id = 2
+popup/item_2/separator = true
+popup/item_3/text = "剪切"
+popup/item_3/id = 3
+popup/item_4/text = "复制"
+popup/item_4/id = 4
+popup/item_5/text = "粘贴"
+popup/item_5/id = 5
+popup/item_6/id = 6
+popup/item_6/separator = true
+popup/item_7/text = "全选"
+popup/item_7/id = 7
+popup/item_8/text = "选择行"
+popup/item_8/id = 8
+script = SubResource("GDScript_hr7lf")
+
+[node name="setting" type="Button" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=1846478690 node_paths=PackedStringArray("window")]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "设置"
+flat = true
+script = SubResource("GDScript_yiwpq")
+window = NodePath("../../../../../EditSetting")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Base" unique_id=2146239094]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+
+[node name="FileList" type="MarginContainer" parent="Base/HSplitContainer" unique_id=2009113452]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+script = SubResource("GDScript_pdkdi")
+
+[node name="Panel" type="Panel" parent="Base/HSplitContainer/FileList" unique_id=28391015]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Base/HSplitContainer/FileList" unique_id=2146282197]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 4
+
+[node name="FileListContainer" type="VBoxContainer" parent="Base/HSplitContainer/FileList/MarginContainer" unique_id=338411841]
+layout_mode = 2
+script = ExtResource("1_w0n44")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Base/HSplitContainer" unique_id=557072463]
+layout_mode = 2
+
+[node name="CodeEdit" type="CodeEdit" parent="Base/HSplitContainer/VBoxContainer2" unique_id=12574861 node_paths=PackedStringArray("_error_hint_label")]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0du0")
+editable = false
+scroll_smooth = true
+scroll_past_end_of_file = true
+minimap_draw = true
+caret_blink = true
+syntax_highlighter = SubResource("SyntaxHighlighter_r0du0")
+highlight_current_line = true
+draw_tabs = true
+line_folding = true
+gutters_draw_line_numbers = true
+gutters_draw_fold_gutter = true
+code_completion_enabled = true
+indent_size = 8
+auto_brace_completion_enabled = true
+auto_brace_completion_pairs = {
+"\"": "\"",
+"'": "'",
+"(": ")",
+"<": ">",
+"[": "]",
+"{": "}"
+}
+script = SubResource("GDScript_r0du0")
+_error_hint_label = NodePath("../MarginContainer2/HBoxContainer/error_hint")
+grammer_json = ExtResource("1_glv2v")
+grammer_law_json = ExtResource("3_yiwpq")
+grammer_entry_json = ExtResource("3_r0du0")
+_test_data = "\"   @e [type=hh:gg]\""
+metadata/_custom_type_script = "uid://qbixiwedac0a"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Base/HSplitContainer/VBoxContainer2" unique_id=519901684]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+
+[node name="Panel" type="Panel" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2" unique_id=1897303777]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2" unique_id=475979752]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/HBoxContainer" unique_id=87090644]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="ShowHideFileListButton" type="Button" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/HBoxContainer/MarginContainer" unique_id=1014233598]
+layout_mode = 2
+text = " < "
+
+[node name="error_hint" type="Label" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/HBoxContainer" unique_id=1979650555]
+layout_mode = 2
+size_flags_horizontal = 10
+label_settings = SubResource("LabelSettings_r0du0")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=983930926]
+visible = false
+layout_mode = 0
+
+[node name="EditSetting" parent="." unique_id=1229169659 instance=ExtResource("5_pdkdi")]
+visible = false
+
+[node name="ProjectSetting" parent="." unique_id=216988942 instance=ExtResource("6_w0n44")]
+visible = false
+
+[node name="FileListWindow" type="FileDialog" parent="." unique_id=621299222]
+oversampling_override = 1.0
+title = "Open a File"
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.mcfun")
+script = SubResource("GDScript_qyh5x")
+
+[node name="FileSystem" parent="." unique_id=816334499 instance=ExtResource("8_qyh5x")]
+visible = false
+
+[node name="FileSaveOptionWindow" type="AcceptDialog" parent="." unique_id=956868818]
+oversampling_override = 1.0
+title = "保存文件"
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+ok_button_text = "保存并关闭"
+dialog_text = "文件没有保存，是否关闭。"
+script = SubResource("GDScript_kijkp")
+
+[node name="ProjectExportSetting" parent="." unique_id=1489223026 instance=ExtResource("9_kijkp")]
+visible = false
+
+[connection signal="closed" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/CodeEdit" method="_on_file_list_container_closed"]
+[connection signal="saved" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/CodeEdit" method="_on_file_list_container_saved"]
+[connection signal="selected_changed" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/CodeEdit" method="_on_file_list_container_selected_changed"]
+[connection signal="pressed" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/HBoxContainer/MarginContainer/ShowHideFileListButton" to="Base/HSplitContainer/FileList" method="_on_show_hide_file_list_button_pressed"]
+[connection signal="ready" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/HBoxContainer/error_hint" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/HBoxContainer/error_hint" method="set_text" binds= [""]]
+[connection signal="close_requested" from="FileListWindow" to="FileListWindow" method="hide"]
+[connection signal="file_selected" from="FileListWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/file" method="_on_file_list_window_file_selected"]
+[connection signal="file_open" from="FileSystem" to="Base/MarginContainer/MarginContainer/HBoxContainer/file" method="_on_file_system_file_open"]
+[connection signal="multifile_open" from="FileSystem" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" method="open_multifile"]
+[connection signal="close" from="FileSaveOptionWindow" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" method="_on_file_save_option_window_close"]
+[connection signal="close_requested" from="FileSaveOptionWindow" to="FileSaveOptionWindow" method="hide"]
+[connection signal="confirmed" from="FileSaveOptionWindow" to="FileSaveOptionWindow" method="_on_confirmed"]
+[connection signal="custom_action" from="FileSaveOptionWindow" to="FileSaveOptionWindow" method="_on_custom_action"]
+[connection signal="save_and_close" from="FileSaveOptionWindow" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" method="_on_file_save_option_window_save_and_close"]

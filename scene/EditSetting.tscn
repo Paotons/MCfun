@@ -1,0 +1,527 @@
+[gd_scene format=3 uid="uid://daio2odmv7kgw"]
+
+[ext_resource type="Script" uid="uid://1ic2wkh6sbt8" path="res://scene/SettingWindow.gd" id="1_h0p1a"]
+
+[sub_resource type="GDScript" id="GDScript_2n6rp"]
+resource_name = "SettingTree"
+script/source = "@tool
+extends Tree
+
+## 被选中。
+signal tree_index_selected(index : int)
+
+## 更新树。
+@export_tool_button(\"Update\") var update_tree_item_callable = update_tree_item
+
+enum ItemIndex {
+	## 根。
+	ROOT,
+	
+	## 界面。
+	UI,
+	## 主题。
+	UI_NORMAL,
+	
+	## 编辑器。
+	EDIT,
+	## 编辑器高亮。
+	EDIT_HIGHTLIGHT,
+	## 编辑器补全。
+	EDIT_COMPLETION,
+	## 编辑器光标。
+	EDIT_CARET,
+	## 编辑器行为。
+	EDIT_BEHAVIOR,
+}
+## 对应的选项。
+@export var option_nodes : Array[Control]
+
+## 树节点。
+var items : Array[TreeItem]
+## 当前场景。
+var current_option_node : Control
+
+func _ready() -> void:
+	update_tree_item()
+	item_selected.connect(_on_item_selected)
+	items[ItemIndex.UI_NORMAL].select(0)
+
+func _on_item_selected() -> void:
+	var selected := get_selected()
+	var index := items.find(selected)
+	
+	var node := option_nodes[index] if index < option_nodes.size() else null
+	if node != null:
+		if current_option_node != null:
+			current_option_node.hide()
+		current_option_node = node
+		node.show()
+	
+	tree_index_selected.emit(index)
+
+## 更新树。
+func update_tree_item() -> void:
+	clear()
+	var root := create_item()
+	
+	# 界面。
+	var ui := root.create_child()
+	ui.set_text(0, \"界面\")
+	var ui_normal := ui.create_child()
+	ui_normal.set_text(0, \"通用\")
+	
+	# 编辑器。
+	var edit := root.create_child()
+	edit.set_text(0, \"编辑器\")
+	var edit_heightlight := edit.create_child()
+	edit_heightlight.set_text(0, \"高亮\")
+	var edit_completion := edit.create_child()
+	edit_completion.set_text(0, \"补全\")
+	var edit_caret := edit.create_child()
+	edit_caret.set_text(0, \"关标\")
+	var edit_behavior := edit.create_child()
+	edit_behavior.set_text(0, \"行为\")
+	
+	items = [
+		root,
+			ui,
+				ui_normal,
+			edit,
+				edit_heightlight,
+				edit_completion,
+				edit_caret,
+				edit_behavior,
+	]
+
+
+"
+
+[sub_resource type="GDScript" id="GDScript_g0qid"]
+script/source = "extends OptionButton
+
+const INDEX_SCALES : PackedFloat32Array = [0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0]
+const SELECT_NAME := \"UINormal\"
+
+func _on_visibility_changed() -> void:
+	if visible:
+		var config := ConfigFile.new()
+		if FileAccess.file_exists(FileSystem.config_path):
+			config.load(FileSystem.config_path)
+		select(INDEX_SCALES.find(config.get_value(SELECT_NAME, \"window_scale_factor\", 1.0)))
+
+func _on_item_selected(index: int) -> void:
+	var config := ConfigFile.new()
+	if FileAccess.file_exists(FileSystem.config_path):
+		config.load(FileSystem.config_path)
+	var sca := INDEX_SCALES[index]
+	config.set_value(SELECT_NAME, \"window_scale_factor\", sca)
+	config.save(FileSystem.config_path)
+	
+	GL.get_window().content_scale_factor = sca
+	get_window().popup_centered_clamped()
+"
+
+[sub_resource type="GDScript" id="GDScript_h0p1a"]
+script/source = "extends ColorPickerButton
+
+## 配置名称选择名。
+const SELECT_NAME := \"HighLightColor\"
+## 颜色名称。
+@export var color_name : String
+
+func _ready() -> void:
+	visibility_changed.connect(_on_visibility_changed)
+	color_changed.connect(_on_color_changed)
+
+func _on_color_changed(col : Color) -> void:
+	var config := ConfigFile.new()
+	if FileAccess.file_exists(FileSystem.config_path):
+		config.load(FileSystem.config_path)
+	config.set_value(SELECT_NAME, color_name, col)
+	config.save(FileSystem.config_path)
+	(get_window() as SettingWindow).set_save_reopen_visible(true)
+
+func _on_visibility_changed() -> void:
+	var config : ConfigFile
+	if FileAccess.file_exists(FileSystem.config_path):
+		config = ConfigFile.new()
+		config.load(FileSystem.config_path)
+		config = config if config.has_section(SELECT_NAME) else null
+	if visible:
+		var default := GL.get_edit().get_highlight_color(color_name) as Color
+		color = default if config == null else config.get_value(SELECT_NAME, color_name, default)
+"
+
+[sub_resource type="GDScript" id="GDScript_w14fy"]
+script/source = "extends CheckBox
+
+## 选择键。
+const SELECT_NAME := \"EditBehavior\"
+
+func _on_visibility_changed() -> void:
+	if not is_visible_in_tree():
+		return
+	var config := ConfigFile.new()
+	if FileAccess.file_exists(FileSystem.config_path):
+		config.load(FileSystem.config_path)
+	button_pressed = config.get_value(SELECT_NAME, \"double_input_enabled\", true)
+
+func _pressed() -> void:
+	var config := ConfigFile.new()
+	if FileAccess.file_exists(FileSystem.config_path):
+		config.load(FileSystem.config_path)
+	config.set_value(SELECT_NAME, \"double_input_enabled\", button_pressed)
+	config.save(FileSystem.config_path)
+	GL.get_edit().double_input_disabled = not button_pressed
+"
+
+[node name="EditSetting" type="Window" unique_id=1229169659]
+oversampling_override = 1.0
+title = "设置"
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+transient = true
+exclusive = true
+script = ExtResource("1_h0p1a")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1320079072]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer" unique_id=1000162633]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Tree" type="Tree" parent="VBoxContainer/HSplitContainer" unique_id=1534680029 node_paths=PackedStringArray("option_nodes")]
+layout_mode = 2
+size_flags_horizontal = 3
+hide_root = true
+script = SubResource("GDScript_2n6rp")
+option_nodes = [null, null, NodePath("../scene_parent/ScrollContainer/MarginContainer/Normal"), null, NodePath("../scene_parent/ScrollContainer/MarginContainer/HighlightColor"), null, null, NodePath("../scene_parent/ScrollContainer/MarginContainer/EditBehavior")]
+
+[node name="scene_parent" type="MarginContainer" parent="VBoxContainer/HSplitContainer" unique_id=2037927546]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 11.0
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HSplitContainer/scene_parent" unique_id=1705958981]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HSplitContainer/scene_parent" unique_id=1261039411]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer" unique_id=52082810]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Normal" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=1499206299]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal" unique_id=1298992374]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer" unique_id=902866446]
+layout_mode = 2
+text = "缩放"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer" unique_id=1480902462]
+layout_mode = 2
+size_flags_horizontal = 10
+selected = 2
+item_count = 7
+popup/item_0/text = "50%"
+popup/item_0/id = 0
+popup/item_1/text = "75%"
+popup/item_1/id = 1
+popup/item_2/text = "100%"
+popup/item_2/id = 2
+popup/item_3/text = "125%"
+popup/item_3/id = 3
+popup/item_4/text = "150%"
+popup/item_4/id = 4
+popup/item_5/text = "175%"
+popup/item_5/id = 5
+popup/item_6/text = "200%"
+popup/item_6/id = 6
+script = SubResource("GDScript_g0qid")
+
+[node name="HighlightColor" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=1759531872]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=1993347641]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer" unique_id=2008784836]
+layout_mode = 2
+text = "关键字颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer" unique_id=1600668614]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "key_word"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=1032005415]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer2" unique_id=1176211202]
+layout_mode = 2
+text = "数字颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer2" unique_id=27471888]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "number"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=1481434591]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer3" unique_id=835635278]
+layout_mode = 2
+text = "成员颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer3" unique_id=1715490703]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "mumber"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=1496522870]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer4" unique_id=989785650]
+layout_mode = 2
+text = "点分路径颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer4" unique_id=1773404418]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "point_path_mumber"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=1470941546]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer5" unique_id=2031824835]
+layout_mode = 2
+text = "选择器颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer5" unique_id=2004089691]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "selector"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=150553535]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer6" unique_id=2017237459]
+layout_mode = 2
+text = "布尔颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer6" unique_id=2106714263]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "bool"
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=1345842990]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer7" unique_id=439180815]
+layout_mode = 2
+text = "空间颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer7" unique_id=2036448773]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "space"
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=509949363]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer8" unique_id=2129708229]
+layout_mode = 2
+text = "名称颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer8" unique_id=2019625838]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "stringname"
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=983670218]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer9" unique_id=188760692]
+layout_mode = 2
+text = "选项颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer9" unique_id=1657789951]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "option"
+
+[node name="HBoxContainer10" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=7840711]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer10" unique_id=1764588431]
+layout_mode = 2
+text = "错误选项颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer10" unique_id=1805622227]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "error_option"
+
+[node name="HBoxContainer11" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=105565569]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer11" unique_id=791248085]
+layout_mode = 2
+text = "字符串颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer11" unique_id=2035142716]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "string"
+
+[node name="HBoxContainer12" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=1958874038]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer12" unique_id=408110129]
+layout_mode = 2
+text = "x轴颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer12" unique_id=1713584276]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "coord_x"
+
+[node name="HBoxContainer13" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=1642780315]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer13" unique_id=610656481]
+layout_mode = 2
+text = "y轴颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer13" unique_id=394934987]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "coord_y"
+
+[node name="HBoxContainer14" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=1797426975]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer14" unique_id=1230696090]
+layout_mode = 2
+text = "z轴颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer14" unique_id=60295823]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "coord_z"
+
+[node name="HBoxContainer15" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=242675599]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer15" unique_id=25910598]
+layout_mode = 2
+text = "特殊字符颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer15" unique_id=1185353521]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "special"
+
+[node name="Completion" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=741482542]
+visible = false
+layout_mode = 2
+
+[node name="Caret" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=60601203]
+visible = false
+layout_mode = 2
+
+[node name="EditBehavior" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=2124741430]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior" unique_id=2024200627]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer" unique_id=1249514266]
+layout_mode = 2
+text = "双击映射"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer" unique_id=453198559]
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_w14fy")
+
+[node name="SaveReopen" type="MarginContainer" parent="VBoxContainer" unique_id=642298975]
+visible = false
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="VBoxContainer/SaveReopen" unique_id=2065969575]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/SaveReopen" unique_id=748429070]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/SaveReopen/MarginContainer" unique_id=1318956948]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/SaveReopen/MarginContainer/HBoxContainer" unique_id=153626628]
+layout_mode = 2
+text = "配置文件发生更改，必须重启才能见效。"
+
+[node name="Button" type="Button" parent="VBoxContainer/SaveReopen/MarginContainer/HBoxContainer" unique_id=1860769116]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "保存并重启"
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=30529632]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "关闭"
+
+[connection signal="close_requested" from="." to="." method="hide"]
+[connection signal="item_selected" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" method="_on_item_selected"]
+[connection signal="visibility_changed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" method="_on_visibility_changed"]
+[connection signal="visibility_changed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer/CheckBox" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer/CheckBox" method="_on_visibility_changed"]
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="hide"]

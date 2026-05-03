@@ -1,0 +1,229 @@
+[gd_scene format=3 uid="uid://b1mh5o58v8e5g"]
+
+[ext_resource type="Script" uid="uid://kix1v254ull0" path="res://scene/FileSystemWindow.gd" id="1_3atx5"]
+[ext_resource type="PackedScene" uid="uid://bwfbp4n5l0afb" path="res://scene/CreateFileWindow.tscn" id="2_xngp6"]
+
+[sub_resource type="GDScript" id="GDScript_3atx5"]
+script/source = "extends MenuButton
+
+enum ItemIndex {
+	## 文件夹。
+	DIRECTORY,
+	## 函数。
+	MCFUN,
+}
+
+# 集中序列。
+var _forced_index := ItemIndex.DIRECTORY
+
+func _ready() -> void:
+	get_popup().index_pressed.connect(_on_popup_index_pressed)
+
+func _get_create_file_window() -> CreateFileWindow:
+	return $\"../../../../CreateFileWindow\"
+func _get_file_tree() -> FileTree:
+	return $\"../../../FileTree\"
+
+func _on_popup_index_pressed(index : int) -> void:
+	match index:
+		ItemIndex.DIRECTORY: _on_item_directory()
+		ItemIndex.MCFUN: _on_item_mcfun()
+
+func _on_item_directory() -> void:
+	var window := _get_create_file_window()
+	window.file_extension = \"\"
+	window.allow_covered = false
+	window.directory = _get_file_tree().get_current_selected_path()
+	window.test_file()
+	window.popup_centered_clamped()
+	
+	_forced_index = ItemIndex.DIRECTORY
+func _on_item_mcfun() -> void:
+	var window := _get_create_file_window()
+	window.file_extension = \"mcfun\"
+	window.allow_covered = false
+	window.directory = _get_file_tree().get_current_selected_path()
+	window.test_file()
+	window.popup_centered_clamped()
+	
+	_forced_index = ItemIndex.MCFUN
+
+func _on_create_file_window_create_file(path: String) -> void:
+	match _forced_index:
+		ItemIndex.DIRECTORY:
+			DirAccess.make_dir_absolute(path)
+			_get_file_tree().update_tree_item()
+		ItemIndex.MCFUN:
+			var file := FileAccess.open(path, FileAccess.WRITE)
+			file.close()
+			_get_file_tree().update_tree_item()
+"
+
+[sub_resource type="GDScript" id="GDScript_laydq"]
+script/source = "extends MenuButton
+
+enum ItemIndex {
+	## 文件。
+	FILE,
+	## 子文件。
+	SUBFILE,
+}
+
+func _ready() -> void:
+	get_popup().index_pressed.connect(_on_popup_index_pressed)
+
+func _get_file_tree() -> FileTree:
+	return $\"../../../FileTree\"
+func _get_file_system_window() -> FileSystemWindow:
+	return $\"../../../..\"
+
+func _on_popup_index_pressed(index : int) -> void:
+	match index:
+		ItemIndex.FILE: _on_item_file()
+		ItemIndex.SUBFILE: _on_item_subfile()
+
+func _on_item_file() -> void:
+	var file_tree := _get_file_tree()
+	var path := file_tree.get_current_selected_path()
+	
+	if DirAccess.dir_exists_absolute(path):
+		return
+	
+	var window := _get_file_system_window()
+	window.file_open.emit(path)
+	window.close_requested.emit()
+func _on_item_subfile() -> void:
+	var file_tree := _get_file_tree()
+	var path := file_tree.get_current_selected_path()
+	
+	var window := _get_file_system_window()
+	if FileAccess.file_exists(path):
+		window.file_open.emit(path)
+		window.close_requested.emit()
+		return
+	
+	var queue_directories := [DirAccess.open(path)]
+	var paths : PackedStringArray
+	while not queue_directories.is_empty():
+		var dir := queue_directories.pop_back() as DirAccess
+		
+		for child in dir.get_files():
+			paths.append(dir.get_current_dir().path_join(child))
+			
+		for child in dir.get_directories():
+			queue_directories.append(DirAccess.open(dir.get_current_dir().path_join(child)))
+	
+	window.multifile_open.emit(paths)
+	window.close_requested.emit()
+"
+
+[sub_resource type="GDScript" id="GDScript_xsui5"]
+script/source = "extends MenuButton
+
+func _ready() -> void:
+	get_popup().index_pressed.connect(_on_popup_index_pressed)
+
+func _get_file_tree() -> FileTree:
+	return $\"../../../FileTree\"
+
+func _on_popup_index_pressed(_index : int) -> void:
+	var file_tree := _get_file_tree()
+	var path := file_tree.get_current_selected_path()
+	var is_directory := DirAccess.dir_exists_absolute(path)
+	
+	if is_directory:
+		var queue_directory : Array[DirAccess] = [DirAccess.open(path)]
+		while not queue_directory.is_empty():
+			var directory := queue_directory.back() as DirAccess
+			
+			var directories := directory.get_directories()
+			if not directories.is_empty():
+				for child in directories:
+					queue_directory.append(DirAccess.open(directory.get_current_dir().path_join(child)))
+				continue
+			
+			for child in directory.get_files():
+				directory.remove(child)
+			
+			DirAccess.remove_absolute(directory.get_current_dir())
+			queue_directory.remove_at(queue_directory.size() - 1)
+	else:
+		DirAccess.remove_absolute(path)
+	
+	file_tree.update_tree_item()
+	
+"
+
+[sub_resource type="GDScript" id="GDScript_xngp6"]
+script/source = "extends FileTree
+
+func _ready() -> void:
+	root_name = \"res://\"
+	root_path = ProjectManager.get_current_project().get_project_path()
+	update_tree_item()
+"
+
+[node name="FileSystem" type="Window" unique_id=816334499]
+oversampling_override = 1.0
+title = "文件系统"
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+script = ExtResource("1_3atx5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=929658408]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=752928090]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="VBoxContainer/MarginContainer" unique_id=73090830]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer" unique_id=1873589889]
+layout_mode = 2
+
+[node name="add" type="MenuButton" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1014723105]
+layout_mode = 2
+text = "添加"
+item_count = 2
+popup/item_0/text = "目录"
+popup/item_0/id = 0
+popup/item_1/text = "mcfun"
+popup/item_1/id = 1
+script = SubResource("GDScript_3atx5")
+
+[node name="open" type="MenuButton" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1281373393]
+layout_mode = 2
+text = "打开"
+item_count = 2
+popup/item_0/text = "文件"
+popup/item_0/id = 0
+popup/item_1/text = "子文件"
+popup/item_1/id = 1
+script = SubResource("GDScript_laydq")
+
+[node name="delete" type="MenuButton" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=127445264]
+layout_mode = 2
+text = "删除"
+item_count = 2
+popup/item_0/text = "危险"
+popup/item_0/id = 0
+popup/item_0/separator = true
+popup/item_1/text = "确认"
+popup/item_1/id = 1
+script = SubResource("GDScript_xsui5")
+
+[node name="FileTree" type="Tree" parent="VBoxContainer" unique_id=1291828756]
+layout_mode = 2
+size_flags_vertical = 3
+script = SubResource("GDScript_xngp6")
+
+[node name="CreateFileWindow" parent="." unique_id=1026520078 instance=ExtResource("2_xngp6")]
+visible = false
+
+[connection signal="close_requested" from="." to="." method="hide"]
+[connection signal="create_file" from="CreateFileWindow" to="VBoxContainer/MarginContainer/HBoxContainer/add" method="_on_create_file_window_create_file"]

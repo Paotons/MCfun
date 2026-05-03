@@ -1,0 +1,45 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="MCfun"
+config/description="MCfun 是一个为 Minecraft 玩家设计的智能指令编辑工具。它不仅是一个编辑器，更是一个完整的语法解析引擎——能够理解 Minecraft 指令的语法结构，实时提供补全建议，并高亮显示每条指令的各个部分。"
+config/version="0.6.1"
+run/main_scene="uid://cbhgotylj3fjg"
+config/features=PackedStringArray("4.6", "Mobile")
+config/icon="uid://sv55didabwke"
+boot_splash/stretch_mode=0
+boot_splash/image="uid://sv55didabwke"
+
+[autoload]
+
+FileSystem="*uid://dgvwbitqn8jwg"
+ProjectManager="*uid://dns5us14ivivq"
+GL="*uid://cdiqjry0nf44i"
+
+[display]
+
+window/size/borderless=true
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
+
+[gui]
+
+theme/custom="uid://by8ql6ujn08f8"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+rendering_device/driver.windows="d3d12"
+renderer/rendering_method="mobile"
