@@ -82,10 +82,10 @@ static func create(text : String, offset : int, line := -1) -> CommandElement:
 	# 进程。
 	var process :=_CreateProcess.new()
 	
-	process.edit = GL.edit
-	process.grammer = GL.get_grammer_process()
-	process.law = GL.get_grammer_law()
-	process.entry = GL.get_grammer_entry()
+	process.edit = EditManager.get_edit()
+	process.grammer = EditManager.get_grammer_process()
+	process.law = EditManager.get_grammer_law()
+	process.entry = EditManager.get_grammer_entry()
 	process.line = line
 	
 	process.offset = offset
@@ -165,20 +165,20 @@ func _get_code_completion_next(column : int) -> CodeCompletionData:
 # 更新指令头补全的数据。
 static func _update_code_completion_head_data() -> void:
 	var data := CodeCompletionData.new()
-	data.insert_texts.append_array(GL.get_grammer_process().get_heads())
+	data.insert_texts.append_array(EditManager.get_grammer_process().get_heads())
 	data.fill_insert_mode(CodeCompletionData.InsertMode.WORLD)
 	_code_completion_head_data = data
 
 ## 获取行数。
 func get_line_index() -> int:
-	return -1 if line_id == -1 else GL.edit.get_line_index(line_id)
+	return -1 if line_id == -1 else EditManager.get_edit().get_line_index(line_id)
 
 ## 获取头。
 func get_head_string() -> String:
 	return head_string
 ## 如果是可用的头，返回 [code]true[/code]。
 func is_valid_head() -> bool:
-	return GL.get_grammer_process().has_head(head_string)
+	return EditManager.get_grammer_process().has_head(head_string)
 
 ## 如果是空，返回 [code]true[/code]。
 func is_empty() -> bool:
@@ -271,7 +271,7 @@ func get_element_count() -> int:
 
 ## 获取可执行元素规则。
 func get_exe_element(idx : int) -> ExeElementRule:
-	var grammer := GL.get_grammer_process()
+	var grammer := EditManager.get_grammer_process()
 	if not grammer.has_head(head_string):
 		push_error("Head \"%s\" is unvalid." % [head_string])
 		return null
@@ -279,7 +279,7 @@ func get_exe_element(idx : int) -> ExeElementRule:
 
 ## 返回失败的执行元素。
 func get_faild_element(idx : int) -> ExeElementRule:
-	return GL.get_grammer_process().get_item(head_string, faild_element_idxs[idx])
+	return EditManager.get_grammer_process().get_item(head_string, faild_element_idxs[idx])
 ## 返回失败的执行元素的数量。
 func get_faild_element_count() -> int:
 	return faild_element_idxs.size()

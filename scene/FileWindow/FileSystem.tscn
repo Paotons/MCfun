@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b1mh5o58v8e5g"]
 
-[ext_resource type="Script" uid="uid://kix1v254ull0" path="res://scene/FileSystemWindow.gd" id="1_3atx5"]
-[ext_resource type="PackedScene" uid="uid://bwfbp4n5l0afb" path="res://scene/CreateFileWindow.tscn" id="2_xngp6"]
+[ext_resource type="Script" uid="uid://kix1v254ull0" path="res://scene/FileWindow/FileSystem.gd" id="1_3atx5"]
+[ext_resource type="PackedScene" uid="uid://bwfbp4n5l0afb" path="res://scene/FileWindow/Create.tscn" id="2_xngp6"]
 
 [sub_resource type="GDScript" id="GDScript_3atx5"]
 script/source = "extends MenuButton

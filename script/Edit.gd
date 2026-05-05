@@ -127,7 +127,7 @@ func _ready() -> void:
 	if grammer_entry_json != null:
 		grammer_entry.compile(grammer_entry_json.data)
 	
-	GL.edit = self
+	EditManager.function_edit = self
 	print_rich("[color=#909]本次解析用时 %dms." % [Time.get_ticks_msec()])
 	#endregion
 	_ready_test()
@@ -144,7 +144,7 @@ func get_highlight_color(color_name : String) -> Color:
 		"default" : return color_default
 		"key_word" : return color_key_word
 		"number" : return color_number
-		"mumber" : return color_member
+		"member" : return color_member
 		"point_path_mumber" : return color_point_path_mumber
 		"option" : return color_option
 		"error_option" : return color_error_option
@@ -166,7 +166,7 @@ func set_highlight_color(color_name : String, color : Color) -> void:
 		"default" : color_default = color
 		"key_word" : color_key_word = color
 		"number" : color_number = color
-		"mumber" : color_member = color
+		"member" : color_member = color
 		"point_path_mumber" : color_point_path_mumber = color
 		"option" : color_option = color
 		"error_option" : color_error_option = color
@@ -461,3 +461,6 @@ func _remove_line(line : int) -> void:
 ## 错误列表发生改变。
 func _errors_list_changed() -> void:
 	return
+
+func _exit_tree() -> void:
+	EditManager.function_edit = null

@@ -6,7 +6,7 @@ extends AcceptDialog
 signal create_file(path : String)
 
 ## 打包场景。
-const _PACKED_SCENE := preload("res://scene/CreateFileWindow.tscn") as PackedScene
+const _PACKED_SCENE := preload("uid://bwfbp4n5l0afb") as PackedScene
 
 ## 目录。
 var directory : String
@@ -38,6 +38,11 @@ func _get_lable() -> Label:
 func test_file() -> bool:
 	var label := _get_lable()
 	var file := _get_line_edit().text
+	
+	if not DirAccess.dir_exists_absolute(directory):
+		label.set_text("创建目录无效。")
+		label.add_theme_color_override("font_color", Color.RED)
+		return true
 	
 	if file.is_empty():
 		label.set_text("空文件名。")

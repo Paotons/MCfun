@@ -111,7 +111,7 @@ func export_project() -> void:
 func _process(_delta: float) -> void:
 	if export_thread.is_started() and not export_thread.is_alive():
 		export_thread.wait_to_finish()
-		_get_exporting_label().text = "导出成功\n只需把文件夹复制到你的存档文件中的behavior_packs目录激活行为包即可"
+		_get_exporting_label().text = "导出成功\n只需把文件解压到地图目录behavior_packs并激活行为包即可"
 		set_process(false)
 		set_block_signals(false)
 		return
@@ -139,3 +139,7 @@ func _on_name_text_changed(_new_text: String) -> void:
 
 func _on_capy_path_pressed() -> void:
 	DisplayServer.clipboard_set(export_setting.path)
+
+func _on_open_pressed() -> void:
+	var path := export_setting.path + ".zip"
+	OS.shell_open(path)

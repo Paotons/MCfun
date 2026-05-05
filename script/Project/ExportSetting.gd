@@ -17,7 +17,7 @@ enum MainProcess {
 ## 路径。
 var path : String
 
-## 锁，线程运行修改当前进度时用的。
+## 锁，线程运行修改当前进度时用的锁。
 var mutex : Mutex
 ## 主要进度。
 var main_process : int

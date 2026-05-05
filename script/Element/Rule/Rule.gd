@@ -67,7 +67,7 @@ func is_option_using_entry() -> bool:
 func get_option_string_index(string : String) -> int:
 	if is_option_using_entry():
 		var items := get_items()
-		var entry := GL.get_grammer_entry()
+		var entry := EditManager.get_grammer_entry()
 		for i in items.size():
 			var chapter := entry.get_chapter(items[i]) as GrammerStringChapter
 			if chapter.has_item(string): return i
@@ -79,7 +79,7 @@ func get_option_items() -> PackedStringArray:
 	if is_option_using_entry():
 		var res : PackedStringArray
 		var items := get_items()
-		var entry := GL.get_grammer_entry()
+		var entry := EditManager.get_grammer_entry()
 		for i in items.size():
 			var chapter := entry.get_chapter(items[i]) as GrammerStringChapter
 			res.append_array(chapter.get_items())
@@ -96,7 +96,7 @@ func get_point_path_chapter_name() -> String:
 func get_point_path_chapter() -> GrammerChapter:
 	if get_type() != GrammerValue.Type.POINT_PATH:
 		assert("The type of command compiled_data_main is %s." % [GrammerValue.type_to_string(get_type())])
-	var entry := GL.get_grammer_entry()
+	var entry := EditManager.get_grammer_entry()
 	var name : String = data_main[META_DETAIL] if data_main.has(META_DETAIL) else ""
 	return entry.get_chapter(name) if entry.has_chapter(name) else null
 
@@ -118,7 +118,7 @@ func get_rule_name() -> String:
 ## 获取规则。
 func get_rule() -> GrammerRule:
 	var name := get_rule_name()
-	return GL.get_grammer_law().get_rule(name)
+	return EditManager.get_grammer_law().get_rule(name)
 
 # 如果是字典，获取它的补全规则名称。
 func _get_dictionary_rule_name() -> String:

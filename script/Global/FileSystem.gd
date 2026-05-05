@@ -3,8 +3,11 @@ extends Node
 ##
 ## 全局单例。
 
-## 如果为 [code]true[/code]，则使用的是测试路径。
-const IS_TEST_PATH := false
+## 初始化成功时发出。
+signal initial_finished
+
+# 如果初始化过，则是 [code]true[/code]。
+var _is_initial_finished := false
 
 ## 用户的根目录。
 var user_root : String
@@ -19,21 +22,34 @@ var config_path : String
 ## 配置文件。
 var config : ConfigFile
 
-
-func _init() -> void:
-	OS.request_permissions()
-	if IS_TEST_PATH:
-		user_root = "res://test/user_root"
-		data_root = "res://test/data_root"
-	else:
-		user_root = "user://"
-		if OS.get_name() == "Android":
-			data_root = "/storage/emulated/0/Android/data/com.paotons.mcfun/files"
-		else:
-			data_root = "user://data"
-			DirAccess.make_dir_absolute(data_root)
-
 func _ready() -> void:
+	_initial_main_root()
+
+## 如果成功初始化，返回 [code]true[/code]。
+func is_initialed() -> bool:
+	return _is_initial_finished
+
+# 初始化主要路径。
+func _initial_main_root() -> void:
+	user_root = "res://test/user_root" if OS.has_feature("editor") else "user://"
+	
+	data_root = get_data_root_path()
+	if data_root.is_empty():
+		await get_tree().process_frame
+		var window := select_data_root()
+		await window.close_requested
+		data_root = get_data_root_path()
+	
+	if data_root.is_empty():
+		data_root = user_root.path_join("data")
+		DirAccess.make_dir_absolute(data_root)
+	
+	_initial_main_directory()
+	_is_initial_finished = true
+	initial_finished.emit()
+
+# 初始化主要目录。
+func _initial_main_directory() -> void:
 	user_root = ProjectSettings.globalize_path(user_root)
 	data_root = ProjectSettings.globalize_path(data_root)
 	if not (DirAccess.dir_exists_absolute(user_root) and DirAccess.dir_exists_absolute(data_root)):
@@ -53,6 +69,28 @@ func _ready() -> void:
 		config.load(cache_path.path_join("config.cfg"))
 		
 		get_window().content_scale_factor = config.get_value("UINormal", "window_scale_factor", 1.0)
+
+## 选择数据目录。
+func select_data_root() -> SelectedDataRootWindow:
+	const packed := preload("uid://cj6k3ve1jedrn") as PackedScene
+	var window := packed.instantiate() as SelectedDataRootWindow
+	get_viewport().get_window().add_child(window)
+	window.popup_centered_clamped()
+	return window
+
+## 获取数据目录引导文件内容。
+func get_data_root_path() -> String:
+	var data_root_file_path := user_root.path_join("data_root_path")
+	if not FileAccess.file_exists(data_root_file_path):
+		return ""
+	else:
+		return FileAccess.get_file_as_string(data_root_file_path)
+## 修改数据目录引导文件。
+func set_data_root_path(path : String) -> void:
+	var data_root_file_path := user_root.path_join("data_root_path")
+	var file := FileAccess.open(data_root_file_path, FileAccess.WRITE)
+	file.store_string(path)
+	file.close()
 
 func _exit_tree() -> void:
 	clear_cache()

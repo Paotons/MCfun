@@ -17,34 +17,38 @@ static func export(project : Project, setting : ProjectExportSetting) -> void:
 	var path := setting.path
 	if DirAccess.dir_exists_absolute(path):
 		FileSystem.remove_directory(path)
+	if FileAccess.file_exists(path + ".zip"):
+		DirAccess.remove_absolute(path + ".zip")
 	
-	DirAccess.make_dir_absolute(path)
-	_export_create_manifset(project, setting)
+	var packer := ZIPPacker.new()
+	packer.open(path + ".zip")
+	
+	_export_create_manifset(project, setting, packer)
 	
 	DirAccess.make_dir_absolute(path.path_join("functions"))
-	_export_create_functions(project, setting)
+	_export_create_functions(project, setting, packer)
+	
+	packer.close()
 
 # 创建主要文件。
-static func _export_create_manifset(project : Project, setting : ProjectExportSetting) -> void:
+static func _export_create_manifset(project : Project, setting : ProjectExportSetting, packer : ZIPPacker) -> void:
 	setting.mutex.lock()
 	setting.main_process = ProjectExportSetting.MainProcess.MANIFEST
 	setting.current_process = "正在创建引导文件。"
 	setting.sub_process = Vector2i(1, 1)
 	setting.mutex.unlock()
 	
-	var path := setting.path
+	packer.start_file("manifest.json")
 	var mainfest := create_manifest(project)
-	var file := FileAccess.open(path.path_join("manifest.json"), FileAccess.WRITE)
-	file.store_string(JSON.stringify(mainfest, "\t"))
+	packer.write_file(JSON.stringify(mainfest, "\t").to_utf8_buffer())
+	packer.close_file()
 # 创建函数。
-static func _export_create_functions(project : Project, setting : ProjectExportSetting) -> void:
+static func _export_create_functions(project : Project, setting : ProjectExportSetting, packer : ZIPPacker) -> void:
 	setting.mutex.lock()
 	setting.main_process = ProjectExportSetting.MainProcess.FUNCTIONS
 	setting.current_process = "正在解析函数"
 	setting.sub_process = Vector2i(-1, -1)
 	setting.mutex.unlock()
-	
-	var funs_path := setting.path.path_join("functions")
 	
 	var fun_paths := project.get_files_from_extension("mcfun")
 	for i in fun_paths.size():
@@ -55,19 +59,15 @@ static func _export_create_functions(project : Project, setting : ProjectExportS
 		setting.sub_process =Vector2i(i, fun_paths.size())
 		setting.mutex.unlock()
 		
-		_export_create_function(project, fun_path, funs_path)
+		_export_create_function(project, fun_path, packer)
 # 创建函数。
-static func _export_create_function(project : Project, fun_path : String, funs_path : String) -> void:
+static func _export_create_function(project : Project, fun_path : String, packer : ZIPPacker) -> void:
 	var local := project.global_path_to_local(fun_path)
 	
-	var to_path := funs_path.path_join(local.get_basename() + ".mcfunction")
-	if not DirAccess.dir_exists_absolute(to_path.get_base_dir()):
-		var dir := DirAccess.open(funs_path)
-		dir.make_dir_recursive(to_path.get_base_dir())
-	
-	var file := FileAccess.open(to_path, FileAccess.WRITE)
-	file.store_string(FileAccess.get_file_as_string(fun_path))
-	file.close()
+	var to_path := "functions".path_join(local.get_basename() + ".mcfunction")
+	packer.start_file(to_path)
+	packer.write_file(FileAccess.get_file_as_string(fun_path).to_utf8_buffer())
+	packer.close_file()
 
 ## 创建一个 [code]manifest[/code] 内容。
 static func create_manifest(project : Project) -> Dictionary:
@@ -77,17 +77,17 @@ static func create_manifest(project : Project) -> Dictionary:
 	  "modules": [],
 	}
 	mainfest.header = {
-		"description": "没有描述",
+		"description": project.get_project_description(),
 		"name": project.get_project_name(),
 		"uuid": create_uuid(),
-		"version": [1, 0, 0],
-		"min_engine_version": [1, 20, 0]
+		"version": project.get_project_version(),
+		"min_engine_version": project.get_project_main_engine_version(),
 	  }
 	mainfest.modules = [
 		{
 		  "type": "data",
 		  "uuid": create_uuid(),
-		  "version": [1, 0, 0]
+		  "version": project.get_project_version(),
 		}
 	  ]
 	return mainfest

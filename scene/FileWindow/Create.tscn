@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bwfbp4n5l0afb"]
 
-[ext_resource type="Script" uid="uid://uxd5havsq74n" path="res://scene/CreateFileWindow.gd" id="1_n7ert"]
+[ext_resource type="Script" uid="uid://uxd5havsq74n" path="res://scene/FileWindow/Create.gd" id="1_n7ert"]
 
 [node name="CreateFileWindow" type="AcceptDialog" unique_id=1026520078]
 oversampling_override = 1.0

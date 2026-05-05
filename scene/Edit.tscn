@@ -5,10 +5,10 @@
 [ext_resource type="Script" uid="uid://c56tb0y6fuj01" path="res://scene/FileListContainer.gd" id="1_w0n44"]
 [ext_resource type="JSON" path="res://resource/default/GrammerEntry.json" id="3_r0du0"]
 [ext_resource type="JSON" path="res://resource/default/GrammerLaw.json" id="3_yiwpq"]
-[ext_resource type="PackedScene" uid="uid://daio2odmv7kgw" path="res://scene/EditSetting.tscn" id="5_pdkdi"]
-[ext_resource type="PackedScene" uid="uid://qyqgjfqhms20" path="res://scene/ProjectSetting.tscn" id="6_w0n44"]
-[ext_resource type="PackedScene" uid="uid://b1mh5o58v8e5g" path="res://scene/FileSystem.tscn" id="8_qyh5x"]
-[ext_resource type="PackedScene" uid="uid://diyi5chw3itl4" path="res://scene/ProjectExportSetting.tscn" id="9_kijkp"]
+[ext_resource type="PackedScene" uid="uid://daio2odmv7kgw" path="res://scene/EditWindow/Setting.tscn" id="5_pdkdi"]
+[ext_resource type="PackedScene" uid="uid://qyqgjfqhms20" path="res://scene/ProjectWindow/Setting.tscn" id="6_w0n44"]
+[ext_resource type="PackedScene" uid="uid://b1mh5o58v8e5g" path="res://scene/FileWindow/FileSystem.tscn" id="8_qyh5x"]
+[ext_resource type="PackedScene" uid="uid://diyi5chw3itl4" path="res://scene/ProjectWindow/ExportSetting.tscn" id="9_kijkp"]
 
 [sub_resource type="GDScript" id="GDScript_ktujv"]
 resource_name = "ProjectMenuButton"
@@ -53,6 +53,7 @@ func _get_project_export_winodw() -> Window:
 func _on_open_project_setting() -> void:
 	_get_project_window().popup_centered_clamped()
 func _on_item_exit_to_list() -> void:
+	ProjectManager.get_current_project().update_project_nearest_time()
 	ProjectManager.current_project = null
 	get_tree().change_scene_to_packed.call_deferred(PROJECT_LIST_PACKED)
 func _on_item_export() -> void:
@@ -198,29 +199,29 @@ func _on_popup_index_pressed(index : int) -> void:
 		ItemIndex.SELECT_LINE : _on_select_line()
 
 func _on_undo() -> void:
-	var edit := GL.get_edit()
+	var edit := EditManager.get_edit()
 	if edit.has_undo():
 		edit.undo()
 func _on_redo() -> void:
-	var edit := GL.get_edit()
+	var edit := EditManager.get_edit()
 	if edit.has_redo():
 		edit.redo()
 
 func _on_cut() -> void:
-	var edit := GL.get_edit()
+	var edit := EditManager.get_edit()
 	edit.cut()
 func _on_copy() -> void:
-	var edit := GL.get_edit()
+	var edit := EditManager.get_edit()
 	edit.copy()
 func _on_paste() -> void:
-	var edit := GL.get_edit()
+	var edit := EditManager.get_edit()
 	edit.paste()
 
 func _on_select_all() -> void:
-	var edit := GL.get_edit()
+	var edit := EditManager.get_edit()
 	edit.select_all()
 func _on_select_line() -> void:
-	var edit := GL.get_edit()
+	var edit := EditManager.get_edit()
 	var line := edit.get_caret_line()
 	if line + 1 < edit.get_line_count():
 		edit.select(line, 0, line + 1, 0)

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://daio2odmv7kgw"]
 
-[ext_resource type="Script" uid="uid://1ic2wkh6sbt8" path="res://scene/SettingWindow.gd" id="1_h0p1a"]
+[ext_resource type="Script" uid="uid://1ic2wkh6sbt8" path="res://scene/EditWindow/Setting.gd" id="1_h0p1a"]
+[ext_resource type="PackedScene" uid="uid://cj6k3ve1jedrn" path="res://scene/SelectedDataRootWindow.tscn" id="2_igemm"]
 
 [sub_resource type="GDScript" id="GDScript_2n6rp"]
 resource_name = "SettingTree"
@@ -117,8 +118,15 @@ func _on_item_selected(index: int) -> void:
 	config.set_value(SELECT_NAME, \"window_scale_factor\", sca)
 	config.save(FileSystem.config_path)
 	
-	GL.get_window().content_scale_factor = sca
+	get_viewport().get_window().content_scale_factor = sca
 	get_window().popup_centered_clamped()
+"
+
+[sub_resource type="GDScript" id="GDScript_bkxbc"]
+script/source = "extends LineEdit
+
+func _ready() -> void:
+	text = FileSystem.data_root
 "
 
 [sub_resource type="GDScript" id="GDScript_h0p1a"]
@@ -148,7 +156,7 @@ func _on_visibility_changed() -> void:
 		config.load(FileSystem.config_path)
 		config = config if config.has_section(SELECT_NAME) else null
 	if visible:
-		var default := GL.get_edit().get_highlight_color(color_name) as Color
+		var default := EditManager.get_edit().get_highlight_color(color_name) if EditManager.has_edit() else EditManager.get_edit_default_hightlight_color(color_name)
 		color = default if config == null else config.get_value(SELECT_NAME, color_name, default)
 "
 
@@ -172,7 +180,18 @@ func _pressed() -> void:
 		config.load(FileSystem.config_path)
 	config.set_value(SELECT_NAME, \"double_input_enabled\", button_pressed)
 	config.save(FileSystem.config_path)
-	GL.get_edit().double_input_disabled = not button_pressed
+	if EditManager.has_edit():
+		EditManager.get_edit().double_input_disabled = not button_pressed
+"
+
+[sub_resource type="GDScript" id="GDScript_iw8q2"]
+script/source = "extends AcceptDialog
+
+func _ready() -> void:
+	add_cancel_button(\"取消\")
+
+func _on_confirmed() -> void:
+	get_tree().quit.call_deferred()
 "
 
 [node name="EditSetting" type="Window" unique_id=1229169659]
@@ -253,6 +272,24 @@ popup/item_6/text = "200%"
 popup/item_6/id = 6
 script = SubResource("GDScript_g0qid")
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal" unique_id=809876429]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer2" unique_id=496452238]
+layout_mode = 2
+text = "数据目录"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer2" unique_id=1629338431]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+editable = false
+script = SubResource("GDScript_bkxbc")
+
+[node name="Button" type="Button" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer2" unique_id=1129842598]
+layout_mode = 2
+text = "CAG"
+
 [node name="HighlightColor" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=1759531872]
 visible = false
 layout_mode = 2
@@ -297,7 +334,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 script = SubResource("GDScript_h0p1a")
-color_name = "mumber"
+color_name = "member"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=1496522870]
 layout_mode = 2
@@ -520,8 +557,27 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "关闭"
 
+[node name="SelectedDataRootWindow" parent="." unique_id=502664920 instance=ExtResource("2_igemm")]
+visible = false
+
+[node name="DataRootChangedExitAcceptWindow" type="AcceptDialog" parent="." unique_id=1274276493]
+oversampling_override = 1.0
+title = "文件发生更改"
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+ok_button_text = "退出"
+dialog_text = "数据文件发生更改，需要重启才能生效。
+是否退出。"
+script = SubResource("GDScript_iw8q2")
+
 [connection signal="close_requested" from="." to="." method="hide"]
 [connection signal="item_selected" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" method="_on_item_selected"]
 [connection signal="visibility_changed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" method="_on_visibility_changed"]
+[connection signal="pressed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer2/Button" to="SelectedDataRootWindow" method="popup_centered_clamped"]
 [connection signal="visibility_changed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer/CheckBox" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer/CheckBox" method="_on_visibility_changed"]
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="hide"]
+[connection signal="close_requested" from="SelectedDataRootWindow" to="SelectedDataRootWindow" method="hide"]
+[connection signal="confirmed" from="SelectedDataRootWindow" to="DataRootChangedExitAcceptWindow" method="popup_centered_clamped"]
+[connection signal="canceled" from="DataRootChangedExitAcceptWindow" to="DataRootChangedExitAcceptWindow" method="hide"]
+[connection signal="close_requested" from="DataRootChangedExitAcceptWindow" to="." method="hide"]
+[connection signal="confirmed" from="DataRootChangedExitAcceptWindow" to="DataRootChangedExitAcceptWindow" method="_on_confirmed"]

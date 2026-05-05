@@ -4,6 +4,8 @@
 script/source = "extends LineEdit
 
 func _ready() -> void:
+	if not FileSystem.is_initialed():
+		await FileSystem.initial_finished
 	text = ProjectManager.project_list_path
 
 func _on_file_dialog_dir_selected(dir: String) -> void:
@@ -56,6 +58,8 @@ func _pressed() -> void:
 script/source = "extends FileDialog
 
 func _ready() -> void:
+	if not FileSystem.is_initialed():
+		await FileSystem.initial_finished
 	current_dir = ProjectManager.project_list_path
 "
 

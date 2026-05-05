@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://cj6k3ve1jedrn"]
+
+[ext_resource type="Script" uid="uid://51li4a3ltsmk" path="res://scene/SelectedDaataRootWindow.gd" id="1_inet1"]
+
+[sub_resource type="GDScript" id="GDScript_spie5"]
+script/source = "extends Button
+
+func _pressed() -> void:
+	OS.request_permissions()
+"
+
+[sub_resource type="GDScript" id="GDScript_5vchm"]
+script/source = "extends LineEdit
+
+func _ready() -> void:
+	test()
+
+func _on_file_dialog_dir_selected(dir: String) -> void:
+	set_text(dir)
+	test()
+
+func _on_text_changed(_new_text: String) -> void:
+	test()
+
+func test() -> void:
+	var label := _get_label()
+	if text.is_empty():
+		_get_ok_button().disabled = true
+		label.text = \"空路径。\"
+		label.add_theme_color_override(\"font_color\", Color.RED)
+		return
+	
+	if not (text.is_absolute_path() or text.is_relative_path()):
+		_get_ok_button().disabled = true
+		label.text = \"无效路径。\"
+		label.add_theme_color_override(\"font_color\", Color.RED)
+		return
+	
+	if not DirAccess.dir_exists_absolute(text):
+		_get_ok_button().disabled = true
+		label.text = \"目录不存在。\"
+		label.add_theme_color_override(\"font_color\", Color.RED)
+		return
+	
+	label.text = \"路径可用。\"
+	label.add_theme_color_override(\"font_color\", Color.GREEN)
+	_get_ok_button().disabled = false
+
+func _get_ok_button() -> Button:
+	return $\"../../../..\".get_ok_button()
+
+func _get_label() -> Label:
+	return $\"../../Label\"
+"
+
+[node name="SelectedDataRootWindow" type="AcceptDialog" unique_id=502664920]
+oversampling_override = 1.0
+title = "选择数据目录"
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+visible = true
+ok_button_text = "确定"
+script = ExtResource("1_inet1")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1676352636]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1236217820]
+layout_mode = 2
+
+[node name="Test" type="Button" parent="MarginContainer/VBoxContainer" unique_id=35253007]
+layout_mode = 2
+text = "检查权限"
+script = SubResource("GDScript_spie5")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=813448669]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=2083443270]
+layout_mode = 2
+text = "路径："
+
+[node name="Path" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1645684934]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "user://data"
+script = SubResource("GDScript_5vchm")
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1819604129]
+layout_mode = 2
+text = "LOC"
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=2061718017]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=410865555]
+oversampling_override = 1.0
+title = "选择你的数据目录"
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+file_mode = 2
+access = 2
+
+[connection signal="confirmed" from="." to="." method="_on_confirmed"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/HBoxContainer/Path" to="MarginContainer/VBoxContainer/HBoxContainer/Path" method="_on_text_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Button" to="FileDialog" method="popup_centered_clamped"]
+[connection signal="dir_selected" from="FileDialog" to="MarginContainer/VBoxContainer/HBoxContainer/Path" method="_on_file_dialog_dir_selected"]

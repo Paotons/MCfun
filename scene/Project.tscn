@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://cbhgotylj3fjg"]
 
-[ext_resource type="PackedScene" uid="uid://drwb32b3l5onw" path="res://scene/AboutMe.tscn" id="1_t738l"]
-[ext_resource type="PackedScene" uid="uid://c0bsig1h45sj5" path="res://scene/CreateProjectWindow.tscn" id="2_t4e8x"]
-[ext_resource type="PackedScene" uid="uid://q873r67430sn" path="res://scene/LoadProjectWindow.tscn" id="3_7wlok"]
+[ext_resource type="PackedScene" uid="uid://drwb32b3l5onw" path="res://scene/EditWindow/AboutMe.tscn" id="1_t738l"]
+[ext_resource type="PackedScene" uid="uid://c0bsig1h45sj5" path="res://scene/ProjectWindow/Create.tscn" id="2_t4e8x"]
+[ext_resource type="PackedScene" uid="uid://q873r67430sn" path="res://scene/ProjectWindow/Load.tscn" id="3_7wlok"]
+[ext_resource type="PackedScene" uid="uid://daio2odmv7kgw" path="res://scene/EditWindow/Setting.tscn" id="4_5kpg8"]
+[ext_resource type="PackedScene" uid="uid://cxl3ruqkak64o" path="res://scene/FileWindow/MCFunctionCoperWindow.tscn" id="5_jsxg6"]
 
 [sub_resource type="GDScript" id="GDScript_t4e8x"]
 script/source = "extends VBoxContainer
@@ -52,6 +54,9 @@ func update_list() -> void:
 		var container := containers[project_name]
 		container.set_project_name(project_name)
 		container.set_project_path(ProjectManager.get_project_path(project_name))
+		
+		var project := ProjectManager.get_project(project_name)
+		container.set_project_nearest_time(project.get_project_nearest_time())
 "
 
 [sub_resource type="GDScript" id="GDScript_5kpg8"]
@@ -69,7 +74,9 @@ func _pressed() -> void:
 	var node := _get_project()
 	if node == null:
 		return
-	ProjectManager.current_project = ProjectManager.get_project(node.project_name)
+	var project := ProjectManager.get_project(node.project_name)
+	ProjectManager.current_project = project
+	project.update_project_nearest_time()
 	get_tree().change_scene_to_packed.call_deferred(EDIT_PACKED)
 
 func _on_project_list_project_pressed(node: ProjectListContainer) -> void:
@@ -155,6 +162,14 @@ text = "新建"
 layout_mode = 2
 text = "导入"
 
+[node name="Setting" type="Button" parent="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer" unique_id=170096042]
+layout_mode = 2
+text = "设置"
+
+[node name="cope" type="Button" parent="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer" unique_id=1002059370]
+layout_mode = 2
+text = "复制"
+
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer" unique_id=1372849124]
 layout_mode = 2
 size_flags_vertical = 3
@@ -207,9 +222,17 @@ visible = false
 
 [node name="LoadProjectWindow" parent="." unique_id=944477413 instance=ExtResource("3_7wlok")]
 
+[node name="EditSetting" parent="." unique_id=1229169659 instance=ExtResource("4_5kpg8")]
+visible = false
+
+[node name="McFunctionCoperWindow" parent="." unique_id=969437798 instance=ExtResource("5_jsxg6")]
+visible = false
+
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button" to="AboutMe" method="popup_centered_clamped"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/create" to="CreateProjectWindow" method="popup_centered_clamped"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/load" to="LoadProjectWindow" method="popup_centered_clamped"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/Setting" to="EditSetting" method="popup_centered_clamped"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/cope" to="McFunctionCoperWindow" method="popup_centered_clamped"]
 [connection signal="project_pressed" from="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer/ProjectList" to="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer2/VBoxContainer/edit" method="_on_project_list_project_pressed"]
 [connection signal="selected_project_changed" from="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer/ProjectList" to="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer2/VBoxContainer/edit" method="_on_project_list_selected_project_changed"]
 [connection signal="selected_project_changed" from="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer/ProjectList" to="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer2/VBoxContainer/remove" method="_on_project_list_selected_project_changed"]

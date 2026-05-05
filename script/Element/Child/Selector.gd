@@ -72,7 +72,7 @@ static func _create_selector_from_art(text : String, offset : int) -> SelectorEl
 		element.is_faild = false
 		return element
 	
-	var backet := EqualParamBacketElement.create(text, result.get_start("body_begin") + offset, "[", "]", GL.get_grammer_law().get_selector_body_rule())
+	var backet := EqualParamBacketElement.create(text, result.get_start("body_begin") + offset, "[", "]", EditManager.get_grammer_law().get_selector_body_rule())
 	if backet.is_faild:
 		element.is_faild = false
 		return element

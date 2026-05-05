@@ -57,7 +57,7 @@ static func execute_completion(column : int, rule : ElementRule, command : Comma
 		if cmd[0] != _Head.COMPLETION:
 			continue
 		var mode : int = cmd[1]
-		var edit := GL.edit
+		var edit := EditManager.get_edit()
 		if mode == _ItemCompletionMode.LIST:
 			var list_id : int = cmd[2]
 			data.insert_texts.append_array(edit.get_command_cmd_list(list_id, command.get_line_index(), column - 1))

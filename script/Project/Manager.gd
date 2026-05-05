@@ -15,6 +15,9 @@ var current_project : Project
 
 ## 获取项目配置文件。
 func _ready() -> void:
+	if not FileSystem.is_initialed():
+		await FileSystem.initial_finished
+	
 	project_list_path = FileSystem.data_root.path_join(project_list_path)
 	if not DirAccess.dir_exists_absolute(project_list_path):
 		var root := DirAccess.open(FileSystem.data_root)

@@ -10,7 +10,7 @@ signal file_open(path : String)
 signal multifile_open(path : PackedStringArray)
 
 # 创场景。
-const _PACKED_SCENE := preload("res://scene/FileSystem.tscn")
+const _PACKED_SCENE := preload("uid://b1mh5o58v8e5g")
 
 ## 实例化。
 func instantiate() -> FileSystemWindow:

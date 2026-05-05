@@ -1,0 +1,29 @@
+{
+	"format_version": 2,
+	"header": {
+		"description": "没有描述",
+		"min_engine_version": [
+			1,
+			20,
+			0
+		],
+		"name": "MyWorld",
+		"uuid": "be8440e4-3a7a-4193-9eb7-964567da5e4f",
+		"version": [
+			1,
+			0,
+			0
+		]
+	},
+	"modules": [
+		{
+			"type": "data",
+			"uuid": "b88a60e7-c14e-4304-88da-d1a46652d0b8",
+			"version": [
+				1,
+				0,
+				0
+			]
+		}
+	]
+}

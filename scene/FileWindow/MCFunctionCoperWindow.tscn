@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://cxl3ruqkak64o"]
+
+[ext_resource type="Script" uid="uid://cajqbcpduxagf" path="res://scene/FileWindow/MCFunctionCoperWindow.gd" id="1_60atu"]
+
+[sub_resource type="GDScript" id="GDScript_60atu"]
+script/source = "extends LineEdit
+
+func _ready() -> void:
+	if not FileSystem.is_initialed():
+		await FileSystem.initial_finished
+	set_text(FileSystem.data_root.path_join(\"cache/projects/\"))
+
+func _get_window() -> MCFunctionCoperWindow:
+	return $\"../../../..\"
+
+func _on_selected_file_window_file_selected(path: String) -> void:
+	set_text(path)
+	_get_window().update_control()
+"
+
+[sub_resource type="GDScript" id="GDScript_4stoe"]
+script/source = "extends FileDialog
+
+func _ready() -> void:
+	if not FileSystem.is_initialed():
+		await FileSystem.initial_finished
+	set_current_dir(FileSystem.data_root.path_join(\"cache/projects/\"))
+"
+
+[node name="McFunctionCoperWindow" type="Window" unique_id=969437798]
+oversampling_override = 1.0
+title = "复制函数"
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+script = ExtResource("1_60atu")
+
+[node name="Panel" type="Panel" parent="." unique_id=120441995]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=89770429]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2093452189]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1353770274]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=317239061]
+layout_mode = 2
+text = "路径："
+
+[node name="Path" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=886534391]
+layout_mode = 2
+size_flags_horizontal = 3
+script = SubResource("GDScript_60atu")
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1352913780]
+layout_mode = 2
+text = "LOC"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1123622965]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=490099405]
+layout_mode = 2
+text = "文件："
+
+[node name="FileOptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=288927545]
+custom_minimum_size = Vector2(0.031, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Inform" type="Label" parent="MarginContainer/VBoxContainer" unique_id=251295595]
+layout_mode = 2
+text = "文件无效。"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=769024658]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=793142597]
+layout_mode = 2
+text = "偏移："
+
+[node name="LineOffset" type="SpinBox" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=590675338]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 0.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1566559673]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=1452317133]
+layout_mode = 2
+text = "长度："
+
+[node name="LineLength" type="SpinBox" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=216400109]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 30.0
+value = 5.0
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2085782296]
+layout_mode = 2
+
+[node name="CopyOneLine" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer5" unique_id=1422421693]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "复制一行"
+
+[node name="CopyNormal" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer5" unique_id=808863613]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "正常复制"
+
+[node name="SelectedFileWindow" type="FileDialog" parent="." unique_id=1871257631]
+title = "Open a File"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.mcfunction", "*.zip")
+script = SubResource("GDScript_4stoe")
+
+[connection signal="close_requested" from="." to="." method="hide"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/HBoxContainer/Path" to="." method="_on_path_text_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Button" to="SelectedFileWindow" method="popup_file_dialog"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/HBoxContainer2/FileOptionButton" to="." method="_on_file_option_button_item_selected"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer5/CopyOneLine" to="." method="_on_copy_one_line_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer5/CopyNormal" to="." method="_on_copy_normal_pressed"]
+[connection signal="file_selected" from="SelectedFileWindow" to="MarginContainer/VBoxContainer/HBoxContainer/Path" method="_on_selected_file_window_file_selected"]

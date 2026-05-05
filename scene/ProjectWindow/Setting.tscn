@@ -84,6 +84,78 @@ func _ready() -> void:
 	set_text(project.get_project_path())
 "
 
+[sub_resource type="GDScript" id="GDScript_k36xx"]
+script/source = "extends LineEdit
+
+var _cache_text : String
+
+func _ready() -> void:
+	editing_toggled.connect(_on_editing_toggled)
+	
+	var varsion := ProjectManager.get_current_project().get_project_version()
+	_cache_text = Project.version_to_string(varsion)
+	set_text(_cache_text)
+
+func _on_editing_toggled(toggled : bool) -> void:
+	if toggled:
+		return
+	
+	var varsion := Project.string_to_varsion(text)
+	
+	if varsion.is_empty():
+		set_text(_cache_text)
+		return
+	
+	var new_text := Project.version_to_string(varsion)
+	if text != new_text:
+		_cache_text = new_text
+		set_text(new_text)
+	ProjectManager.get_current_project().set_project_version(varsion)
+
+"
+
+[sub_resource type="GDScript" id="GDScript_lyttk"]
+script/source = "extends TextEdit
+
+func _ready() -> void:
+	focus_exited.connect(_on_focus_exited)
+	set_text(ProjectManager.get_current_project().get_project_description())
+
+func _on_focus_exited() -> void:
+	ProjectManager.get_current_project().set_project_description(text)
+
+
+"
+
+[sub_resource type="GDScript" id="GDScript_u6wxm"]
+script/source = "extends LineEdit
+
+var _cache_text : String
+
+func _ready() -> void:
+	editing_toggled.connect(_on_editing_toggled)
+	
+	var varsion := ProjectManager.get_current_project().get_project_main_engine_version()
+	_cache_text = Project.version_to_string(varsion)
+	set_text(_cache_text)
+
+func _on_editing_toggled(toggled : bool) -> void:
+	if toggled:
+		return
+	
+	var varsion := Project.string_to_varsion(text)
+	
+	if varsion.is_empty():
+		set_text(_cache_text)
+		return
+	
+	var new_text := Project.version_to_string(varsion)
+	if text != new_text:
+		_cache_text = new_text
+		set_text(new_text)
+	ProjectManager.get_current_project().set_project_main_engine_version(varsion)
+"
+
 [node name="ProjectSetting" type="Window" unique_id=216988942]
 oversampling_override = 1.0
 title = "项目设置"
@@ -131,7 +203,6 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 5
 
 [node name="NormalConfig" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer" unique_id=380378952]
-visible = false
 layout_mode = 2
 
 [node name="ProjectName" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig" unique_id=1100544815]
@@ -139,7 +210,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName" unique_id=1129127225]
 layout_mode = 2
-text = "项目名称："
+text = "项目名称"
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName" unique_id=1896777267]
 custom_minimum_size = Vector2(200, 0)
@@ -152,7 +223,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectPath" unique_id=1727260768]
 layout_mode = 2
-text = "项目路径："
+text = "项目路径"
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectPath" unique_id=359083599]
 custom_minimum_size = Vector2(200, 0)
@@ -161,10 +232,50 @@ size_flags_horizontal = 10
 editable = false
 script = SubResource("GDScript_vjpg7")
 
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig" unique_id=1234659977]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/HBoxContainer" unique_id=1545399935]
+layout_mode = 2
+text = "项目版本"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/HBoxContainer" unique_id=853189560]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_k36xx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig" unique_id=1016406784]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/VBoxContainer" unique_id=1124546953]
+layout_mode = 2
+text = "项目描述"
+
+[node name="TextEdit" type="TextEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/VBoxContainer" unique_id=180649143]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+placeholder_text = "没有描述"
+script = SubResource("GDScript_lyttk")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig" unique_id=2067263707]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/HBoxContainer2" unique_id=1256651496]
+layout_mode = 2
+text = "最低游戏版本"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/HBoxContainer2" unique_id=502987257]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_u6wxm")
+
 [node name="Button" type="Button" parent="VBoxContainer" unique_id=1152094523]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "关闭"
 
+[connection signal="close_requested" from="." to="VBoxContainer/HSplitContainer/Tree" method="hide"]
 [connection signal="editing_toggled" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName/LineEdit" to="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName/LineEdit" method="_on_editing_toggled"]
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="hide"]

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://diyi5chw3itl4"]
 
-[ext_resource type="Script" uid="uid://xubfrpnsxr36" path="res://scene/ProjectExportSettingWindow.gd" id="1_xymlg"]
+[ext_resource type="Script" uid="uid://xubfrpnsxr36" path="res://scene/ProjectWindow/ExportSetting.gd" id="1_xymlg"]
 
 [sub_resource type="GDScript" id="GDScript_w0g4x"]
 script/source = "extends LineEdit
@@ -143,10 +143,10 @@ layout_mode = 2
 text = "正在导出"
 horizontal_alignment = 1
 
-[node name="CapyPath" type="Button" parent="Exporting/VBoxContainer" unique_id=310472649]
+[node name="Open" type="Button" parent="Exporting/VBoxContainer" unique_id=310472649]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "复制目录"
+text = "打开"
 
 [connection signal="canceled" from="." to="." method="close"]
 [connection signal="close_requested" from="." to="." method="close"]
@@ -154,4 +154,4 @@ text = "复制目录"
 [connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Locate" to="ExportPathWindow" method="popup_centered_clamped"]
 [connection signal="text_changed" from="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2/name" to="." method="_on_name_text_changed"]
 [connection signal="dir_selected" from="ExportPathWindow" to="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Path" method="_on_export_path_window_dir_selected"]
-[connection signal="pressed" from="Exporting/VBoxContainer/CapyPath" to="." method="_on_capy_path_pressed"]
+[connection signal="pressed" from="Exporting/VBoxContainer/Open" to="." method="_on_open_pressed"]
