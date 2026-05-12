@@ -25,7 +25,7 @@ const _DETAIL_OPTION_DEFAILT := [false]
 #endregion
 
 ## 数据。
-var data_main : Dictionary[int, Variant]
+var data_main : Dictionary
 
 ## 获取 类型。
 func get_type() -> GrammerValue.Type:

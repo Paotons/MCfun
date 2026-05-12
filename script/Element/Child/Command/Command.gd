@@ -91,8 +91,29 @@ static func create(text : String, offset : int, line := -1) -> CommandElement:
 	process.offset = offset
 	
 	element.line_id = process.edit.get_line_id(line)
-	element._do_command(text, process)
+	element._do_command_from_empty(text, process)
 	return element
+## [param column] 发生更新。
+func update(text : String, column : int) -> void:
+	var offset := string_offset
+	var edit := EditManager.get_edit()
+	# 初始化。
+	faild_element_idxs.clear()
+	errors.clear()
+	string = text.substr(offset)
+	
+	# 进程。
+	var process :=_CreateProcess.new()
+	
+	process.edit = edit
+	process.grammer = EditManager.get_grammer_process()
+	process.law = EditManager.get_grammer_law()
+	process.entry = EditManager.get_grammer_entry()
+	process.line = edit.get_line_index(line_id)
+	
+	process.offset = offset
+	
+	_do_command_from_column(text, process, column)
 
 func get_highlight(_edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return highlight_data.data
@@ -117,7 +138,7 @@ func _get_column_code_completion_data(column : int, _rule : ElementRule, _comman
 	var exe := get_exe_element(command_idx)
 	
 	assert(exe.get_type() != GrammerValue.Type.NIL, "IS nil.")
-	print_rich("[color=#090]就目前 类型：%s[/color]" % [exe.get_type_string()])
+	# 为当前做补全
 	match exe.get_type():
 		GrammerValue.Type.COMMAND:
 			var element : CommandElement = get_element(idx)
@@ -135,16 +156,17 @@ func _get_code_completion_next(column : int) -> CodeCompletionData:
 	if not is_valid_head():
 		return null
 	
+	# 上一个是目标选择器
 	if is_column_near_selector_head(column):
 		data_main.supple()
 		data_main.add_data(CodeCompletionData.create_backet_data(GrammerValue.Type.ARRAY))
 	
+	# 补全下一个元素
 	for i in get_faild_element_count():
 		var faild_exe := get_faild_element(i)
 		
 		var data := CodeCompletionData.new()
 		var type := faild_exe.get_type()
-		print_rich("[color=#090]下一个 %s" % [GrammerValue.type_to_string(type)])
 		match type:
 			GrammerValue.Type.DICTIONARY, GrammerValue.Type.ARRAY, GrammerValue.Type.QUOTATION:
 				data = CodeCompletionData.create_backet_data(type)
@@ -518,10 +540,8 @@ func _do_subcommand(text : String, process : _CreateProcess) -> bool:
 	return true
 #endregion
 
-# 处理指令。
-func _do_command(text : String, process : _CreateProcess) -> void:
-	var length := text.length()
-	
+# 从零开始处理指令。
+func _do_command_from_empty(text : String, process : _CreateProcess) -> void:
 	if _do_head(text, process):
 		return
 	
@@ -529,7 +549,45 @@ func _do_command(text : String, process : _CreateProcess) -> void:
 	process.rule = process.grammer.get_command_rule(head)
 	process.exe_index = 0
 	process.exe_end = process.rule.get_element_count()
+	_do_command_process(text, process)
+	_do_command_tail(text, process)
+# 从一定位置开始处理指令。
+func _do_command_from_column(text : String, process : _CreateProcess, column := 0) -> void:
+	var index : int = get_column_map_index(column) - 1 if not is_column_at_end(column) else exe_element_histories.size() - 1
 	
+	if index < 0: # 相当于重新生成。
+		elements.clear()
+		exe_element_histories.clear()
+		cmd_list.clear()
+		highlight_data.data.clear()
+		
+		if _do_head(text, process): return
+		var head := head_element.get_valid_head()
+		process.rule = process.grammer.get_command_rule(head)
+		process.exe_index = 0
+		process.exe_end = process.rule.get_element_count()
+	else:
+		# 模拟最初环境
+		process.rule = process.grammer.get_command_rule(head_element.get_valid_head())
+		process.exe_index = exe_element_histories[index]
+		process.exe_element = process.rule.get_element(exe_element_histories[index -1]) if index > 0 else null
+		process.exe_end = process.rule.get_element_count()
+		
+		var nearest_element := elements[index]
+		var offset := process.offset
+		if nearest_element is StringElement:
+			offset = nearest_element.string_offset
+			process.offset = offset
+		
+		DictionaryIntKeyT.slice(highlight_data.data, 0, offset + 1)
+		elements = elements.slice(0, index)
+		exe_element_histories = exe_element_histories.slice(0, index)
+		DictionaryIntKeyT.slice(cmd_list, 0, column)
+	_do_command_process(text, process)
+	_do_command_tail(text, process)
+
+# 处理指令的流程。
+func _do_command_process(text : String, process : _CreateProcess) -> void:
 	while process.exe_index < process.exe_end:
 		var exe_element := process.rule.get_element(process.exe_index)
 		
@@ -565,7 +623,9 @@ func _do_command(text : String, process : _CreateProcess) -> void:
 			continue
 		
 		process.exe_index += 1
-	
+# 处理指令的结尾。
+func _do_command_tail(text : String, process : _CreateProcess) -> void:
+	var length := text.length()
 	if process.has_end:
 		if process.offset < length:
 			var result := StringElement.create(text, process.offset)
@@ -574,3 +634,6 @@ func _do_command(text : String, process : _CreateProcess) -> void:
 				return
 	else:
 		create_error(process.offset , "Cant end.")
+
+
+

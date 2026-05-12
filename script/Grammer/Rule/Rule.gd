@@ -1,8 +1,9 @@
-@abstract class_name GrammerRule
-extends RefCounted
+@abstract
+class_name GrammerRule
+extends Resource
 ## 语法规则。
 ##
-## 所有语法规则的基类，你不应该实例它。
+## 所有语法规则的基类，抽象类，你不应该实例它。
 
 ## 规则类型。
 enum RuleType {

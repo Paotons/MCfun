@@ -24,12 +24,22 @@ boot_splash/image="uid://sv55didabwke"
 FileSystem="*uid://dgvwbitqn8jwg"
 ProjectManager="*uid://dns5us14ivivq"
 EditManager="*uid://dkfx0gngr3l32"
+GlobalTester="*uid://cy280x8f78kxm"
 
 [display]
 
 window/size/borderless=true
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_height"
+
+[file_customization]
+
+folder_colors={
+"res://resource/": "yellow",
+"res://scene/": "blue",
+"res://script/": "pink",
+"res://script/Global/": "red"
+}
 
 [gui]
 

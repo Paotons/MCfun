@@ -1,5 +1,6 @@
 {
-	"main" : "Grammer.json",
+	"format_version" : 1,
+	"process" : "GrammerProcess.json",
 	"entry" : "GrammerEntry.json",
 	"law" : "GrammerLaw.json",
 }

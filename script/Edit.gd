@@ -17,16 +17,18 @@ extends CodeEdit
 	"w" : "[", "o" : "]", # 输入法第一排最次两边
 	"e" : "<", "i" : ">", # 输入法第一排最次次两边
 }
-## 双击映射开关。
+## 如果为 [code]true[/code]，双击映射将被禁用。
 @export var double_input_disabled := false
 ## 双击事件最长可识别时间差，单位(ms)。
 @export var double_input_interval_time := 256
-# 解析过的双击事件映射表。
+# 解析过的双击事件映射表, int -> String。
 var _double_input_char_map_compiled : Dictionary[int, String] = {}
 ## 最近一次光标输入时间。
 var nearst_input_time : Dictionary[int, int]
 ## 最近一次光标输入字符编码。
 var nearst_input_unicode : Dictionary[int, int]
+## 最近一次光标输入的位置，[code]Vector2i(column, line)[/code]。
+var nearst_input_position : Dictionary[int, Vector2i]
 #endregion
 
 #region 补全
@@ -114,7 +116,9 @@ func _ready() -> void:
 	
 	grammer_process = GrammerProcess.new()
 	if grammer_json != null:
-		grammer_process.compile(grammer_json.data)
+		var obj := GrammerProcessCompiler.new()
+		obj.compile(grammer_json.data)
+		grammer_process.main_data = obj.get_result()
 	var fsh := FunctionSyntaxHighlight.new()
 	fsh.grammer_process = grammer_process
 	syntax_highlighter = fsh
@@ -212,7 +216,7 @@ func _handle_unicode_input(unicode_char: int, caret_index: int) -> void:
 			caret_unicode_input(unicode_char, i)
 	elif caret_index >= 0:
 		caret_unicode_input(unicode_char, caret_index)
-	await get_tree().process_frame
+	await get_tree().process_frame # 等待高亮结果生成
 	add_code_hint()
 # 退格。
 func _backspace(caret_index: int) -> void:
@@ -351,7 +355,6 @@ func caret_unicode_input(unicode_char : int, caret_index : int) -> void:
 			if _double_input(unicode_char, caret_index):
 				return
 	caret_insert_text(String.chr(unicode_char), caret_index)
-
 ## 光标，退格。
 func caret_backspace(caret_index : int) -> void:
 	if has_selection(caret_index):
@@ -371,9 +374,19 @@ func caret_backspace(caret_index : int) -> void:
 	remove_text(from_line, from_column, to_line, to_column)
 ## 光标，插入字符串。
 func caret_insert_text(txt : String, caret_index := 0) -> void:
+	nearst_input_position[caret_index] = Vector2i(get_caret_column(), get_caret_line())
 	insert_text_at_caret(txt, caret_index)
 	nearst_input_unicode[caret_index] = ord(txt.right(1))
 	nearst_input_time[caret_index] = Time.get_ticks_msec()
+## 获取关标最近一次输入的时间差，单位ms。
+func get_caret_nearest_input_time_delta(index := 0) -> int:
+	return Time.get_ticks_msec() - nearst_input_time[index] if nearst_input_time.has(index) else -1
+## 获取光标最近一次输入的字符码。
+func get_caret_nearest_input_unicode(index := 0) -> int:
+	return nearst_input_unicode.get(index, 0)
+## 获取光标最近一次输入的位置，[code]Vector2i(column, line)[/code]。
+func get_caret_nearest_input_position(index := 0) -> Vector2i:
+	return nearst_input_position.get(index, Vector2i(-1, -1))
 #endregion
 
 #region 文本。
@@ -392,7 +405,6 @@ func set_function_text(txt : String) -> void:
 	_line_ids = range(line)
 	
 	set_text(txt)
-
 #endregion
 
 #region 指令。

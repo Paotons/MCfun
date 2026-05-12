@@ -1,7 +1,9 @@
 @tool
 extends EditorScript
+## 用于测试的脚本。
 
 func _run() -> void:
-	var control := EditorInterface.get_base_control()
-	var tree := control.get_tree_string_pretty()
-	print(tree.count("\n"))
+	var output := []
+	OS.execute("cd script", [])
+	OS.execute("ls", [], output)
+	print(output)

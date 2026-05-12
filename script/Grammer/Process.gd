@@ -5,14 +5,14 @@ extends Resource
 ## 含有多个可执行元素。
 
 # 解析后的语法规则，给机器看的。
-var _grammer_compiled : Dictionary
+var main_data : Dictionary
 
 ## 获取指令的一个项。
 func get_item(head : String, idx : int) -> ExeElementRule:
 	if not has_head(head):
 		push_error("Not has head named \"%s\"." % [head])
 		return null
-	var command : Array = _grammer_compiled[head]
+	var command : Array = main_data[head]
 	if command.size() <= absi(idx):
 		push_error("Command's size is %d, but get %d." % [command.size(), idx])
 		return null
@@ -24,12 +24,12 @@ func get_item_count(head : String) -> int:
 	if not has_head(head):
 		push_error("Not has head named \"%s\"." % [head])
 		return -1
-	return _grammer_compiled[head].size()
+	return main_data[head].size()
 ## 获取一条指令中为 ID 项的序列。
 func get_item_index(head : String, id : int) -> int:
 	if not has_head(head):
 		return -1
-	var command : Array = _grammer_compiled[head]
+	var command : Array = main_data[head]
 	var i := 0
 	for item : Dictionary in command:
 		if item[ExeElementRule.META_ID] == id:
@@ -41,7 +41,7 @@ func get_item_histories(head : String, start : int, exclude_nil := false) -> Pac
 	if not has_head(head):
 		push_error("Not has head \"%s\"" % [head])
 		return []
-	var command : Array = _grammer_compiled[head]
+	var command : Array = main_data[head]
 	var i := start
 	var size := command.size()
 	var histories : PackedInt32Array
@@ -82,19 +82,19 @@ func get_item_histories(head : String, start : int, exclude_nil := false) -> Pac
 
 ## 包含指令。
 func has_head(head : String) -> bool:
-	return _grammer_compiled.has(head)
+	return main_data.has(head)
 ## 获取指令的数量。
 func get_command_count() -> int:
-	return _grammer_compiled.size()
+	return main_data.size()
 ## 获取指令规则。
 func get_command_rule(head : String) -> CommandRule:
 	if not has_head(head): return null
 	var rule := CommandRule.new()
-	rule.data = _grammer_compiled[head]
+	rule.data = main_data[head]
 	return rule
 ## 获取所有指令头。
 func get_heads() -> PackedStringArray:
-	return _grammer_compiled.keys()
+	return main_data.keys()
 
 ## 解析语法。
 func compile(grammer : Dictionary) -> void:
@@ -106,7 +106,7 @@ func compile(grammer : Dictionary) -> void:
 			grammer_compiled[head] = command_compiled
 		else:
 			push_error("The command named %s is null." % [head])
-	_grammer_compiled = grammer_compiled
+	main_data = grammer_compiled
 	print_rich("[color=#090]", grammer_compiled)
 # 解析指令。
 static func _compile_command(command : Array) -> Variant:

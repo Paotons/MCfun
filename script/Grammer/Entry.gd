@@ -1,6 +1,6 @@
 class_name GrammerEntry
 extends Resource
-## 语法的补全字符串。
+## 语法的账目。
 
 ## 分类的名称。
 enum CategoryType {
@@ -20,6 +20,10 @@ const _CATEGORY_STRING : Dictionary[CategoryType, String] = {
 
 ## 数据。
 var main_data : Dictionary
+
+## 设置数据。
+func set_data(data : Dictionary) -> void:
+	main_data = data
 
 ## 获取类对应的字符串。
 static func category_to_string(category : CategoryType) -> String:
