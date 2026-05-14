@@ -2,8 +2,6 @@ class_name GrammerPathChapterCompiler
 extends GrammerChapterCompiler
 ## 路径解析器。
 
-
-
 class _Path extends GrammerCompiler:
 	enum _PathMeta {
 		# 表示可直接结尾。
@@ -17,7 +15,7 @@ class _Path extends GrammerCompiler:
 	}
 	
 	var chapter : String
-	var path : PackedStringArray
+	var path : Array[String]
 	
 	func _get_name() -> String:
 		return "%s[data]" % chapter + "[%s]".repeat(path.size()) % path

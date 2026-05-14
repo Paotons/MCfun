@@ -51,7 +51,7 @@ func _compile_chapter_type(from : Dictionary, to : Dictionary, name : String) ->
 		errors.append("%s not has type." % [name])
 		return false
 	
-	if _test_value_type(from["type"], 1 << TYPE_STRING, name):
+	if not _test_value_type(from["type"], 1 << TYPE_STRING, name):
 		return false
 	
 	var type_str := from["type"] as String

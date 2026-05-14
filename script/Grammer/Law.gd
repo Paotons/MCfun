@@ -6,19 +6,19 @@ extends RefCounted
 const SELECTOR_BODY_RULE_NAME := "selector_body"
 
 # 解析过的数据。
-var _data_compiled : Dictionary
+var main_data : Dictionary
 
 ## 有规则。
 func has_rule(name : String) -> bool:
-	return _data_compiled.has(name)
+	return main_data.has(name)
 ## 获取目标选择器身体部分使用的规则。
 func get_selector_body_rule() -> GrammerEqualParamBacktedRule:
 	return get_rule(SELECTOR_BODY_RULE_NAME)
 
 ## 获取规则。
 func get_rule(name : String) -> GrammerRule:
-	if _data_compiled.has(name):
-		var rule_data : Dictionary = _data_compiled[name]
+	if main_data.has(name):
+		var rule_data : Dictionary = main_data[name]
 		var type : int = rule_data[GrammerRule.RuleMeta.TYPE]
 		var rule : GrammerRule
 		match type:
@@ -52,7 +52,7 @@ func compile(data : Dictionary) -> void:
 		_compile_rule(rule, compiled_rule, data)
 		result[rule_name] = compiled_rule
 	print_rich("[color=#069]", result)
-	_data_compiled = result
+	main_data = result
 
 # 解析规则。
 static func _compile_rule(rule : Dictionary, compiled_rule : Dictionary, law : Dictionary) -> void:

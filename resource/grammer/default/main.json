@@ -1,0 +1,9 @@
+{
+	"format_version" : 1,
+	
+	"files" : {
+		"process" : "GrammerProcess.json",
+		"entry" : "GrammerEntry.json",
+		"law" : "GrammerLaw.json",
+	},
+}

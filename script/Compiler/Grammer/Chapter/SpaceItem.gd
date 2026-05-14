@@ -32,7 +32,7 @@ class _Item extends GrammerCompiler:
 	
 	func _compile(data : Variant) -> void:
 		var from := data as Array
-		if _test_array_types(from, 1 << TYPE_STRING, "%s[data][%s]" % [chapter, space]):
+		if not _test_array_types(from, 1 << TYPE_STRING, "%s[data][%s]" % [chapter, space]):
 			return
 		
 		compiled_result = data

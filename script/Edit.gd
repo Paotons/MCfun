@@ -125,11 +125,15 @@ func _ready() -> void:
 	
 	grammer_law = GrammerLaw.new()
 	if grammer_law_json != null:
-		grammer_law.compile(grammer_law_json.data)
+		var obj := GrammerLawCompiler.new()
+		obj.compile(grammer_law_json.data)
+		grammer_law.main_data = obj.get_result()
 	
 	grammer_entry = GrammerEntry.new()
 	if grammer_entry_json != null:
-		grammer_entry.compile(grammer_entry_json.data)
+		var obj := GrammerEntryCompiler.new()
+		obj.compile(grammer_entry_json.data)
+		grammer_entry.main_data = obj.get_result()
 	
 	EditManager.function_edit = self
 	print_rich("[color=#909]本次解析用时 %dms." % [Time.get_ticks_msec()])
