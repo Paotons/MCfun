@@ -2,7 +2,11 @@ class_name GrammerProcessCompiler
 extends GrammerCompiler
 
 func _compile(data : Variant) -> void:
-	var from := data as Dictionary
+	if not data is Dictionary:
+		errors.append("Process_data should be dictionary, but is %s." % type_string(typeof(data)))
+		return
+	
+	var from : Dictionary = data
 	
 	compiled_result = {}
 	if not _test_dictionary_key_types(from, 1 << TYPE_STRING, "Process"):

@@ -3,7 +3,11 @@ extends GrammerCompiler
 ## 语法规则解析器。
 
 func _compile(data : Variant) -> void:
-	var from := data as Dictionary
+	if not data is Dictionary:
+		errors.append("Law_data should be dictionary, but is %s." % type_string(typeof(data)))
+		return
+	
+	var from : Dictionary = data
 	compiled_result = {}
 	
 	if not _test_dictionary_key_types(from, 1 << TYPE_STRING, "Law"):

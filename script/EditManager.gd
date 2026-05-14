@@ -35,13 +35,13 @@ func get_edit() -> FunctionEdit:
 	return function_edit
 ## 获取语法流程。
 func get_grammer_process() -> GrammerProcess:
-	return function_edit.grammer_process
+	return function_edit.grammer.get_process()
 ## 获取规则。
 func get_grammer_law() -> GrammerLaw:
-	return function_edit.grammer_law
+	return function_edit.grammer.get_law()
 ## 获取补全项。
 func get_grammer_entry() -> GrammerEntry:
-	return function_edit.grammer_entry
+	return function_edit.grammer.get_entry()
 
 ## 获取编辑器默认高亮颜色。
 func get_edit_default_hightlight_color(id : StringName) -> Color:

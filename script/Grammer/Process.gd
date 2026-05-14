@@ -4,8 +4,12 @@ extends Resource
 ##
 ## 含有多个可执行元素。
 
-# 解析后的语法规则，给机器看的。
+## 解析后的语法规则，给机器看的。
 var main_data : Dictionary
+
+## 设置数据。
+func set_data(data : Dictionary) -> void:
+	main_data = data
 
 ## 获取指令的一个项。
 func get_item(head : String, idx : int) -> ExeElementRule:
@@ -95,29 +99,3 @@ func get_command_rule(head : String) -> CommandRule:
 ## 获取所有指令头。
 func get_heads() -> PackedStringArray:
 	return main_data.keys()
-
-## 解析语法。
-func compile(grammer : Dictionary) -> void:
-	var grammer_compiled : Dictionary
-	for head in grammer:
-		var command = grammer[head]
-		var command_compiled : Variant = _compile_command(command)
-		if command_compiled != null:
-			grammer_compiled[head] = command_compiled
-		else:
-			push_error("The command named %s is null." % [head])
-	main_data = grammer_compiled
-	print_rich("[color=#090]", grammer_compiled)
-# 解析指令。
-static func _compile_command(command : Array) -> Variant:
-	var command_compiled : Array
-	for i in range(command.size()):
-		if not command[i] is Dictionary:
-			return null
-		var item := command[i] as Dictionary
-		var result : Variant = ExeElementRule.compile(item, command)
-		if result != null and result is Dictionary:
-			command_compiled.append(result)
-		else:
-			return null
-	return command_compiled

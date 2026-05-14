@@ -44,18 +44,10 @@ static var _code_completion_head_data : CodeCompletionData
 
 #region 语法。
 @export_group("grammer")
-## 直接语法 JS。
-@export var grammer_json : JSON
-## 语法规则，用于 [member grammer_process] 更精细的操作。
-@export var grammer_law_json : JSON
-## 初始字符串，用于指令的各种补全。
-@export var grammer_entry_json : JSON
+## 语法目录。
+@export_dir() var grammer_directory : String
 ## 语法。
-var grammer_process : GrammerProcess
-## 语法规则。
-var grammer_law : GrammerLaw
-## 语法字符串。
-var grammer_entry : GrammerEntry
+var grammer : Grammer
 #endregion
 
 #region 颜色。
@@ -109,35 +101,14 @@ var command_elements : Dictionary[int, CommandElement]
 # 开始。
 func _ready() -> void:
 	set_double_input_char_map(double_input_char_map)
-	#region 初始化语法。
-	assert(grammer_json != null, "GrammerProcess is null.")
-	assert(grammer_law_json != null, "GrammerProcess runle is null.")
-	assert(grammer_entry_json != null, "Completion entry is null.")
 	
-	grammer_process = GrammerProcess.new()
-	if grammer_json != null:
-		var obj := GrammerProcessCompiler.new()
-		obj.compile(grammer_json.data)
-		grammer_process.main_data = obj.get_result()
-	var fsh := FunctionSyntaxHighlight.new()
-	fsh.grammer_process = grammer_process
-	syntax_highlighter = fsh
-	
-	grammer_law = GrammerLaw.new()
-	if grammer_law_json != null:
-		var obj := GrammerLawCompiler.new()
-		obj.compile(grammer_law_json.data)
-		grammer_law.main_data = obj.get_result()
-	
-	grammer_entry = GrammerEntry.new()
-	if grammer_entry_json != null:
-		var obj := GrammerEntryCompiler.new()
-		obj.compile(grammer_entry_json.data)
-		grammer_entry.main_data = obj.get_result()
+	assert(DirAccess.dir_exists_absolute(grammer_directory), "Not has directory.")
+	grammer = Grammer.new()
+	grammer.try_open(grammer_directory)
 	
 	EditManager.function_edit = self
-	print_rich("[color=#909]本次解析用时 %dms." % [Time.get_ticks_msec()])
-	#endregion
+	
+	# TEST 测试。
 	_ready_test()
 
 @warning_ignore("unused_private_class_variable")

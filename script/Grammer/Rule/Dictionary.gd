@@ -21,20 +21,3 @@ func get_element_rule(key : String) -> ElementRule:
 	var rule := ElementRule.new()
 	rule.data_main = data_main[key]
 	return rule
-
-## 解析字典规则。
-static func _compile_dictionary_rules(data : Dictionary, rules_compiled : Dictionary, _law : Dictionary) -> bool:
-	for property in data:
-		if not property is String:
-			push_error("Property should be string, but is %s." % [type_string(typeof(property))])
-			return true
-		var property_data = data[property]
-		var property_data_compiled : Dictionary
-		if not property_data is Dictionary:
-			push_error("Property data should be dictionary, but is %s." % [type_string(typeof(property_data))])
-			return true
-		var element = ElementRule.compile(property_data)
-		if element == null: return true
-		property_data_compiled = element
-		rules_compiled[property] = property_data_compiled
-	return false
