@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cxl3ruqkak64o"]
 
-[ext_resource type="Script" uid="uid://cajqbcpduxagf" path="res://scene/FileWindow/MCFunctionCoperWindow.gd" id="1_60atu"]
+[ext_resource type="Script" uid="uid://cajqbcpduxagf" path="res://scene/file_window/mcfunction_coper.gd" id="1_60atu"]
 
 [sub_resource type="GDScript" id="GDScript_60atu"]
 script/source = "extends LineEdit
@@ -27,7 +27,7 @@ func _ready() -> void:
 	set_current_dir(FileSystem.data_root.path_join(\"cache/projects/\"))
 "
 
-[node name="McFunctionCoperWindow" type="Window" unique_id=969437798]
+[node name="MCFunctionCoperWindow" type="Window" unique_id=969437798]
 oversampling_override = 1.0
 title = "复制函数"
 position = Vector2i(0, 36)

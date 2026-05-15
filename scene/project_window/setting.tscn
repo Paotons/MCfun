@@ -61,27 +61,27 @@ func update_tree_item() -> void:
 script/source = "extends LineEdit
 
 func _ready() -> void:
-	var project := ProjectManager.get_current_project()
-	set_text(project.get_project_name())
+	var config := ProjectManager.get_current_project().get_project_config()
+	set_text(config.get_project_name())
 
 func _on_editing_toggled(toggled_on: bool) -> void:
 	if toggled_on: # 开始编辑
 		return
-	var project := ProjectManager.get_current_project()
-	var nam := project.get_project_name()
+	var config := ProjectManager.get_current_project().get_project_config()
+	var nam := config.get_project_name()
 	if not text.is_valid_filename() or ProjectManager.has_project(text):
 		set_text(nam)
 	ProjectManager.remove_project_list(nam)
-	ProjectManager.add_project_list(text, ProjectSettings.localize_path(project.get_project_path()))
-	project.set_project_name(text)
+	ProjectManager.add_project_list(text, ProjectSettings.localize_path(config.get_project_path()))
+	config.set_project_name(text)
 "
 
 [sub_resource type="GDScript" id="GDScript_vjpg7"]
 script/source = "extends LineEdit
 
 func _ready() -> void:
-	var project := ProjectManager.get_current_project()
-	set_text(project.get_project_path())
+	var config := ProjectManager.get_current_project().get_project_config()
+	set_text(config.get_project_path())
 "
 
 [sub_resource type="GDScript" id="GDScript_k36xx"]
@@ -92,25 +92,25 @@ var _cache_text : String
 func _ready() -> void:
 	editing_toggled.connect(_on_editing_toggled)
 	
-	var varsion := ProjectManager.get_current_project().get_project_version()
-	_cache_text = Project.version_to_string(varsion)
+	var varsion := ProjectManager.get_current_project().get_project_config().get_project_version()
+	_cache_text = ProjectConfig.version_to_string(varsion)
 	set_text(_cache_text)
 
 func _on_editing_toggled(toggled : bool) -> void:
 	if toggled:
 		return
 	
-	var varsion := Project.string_to_varsion(text)
+	var varsion := ProjectConfig.string_to_varsion(text)
 	
 	if varsion.is_empty():
 		set_text(_cache_text)
 		return
 	
-	var new_text := Project.version_to_string(varsion)
+	var new_text := ProjectConfig.version_to_string(varsion)
 	if text != new_text:
 		_cache_text = new_text
 		set_text(new_text)
-	ProjectManager.get_current_project().set_project_version(varsion)
+	ProjectManager.get_current_project().get_project_config().set_project_version(varsion)
 
 "
 
@@ -119,10 +119,12 @@ script/source = "extends TextEdit
 
 func _ready() -> void:
 	focus_exited.connect(_on_focus_exited)
-	set_text(ProjectManager.get_current_project().get_project_description())
+	var config := ProjectManager.get_current_project().get_project_config()
+	set_text(config.get_project_description())
 
 func _on_focus_exited() -> void:
-	ProjectManager.get_current_project().set_project_description(text)
+	var config := ProjectManager.get_current_project().get_project_config()
+	config.set_project_description(text)
 
 
 "
@@ -135,25 +137,25 @@ var _cache_text : String
 func _ready() -> void:
 	editing_toggled.connect(_on_editing_toggled)
 	
-	var varsion := ProjectManager.get_current_project().get_project_main_engine_version()
-	_cache_text = Project.version_to_string(varsion)
+	var varsion := ProjectManager.get_current_project().get_project_config().get_project_main_engine_version()
+	_cache_text = ProjectConfig.version_to_string(varsion)
 	set_text(_cache_text)
 
 func _on_editing_toggled(toggled : bool) -> void:
 	if toggled:
 		return
 	
-	var varsion := Project.string_to_varsion(text)
+	var varsion := ProjectConfig.string_to_varsion(text)
 	
 	if varsion.is_empty():
 		set_text(_cache_text)
 		return
 	
-	var new_text := Project.version_to_string(varsion)
+	var new_text := ProjectConfig.version_to_string(varsion)
 	if text != new_text:
 		_cache_text = new_text
 		set_text(new_text)
-	ProjectManager.get_current_project().set_project_main_engine_version(varsion)
+	ProjectManager.get_current_project().get_project_config().set_project_main_engine_version(varsion)
 "
 
 [node name="ProjectSetting" type="Window" unique_id=216988942]

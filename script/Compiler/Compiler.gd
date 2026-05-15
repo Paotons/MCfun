@@ -5,8 +5,8 @@ extends Resource
 ##
 ## 用于将各种变量的转化。抽象类，你不应该实例化。
 
-## 如果为 [code]true[/code]，则解析失败。
-var is_faild := true
+var _is_valid := false
+
 ## 解析的结果。
 var compiled_result : Variant
 ## 错误。
@@ -28,8 +28,11 @@ func get_result() -> Variant:
 	return compiled_result
 ## 如果数据可用，返回 [code]true[/code]。
 func is_valid() -> bool:
-	return not is_faild
+	return _is_valid
 
+## [b]Protected:[/b]用于设置 [method is_vaild] 返回值。
+func _set_is_valid(enabled := true) -> void:
+	_is_valid = enabled
 ## [b]Protected:[/b]用于解析时，判断变量是否为指定类型，如果成功，返回 [code]true[/code]，如果失败，会记一次错误，并返回 [code]false[/code]。
 func _test_value_type(value : Variant, types : int, value_name := "Value") -> bool:
 	if types >> typeof(value) & 1 != 0:

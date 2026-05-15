@@ -37,7 +37,7 @@ func get_current_project() -> Project:
 ## 获取项目。
 func get_project(name : String) -> Project:
 	var project := Project.new()
-	project.config = get_project_config(name)
+	project.project_config = _get_project_config_file(name)
 	return project
 ## 获取项目数量。
 func get_project_count() -> int:
@@ -49,22 +49,14 @@ func get_project_names() -> PackedStringArray:
 ## 获取项目的目录。
 func get_project_path(name : String) -> String:
 	return project_list_config.get_value("List", name)
-@warning_ignore("shadowed_variable_base_class")
-## 获取项目配置文件。
-func get_project_config(name : String) -> ConfigFile:
-	var path := get_project_path(name).path_join(Project.PROJECT_CONFIG_PATH)
-	if not FileAccess.file_exists(path):
-		return null
-	var config := ConfigFile.new()
-	config.load(path)
-	return config
+
 @warning_ignore("shadowed_variable_base_class")
 ## 如果有这个项目，返回 [code]true[/code]。
 func has_project(name : String) -> bool:
 	if not project_list_config.has_section("List"):
 		return false
 	return project_list_config.has_section_key("List", name)
-## 新增项目。
+## 新增项目列表。
 @warning_ignore("shadowed_variable_base_class")
 func add_project_list(name : String, path : String) -> void:
 	project_list_config.set_value("List", name, path)
@@ -86,16 +78,22 @@ func remove_project_list(name : String) -> void:
 func create_project(name : String, path : String) -> bool:
 	if not DirAccess.dir_exists_absolute(path):
 		return false
-	var config := _create_config_file(name, path)
-	config.save(path.path_join(Project.PROJECT_CONFIG_PATH))
+	var config := ProjectConfig._create_config_file(name, path)
+	config.save(path.path_join(ProjectConfig.PROJECT_CONFIG_PATH))
 	add_project_list(name, path)
 	return true
 
+
 @warning_ignore("shadowed_variable_base_class")
-# 创建配置文件。
-func _create_config_file(name : String, path : String) -> ConfigFile:
-	var config := ConfigFile.new()
-	config.set_value(Project.CONFIG_SELECT_PROJECT, "name", name)
-	config.set_value(Project.CONFIG_SELECT_PROJECT, "path", path)
-	config.set_value(Project.CONFIG_SELECT_PROJECT, "nearest_time", Time.get_datetime_string_from_system())
+# 获取项目配置文件。
+func _get_project_config_file(name : String) -> ProjectConfig:
+	var path := get_project_path(name).path_join(ProjectConfig.PROJECT_CONFIG_PATH)
+	if not FileAccess.file_exists(path):
+		return null
+	var file := ConfigFile.new()
+	file.load(path)
+	var config := ProjectConfig.new()
+	config._set_config_file(file)
 	return config
+
+

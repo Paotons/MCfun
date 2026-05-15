@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b1mh5o58v8e5g"]
 
-[ext_resource type="Script" uid="uid://kix1v254ull0" path="res://scene/FileWindow/FileSystem.gd" id="1_3atx5"]
-[ext_resource type="PackedScene" uid="uid://bwfbp4n5l0afb" path="res://scene/FileWindow/Create.tscn" id="2_xngp6"]
+[ext_resource type="Script" uid="uid://kix1v254ull0" path="res://scene/file_window/file_system.gd" id="1_3atx5"]
+[ext_resource type="PackedScene" uid="uid://bwfbp4n5l0afb" path="res://scene/file_window/create.tscn" id="2_xngp6"]
 
 [sub_resource type="GDScript" id="GDScript_3atx5"]
 script/source = "extends MenuButton
@@ -159,7 +159,7 @@ script/source = "extends FileTree
 
 func _ready() -> void:
 	root_name = \"res://\"
-	root_path = ProjectManager.get_current_project().get_project_path()
+	root_path = ProjectManager.get_current_project().get_project_config().get_project_path()
 	update_tree_item()
 "
 
@@ -186,7 +186,7 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer" unique_id=1873589889]
 layout_mode = 2
 
-[node name="add" type="MenuButton" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1014723105]
+[node name="Add" type="MenuButton" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1014723105]
 layout_mode = 2
 text = "添加"
 item_count = 2
@@ -196,7 +196,7 @@ popup/item_1/text = "mcfun"
 popup/item_1/id = 1
 script = SubResource("GDScript_3atx5")
 
-[node name="open" type="MenuButton" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1281373393]
+[node name="Open" type="MenuButton" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1281373393]
 layout_mode = 2
 text = "打开"
 item_count = 2
@@ -206,7 +206,7 @@ popup/item_1/text = "子文件"
 popup/item_1/id = 1
 script = SubResource("GDScript_laydq")
 
-[node name="delete" type="MenuButton" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=127445264]
+[node name="Remove" type="MenuButton" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=127445264]
 layout_mode = 2
 text = "删除"
 item_count = 2
@@ -226,4 +226,4 @@ script = SubResource("GDScript_xngp6")
 visible = false
 
 [connection signal="close_requested" from="." to="." method="hide"]
-[connection signal="create_file" from="CreateFileWindow" to="VBoxContainer/MarginContainer/HBoxContainer/add" method="_on_create_file_window_create_file"]
+[connection signal="create_file" from="CreateFileWindow" to="VBoxContainer/MarginContainer/HBoxContainer/Add" method="_on_create_file_window_create_file"]

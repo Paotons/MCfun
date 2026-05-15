@@ -1,9 +1,10 @@
-class_name GrammerParamBacketRuleCompiler
+class_name GrammerArrayBacketRuleCompiler
 extends GrammerArrayRuleCompiler
-## 参数括号的解析器。
+## 语法数组解析器。
 
 func _compile(data : Variant) -> void:
 	var from := data as Dictionary
+	
 	if not from.has("data"):
 		errors.append("%s not has data." % rule_name)
 		return
@@ -14,5 +15,6 @@ func _compile(data : Variant) -> void:
 	if not _compile_array_rules(from["data"], "%s[data]" % rule_name, out, 1, 1):
 		return
 	compiled_result[RuleMeta.DATA] = out
-	is_faild = false
+	_set_is_valid(true)
+
 

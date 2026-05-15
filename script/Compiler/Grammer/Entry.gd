@@ -23,7 +23,7 @@ func _compile(data : Variant) -> void:
 	
 	for chapter_name : String in data:
 		_compiled_chapter(from[chapter_name], chapter_name)
-	is_faild = false
+	_set_is_valid(true)
 
 ## 解析章节。
 func _compiled_chapter(from : Dictionary, name : String) -> void:

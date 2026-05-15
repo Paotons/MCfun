@@ -12,7 +12,7 @@ func _compile(data : Variant) -> void:
 		return
 	if not _compile_detail(data):
 		return
-	is_faild = false
+	_set_is_valid(true)
 
 func _compile_data(from : Dictionary) -> bool:
 	if not from.has("data"):

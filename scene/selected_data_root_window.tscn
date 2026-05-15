@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cj6k3ve1jedrn"]
 
-[ext_resource type="Script" uid="uid://51li4a3ltsmk" path="res://scene/SelectedDaataRootWindow.gd" id="1_inet1"]
+[ext_resource type="Script" uid="uid://51li4a3ltsmk" path="res://scene/selected_data_root_window.gd" id="1_inet1"]
 
 [sub_resource type="GDScript" id="GDScript_spie5"]
 script/source = "extends Button

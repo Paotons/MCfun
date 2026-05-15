@@ -1,11 +1,11 @@
-[gd_scene format=3 uid="uid://bx5ycqgxhmmr7"]
+[gd_scene format=3 uid="uid://dw3ca0im08urk"]
 
-[ext_resource type="Script" uid="uid://dbsguqbxsn3im" path="res://script/Highlight/Highlight.gd" id="1_uu6xs"]
-[ext_resource type="Script" uid="uid://c56tb0y6fuj01" path="res://scene/FileListContainer.gd" id="1_w0n44"]
-[ext_resource type="PackedScene" uid="uid://daio2odmv7kgw" path="res://scene/EditWindow/Setting.tscn" id="5_pdkdi"]
-[ext_resource type="PackedScene" uid="uid://qyqgjfqhms20" path="res://scene/ProjectWindow/Setting.tscn" id="6_w0n44"]
-[ext_resource type="PackedScene" uid="uid://b1mh5o58v8e5g" path="res://scene/FileWindow/FileSystem.tscn" id="8_qyh5x"]
-[ext_resource type="PackedScene" uid="uid://diyi5chw3itl4" path="res://scene/ProjectWindow/ExportSetting.tscn" id="9_kijkp"]
+[ext_resource type="Script" uid="uid://dbsguqbxsn3im" path="res://script/hightlight/highlight.gd" id="1_uu6xs"]
+[ext_resource type="Script" uid="uid://c56tb0y6fuj01" path="res://scene/file_list_container.gd" id="1_w0n44"]
+[ext_resource type="PackedScene" uid="uid://daio2odmv7kgw" path="res://scene/edit_window/setting.tscn" id="5_pdkdi"]
+[ext_resource type="PackedScene" uid="uid://qyqgjfqhms20" path="res://scene/project_window/setting.tscn" id="6_w0n44"]
+[ext_resource type="PackedScene" uid="uid://b1mh5o58v8e5g" path="res://scene/file_window/file_system.tscn" id="8_qyh5x"]
+[ext_resource type="PackedScene" uid="uid://diyi5chw3itl4" path="res://scene/project_window/export_setting.tscn" id="9_kijkp"]
 
 [sub_resource type="GDScript" id="GDScript_ktujv"]
 resource_name = "ProjectMenuButton"
@@ -309,8 +309,8 @@ func _on_text_changed() -> void:
 #region 初始化。
 # 初始化缓存文件目录。
 func _init_files_chache_directory() -> void:
-	var path := FileSystem.data_root.path_join(\"cache/projects\").path_join(
-		ProjectManager.get_current_project().get_project_name()).path_join(\"files\")
+	var config := ProjectManager.get_current_project().get_project_config()
+	var path := FileSystem.data_root.path_join(\"cache/projects\").path_join(config.get_project_name()).path_join(\"files\")
 	
 	if DirAccess.dir_exists_absolute(path):
 		FileSystem.remove_directory(path)
@@ -427,7 +427,8 @@ font_color = Color(1, 0, 0, 1)
 script/source = "extends FileDialog
 
 func _ready() -> void:
-	set_current_path(ProjectManager.get_current_project().get_project_path())
+	var config := ProjectManager.get_current_project().get_project_config()
+	set_current_path(config.get_project_path())
 "
 
 [sub_resource type="GDScript" id="GDScript_kijkp"]

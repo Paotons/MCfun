@@ -35,7 +35,7 @@ func is_valid() -> bool:
 	elif not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(path)):
 		return false
 	
-	if not FileAccess.file_exists(path.path_join(Project.PROJECT_CONFIG_PATH)):
+	if not FileAccess.file_exists(path.path_join(ProjectConfig.PROJECT_CONFIG_PATH)):
 		return false
 	return true
 
@@ -48,8 +48,8 @@ func _pressed() -> void:
 	var nam := get_project_name()
 	var path := get_project_path()
 	ProjectManager.add_project_list(nam, path)
-	var project := ProjectManager.get_project(nam)
-	project.set_project_name(nam)
+	var config := ProjectManager.get_project(nam).get_project_config()
+	config.set_project_name(nam)
 	get_window().close_requested.emit()
 
 "
@@ -124,7 +124,7 @@ script = SubResource("GDScript_7vk0i")
 layout_mode = 2
 text = "LOC"
 
-[node name="load" type="Button" parent="VBoxContainer" unique_id=1982959239]
+[node name="Load" type="Button" parent="VBoxContainer" unique_id=1982959239]
 layout_mode = 2
 size_flags_horizontal = 4
 disabled = true
@@ -139,7 +139,7 @@ file_mode = 2
 access = 2
 script = SubResource("GDScript_7nifj")
 
-[connection signal="focus_exited" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ProjectName" to="VBoxContainer/load" method="test_is_vaild"]
-[connection signal="focus_exited" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" to="VBoxContainer/load" method="test_is_vaild"]
+[connection signal="focus_exited" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ProjectName" to="VBoxContainer/Load" method="test_is_vaild"]
+[connection signal="focus_exited" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" to="VBoxContainer/Load" method="test_is_vaild"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/Button" to="FileDialog" method="popup_centered_clamped"]
 [connection signal="dir_selected" from="FileDialog" to="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" method="_on_file_dialog_dir_selected"]

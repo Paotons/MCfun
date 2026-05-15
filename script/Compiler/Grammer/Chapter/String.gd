@@ -11,7 +11,7 @@ class _Item extends GrammerCompiler:
 		if _test_array_types(from, 1 << TYPE_STRING, "%s[data]" % chapter):
 			return
 		compiled_result = from
-		is_faild = false
+		_set_is_valid(true)
 
 # 解析数据。
 func _compile(data : Variant) -> void:
@@ -31,6 +31,6 @@ func _compile(data : Variant) -> void:
 		return
 	
 	compiled_result[ChapterMeta.DATA] = obj.get_result()
-	is_faild = false
+	_set_is_valid(true)
 
 

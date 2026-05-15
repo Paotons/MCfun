@@ -104,7 +104,8 @@ func _ready() -> void:
 	
 	assert(DirAccess.dir_exists_absolute(grammer_directory), "Not has directory.")
 	grammer = Grammer.new()
-	grammer.try_open(grammer_directory)
+	var error := grammer.try_open(grammer_directory)
+	assert(error.is_empty(), "Grammer has error.")
 	
 	EditManager.function_edit = self
 	

@@ -19,7 +19,7 @@ class _Default extends _Element:
 			_try_dictionary_key_direct(from, "%s[custom]" % element, "custom", META_CUSTOM, false)
 		):
 			return
-		is_faild = false
+		_set_is_valid(true)
 
 class _Option extends _Element:
 	# 要用空间标识。
@@ -45,7 +45,7 @@ class _Option extends _Element:
 			_test_value_array_types.bind(1 << TYPE_STRING, "%s[description]" % element, size),
 		):
 			return
-		is_faild = false
+		_set_is_valid(true)
 		
 	func _compile_detail(from : Dictionary) -> bool:
 		if not from.has("detail"):
@@ -83,7 +83,7 @@ class _Nil extends _Element:
 			_try_dictionary_key_direct(from, "%s[custom]" % element, "custom", META_CUSTOM, false)
 		):
 			return
-		is_faild = false
+		_set_is_valid(true)
 
 ## 元素名称。
 var element_name : String
@@ -128,7 +128,7 @@ func compile(data : Variant) -> void:
 	if not obj.is_valid():
 		return
 	compiled_result.merge(obj.get_result())
-	is_faild = false
+	_set_is_valid(true)
 
 # 解析元素 type。
 func _compile_type(from : Dictionary) -> bool:

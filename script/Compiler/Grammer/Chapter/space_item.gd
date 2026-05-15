@@ -24,7 +24,7 @@ class _Space extends GrammerCompiler:
 				return
 			
 			compiled_result[space]= obj.get_result()
-		is_faild = false
+		_set_is_valid(true)
 
 class _Item extends GrammerCompiler:
 	var chapter : String
@@ -36,7 +36,7 @@ class _Item extends GrammerCompiler:
 			return
 		
 		compiled_result = data
-		is_faild = false
+		_set_is_valid(true)
 
 ## 解析数据。
 func _compile(data : Variant) -> void:
@@ -57,7 +57,7 @@ func _compile(data : Variant) -> void:
 		return
 	
 	compiled_result[ChapterMeta.DATA] = obj.get_result()
-	is_faild = false
+	_set_is_valid(true)
 	return
 
 

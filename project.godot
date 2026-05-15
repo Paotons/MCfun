@@ -38,7 +38,7 @@ folder_colors={
 "res://resource/": "yellow",
 "res://scene/": "blue",
 "res://script/": "pink",
-"res://script/Global/": "red"
+"res://script/global/": "red"
 }
 
 [gui]

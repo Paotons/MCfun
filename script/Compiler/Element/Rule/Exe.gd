@@ -103,7 +103,7 @@ class _Option extends _Element:
 					return
 				result.append(goto_i)
 			compiled_result[META_GOTO] = result
-		is_faild = false
+		_set_is_valid(true)
 
 class _Nil extends _Element:
 	func _compile(data : Variant) -> void:
@@ -115,19 +115,19 @@ class _Nil extends _Element:
 			compile_goto_default(form)
 		):
 			return
-		is_faild = false
+		_set_is_valid(true)
 
 class _Default extends _Element:
-		func _compile(data : Variant) -> void:
-			var form := data as Dictionary
-			if not (
-				compile_extends_default(form) and 
-				compile_id_default(form) and
-				compile_is_end_default(form) and
-				compile_goto_default(form)
-			):
-				return
-			is_faild = false
+	func _compile(data : Variant) -> void:
+		var form := data as Dictionary
+		if not (
+			compile_extends_default(form) and 
+			compile_id_default(form) and
+			compile_is_end_default(form) and
+			compile_goto_default(form)
+		):
+			return
+		_set_is_valid(true)
 
 ## 元素类型。
 const META_TYPE := 0
@@ -164,5 +164,5 @@ func _compile(data : Variant) -> void:
 	if not obj.is_valid():
 		return
 	compiled_result.merge(obj.get_result())
-	is_faild = false
+	_set_is_valid(true)
 

@@ -18,7 +18,7 @@ func _compile(data : Variant) -> void:
 	for rule_name : String in from:
 		if not _compile_rule(from[rule_name], rule_name, from):
 			return
-	is_faild = false
+	_set_is_valid(true)
 
 # 解析规则。
 func _compile_rule(from : Dictionary, name : String, law : Dictionary) -> bool:

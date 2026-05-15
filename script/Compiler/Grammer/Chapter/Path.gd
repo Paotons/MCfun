@@ -59,7 +59,7 @@ class _Path extends GrammerCompiler:
 		compiled_result[_PathMeta.MUMBER] = mumber
 		compiled_result[_PathMeta.GROUP_MUMBER] = group_mumber
 		compiled_result[_PathMeta.GROUP_DATA] = group_data
-		is_faild = false
+		_set_is_valid(true)
 
 # 解析数据。
 func _compile(data : Variant) -> void:
@@ -78,7 +78,7 @@ func _compile(data : Variant) -> void:
 	if not obj.is_valid():
 		return
 	compiled_result[ChapterMeta.DATA] = obj.get_result()
-	is_faild = false
+	_set_is_valid(true)
 
 
 

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://daio2odmv7kgw"]
 
-[ext_resource type="Script" uid="uid://1ic2wkh6sbt8" path="res://scene/EditWindow/Setting.gd" id="1_h0p1a"]
-[ext_resource type="PackedScene" uid="uid://cj6k3ve1jedrn" path="res://scene/SelectedDataRootWindow.tscn" id="2_igemm"]
+[ext_resource type="Script" uid="uid://1ic2wkh6sbt8" path="res://scene/edit_window/setting.gd" id="1_h0p1a"]
+[ext_resource type="PackedScene" uid="uid://cj6k3ve1jedrn" path="res://scene/selected_data_root_window.tscn" id="2_igemm"]
 
 [sub_resource type="GDScript" id="GDScript_2n6rp"]
 resource_name = "SettingTree"

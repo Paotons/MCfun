@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bn8koofeod6if"]
 
-[ext_resource type="Script" uid="uid://ddtueh8w1a55b" path="res://scene/ProjectListContainer.gd" id="1_cv2fd"]
+[ext_resource type="Script" uid="uid://ddtueh8w1a55b" path="res://scene/project_list_container.gd" id="1_cv2fd"]
 
 [node name="ProjectListContainer" type="MarginContainer" unique_id=1235808997]
 anchors_preset = 10

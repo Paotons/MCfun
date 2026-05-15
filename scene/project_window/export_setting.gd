@@ -26,7 +26,7 @@ func _get_export_path_line_edit() -> LineEdit:
 	return $MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Path
 # 获取导出名称编辑框。
 func _get_export_name_line_edit() -> LineEdit:
-	return $MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2/name
+	return $MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2/Name
 # 获取检测标签。
 func _get_test_label() -> Label:
 	return $MarginContainer/ScrollContainer/VBoxContainer/Test

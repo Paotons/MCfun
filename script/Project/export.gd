@@ -50,7 +50,7 @@ static func _export_create_functions(project : Project, setting : ProjectExportS
 	setting.sub_process = Vector2i(-1, -1)
 	setting.mutex.unlock()
 	
-	var fun_paths := project.get_files_from_extension("mcfun")
+	var fun_paths := project.get_project_config().get_files_from_extension("mcfun")
 	for i in fun_paths.size():
 		var fun_path := fun_paths[i]
 		
@@ -62,7 +62,7 @@ static func _export_create_functions(project : Project, setting : ProjectExportS
 		_export_create_function(project, fun_path, packer)
 # 创建函数。
 static func _export_create_function(project : Project, fun_path : String, packer : ZIPPacker) -> void:
-	var local := project.global_path_to_local(fun_path)
+	var local := project.get_project_config().global_path_to_local(fun_path)
 	
 	var to_path := "functions".path_join(local.get_basename() + ".mcfunction")
 	packer.start_file(to_path)
@@ -71,27 +71,29 @@ static func _export_create_function(project : Project, fun_path : String, packer
 
 ## 创建一个 [code]manifest[/code] 内容。
 static func create_manifest(project : Project) -> Dictionary:
+	var config := project.get_project_config()
 	var mainfest := {
 	  "format_version": 2,
 	  "header": {},
 	  "modules": [],
 	}
 	mainfest.header = {
-		"description": project.get_project_description(),
-		"name": project.get_project_name(),
+		"description": config.get_project_description(),
+		"name": config.get_project_name(),
 		"uuid": create_uuid(),
-		"version": project.get_project_version(),
-		"min_engine_version": project.get_project_main_engine_version(),
+		"version": config.get_project_version(),
+		"min_engine_version": config.get_project_main_engine_version(),
 	  }
 	mainfest.modules = [
 		{
 		  "type": "data",
 		  "uuid": create_uuid(),
-		  "version": project.get_project_version(),
+		  "version": config.get_project_version(),
 		}
 	  ]
 	return mainfest
 
+# 此函数由 DeepSeek 生成。
 ## 生成一个 uuid。
 static func create_uuid() -> String:
 	const HEX := "0123456789abcdef"
@@ -126,5 +128,4 @@ static func create_uuid() -> String:
 	parts.append(part5)
 	
 	return "-".join(parts)
-
 

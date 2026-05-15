@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://diyi5chw3itl4"]
 
-[ext_resource type="Script" uid="uid://xubfrpnsxr36" path="res://scene/ProjectWindow/ExportSetting.gd" id="1_xymlg"]
+[ext_resource type="Script" uid="uid://xubfrpnsxr36" path="res://scene/project_window/export_setting.gd" id="1_xymlg"]
 
 [sub_resource type="GDScript" id="GDScript_w0g4x"]
 script/source = "extends LineEdit
@@ -13,8 +13,8 @@ func _ready() -> void:
 
 # 获取默认导出目录。
 func _get_default_export_directory() -> String:
-	var project := ProjectManager.get_current_project()
-	return FileSystem.data_root.path_join(\"cache/projects\").path_join(project.get_project_name()).path_join(\"exports\")
+	var config := ProjectManager.get_current_project().get_project_config()
+	return FileSystem.data_root.path_join(\"cache/projects\").path_join(config.get_project_name()).path_join(\"exports\")
 # 初始化导出目录。
 func _initial_export_directory() -> void:
 	var path := _get_default_export_directory()
@@ -33,8 +33,8 @@ func _on_export_path_window_dir_selected(dir: String) -> void:
 script/source = "extends LineEdit
 
 func _ready() -> void:
-	var project := ProjectManager.get_current_project()
-	set_text(project.get_project_name())
+	var config := ProjectManager.get_current_project().get_project_config()
+	set_text(config.get_project_name())
 "
 
 [node name="ProjectExportSetting" type="AcceptDialog" unique_id=1489223026]
@@ -105,7 +105,7 @@ layout_mode = 2
 layout_mode = 2
 text = "名称："
 
-[node name="name" type="LineEdit" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=1380853674]
+[node name="Name" type="LineEdit" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=1380853674]
 layout_mode = 2
 size_flags_horizontal = 3
 script = SubResource("GDScript_y64do")
@@ -152,6 +152,6 @@ text = "打开"
 [connection signal="close_requested" from="." to="." method="close"]
 [connection signal="text_changed" from="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Path" to="." method="_on_path_text_changed"]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Locate" to="ExportPathWindow" method="popup_centered_clamped"]
-[connection signal="text_changed" from="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2/name" to="." method="_on_name_text_changed"]
+[connection signal="text_changed" from="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2/Name" to="." method="_on_name_text_changed"]
 [connection signal="dir_selected" from="ExportPathWindow" to="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Path" method="_on_export_path_window_dir_selected"]
 [connection signal="pressed" from="Exporting/VBoxContainer/Open" to="." method="_on_open_pressed"]

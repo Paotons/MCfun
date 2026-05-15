@@ -2,8 +2,8 @@
 	"format_version" : 1,
 	
 	"files" : {
-		"process" : "GrammerProcess.json",
-		"entry" : "GrammerEntry.json",
-		"law" : "GrammerLaw.json",
+		"process" : "process.json",
+		"entry" : "entry.json",
+		"law" : "law.json",
 	},
 }

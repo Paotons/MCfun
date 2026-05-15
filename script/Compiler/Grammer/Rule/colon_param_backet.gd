@@ -14,4 +14,4 @@ func _compile(data : Variant) -> void:
 	if not _compile_dictionary_rules(data["data"], "%s[data]" % rule_name, out):
 		return
 	compiled_result[GrammerRule.RuleMeta.DATA] = out
-	is_faild = false
+	_set_is_valid(true)
