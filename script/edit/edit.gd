@@ -42,13 +42,8 @@ var nearst_input_position : Dictionary[int, Vector2i]
 static var _code_completion_head_data : CodeCompletionData
 #endregion
 
-#region 语法。
-@export_group("grammer")
-## 语法目录。
-@export_dir() var grammer_directory : String
 ## 语法。
 var grammer : Grammer
-#endregion
 
 #region 颜色。
 @export_group("color", "color")
@@ -101,11 +96,6 @@ var command_elements : Dictionary[int, CommandElement]
 # 开始。
 func _ready() -> void:
 	set_double_input_char_map(double_input_char_map)
-	
-	assert(DirAccess.dir_exists_absolute(grammer_directory), "Not has directory.")
-	grammer = Grammer.new()
-	var error := grammer.try_open(grammer_directory)
-	assert(error.is_empty(), "Grammer has error.")
 	
 	EditManager.function_edit = self
 	
@@ -196,15 +186,29 @@ func _handle_unicode_input(unicode_char: int, caret_index: int) -> void:
 	add_code_hint()
 # 退格。
 func _backspace(caret_index: int) -> void:
+	var test_index : int = 0 if caret_index == -1 else caret_index
+	
+	var is_backspace := nearst_input_unicode.get(test_index, -1) as int == 8 # \b
+	var delta : int = Time.get_ticks_msec() - nearst_input_time[test_index] if is_backspace and nearst_input_time.has(test_index) else 0xFFFFFFFF
+	
 	if caret_index >= 0:
-		caret_backspace(caret_index)
+		_caret_backspace(caret_index)
 	elif caret_index == -1:
 		for i in range(get_caret_count()):
-			caret_backspace(i)
+			_caret_backspace(i)
 	else:
 		push_error("异常光标序列 %d." % [caret_index])
+	
 	await get_tree().process_frame
-	add_code_hint()
+	if not (is_backspace and delta < 200): # 连续退格不补全
+		add_code_hint()
+	else:
+		clear_hint()
+func _caret_backspace(caret_index := 0) -> void:
+	nearst_input_time[caret_index] = Time.get_ticks_msec()
+	nearst_input_position[caret_index] = Vector2i(get_caret_column(caret_index), get_caret_line(caret_index))
+	nearst_input_unicode[caret_index] = 8 # \b
+	caret_backspace(caret_index)
 # 双击事件。
 func _double_input(unicode_chr : int, caret_index : int) -> bool:
 	if double_input_disabled:
@@ -219,6 +223,9 @@ func _double_input(unicode_chr : int, caret_index : int) -> bool:
 #region 补全主要。
 ## 补全，对光标处进行补全。
 func add_code_hint() -> void:
+	if grammer == null:
+		return
+	
 	var line := get_caret_line()
 	var element := get_command_element(line)
 	if element == null or element.is_empty():

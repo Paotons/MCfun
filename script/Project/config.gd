@@ -2,58 +2,77 @@ class_name ProjectConfig
 extends Resource
 ## 项目配置文件。
 
-## 配置文件项目的项。
-const CONFIG_SELECT_PROJECT := "Project"
-## 配置文件的键。
-const CONFIG_SELECT_PROJECT_KEYS : PackedStringArray = ["name", "path", "nearest_time", "version"]
-## 项目配置文件。
-const PROJECT_CONFIG_PATH := ".project.cfg"
+# 项---项目。
+const _SELECT_PROJECT := "Project"
+# 项---编辑器。
+const _SELECT_EDIT := "Edit"
+
+# 项---项目的键。
+const _SELECT_PROJECT_KEYS : PackedStringArray = ["name", "path", "nearest_time", "version"]
+# 项---编辑器的键。
+const _SELECT_EDIT_KEYS : PackedStringArray = ["grammer"]
+
+## 项目配置文件路径。
+const _CONFIG_PATH := ".project.cfg"
 ## 项目配置文件。
 var _config : ConfigFile
 
+#region 项目。
 ## 获取路径
 func get_project_path() -> String:
-	return _config.get_value(CONFIG_SELECT_PROJECT, "path")
+	return _config.get_value(_SELECT_PROJECT, "path")
 ## 获取项目名称。
 func get_project_name() -> String:
-	return _config.get_value(CONFIG_SELECT_PROJECT, "name")
+	return _config.get_value(_SELECT_PROJECT, "name")
 ## 获取项目最近时间。
 func get_project_nearest_time() -> String:
-	return (_config.get_value(CONFIG_SELECT_PROJECT, "nearest_time") as String).replace("T", " ")
+	return (_config.get_value(_SELECT_PROJECT, "nearest_time") as String).replace("T", " ")
 ## 获取项目版本。
 func get_project_version() -> PackedInt32Array:
-	return _config.get_value(CONFIG_SELECT_PROJECT, "version", [1, 0, 0])
+	return _config.get_value(_SELECT_PROJECT, "version", [1, 0, 0])
 ## 获取最小游戏版本。
 func get_project_main_engine_version() -> PackedInt32Array:
-	return _config.get_value(CONFIG_SELECT_PROJECT, "min_engine_varsion", [1, 2, 0])
+	return _config.get_value(_SELECT_PROJECT, "min_engine_varsion", [1, 2, 0])
 ## 获取项目描述。
 func get_project_description() -> String:
-	return _config.get_value(CONFIG_SELECT_PROJECT, "description", "")
+	return _config.get_value(_SELECT_PROJECT, "description", "")
 
 ## 设置配置文件名称。
 func set_project_name(value : String) -> void:
-	_config.set_value(CONFIG_SELECT_PROJECT, "name", value)
-	_config.save(get_project_path().path_join(PROJECT_CONFIG_PATH))
+	_config.set_value(_SELECT_PROJECT, "name", value)
+	_config.save(get_project_path().path_join(_CONFIG_PATH))
 ## 更新最近时间。
 func update_project_nearest_time() -> void:
-	_config.set_value(CONFIG_SELECT_PROJECT, "nearest_time", Time.get_datetime_string_from_system())
+	_config.set_value(_SELECT_PROJECT, "nearest_time", Time.get_datetime_string_from_system())
 	save()
 ## 获取项目版本。
 func set_project_version(value : PackedInt32Array) -> void:
-	_config.set_value(CONFIG_SELECT_PROJECT, "version", value)
+	_config.set_value(_SELECT_PROJECT, "version", value)
 	save()
 ## 或者最小游戏版本。
 func set_project_main_engine_version(value : PackedInt32Array) -> void:
-	_config.set_value(CONFIG_SELECT_PROJECT, "min_engine_version", value)
+	_config.set_value(_SELECT_PROJECT, "min_engine_version", value)
 	save()
 ## 设置项目描述。
 func set_project_description(value : String) -> void:
-	_config.set_value(CONFIG_SELECT_PROJECT, "description", value)
+	_config.set_value(_SELECT_PROJECT, "description", value)
 	save()
+#endregion
+
+#region 编辑器。
+## 获取编辑器语法路径，如果 [param test] 为 [code]true[/code]，当目录不可用时会返回默认目录。
+func get_edit_grammer_path(test := true) -> String:
+	const DEFAULT := "res://resource/grammer/default"
+	var path : String = _config.get_value(_SELECT_EDIT, "grammer", DEFAULT)
+	return path if test and DirAccess.dir_exists_absolute(path) else DEFAULT
+## 设置编辑器语法路径。
+func set_edit_grammer_path(path : String) -> void:
+	return _config.set_value(_SELECT_EDIT, "grammer", path)
+#endregion
 
 ## 保存。
 func save() -> void:
-	_config.save(get_project_path().path_join(PROJECT_CONFIG_PATH))
+	_config.save(get_project_path().path_join(_CONFIG_PATH))
 
 ## 获取项目所有的指定扩展名的文件。
 func get_files_from_extension(extension : String) -> PackedStringArray:
@@ -75,10 +94,6 @@ func global_path_to_local(path : String) -> String:
 	var p := get_project_path()
 	return path.substr(p.length() + (0 if p.ends_with("/") else 1))
 
-## [b]friend [ProjectManager]:[/b]设置项目配置文件。
-func _set_config_file(file : ConfigFile) -> void:
-	_config = file
-
 ## 把版本转化成字符串。
 static func version_to_string(varsion : PackedInt32Array) -> String:
 	var texts : PackedStringArray
@@ -93,10 +108,30 @@ static func string_to_varsion(string : String) -> PackedInt32Array:
 		result.append(absi(int(text)))
 	return result
 
-## [b]friend [ProjectManager]:[/b]创建项目配置文件。
+## 返回指定目录下配置文件的路径。
+static func get_config_path(path : String) -> String:
+	return path.path_join(_CONFIG_PATH)
+
+## [b]friend [ProjectManager]:[/b]设置项目配置文件。
+func _set_config_file(file : ConfigFile) -> void:
+	_config = file
+## [b]friend [Project]:[/b]创建项目配置文件。
 static func _create_config_file(name : String, path : String) -> ConfigFile:
 	var config := ConfigFile.new()
-	config.set_value(CONFIG_SELECT_PROJECT, "name", name)
-	config.set_value(CONFIG_SELECT_PROJECT, "path", path)
-	config.set_value(CONFIG_SELECT_PROJECT, "nearest_time", Time.get_datetime_string_from_system())
+	config.set_value(_SELECT_PROJECT, "name", name)
+	config.set_value(_SELECT_PROJECT, "path", path)
+	config.set_value(_SELECT_PROJECT, "nearest_time", Time.get_datetime_string_from_system())
 	return config
+## [b]friend [PronectManager]:[/b]打开指定目录下的配置文件。
+static func _open_config_file(path : String) -> ProjectConfig:
+	path = path.path_join(_CONFIG_PATH)
+	if not FileAccess.file_exists(path):
+		return null
+	var file := ConfigFile.new()
+	file.load(path)
+	var config := ProjectConfig.new()
+	config._set_config_file(file)
+	return config
+## [b]friend [Project]:[/b]将配置文件保存到指定目录下。
+static func _save_config_file(config : ConfigFile, path : String) -> void:
+	config.save(path.path_join(_CONFIG_PATH))

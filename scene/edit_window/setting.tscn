@@ -33,6 +33,8 @@ enum ItemIndex {
 	EDIT_CARET,
 	## 编辑器行为。
 	EDIT_BEHAVIOR,
+	## 语法。
+	EDIT_GRAMMER,
 }
 ## 对应的选项。
 @export var option_nodes : Array[Control]
@@ -82,6 +84,8 @@ func update_tree_item() -> void:
 	edit_caret.set_text(0, \"关标\")
 	var edit_behavior := edit.create_child()
 	edit_behavior.set_text(0, \"行为\")
+	var edit_grammer := edit.create_child()
+	edit_grammer.set_text(0, \"语法\")
 	
 	items = [
 		root,
@@ -92,6 +96,7 @@ func update_tree_item() -> void:
 				edit_completion,
 				edit_caret,
 				edit_behavior,
+				edit_grammer,
 	]
 
 
@@ -184,6 +189,31 @@ func _pressed() -> void:
 		EditManager.get_edit().double_input_disabled = not button_pressed
 "
 
+[sub_resource type="GDScript" id="GDScript_182ur"]
+script/source = "extends LineEdit
+
+func _ready() -> void:
+	if not FileSystem.is_initialed():
+		await FileSystem.initial_finished
+	set_text(FileSystem.data_root.path_join(\"storage/grammer\"))
+"
+
+[sub_resource type="GDScript" id="GDScript_tfdl6"]
+script/source = "extends Button
+
+func _pressed() -> void:
+	var res := \"res://resource/grammer/\"
+	assert(DirAccess.dir_exists_absolute(res), \"Not has dir.\")
+	var to_path := FileSystem.data_root.path_join(\"storage/grammer\")
+	if not DirAccess.dir_exists_absolute(to_path):
+		DirAccess.make_dir_recursive_absolute(to_path)
+	
+	for dir in DirAccess.get_directories_at(res):
+		if DirAccess.dir_exists_absolute(to_path.path_join(dir)):
+			FileSystem.remove_directory(to_path.path_join(dir))
+		FileSystem.copy_directory(res.path_join(dir), to_path.path_join(dir))
+"
+
 [sub_resource type="GDScript" id="GDScript_iw8q2"]
 script/source = "extends AcceptDialog
 
@@ -220,7 +250,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 hide_root = true
 script = SubResource("GDScript_2n6rp")
-option_nodes = [null, null, NodePath("../scene_parent/ScrollContainer/MarginContainer/Normal"), null, NodePath("../scene_parent/ScrollContainer/MarginContainer/HighlightColor"), null, null, NodePath("../scene_parent/ScrollContainer/MarginContainer/EditBehavior")]
+option_nodes = [null, null, NodePath("../scene_parent/ScrollContainer/MarginContainer/Normal"), null, NodePath("../scene_parent/ScrollContainer/MarginContainer/HighlightColor"), null, null, NodePath("../scene_parent/ScrollContainer/MarginContainer/EditBehavior"), NodePath("../scene_parent/ScrollContainer/MarginContainer/Grammer")]
 
 [node name="scene_parent" type="MarginContainer" parent="VBoxContainer/HSplitContainer" unique_id=2037927546]
 layout_mode = 2
@@ -527,6 +557,37 @@ text = "双击映射"
 layout_mode = 2
 size_flags_horizontal = 10
 script = SubResource("GDScript_w14fy")
+
+[node name="Grammer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=1120137195]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Grammer" unique_id=1776848451]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Grammer/HBoxContainer" unique_id=1646123195]
+layout_mode = 2
+text = "语法路径"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Grammer/HBoxContainer" unique_id=13197851]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+editable = false
+script = SubResource("GDScript_182ur")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Grammer" unique_id=333399157]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Grammer/HBoxContainer2" unique_id=1044319152]
+layout_mode = 2
+text = "提取语法"
+
+[node name="Button" type="Button" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Grammer/HBoxContainer2" unique_id=2007757670]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "提取"
+script = SubResource("GDScript_tfdl6")
 
 [node name="SaveReopen" type="MarginContainer" parent="VBoxContainer" unique_id=642298975]
 visible = false

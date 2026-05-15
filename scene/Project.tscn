@@ -222,8 +222,10 @@ script = SubResource("GDScript_7wlok")
 visible = false
 
 [node name="CreateProjectWindow" parent="." unique_id=136878735 instance=ExtResource("2_t4e8x")]
+visible = false
 
 [node name="LoadProjectWindow" parent="." unique_id=944477413 instance=ExtResource("3_7wlok")]
+visible = false
 
 [node name="EditSetting" parent="." unique_id=1229169659 instance=ExtResource("4_5kpg8")]
 visible = false

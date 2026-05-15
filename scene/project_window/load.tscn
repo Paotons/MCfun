@@ -1,5 +1,13 @@
 [gd_scene format=3 uid="uid://q873r67430sn"]
 
+[sub_resource type="GDScript" id="GDScript_0dajc"]
+script/source = "extends LineEdit
+
+func _on_file_dialog_dir_selected(dir: String) -> void:
+	text = dir.get_file()
+	text_changed.emit(text)
+"
+
 [sub_resource type="GDScript" id="GDScript_7vk0i"]
 script/source = "extends LineEdit
 
@@ -10,37 +18,60 @@ func _ready() -> void:
 
 func _on_file_dialog_dir_selected(dir: String) -> void:
 	text = dir
+	text_changed.emit(text)
 "
 
 [sub_resource type="GDScript" id="GDScript_u0kf3"]
 script/source = "extends Button
 
+func _ready() -> void:
+	test_is_vaild()
+
 func _get_project_name() -> String:
 	return $\"../MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ProjectName\".text
 func _get_project_path() -> String:
 	return $\"../MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath\".text
+func _get_hint_label() -> Label:
+	return $\"../MarginContainer/MarginContainer/VBoxContainer/Hint\"
 func get_project_name() -> String:
 	return _get_project_name().validate_filename()
 func get_project_path() -> String:
 	return _get_project_path()
 
+func test_is_vaild() -> void:
+	disabled = not is_valid()
+
 func is_valid() -> bool:
+	var label := _get_hint_label()
 	var nam := get_project_name()
+	
 	if not nam.is_valid_filename():
+		label.add_theme_color_override(&\"font_color\", Color.RED)
+		label.set_text(\"文件名不可用。\")
+		return false
+	elif ProjectManager.has_project(nam):
+		label.add_theme_color_override(&\"font_color\", Color.RED)
+		label.set_text(\"已经存在同名项目。\")
 		return false
 	
 	var path := _get_project_path()
 	if not(path.is_absolute_path() or path.is_relative_path()):
+		label.add_theme_color_override(&\"font_color\", Color.RED)
+		label.set_text(\"目录名不可用。\")
 		return false
-	elif not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(path)):
+	elif not DirAccess.dir_exists_absolute(path):
+		label.add_theme_color_override(&\"font_color\", Color.RED)
+		label.set_text(\"目录不存在。\")
 		return false
 	
-	if not FileAccess.file_exists(path.path_join(ProjectConfig.PROJECT_CONFIG_PATH)):
+	if not FileAccess.file_exists(ProjectConfig.get_config_path(path)):
+		label.add_theme_color_override(&\"font_color\", Color.RED)
+		label.set_text(\"不是项目目录。\")
 		return false
+	
+	label.add_theme_color_override(&\"font_color\", Color.GREEN)
+	label.set_text(\"项目可导入。\")
 	return true
-
-func test_is_vaild() -> void:
-	disabled = not is_valid()
 
 func _pressed() -> void:
 	if not is_valid():
@@ -52,6 +83,11 @@ func _pressed() -> void:
 	config.set_project_name(nam)
 	get_window().close_requested.emit()
 
+func _on_project_path_text_changed(_new_text: String) -> void:
+	test_is_vaild()
+
+func _on_project_name_text_changed(_new_text: String) -> void:
+	test_is_vaild()
 "
 
 [sub_resource type="GDScript" id="GDScript_7nifj"]
@@ -68,7 +104,6 @@ oversampling_override = 1.0
 title = "导入项目"
 position = Vector2i(0, 36)
 size = Vector2i(1152, 648)
-visible = false
 
 [node name="Panel" type="Panel" parent="." unique_id=754769394]
 anchors_preset = 15
@@ -107,6 +142,7 @@ text = "名称："
 [node name="ProjectName" type="LineEdit" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=248696767]
 layout_mode = 2
 size_flags_horizontal = 3
+script = SubResource("GDScript_0dajc")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer" unique_id=84038946]
 layout_mode = 2
@@ -124,6 +160,9 @@ script = SubResource("GDScript_7vk0i")
 layout_mode = 2
 text = "LOC"
 
+[node name="Hint" type="Label" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer" unique_id=2106311897]
+layout_mode = 2
+
 [node name="Load" type="Button" parent="VBoxContainer" unique_id=1982959239]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -139,7 +178,8 @@ file_mode = 2
 access = 2
 script = SubResource("GDScript_7nifj")
 
-[connection signal="focus_exited" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ProjectName" to="VBoxContainer/Load" method="test_is_vaild"]
-[connection signal="focus_exited" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" to="VBoxContainer/Load" method="test_is_vaild"]
+[connection signal="text_changed" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ProjectName" to="VBoxContainer/Load" method="_on_project_name_text_changed"]
+[connection signal="text_changed" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" to="VBoxContainer/Load" method="_on_project_path_text_changed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/Button" to="FileDialog" method="popup_centered_clamped"]
+[connection signal="dir_selected" from="FileDialog" to="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ProjectName" method="_on_file_dialog_dir_selected"]
 [connection signal="dir_selected" from="FileDialog" to="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" method="_on_file_dialog_dir_selected"]

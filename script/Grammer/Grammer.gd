@@ -3,7 +3,9 @@ extends Resource
 ## 语法。
 ##
 ## 支持不同版本。
-
+## v1目录模式。[codeblock]
+## {"files" : {"main_process" : false, "law" : false, "entry" : false}, "main" : false}
+## [/codeblock]
 class _Files extends Resource:
 	var main_process : String
 	var entry : String
@@ -104,7 +106,7 @@ func try_open(path : String) -> PackedStringArray:
 ## 打开文件夹。
 func open(path : String) -> PackedStringArray:
 	if not DirAccess.dir_exists_absolute(path):
-		return ["Not find diractory"]
+		return ["Not find diractory \"%s\"." % path]
 	elif not FileAccess.file_exists(path.path_join("main")):
 		return ["Not find main file."]
 	directory_path = path
@@ -128,6 +130,10 @@ func open(path : String) -> PackedStringArray:
 
 @warning_ignore("unused_parameter")
 func _open_v1(path : String) -> PackedStringArray:
+	_data.files.main_process = path.path_join("files/main_process")
+	_data.files.law = path.path_join("files/law")
+	_data.files.entry = path.path_join("files/entry")
+	
 	if not FileAccess.file_exists(_data.files.main_process):
 		return ["Not find main_process."]
 	elif not FileAccess.file_exists(_data.files.law):

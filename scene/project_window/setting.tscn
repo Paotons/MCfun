@@ -1,5 +1,15 @@
 [gd_scene format=3 uid="uid://qyqgjfqhms20"]
 
+[sub_resource type="GDScript" id="GDScript_2rgxv"]
+script/source = "extends Window
+
+## 重启项目。
+signal reload_project
+
+func _on_reload_project_button_pressed() -> void:
+	reload_project.emit()
+"
+
 [sub_resource type="GDScript" id="GDScript_najlv"]
 resource_name = "Tree"
 script/source = "@tool
@@ -14,6 +24,11 @@ enum ItemIndex {
 	NORMAL,
 	## 配置。
 	NORMAL_CONFIG,
+	
+	## 编辑器。
+	EDIT,
+	## 语法。
+	GRAMMER,
 }
 var items : Array[TreeItem]
 
@@ -43,6 +58,7 @@ func _on_item_selected() -> void:
 	tree_index_selected.emit(index)
 
 func update_tree_item() -> void:
+	clear()
 	var root := create_item()
 	
 	var normal := root.create_child()
@@ -50,10 +66,17 @@ func update_tree_item() -> void:
 	var normal_config := normal.create_child()
 	normal_config.set_text(0, \"配置\")
 	
+	var edit := root.create_child()
+	edit.set_text(0, \"编辑器\")
+	var edit_grammer := edit.create_child()
+	edit_grammer.set_text(0, \"语法\")
+	
 	items = [
 		root,
 			normal,
 				normal_config,
+			edit,
+				edit_grammer,
 	]
 "
 
@@ -158,11 +181,60 @@ func _on_editing_toggled(toggled : bool) -> void:
 	ProjectManager.get_current_project().get_project_config().set_project_main_engine_version(varsion)
 "
 
+[sub_resource type="GDScript" id="GDScript_2yo8v"]
+script/source = "extends LineEdit
+
+var last_text : String
+
+func _get_reload_control() -> Control:
+	return $\"../../../../../../ReloadProject\"
+
+func _ready() -> void:
+	var config := ProjectManager.get_current_project().get_project_config()
+	last_text = config.get_edit_grammer_path()
+	set_text(last_text)
+
+func _save() -> void:
+	var config := ProjectManager.get_current_project().get_project_config()
+	config.set_edit_grammer_path(text)
+	_get_reload_control().show()
+
+func _test(txt) -> bool:
+	if not DirAccess.dir_exists_absolute(txt):
+		return false
+	if not FileAccess.file_exists(txt.path_join(\"main.json\")):
+		return false
+	return true
+
+func _on_grammer_path_dir_selected(dir: String) -> void:
+	if not _test(dir):
+		return
+	set_text(dir)
+	_save()
+
+func _on_editing_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		return
+	
+	if not _test(text):
+		set_text(last_text)
+	last_text = text
+	_save()
+"
+
+[sub_resource type="GDScript" id="GDScript_2f5xw"]
+script/source = "extends FileDialog
+
+func _ready() -> void:
+	set_current_dir(FileSystem.data_root.path_join(\"storage/grammer\"))
+"
+
 [node name="ProjectSetting" type="Window" unique_id=216988942]
 oversampling_override = 1.0
 title = "项目设置"
 position = Vector2i(0, 36)
 size = Vector2i(1152, 648)
+script = SubResource("GDScript_2rgxv")
 
 [node name="Panel" type="Panel" parent="." unique_id=1862995989]
 anchors_preset = 15
@@ -188,7 +260,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 hide_root = true
 script = SubResource("GDScript_najlv")
-option_nodes = [null, null, NodePath("../MarginContainer/MarginContainer/NormalConfig")]
+option_nodes = [null, null, NodePath("../MarginContainer/MarginContainer/NormalConfig"), null, NodePath("../MarginContainer/MarginContainer/EditGrammer")]
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HSplitContainer" unique_id=176810618]
 layout_mode = 2
@@ -273,11 +345,61 @@ layout_mode = 2
 size_flags_horizontal = 10
 script = SubResource("GDScript_u6wxm")
 
+[node name="EditGrammer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer" unique_id=855041151]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer" unique_id=785968391]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer" unique_id=983016244]
+layout_mode = 2
+text = "语法目录"
+
+[node name="GrammerPath" type="LineEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer" unique_id=1727898882]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_2yo8v")
+
+[node name="Button" type="Button" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer" unique_id=679766187]
+layout_mode = 2
+text = "LOC"
+
+[node name="ReloadProject" type="MarginContainer" parent="VBoxContainer" unique_id=1958719399]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_right = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ReloadProject" unique_id=1518982676]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ReloadProject/HBoxContainer" unique_id=2007426041]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+text = "项目设置发生改变，是否重启项目。"
+
+[node name="ReloadProjectButton" type="Button" parent="VBoxContainer/ReloadProject/HBoxContainer" unique_id=1881670423]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "重启"
+
 [node name="Button" type="Button" parent="VBoxContainer" unique_id=1152094523]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "关闭"
 
+[node name="GrammerPath" type="FileDialog" parent="." unique_id=1585746821]
+title = "Open a Directory"
+file_mode = 2
+access = 2
+script = SubResource("GDScript_2f5xw")
+
 [connection signal="close_requested" from="." to="VBoxContainer/HSplitContainer/Tree" method="hide"]
 [connection signal="editing_toggled" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName/LineEdit" to="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName/LineEdit" method="_on_editing_toggled"]
+[connection signal="editing_toggled" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/GrammerPath" to="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/GrammerPath" method="_on_editing_toggled"]
+[connection signal="pressed" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/Button" to="GrammerPath" method="popup_file_dialog"]
+[connection signal="pressed" from="VBoxContainer/ReloadProject/HBoxContainer/ReloadProjectButton" to="." method="_on_reload_project_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="hide"]
+[connection signal="dir_selected" from="GrammerPath" to="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/GrammerPath" method="_on_grammer_path_dir_selected"]

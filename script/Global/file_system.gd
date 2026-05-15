@@ -23,19 +23,20 @@ var config_path : String
 var config : ConfigFile
 
 func _ready() -> void:
-	_initial_main_root()
+	_init_main_root()
 
 ## 如果成功初始化，返回 [code]true[/code]。
 func is_initialed() -> bool:
 	return _is_initial_finished
 
+#region 初始化。
 # 初始化主要路径。
-func _initial_main_root() -> void:
+func _init_main_root() -> void:
 	user_root = "res://test/user_root" if OS.has_feature("editor") else "user://"
 	
 	data_root = get_data_root_path()
 	if data_root.is_empty():
-		await get_tree().process_frame
+		await get_tree().process_frame # 等待场景加载结束
 		var window := select_data_root()
 		await window.close_requested
 		data_root = get_data_root_path()
@@ -44,12 +45,12 @@ func _initial_main_root() -> void:
 		data_root = user_root.path_join("data")
 		DirAccess.make_dir_absolute(data_root)
 	
-	_initial_main_directory()
+	_init_main_directory()
 	_is_initial_finished = true
 	initial_finished.emit()
 
 # 初始化主要目录。
-func _initial_main_directory() -> void:
+func _init_main_directory() -> void:
 	user_root = ProjectSettings.globalize_path(user_root)
 	data_root = ProjectSettings.globalize_path(data_root)
 	if not (DirAccess.dir_exists_absolute(user_root) and DirAccess.dir_exists_absolute(data_root)):
@@ -57,11 +58,15 @@ func _initial_main_directory() -> void:
 		await get_tree().create_timer(1.0).timeout
 		get_tree().quit()
 	
+	_init_cache_directory()
+	_init_config_file()
+	_init_grammer_directory()
+func _init_cache_directory() -> void:
 	cache_path = user_root.path_join("cache")
 	if DirAccess.dir_exists_absolute(cache_path):
 		clear_cache()
 	DirAccess.make_dir_absolute(cache_path)
-	
+func _init_config_file() -> void:
 	config_path = user_root.path_join("config.cfg")
 	if FileAccess.file_exists(config_path):
 		DirAccess.copy_absolute(config_path, cache_path.path_join("config.cfg"))
@@ -69,6 +74,14 @@ func _initial_main_directory() -> void:
 		config.load(cache_path.path_join("config.cfg"))
 		
 		get_window().content_scale_factor = config.get_value("UINormal", "window_scale_factor", 1.0)
+func _init_grammer_directory() -> void:
+	if not is_initialed():
+		await initial_finished
+	const GRAMMER_PATH := "res://resource/grammer/"
+	var path := data_root.path_join("storage/grammer")
+	if not DirAccess.dir_exists_absolute(path):
+		copy_directory(GRAMMER_PATH, path)
+#endregion
 
 ## 选择数据目录。
 func select_data_root() -> SelectedDataRootWindow:
@@ -95,7 +108,7 @@ func set_data_root_path(path : String) -> void:
 func _exit_tree() -> void:
 	clear_cache()
 
-## 递归删除文件夹。
+## 递归删除目录。
 func remove_directory(path : String) -> void:
 	if not DirAccess.dir_exists_absolute(path):
 		push_error("Not find directory.")
@@ -119,6 +132,53 @@ func remove_directory(path : String) -> void:
 		var parent := queue_parents.pop_back() as DirAccess
 		parent.remove(directory.get_current_dir().get_file())
 		queue_directories.remove_at(queue_directories.size() - 1)
+## 递归复制目录。
+func copy_directory(from : String, to : String, chmod_flags := -1) -> void:
+	if FileAccess.file_exists(from):
+		DirAccess.copy_absolute(from, to, chmod_flags)
+		return
+	
+	if not DirAccess.dir_exists_absolute(from):
+		return
+	
+	if not DirAccess.dir_exists_absolute(to):
+		DirAccess.make_dir_recursive_absolute(to)
+	
+	var queue_directories : Array[DirAccess] = [DirAccess.open(from)]
+	var queue_to_directories : Array[DirAccess] = [DirAccess.open(to)]
+	while not queue_directories.is_empty():
+		var directory : DirAccess = queue_directories.pop_back()
+		var to_directory : DirAccess = queue_to_directories.pop_back()
+		
+		for file in directory.get_files():
+			var data := FileAccess.get_file_as_bytes(directory.get_current_dir().path_join(file))
+			var f := FileAccess.open(to_directory.get_current_dir().path_join(file), FileAccess.WRITE)
+			f.store_buffer(data)
+			f.close()
+		
+		for dir in directory.get_directories():
+			if not to_directory.dir_exists(dir):
+				to_directory.make_dir(dir)
+			queue_directories.append(DirAccess.open(directory.get_current_dir().path_join(dir)))
+			queue_to_directories.append(DirAccess.open(to_directory.get_current_dir().path_join(dir)))
+## 返回修改时间戳。
+func get_access_time(path : String) -> int:
+	if FileAccess.file_exists(path):
+		return FileAccess.get_access_time(path)
+	if not DirAccess.dir_exists_absolute(path):
+		return 0
+	
+	var time := 0
+	var queue_directories : Array[DirAccess] = [DirAccess.open(path)]
+	while not queue_directories.is_empty():
+		var directory : DirAccess = queue_directories.pop_back()
+		
+		for file in directory.get_files():
+			time = maxi(time, FileAccess.get_access_time(directory.get_current_dir().path_join(file)))
+		
+		for dir in directory.get_directories():
+			queue_directories.append(DirAccess.open(directory.get_current_dir().path_join(dir)))
+	return time
 
 ## 清理缓存。
 func clear_cache() -> void:

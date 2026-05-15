@@ -37,7 +37,7 @@ func get_current_project() -> Project:
 ## 获取项目。
 func get_project(name : String) -> Project:
 	var project := Project.new()
-	project.project_config = _get_project_config_file(name)
+	project._create_project(name)
 	return project
 ## 获取项目数量。
 func get_project_count() -> int:
@@ -78,8 +78,8 @@ func remove_project_list(name : String) -> void:
 func create_project(name : String, path : String) -> bool:
 	if not DirAccess.dir_exists_absolute(path):
 		return false
-	var config := ProjectConfig._create_config_file(name, path)
-	config.save(path.path_join(ProjectConfig.PROJECT_CONFIG_PATH))
+	
+	Project._init_project_file(path, name)
 	add_project_list(name, path)
 	return true
 
@@ -87,13 +87,7 @@ func create_project(name : String, path : String) -> bool:
 @warning_ignore("shadowed_variable_base_class")
 # 获取项目配置文件。
 func _get_project_config_file(name : String) -> ProjectConfig:
-	var path := get_project_path(name).path_join(ProjectConfig.PROJECT_CONFIG_PATH)
-	if not FileAccess.file_exists(path):
-		return null
-	var file := ConfigFile.new()
-	file.load(path)
-	var config := ProjectConfig.new()
-	config._set_config_file(file)
-	return config
+	var path := get_project_path(name)
+	return ProjectConfig._open_config_file(path)
 
 

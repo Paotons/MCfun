@@ -7,12 +7,67 @@
 [ext_resource type="PackedScene" uid="uid://b1mh5o58v8e5g" path="res://scene/file_window/file_system.tscn" id="8_qyh5x"]
 [ext_resource type="PackedScene" uid="uid://diyi5chw3itl4" path="res://scene/project_window/export_setting.tscn" id="9_kijkp"]
 
+[sub_resource type="GDScript" id="GDScript_mtpim"]
+script/source = "extends Control
+
+## 项目初始化结束。
+signal project_initial_finished()
+
+var project_opend_process : ProjectOpendProcess
+var project_opend_thread : Thread
+
+func _ready() -> void:
+	var project := ProjectManager.get_current_project()
+	project_opend_thread = Thread.new()
+	project_opend_process = ProjectOpendProcess.new()
+	project_opend_thread.start(project._opend.bind(project_opend_process))
+	show_loading()
+	set_process(true)
+
+func _process(_delta: float) -> void:
+	if not project_opend_thread.is_alive():
+		set_process(false)
+		project_opend_thread.wait_to_finish()
+		project_opend_process = null
+		set_loading(\"\", \"\")
+		hide_lading()
+		project_initial_finished.emit()
+		return
+	
+	project_opend_process.mutex.lock()
+	set_loading(
+		\"正在\" + project_opend_process.main_name + \"(%d/%d)\" % [project_opend_process.main_process.x, project_opend_process.main_process.y],
+		\"进度：%d/%d\" % [project_opend_process.sub_process.x, project_opend_process.sub_process.y]
+	)
+	project_opend_process.mutex.unlock()
+
+func _get_loading_title_label() -> Label:
+	return $Loading/VBoxContainer/Title
+func _get_loading_process_label() -> Label:
+	return $Loading/VBoxContainer/Process
+func _get_loading_panel() -> Panel:
+	return $Loading
+
+## 显示正在加载。
+func show_loading() -> void:
+	_get_loading_panel().show()
+## 隐藏真正加载。
+func hide_lading() -> void:
+	_get_loading_panel().hide()
+## 设置正在加载。
+func set_loading(title : String, process : String) -> void:
+	_get_loading_title_label().set_text(title)
+	_get_loading_process_label().set_text(process)
+"
+
 [sub_resource type="GDScript" id="GDScript_ktujv"]
 resource_name = "ProjectMenuButton"
 script/source = "extends MenuButton
 
 ## 项目列表。
-const PROJECT_LIST_PACKED := preload(\"res://scene/Project.tscn\")
+const PROJECT_LIST_PACKED := preload(\"uid://cbhgotylj3fjg\")
+## 当前场景。
+const EDIT_PACKED := preload(\"uid://dw3ca0im08urk\")
 
 enum ItemIndex {
 	## 设置。
@@ -25,6 +80,8 @@ enum ItemIndex {
 	
 	## 分割符。
 	SEPARATOR2,
+	## 重新加载项目。
+	RELOAD,
 	## 退出至列表。
 	EXIT_TO_LIST,
 }
@@ -38,6 +95,7 @@ func _on_popup_index_pressed(index : int) -> void:
 		
 		ItemIndex.EXPORT: _on_item_export()
 		
+		ItemIndex.RELOAD: reload()
 		ItemIndex.EXIT_TO_LIST: _on_item_exit_to_list()
 
 # 获取项目设置的窗口。
@@ -46,13 +104,22 @@ func _get_project_window() -> Window:
 # 获取项目导出设置窗口。
 func _get_project_export_winodw() -> Window:
 	return $\"../../../../../ProjectExportSetting\"
+func _get_file_list_container() -> FileListContainer:
+	return $\"../../../../HSplitContainer/FileList/MarginContainer/FileListContainer\"
 
 func _on_open_project_setting() -> void:
 	_get_project_window().popup_centered_clamped()
+
+func reload() -> void:
+	var nam := ProjectManager.get_current_project().get_project_config().get_project_name()
+	ProjectManager.current_project = ProjectManager.get_project(nam)
+	get_tree().reload_current_scene()
 func _on_item_exit_to_list() -> void:
-	ProjectManager.get_current_project().update_project_nearest_time()
+	_get_file_list_container().save_all_file()
+	ProjectManager.get_current_project().get_project_config().update_project_nearest_time()
 	ProjectManager.current_project = null
 	get_tree().change_scene_to_packed.call_deferred(PROJECT_LIST_PACKED)
+
 func _on_item_export() -> void:
 	_get_project_export_winodw().popup_centered_clamped()
 
@@ -265,6 +332,8 @@ resource_name = "Edit"
 script/source = "extends FunctionEdit
 
 @export var _error_hint_label : Label
+## 语法目录。
+@export_dir() var grammer_directory : String
 
 ## 用于检测配置文件高亮颜色的选择。
 const CONFIG_HIGHLIGHT_COLOR_SELECT := \"HighLightColor\"
@@ -418,6 +487,13 @@ func _on_file_list_container_saved(path: String) -> void:
 	file.close()
 	
 	_remove_cache_file(path)
+
+func _on_edit_project_initial_finished() -> void:
+	var project := ProjectManager.get_current_project()
+	assert(DirAccess.dir_exists_absolute(grammer_directory), \"Not has directory.\")
+	grammer = Grammer.new()
+	var error := grammer.open(project.get_project_cache().get_grammer_directory())
+	assert(error.is_empty(), \"Grammer has error.\")
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_r0du0"]
@@ -428,7 +504,7 @@ script/source = "extends FileDialog
 
 func _ready() -> void:
 	var config := ProjectManager.get_current_project().get_project_config()
-	set_current_path(config.get_project_path())
+	set_current_dir(config.get_project_path())
 "
 
 [sub_resource type="GDScript" id="GDScript_kijkp"]
@@ -464,6 +540,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = SubResource("GDScript_mtpim")
 
 [node name="Base" type="VBoxContainer" parent="." unique_id=749474620]
 layout_mode = 1
@@ -490,7 +567,7 @@ layout_mode = 2
 [node name="project" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=5126462]
 layout_mode = 2
 text = "项目"
-item_count = 5
+item_count = 6
 popup/item_0/text = "设置"
 popup/item_0/id = 0
 popup/item_1/id = 1
@@ -499,8 +576,10 @@ popup/item_2/text = "导出"
 popup/item_2/id = 2
 popup/item_3/id = 3
 popup/item_3/separator = true
-popup/item_4/text = "退出至列表"
-popup/item_4/id = 4
+popup/item_4/text = "重新加载"
+popup/item_4/id = 5
+popup/item_5/text = "退出至列表"
+popup/item_5/id = 4
 script = SubResource("GDScript_ktujv")
 
 [node name="file" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=1567331877]
@@ -654,6 +733,38 @@ label_settings = SubResource("LabelSettings_r0du0")
 visible = false
 layout_mode = 0
 
+[node name="Loading" type="Panel" parent="." unique_id=100831142]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Loading" unique_id=215370038]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Loading/VBoxContainer" unique_id=1185165978]
+layout_mode = 2
+text = "加载项目"
+
+[node name="Process" type="Label" parent="Loading/VBoxContainer" unique_id=1429151950]
+layout_mode = 2
+text = "0/-1"
+horizontal_alignment = 1
+
 [node name="EditSetting" parent="." unique_id=1229169659 instance=ExtResource("5_pdkdi")]
 visible = false
 
@@ -685,11 +796,13 @@ script = SubResource("GDScript_kijkp")
 [node name="ProjectExportSetting" parent="." unique_id=1489223026 instance=ExtResource("9_kijkp")]
 visible = false
 
+[connection signal="project_initial_finished" from="." to="Base/HSplitContainer/VBoxContainer2/CodeEdit" method="_on_edit_project_initial_finished"]
 [connection signal="closed" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/CodeEdit" method="_on_file_list_container_closed"]
 [connection signal="saved" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/CodeEdit" method="_on_file_list_container_saved"]
 [connection signal="selected_changed" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/CodeEdit" method="_on_file_list_container_selected_changed"]
 [connection signal="pressed" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/HBoxContainer/MarginContainer/ShowHideFileListButton" to="Base/HSplitContainer/FileList" method="_on_show_hide_file_list_button_pressed"]
 [connection signal="ready" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/HBoxContainer/error_hint" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/HBoxContainer/error_hint" method="set_text" binds= [""]]
+[connection signal="reload_project" from="ProjectSetting" to="Base/MarginContainer/MarginContainer/HBoxContainer/project" method="reload"]
 [connection signal="close_requested" from="FileListWindow" to="FileListWindow" method="hide"]
 [connection signal="file_selected" from="FileListWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/file" method="_on_file_list_window_file_selected"]
 [connection signal="file_open" from="FileSystem" to="Base/MarginContainer/MarginContainer/HBoxContainer/file" method="_on_file_system_file_open"]

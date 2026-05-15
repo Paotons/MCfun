@@ -120,6 +120,10 @@ func save_file(path : String) -> void:
 	if index == -1:
 		return
 	_save_file(index)
+## 保存所有文件。
+func save_all_file() -> void:
+	for i in _files.size():
+		_save_file(i)
 #endregion
 
 #region 文件执行函数。
@@ -164,6 +168,7 @@ func _select_file(index : int) -> bool:
 		return false
 	var button := get_child(index) as Button
 	button.button_pressed = true
+	selected_index = index
 	selected_changed.emit(_files[index].path)
 	return true
 # 保存文件。
