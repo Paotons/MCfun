@@ -3,7 +3,7 @@ extends MultiParamBacketElement
 ## 冒号参数括号。
 
 ## 语法规则。
-var grammer_rule : GrammerColonParamBacketRule
+var grammer_rule : GrammarColonParamBacketRule
 
 func _get_backet_type() -> int:
 	return BacketElementManager.Type.COLON_PARAM
@@ -31,7 +31,7 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 		data.insert_texts.append(end_backet)
 	return data
 
-static func create(text : String, offset : int, start := "{", end := "}", rule : GrammerColonParamBacketRule = null) -> ColonParamBacketElement:
+static func create(text : String, offset : int, start := "{", end := "}", rule : GrammarColonParamBacketRule = null) -> ColonParamBacketElement:
 	var element := _create_backet_element(ColonParamBacketElement.new(), text, offset, start, end) as ColonParamBacketElement
 	if element.is_faild:
 		return element

@@ -3,9 +3,9 @@ extends MultiParamBacketElement
 ## 数组括号。
 
 ## 语法规则。
-var grammer_rule : GrammerArrayBacketRule
+var grammer_rule : GrammarArrayBacketRule
 ## 参数类型。
-var param_type := GrammerValue.Type.ERR
+var param_type := GrammarValue.Type.ERR
 
 ## 根据编辑器返回对应的高亮数据。
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
@@ -19,7 +19,7 @@ func _get_column_code_completion_data(column : int, _rule : ElementRule, command
 	assert(param_idx != -1, "Unvalid index.")
 	
 	if is_params_empty() or is_param_empty(param_idx):
-		if GrammerValue.is_type_backet(param_type):
+		if GrammarValue.is_type_backet(param_type):
 			data = CodeCompletionData.create_backet_data(param_type)
 	
 	var param := get_param(param_idx)
@@ -31,7 +31,7 @@ func _get_column_code_completion_data(column : int, _rule : ElementRule, command
 		data.insert_texts.append(end_backet)
 	return data
 
-static func create(text : String, offset : int, start := "[", end := "]", rule : GrammerArrayBacketRule = null) -> ArrayBacketElement:
+static func create(text : String, offset : int, start := "[", end := "]", rule : GrammarArrayBacketRule = null) -> ArrayBacketElement:
 	var element := BacketElement._create_backet_element(ArrayBacketElement.new(), text, offset, start, end) as ArrayBacketElement
 	if element.is_faild:
 		return element
@@ -42,7 +42,7 @@ static func create(text : String, offset : int, start := "[", end := "]", rule :
 	
 	var result_rule := rule.get_element_rule()
 	element.param_type = result_rule.get_type()
-	var is_backet := GrammerValue.is_type_backet(element.param_type)
+	var is_backet := GrammarValue.is_type_backet(element.param_type)
 	while index < length:
 		var text_ : String = text if is_backet else text.substr(0, text.find(",", index))
 		var sult := ElementManager.create_from_rule(text_, index, result_rule) as StringElement

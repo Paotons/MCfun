@@ -60,7 +60,7 @@ func _init_main_directory() -> void:
 	
 	_init_cache_directory()
 	_init_config_file()
-	_init_grammer_directory()
+	_init_grammar_directory()
 func _init_cache_directory() -> void:
 	cache_path = user_root.path_join("cache")
 	if DirAccess.dir_exists_absolute(cache_path):
@@ -74,11 +74,11 @@ func _init_config_file() -> void:
 		config.load(cache_path.path_join("config.cfg"))
 		
 		get_window().content_scale_factor = config.get_value("UINormal", "window_scale_factor", 1.0)
-func _init_grammer_directory() -> void:
+func _init_grammar_directory() -> void:
 	if not is_initialed():
 		await initial_finished
-	const GRAMMER_PATH := "res://resource/grammer/"
-	var path := data_root.path_join("storage/grammer")
+	const GRAMMER_PATH := "res://resource/grammar/"
+	var path := data_root.path_join("storage/grammar")
 	if not DirAccess.dir_exists_absolute(path):
 		copy_directory(GRAMMER_PATH, path)
 #endregion

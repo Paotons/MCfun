@@ -40,7 +40,7 @@ static func get_precast_code_completion_data(_column : int, rule : ElementRule, 
 	var chapter_name : String = rule.spaceitem_get_category() if rule.has_detail() else ""
 	data.hint_string = "<%s : space_item>" % [rule.get_description()]
 	if entry.has_chapter(chapter_name):
-		var chapter := entry.get_chapter(chapter_name) as GrammerSpaceItemChapter
+		var chapter := entry.get_chapter(chapter_name) as GrammarSpaceItemChapter
 		data.insert_texts.append_array(chapter.get_items(EditManager.get_edit().spaceitem_expleation_included_space))
 		data.fill_insert_mode(CodeCompletionData.InsertMode.SPACEITEM)
 	return data
@@ -50,7 +50,7 @@ func _get_column_code_completion_data(_column : int, rule : ElementRule, _comman
 	var chapter_name : String = rule.spaceitem_get_category() if rule.has_detail() else ""
 	data.hint_string = "<%s : space_item>" % [rule.get_description()]
 	if entry.has_chapter(chapter_name):
-		var chapter := entry.get_chapter(chapter_name) as GrammerSpaceItemChapter
+		var chapter := entry.get_chapter(chapter_name) as GrammarSpaceItemChapter
 		data.insert_texts.append_array(chapter.get_items(EditManager.get_edit().spaceitem_expleation_included_space))
 		data.fill_insert_mode(CodeCompletionData.InsertMode.SPACEITEM)
 	return data

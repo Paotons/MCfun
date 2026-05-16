@@ -30,11 +30,11 @@ class _CreateProcess extends RefCounted:
 	# 编辑器。
 	var edit : FunctionEdit
 	# 语法。
-	var grammer : GrammerProcess
+	var grammar : GrammarProcess
 	# 规则。
-	var law : GrammerLaw
+	var law : GrammarLaw
 	# 字符串。
-	var entry : GrammerEntry
+	var entry : GrammarEntry
 
 ## 指令类型。
 enum CommandType {
@@ -83,9 +83,9 @@ static func create(text : String, offset : int, line := -1) -> CommandElement:
 	var process :=_CreateProcess.new()
 	
 	process.edit = EditManager.get_edit()
-	process.grammer = EditManager.get_grammer_process()
-	process.law = EditManager.get_grammer_law()
-	process.entry = EditManager.get_grammer_entry()
+	process.grammar = EditManager.get_grammar_process()
+	process.law = EditManager.get_grammar_law()
+	process.entry = EditManager.get_grammar_entry()
 	process.line = line
 	
 	process.offset = offset
@@ -106,9 +106,9 @@ func update(text : String, column : int) -> void:
 	var process :=_CreateProcess.new()
 	
 	process.edit = edit
-	process.grammer = EditManager.get_grammer_process()
-	process.law = EditManager.get_grammer_law()
-	process.entry = EditManager.get_grammer_entry()
+	process.grammar = EditManager.get_grammar_process()
+	process.law = EditManager.get_grammar_law()
+	process.entry = EditManager.get_grammar_entry()
 	process.line = edit.get_line_index(line_id)
 	
 	process.offset = offset
@@ -137,10 +137,10 @@ func _get_column_code_completion_data(column : int, _rule : ElementRule, _comman
 	var command_idx := get_history(idx)
 	var exe := get_exe_element(command_idx)
 	
-	assert(exe.get_type() != GrammerValue.Type.NIL, "IS nil.")
+	assert(exe.get_type() != GrammarValue.Type.NIL, "IS nil.")
 	# 为当前做补全
 	match exe.get_type():
-		GrammerValue.Type.COMMAND:
+		GrammarValue.Type.COMMAND:
 			var element : CommandElement = get_element(idx)
 			if element.command_type == CommandElement.CommandType.REPLACE:
 				return _code_completion_head_data if element.is_faild else element.get_column_code_completion_data(column, exe, self)
@@ -159,7 +159,7 @@ func _get_code_completion_next(column : int) -> CodeCompletionData:
 	# 上一个是目标选择器
 	if is_column_near_selector_head(column):
 		data_main.supple()
-		data_main.add_data(CodeCompletionData.create_backet_data(GrammerValue.Type.ARRAY))
+		data_main.add_data(CodeCompletionData.create_backet_data(GrammarValue.Type.ARRAY))
 	
 	# 补全下一个元素
 	for i in get_faild_element_count():
@@ -168,9 +168,9 @@ func _get_code_completion_next(column : int) -> CodeCompletionData:
 		var data := CodeCompletionData.new()
 		var type := faild_exe.get_type()
 		match type:
-			GrammerValue.Type.DICTIONARY, GrammerValue.Type.ARRAY, GrammerValue.Type.QUOTATION:
+			GrammarValue.Type.DICTIONARY, GrammarValue.Type.ARRAY, GrammarValue.Type.QUOTATION:
 				data = CodeCompletionData.create_backet_data(type)
-			GrammerValue.Type.COMMAND:
+			GrammarValue.Type.COMMAND:
 				var index := find_history(faild_exe.get_id())
 				var ncommand : CommandElement = get_element(index)
 				data = ncommand.get_column_code_completion_data(column, faild_exe, self)
@@ -187,7 +187,7 @@ func _get_code_completion_next(column : int) -> CodeCompletionData:
 # 更新指令头补全的数据。
 static func _update_code_completion_head_data() -> void:
 	var data := CodeCompletionData.new()
-	data.insert_texts.append_array(EditManager.get_grammer_process().get_heads())
+	data.insert_texts.append_array(EditManager.get_grammar_process().get_heads())
 	data.fill_insert_mode(CodeCompletionData.InsertMode.WORLD)
 	_code_completion_head_data = data
 
@@ -200,7 +200,7 @@ func get_head_string() -> String:
 	return head_string
 ## 如果是可用的头，返回 [code]true[/code]。
 func is_valid_head() -> bool:
-	return EditManager.get_grammer_process().has_head(head_string)
+	return EditManager.get_grammar_process().has_head(head_string)
 
 ## 如果是空，返回 [code]true[/code]。
 func is_empty() -> bool:
@@ -293,15 +293,15 @@ func get_element_count() -> int:
 
 ## 获取可执行元素规则。
 func get_exe_element(idx : int) -> ExeElementRule:
-	var grammer := EditManager.get_grammer_process()
-	if not grammer.has_head(head_string):
+	var grammar := EditManager.get_grammar_process()
+	if not grammar.has_head(head_string):
 		push_error("Head \"%s\" is unvalid." % [head_string])
 		return null
-	return grammer.get_item(head_string, idx)
+	return grammar.get_item(head_string, idx)
 
 ## 返回失败的执行元素。
 func get_faild_element(idx : int) -> ExeElementRule:
-	return EditManager.get_grammer_process().get_item(head_string, faild_element_idxs[idx])
+	return EditManager.get_grammar_process().get_item(head_string, faild_element_idxs[idx])
 ## 返回失败的执行元素的数量。
 func get_faild_element_count() -> int:
 	return faild_element_idxs.size()
@@ -311,18 +311,18 @@ func get_faild_element_count() -> int:
 # 处理函数。
 func _do_function(element : ExeElementRule, text : String, process : _CreateProcess) -> bool:
 	match element.get_type():
-		GrammerValue.Type.NIL : return _do_nil(text, process)
-		GrammerValue.Type.BOOL, GrammerValue.Type.INT, GrammerValue.Type.FLOAT, GrammerValue.Type.STRING, GrammerValue.Type.WORD, GrammerValue.Type.RICH_STRING, GrammerValue.Type.POINT_PATH, GrammerValue.Type.SCOPE : 
+		GrammarValue.Type.NIL : return _do_nil(text, process)
+		GrammarValue.Type.BOOL, GrammarValue.Type.INT, GrammarValue.Type.FLOAT, GrammarValue.Type.STRING, GrammarValue.Type.WORD, GrammarValue.Type.RICH_STRING, GrammarValue.Type.POINT_PATH, GrammarValue.Type.SCOPE : 
 			return _do_default(text, process)
 		
-		GrammerValue.Type.OPTION : return _do_option(text, process)
-		GrammerValue.Type.COORDS : return _do_coords(text, process)
-		GrammerValue.Type.SELECTOR : return _do_selector(text, process)
-		GrammerValue.Type.SPACEITEM : return _do_spaceitem(text, process)
+		GrammarValue.Type.OPTION : return _do_option(text, process)
+		GrammarValue.Type.COORDS : return _do_coords(text, process)
+		GrammarValue.Type.SELECTOR : return _do_selector(text, process)
+		GrammarValue.Type.SPACEITEM : return _do_spaceitem(text, process)
 		
-		GrammerValue.Type.COMMAND : return _do_subcommand(text, process)
-		GrammerValue.Type.DICTIONARY : return _do_dictionary(text, process)
-		GrammerValue.Type.ARRAY : return _do_array(text, process)
+		GrammarValue.Type.COMMAND : return _do_subcommand(text, process)
+		GrammarValue.Type.DICTIONARY : return _do_dictionary(text, process)
+		GrammarValue.Type.ARRAY : return _do_array(text, process)
 	push_error("Not do.")
 	breakpoint
 	return true
@@ -342,7 +342,7 @@ func _do_head(text : String, process : _CreateProcess) -> bool:
 	head_element = result
 	head_string = head
 	
-	if not process.grammer.has_head(head):
+	if not process.grammar.has_head(head):
 		create_error(result.get_valid_start(), "Unfind command \"%s\"." % [head])
 		return true
 	
@@ -365,14 +365,14 @@ func _do_default(text : String, process : _CreateProcess) -> bool:
 	var element : StringElement
 	var exe_element := process.exe_element
 	match process.exe_element.get_type():
-		GrammerValue.Type.BOOL : element = BoolElement.create(text, process.offset)
-		GrammerValue.Type.INT : element = IntElement.create(text, process.offset)
-		GrammerValue.Type.FLOAT : element = FloatElement.create(text, process.offset)
-		GrammerValue.Type.STRING: element = StringElement.create(text, process.offset)
-		GrammerValue.Type.WORD : element = WordElement.create(text, process.offset)
-		GrammerValue.Type.RICH_STRING : element = RichStringElement.create(text, process.offset)
-		GrammerValue.Type.POINT_PATH : element = PointPathElement.create(text, process.offset, process.exe_element)
-		GrammerValue.Type.SCOPE : element = ScopeElement.create(text, process.offset)
+		GrammarValue.Type.BOOL : element = BoolElement.create(text, process.offset)
+		GrammarValue.Type.INT : element = IntElement.create(text, process.offset)
+		GrammarValue.Type.FLOAT : element = FloatElement.create(text, process.offset)
+		GrammarValue.Type.STRING: element = StringElement.create(text, process.offset)
+		GrammarValue.Type.WORD : element = WordElement.create(text, process.offset)
+		GrammarValue.Type.RICH_STRING : element = RichStringElement.create(text, process.offset)
+		GrammarValue.Type.POINT_PATH : element = PointPathElement.create(text, process.offset, process.exe_element)
+		GrammarValue.Type.SCOPE : element = ScopeElement.create(text, process.offset)
 		_: assert("Can do the type \"%s\"." % [process.exe_element.get_type()])
 	
 	if element.is_faild:
@@ -483,12 +483,12 @@ func _do_dictionary(text : String, process : _CreateProcess) -> bool:
 		return _do_dictionary_default(text, process)
 	
 	match rule.get_type():
-		GrammerRule.RuleType.COLON_PARAM_BACKET: return _do_dictionary_colon_param(text, process, rule)
+		GrammarRule.RuleType.COLON_PARAM_BACKET: return _do_dictionary_colon_param(text, process, rule)
 	push_error("Rule is nul type.")
 	return true
 
 # 处理冒号参数。
-func _do_dictionary_colon_param(text : String, process : _CreateProcess , rule : GrammerRule) -> bool:
+func _do_dictionary_colon_param(text : String, process : _CreateProcess , rule : GrammarRule) -> bool:
 	var result := ColonParamBacketElement.create(text, process.offset, "{", "}", rule)
 	
 	for err in result.errors: create_error(err.column, err.string)
@@ -546,7 +546,7 @@ func _do_command_from_empty(text : String, process : _CreateProcess) -> void:
 		return
 	
 	var head := head_element.get_valid_head()
-	process.rule = process.grammer.get_command_rule(head)
+	process.rule = process.grammar.get_command_rule(head)
 	process.exe_index = 0
 	process.exe_end = process.rule.get_element_count()
 	_do_command_process(text, process)
@@ -563,12 +563,12 @@ func _do_command_from_column(text : String, process : _CreateProcess, column := 
 		
 		if _do_head(text, process): return
 		var head := head_element.get_valid_head()
-		process.rule = process.grammer.get_command_rule(head)
+		process.rule = process.grammar.get_command_rule(head)
 		process.exe_index = 0
 		process.exe_end = process.rule.get_element_count()
 	else:
 		# 模拟最初环境
-		process.rule = process.grammer.get_command_rule(head_element.get_valid_head())
+		process.rule = process.grammar.get_command_rule(head_element.get_valid_head())
 		process.exe_index = exe_element_histories[index]
 		process.exe_element = process.rule.get_element(exe_element_histories[index -1]) if index > 0 else null
 		process.exe_end = process.rule.get_element_count()

@@ -10,7 +10,7 @@ const _SELECT_EDIT := "Edit"
 # 项---项目的键。
 const _SELECT_PROJECT_KEYS : PackedStringArray = ["name", "path", "nearest_time", "version"]
 # 项---编辑器的键。
-const _SELECT_EDIT_KEYS : PackedStringArray = ["grammer"]
+const _SELECT_EDIT_KEYS : PackedStringArray = ["grammar"]
 
 ## 项目配置文件路径。
 const _CONFIG_PATH := ".project.cfg"
@@ -61,13 +61,13 @@ func set_project_description(value : String) -> void:
 
 #region 编辑器。
 ## 获取编辑器语法路径，如果 [param test] 为 [code]true[/code]，当目录不可用时会返回默认目录。
-func get_edit_grammer_path(test := true) -> String:
-	const DEFAULT := "res://resource/grammer/default"
-	var path : String = _config.get_value(_SELECT_EDIT, "grammer", DEFAULT)
+func get_edit_grammar_path(test := true) -> String:
+	const DEFAULT := "res://resource/grammar/default"
+	var path : String = _config.get_value(_SELECT_EDIT, "grammar", DEFAULT)
 	return path if test and DirAccess.dir_exists_absolute(path) else DEFAULT
 ## 设置编辑器语法路径。
-func set_edit_grammer_path(path : String) -> void:
-	return _config.set_value(_SELECT_EDIT, "grammer", path)
+func set_edit_grammar_path(path : String) -> void:
+	return _config.set_value(_SELECT_EDIT, "grammar", path)
 #endregion
 
 ## 保存。

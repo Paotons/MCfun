@@ -114,12 +114,12 @@ func compile(data : Variant) -> void:
 	compiled_result = {}
 	if not _compile_type(from):
 		return
-	var type : GrammerValue.Type = compiled_result[META_TYPE]
+	var type : GrammarValue.Type = compiled_result[META_TYPE]
 	
 	var obj : _Element
 	match type:
-		GrammerValue.Type.OPTION: obj = _Option.new()
-		GrammerValue.Type.NIL: obj = _Nil.new()
+		GrammarValue.Type.OPTION: obj = _Option.new()
+		GrammarValue.Type.NIL: obj = _Nil.new()
 		_: obj = _Default.new()
 	
 	obj.element = element_name
@@ -133,14 +133,14 @@ func compile(data : Variant) -> void:
 # 解析元素 type。
 func _compile_type(from : Dictionary) -> bool:
 	if not from.has("type"):
-		compiled_result[META_TYPE] = GrammerValue.Type.NIL
+		compiled_result[META_TYPE] = GrammarValue.Type.NIL
 		return true
 	
 	if not _test_value_type(from["type"], 1 << TYPE_STRING, element_name):
 		return false
 		
-	var type := GrammerValue.string_to_type(from["type"])
-	if type == GrammerValue.Type.ERR:
+	var type := GrammarValue.string_to_type(from["type"])
+	if type == GrammarValue.Type.ERR:
 		errors.append("%s type is %s, but can not used." % [element_name, from["type"]])
 		return false
 	

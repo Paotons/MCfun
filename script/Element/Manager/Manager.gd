@@ -72,43 +72,43 @@ enum Type {
 
 # 变量值 -> 结果值映射表。
 const _VALUE_TYPE_TO_Element_MAP : Dictionary[int, int] = {
-	GrammerValue.Type.NIL : Type.NIL,
-	GrammerValue.Type.COMMAND : Type.COMMAND,
+	GrammarValue.Type.NIL : Type.NIL,
+	GrammarValue.Type.COMMAND : Type.COMMAND,
 	
-	GrammerValue.Type.BOOL : Type.BOOL,
-	GrammerValue.Type.INT : Type.INT,
-	GrammerValue.Type.FLOAT : Type.FLOAT,
-	GrammerValue.Type.STRING : Type.STRING,
+	GrammarValue.Type.BOOL : Type.BOOL,
+	GrammarValue.Type.INT : Type.INT,
+	GrammarValue.Type.FLOAT : Type.FLOAT,
+	GrammarValue.Type.STRING : Type.STRING,
 	
-	GrammerValue.Type.WORD : Type.WORD,
-	GrammerValue.Type.SPACEITEM : Type.SPACEITEM,
-	GrammerValue.Type.OPTION : Type.OPTION,
-	GrammerValue.Type.RICH_STRING : Type.RICH_STRING,
-	GrammerValue.Type.POINT_PATH : Type.POINT_PATH,
-	GrammerValue.Type.SCOPE : Type.SCOPE,
-	GrammerValue.Type.COORD : Type.COORD,
+	GrammarValue.Type.WORD : Type.WORD,
+	GrammarValue.Type.SPACEITEM : Type.SPACEITEM,
+	GrammarValue.Type.OPTION : Type.OPTION,
+	GrammarValue.Type.RICH_STRING : Type.RICH_STRING,
+	GrammarValue.Type.POINT_PATH : Type.POINT_PATH,
+	GrammarValue.Type.SCOPE : Type.SCOPE,
+	GrammarValue.Type.COORD : Type.COORD,
 	
-	GrammerValue.Type.SELECTOR : Type.SELECTOR,
-	GrammerValue.Type.COORDS : Type.COORDS,
-	GrammerValue.Type.QUOTATION : Type.BACKET,
-	GrammerValue.Type.DICTIONARY : Type.BACKET,
-	GrammerValue.Type.ARRAY : Type.ARRAY,
+	GrammarValue.Type.SELECTOR : Type.SELECTOR,
+	GrammarValue.Type.COORDS : Type.COORDS,
+	GrammarValue.Type.QUOTATION : Type.BACKET,
+	GrammarValue.Type.DICTIONARY : Type.BACKET,
+	GrammarValue.Type.ARRAY : Type.ARRAY,
 }
 # 固有类型。
-const _INHERENT_TYPE : Array[GrammerValue.Type] = [
-	GrammerValue.Type.NIL,
-	GrammerValue.Type.STRING,
-	GrammerValue.Type.RICH_STRING,
-	GrammerValue.Type.OPTION,
-	GrammerValue.Type.COMMAND,
+const _INHERENT_TYPE : Array[GrammarValue.Type] = [
+	GrammarValue.Type.NIL,
+	GrammarValue.Type.STRING,
+	GrammarValue.Type.RICH_STRING,
+	GrammarValue.Type.OPTION,
+	GrammarValue.Type.COMMAND,
 ]
 
 ## 获取固有类型。[br]
 ## 固有类型表示不分任何情况，都可能会出现的类型。
-static func get_inherent_type() -> Array[GrammerValue.Type]:
+static func get_inherent_type() -> Array[GrammarValue.Type]:
 	return _INHERENT_TYPE.duplicate()
 ## 如果指定类型是固有类型，返回 [code]true[/code]。
-static func is_inherent_type(type : GrammerValue.Type) -> bool:
+static func is_inherent_type(type : GrammarValue.Type) -> bool:
 	return _INHERENT_TYPE.has(type)
  
 ## 变量类型转化为元素类型。
@@ -116,37 +116,37 @@ static func value_type_to_type(type : int) -> int:
 	return _VALUE_TYPE_TO_Element_MAP.get(type, -1)
 
 ## 预取其后可能的类型，不包括固有类型。
-static func try_get_type(text : String, offset : int) -> Array[GrammerValue.Type]:
+static func try_get_type(text : String, offset : int) -> Array[GrammarValue.Type]:
 	var sult := StringElement.create(text, offset)
 	if sult.is_faild:
 		return []
 	var valid_str := sult.get_valid_string()
 	
 	match valid_str[0]:
-		"@" : return [GrammerValue.Type.SELECTOR]
-		"~", "^" : return [GrammerValue.Type.COORDS, GrammerValue.Type.COORD]
-		"+", "-" : return [GrammerValue.Type.SCOPE, GrammerValue.Type.FLOAT, GrammerValue.Type.INT, GrammerValue.Type.COORDS, GrammerValue.Type.COORD]
-		"{" : return [GrammerValue.Type.DICTIONARY]
-		"[" : return [GrammerValue.Type.ARRAY]
-		"\"" : return[GrammerValue.Type.QUOTATION]
+		"@" : return [GrammarValue.Type.SELECTOR]
+		"~", "^" : return [GrammarValue.Type.COORDS, GrammarValue.Type.COORD]
+		"+", "-" : return [GrammarValue.Type.SCOPE, GrammarValue.Type.FLOAT, GrammarValue.Type.INT, GrammarValue.Type.COORDS, GrammarValue.Type.COORD]
+		"{" : return [GrammarValue.Type.DICTIONARY]
+		"[" : return [GrammarValue.Type.ARRAY]
+		"\"" : return[GrammarValue.Type.QUOTATION]
 	
 	if valid_str.begins_with(".."):
-		return [GrammerValue.Type.SCOPE]
+		return [GrammarValue.Type.SCOPE]
 	elif valid_str.ends_with(".."):
-		return [GrammerValue.Type.SCOPE]
+		return [GrammarValue.Type.SCOPE]
 	elif valid_str.find("..") != -1:
-		return [GrammerValue.Type.SCOPE]
+		return [GrammarValue.Type.SCOPE]
 	
 	if valid_str.find(":") != -1:
-		return [GrammerValue.Type.SPACEITEM]
+		return [GrammarValue.Type.SPACEITEM]
 	
 	if valid_str.is_valid_int():
-		return [GrammerValue.Type.INT, GrammerValue.Type.FLOAT, GrammerValue.Type.COORD, GrammerValue.Type.COORDS, GrammerValue.Type.SCOPE]
+		return [GrammarValue.Type.INT, GrammarValue.Type.FLOAT, GrammarValue.Type.COORD, GrammarValue.Type.COORDS, GrammarValue.Type.SCOPE]
 	if valid_str.is_valid_float():
-		return [GrammerValue.Type.FLOAT, GrammerValue.Type.COORD, GrammerValue.Type.COORDS, GrammerValue.Type.SCOPE]
+		return [GrammarValue.Type.FLOAT, GrammarValue.Type.COORD, GrammarValue.Type.COORDS, GrammarValue.Type.SCOPE]
 	
 	if StrT.is_letter_char_ord(valid_str.unicode_at(0)):
-		return [GrammerValue.Type.WORD, GrammerValue.Type.POINT_PATH, GrammerValue.Type.SELECTOR, GrammerValue.Type.SPACEITEM, GrammerValue.Type.BOOL]
+		return [GrammarValue.Type.WORD, GrammarValue.Type.POINT_PATH, GrammarValue.Type.SELECTOR, GrammarValue.Type.SPACEITEM, GrammarValue.Type.BOOL]
 	
 	return []
 
@@ -157,21 +157,21 @@ static func create_from_rule(text : String, offset : int, rule : ElementRule) ->
 	var params : Array
 	
 	match value_type:
-		GrammerValue.Type.OPTION, GrammerValue.Type.POINT_PATH:
+		GrammarValue.Type.OPTION, GrammarValue.Type.POINT_PATH:
 			params = [rule]
 		_:
-			if GrammerValue.is_type_backet(value_type):
+			if GrammarValue.is_type_backet(value_type):
 				if rule.has_detail():
 					var result_rule := rule.get_rule()
 					element_type = BacketElementManager.type_to_element_type(result_rule.get_backet_type())
-					params = [GrammerValue.get_type_backet_start(value_type), GrammerValue.get_type_backet_end(value_type), result_rule]
+					params = [GrammarValue.get_type_backet_start(value_type), GrammarValue.get_type_backet_end(value_type), result_rule]
 				else:
-					params = [GrammerValue.get_type_backet_start(value_type), GrammerValue.get_type_backet_end(value_type)]
+					params = [GrammarValue.get_type_backet_start(value_type), GrammarValue.get_type_backet_end(value_type)]
 	var element := _create_from_params(element_type, text, offset, params)
 	return element
 # 通过结果调用创建。
 static func _create_from_params(type : int, text : String, offset : int, params := []) -> Element:
-	assert(type != GrammerValue.Type.ERR, "Is Err.")
+	assert(type != GrammarValue.Type.ERR, "Is Err.")
 	match type:
 		Type.NIL, Type.PARAM, Type.COMMAND:
 			return null

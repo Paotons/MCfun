@@ -5,7 +5,7 @@ extends DoubleParamElement
 ## 类似于 [code]key : value[/code] 模式，目前仅支持字符串的键。
 
 ## 语法规则。
-var grammer_rule : GrammerColonParamBacketRule
+var grammer_rule : GrammarColonParamBacketRule
 ## 冒号位置。
 var colon_flag := -1
 
@@ -44,13 +44,13 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 		if value_element != null and value_element is StringElement and not value_element.is_faild:
 			return (value_element as StringElement).get_column_code_completion_data(column, rule, command)
 		
-		data.hint_string = "<%s : %s>" % [get_key_string(), GrammerValue.type_to_string(value_type)]
-		if not has_value() and GrammerValue.is_type_backet(value_type):
+		data.hint_string = "<%s : %s>" % [get_key_string(), GrammarValue.type_to_string(value_type)]
+		if not has_value() and GrammarValue.is_type_backet(value_type):
 			data.supple()
 			data.add_data(CodeCompletionData.create_backet_data(value_type))
 	return data
 
-static func create(text : String, offset : int, rule : GrammerColonParamBacketRule = null) -> ColonParamElement:
+static func create(text : String, offset : int, rule : GrammarColonParamBacketRule = null) -> ColonParamElement:
 	var element := ColonParamElement.new()
 	element.string_offset = offset
 	element.grammer_rule = rule
@@ -98,7 +98,7 @@ static func create(text : String, offset : int, rule : GrammerColonParamBacketRu
 		element.is_faild = false
 		return element
 	
-	var text_ := text if GrammerValue.is_type_backet(rereule.get_type()) else text.substr(0, text.find(",", element.colon_flag + offset))
+	var text_ := text if GrammarValue.is_type_backet(rereule.get_type()) else text.substr(0, text.find(",", element.colon_flag + offset))
 	var value = ElementManager.create_from_rule(text_, offset + element.value_start, rereule)
 	for err in value.errors:
 		element.create_error(element.value_start + offset, "Value has error \"%s\"." % [err.string])

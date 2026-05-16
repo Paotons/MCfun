@@ -43,7 +43,7 @@ static var _code_completion_head_data : CodeCompletionData
 #endregion
 
 ## 语法。
-var grammer : Grammer
+var grammar : Grammar
 
 #region 颜色。
 @export_group("color", "color")
@@ -223,7 +223,7 @@ func _double_input(unicode_chr : int, caret_index : int) -> bool:
 #region 补全主要。
 ## 补全，对光标处进行补全。
 func add_code_hint() -> void:
-	if grammer == null:
+	if grammar == null:
 		return
 	
 	var line := get_caret_line()

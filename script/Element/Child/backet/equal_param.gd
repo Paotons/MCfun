@@ -3,7 +3,7 @@ extends MultiParamBacketElement
 ## 等号式参数括号。
 
 ## 语法规则。
-var grammer_rule : GrammerEqualParamBacktedRule
+var grammer_rule : GrammarEqualParamBacktedRule
 
 func _get_backet_type() -> int:
 	return BacketElementManager.Type.EQUAL_PARAM
@@ -39,7 +39,7 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 		data.insert_texts.append(end_backet)
 	return data
 
-static func create(text : String, offset : int, start := "{", end := "}", rule : GrammerEqualParamBacktedRule = null) -> EqualParamBacketElement:
+static func create(text : String, offset : int, start := "{", end := "}", rule : GrammarEqualParamBacktedRule = null) -> EqualParamBacketElement:
 	var element := _create_backet_element(EqualParamBacketElement.new(), text, offset, start, end)
 	element.grammer_rule = rule
 	if element.is_faild:

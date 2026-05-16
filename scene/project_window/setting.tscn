@@ -28,7 +28,7 @@ enum ItemIndex {
 	## 编辑器。
 	EDIT,
 	## 语法。
-	GRAMMER,
+	GRAMMAR,
 }
 var items : Array[TreeItem]
 
@@ -68,15 +68,15 @@ func update_tree_item() -> void:
 	
 	var edit := root.create_child()
 	edit.set_text(0, \"编辑器\")
-	var edit_grammer := edit.create_child()
-	edit_grammer.set_text(0, \"语法\")
+	var edit_grammar := edit.create_child()
+	edit_grammar.set_text(0, \"语法\")
 	
 	items = [
 		root,
 			normal,
 				normal_config,
 			edit,
-				edit_grammer,
+				edit_grammar,
 	]
 "
 
@@ -191,12 +191,12 @@ func _get_reload_control() -> Control:
 
 func _ready() -> void:
 	var config := ProjectManager.get_current_project().get_project_config()
-	last_text = config.get_edit_grammer_path()
+	last_text = config.get_edit_grammar_path()
 	set_text(last_text)
 
 func _save() -> void:
 	var config := ProjectManager.get_current_project().get_project_config()
-	config.set_edit_grammer_path(text)
+	config.set_edit_grammar_path(text)
 	_get_reload_control().show()
 
 func _test(txt) -> bool:
@@ -206,7 +206,7 @@ func _test(txt) -> bool:
 		return false
 	return true
 
-func _on_grammer_path_dir_selected(dir: String) -> void:
+func _on_grammar_path_dir_selected(dir: String) -> void:
 	if not _test(dir):
 		return
 	set_text(dir)
@@ -226,7 +226,7 @@ func _on_editing_toggled(toggled_on: bool) -> void:
 script/source = "extends FileDialog
 
 func _ready() -> void:
-	set_current_dir(FileSystem.data_root.path_join(\"storage/grammer\"))
+	set_current_dir(FileSystem.data_root.path_join(\"storage/grammar\"))
 "
 
 [node name="ProjectSetting" type="Window" unique_id=216988942]
@@ -356,7 +356,7 @@ layout_mode = 2
 layout_mode = 2
 text = "语法目录"
 
-[node name="GrammerPath" type="LineEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer" unique_id=1727898882]
+[node name="GrammarPath" type="LineEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer" unique_id=1727898882]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -390,7 +390,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "关闭"
 
-[node name="GrammerPath" type="FileDialog" parent="." unique_id=1585746821]
+[node name="GrammarPath" type="FileDialog" parent="." unique_id=1585746821]
 title = "Open a Directory"
 file_mode = 2
 access = 2
@@ -398,8 +398,8 @@ script = SubResource("GDScript_2f5xw")
 
 [connection signal="close_requested" from="." to="VBoxContainer/HSplitContainer/Tree" method="hide"]
 [connection signal="editing_toggled" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName/LineEdit" to="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName/LineEdit" method="_on_editing_toggled"]
-[connection signal="editing_toggled" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/GrammerPath" to="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/GrammerPath" method="_on_editing_toggled"]
-[connection signal="pressed" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/Button" to="GrammerPath" method="popup_file_dialog"]
+[connection signal="editing_toggled" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/GrammarPath" to="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/GrammarPath" method="_on_editing_toggled"]
+[connection signal="pressed" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/Button" to="GrammarPath" method="popup_file_dialog"]
 [connection signal="pressed" from="VBoxContainer/ReloadProject/HBoxContainer/ReloadProjectButton" to="." method="_on_reload_project_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="hide"]
-[connection signal="dir_selected" from="GrammerPath" to="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/GrammerPath" method="_on_grammer_path_dir_selected"]
+[connection signal="dir_selected" from="GrammarPath" to="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/GrammarPath" method="_on_grammar_path_dir_selected"]

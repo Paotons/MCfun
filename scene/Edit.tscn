@@ -333,7 +333,7 @@ script/source = "extends FunctionEdit
 
 @export var _error_hint_label : Label
 ## 语法目录。
-@export_dir() var grammer_directory : String
+@export_dir() var grammar_directory : String
 
 ## 用于检测配置文件高亮颜色的选择。
 const CONFIG_HIGHLIGHT_COLOR_SELECT := \"HighLightColor\"
@@ -490,10 +490,10 @@ func _on_file_list_container_saved(path: String) -> void:
 
 func _on_edit_project_initial_finished() -> void:
 	var project := ProjectManager.get_current_project()
-	assert(DirAccess.dir_exists_absolute(grammer_directory), \"Not has directory.\")
-	grammer = Grammer.new()
-	var error := grammer.open(project.get_project_cache().get_grammer_directory())
-	assert(error.is_empty(), \"Grammer has error.\")
+	assert(DirAccess.dir_exists_absolute(grammar_directory), \"Not has directory.\")
+	grammar = Grammar.new()
+	var error := grammar.open(project.get_project_cache().get_grammar_directory())
+	assert(error.is_empty(), \"Grammar has error.\")
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_r0du0"]
@@ -699,7 +699,29 @@ auto_brace_completion_pairs = {
 }
 script = SubResource("GDScript_r0du0")
 _error_hint_label = NodePath("../MarginContainer2/HBoxContainer/error_hint")
-grammer_directory = "res://resource/grammer/default"
+grammar_directory = "res://resource/grammar/default"
+double_input_char_map = null
+double_input_disabled = null
+double_input_interval_time = null
+max_code_expleation = null
+spaceitem_expleation_included_space = null
+color_default = null
+color_key_word = null
+color_number = null
+color_member = null
+color_point_path_mumber = null
+color_option = null
+color_error_option = null
+color_bool = null
+color_selector = null
+color_space = null
+color_stringname = null
+color_string = null
+color_special = null
+color_coord_x = null
+color_coord_y = null
+color_coord_z = null
+color_coord_w = null
 _test_data = "\"   @e [type=hh:gg]\""
 metadata/_custom_type_script = "uid://qbixiwedac0a"
 

@@ -4,7 +4,7 @@ extends Resource
 ##
 ## 目录模式。[codeblock]
 ## {".mcfun" : 
-## 	{"grammer" : { "compiled" : {}, "name.txt" : false}
+## 	{"grammar" : { "compiled" : {}, "name.txt" : false}
 ## }[/codeblock]
 
 # 缓存目录。
@@ -18,8 +18,8 @@ func _get_cache_directory() -> String:
 	return directory.path_join(_CHACHE_DIRECTORY)
 
 ## 返回缓存语法目录。
-func get_grammer_directory() -> String:
-	return _get_cache_directory().path_join("grammer/compiled")
+func get_grammar_directory() -> String:
+	return _get_cache_directory().path_join("grammar/compiled")
 
 ## [b]friend [Project]:[/b]加载缓存，需要在线程中运行。
 func _load_cache(process : ProjectOpendProcess) -> void:
@@ -35,30 +35,30 @@ func _load_cache(process : ProjectOpendProcess) -> void:
 	if not DirAccess.dir_exists_absolute(cache):
 		DirAccess.make_dir_absolute(cache)
 	
-	_load_grammer(process)
-func _load_grammer(process : ProjectOpendProcess) -> void:
+	_load_grammar(process)
+func _load_grammar(process : ProjectOpendProcess) -> void:
 	if process != null:
 		process.mutex.lock()
 		process.sub_process.x += 1
 		process.mutex.unlock()
 	
 	var project := ProjectManager.get_current_project()
-	var grammer := _get_cache_directory().path_join("grammer")
+	var grammar := _get_cache_directory().path_join("grammar")
 	
-	if _test_grammer_name():
-		var to_path := grammer.path_join("compiled")
+	if _test_grammar_name():
+		var to_path := grammar.path_join("compiled")
 		if DirAccess.dir_exists_absolute(to_path):
 			FileSystem.remove_directory(to_path)
 		DirAccess.make_dir_absolute(to_path)
-		Grammer.new().compile(project.get_project_config().get_edit_grammer_path(), to_path)
+		Grammar.new().compile(project.get_project_config().get_edit_grammar_path(), to_path)
 
 # 如果语法改变，返回 true，并重新更新。
-func _test_grammer_name() -> bool:
-	var last_path := _get_cache_directory().path_join("grammer/name.txt")
+func _test_grammar_name() -> bool:
+	var last_path := _get_cache_directory().path_join("grammar/name.txt")
 	var last_name := FileAccess.get_file_as_string(last_path) if FileAccess.file_exists(last_path) else ""
 	
-	var path := ProjectManager.get_current_project().get_project_config().get_edit_grammer_path()
-	assert(DirAccess.dir_exists_absolute(path), "Unvaild grammer")
+	var path := ProjectManager.get_current_project().get_project_config().get_edit_grammar_path()
+	assert(DirAccess.dir_exists_absolute(path), "Unvaild grammar")
 	var name := path + "\n" + str(FileSystem.get_access_time(path))
 	
 	if last_name != name:

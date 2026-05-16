@@ -151,8 +151,8 @@ func _compile(data : Variant) -> void:
 	
 	var obj : _Element
 	match type:
-		GrammerValue.Type.OPTION: obj = _Option.new()
-		GrammerValue.Type.NIL: obj = _Nil.new()
+		GrammarValue.Type.OPTION: obj = _Option.new()
+		GrammarValue.Type.NIL: obj = _Nil.new()
 		_: obj = _Default.new()
 	
 	obj.compiled_result = compiled_result

@@ -37,7 +37,7 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 		data.hint_string = "<%s : selector>" % [rule.get_description()]
 	# 身体
 	elif not has_body():
-		return CodeCompletionData.create_backet_data(GrammerValue.Type.ARRAY)
+		return CodeCompletionData.create_backet_data(GrammarValue.Type.ARRAY)
 	else:
 		if _body_backet.has_column(column):
 			return _body_backet.get_column_code_completion_data(column, rule, command)
@@ -72,7 +72,7 @@ static func _create_selector_from_art(text : String, offset : int) -> SelectorEl
 		element.is_faild = false
 		return element
 	
-	var backet := EqualParamBacketElement.create(text, result.get_start("body_begin") + offset, "[", "]", EditManager.get_grammer_law().get_selector_body_rule())
+	var backet := EqualParamBacketElement.create(text, result.get_start("body_begin") + offset, "[", "]", EditManager.get_grammar_law().get_selector_body_rule())
 	if backet.is_faild:
 		element.is_faild = false
 		return element

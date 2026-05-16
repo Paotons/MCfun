@@ -6,7 +6,7 @@ extends DoubleParamElement
 ## 格式类似 [code]type=array [/code], 或者是 [code] type=!array [/code]。[br]
 
 ## 语法规则。
-var grammer_rule : GrammerEqualParamBacktedRule
+var grammer_rule : GrammarEqualParamBacktedRule
 
 ## 等号位置。
 var equal_flag := -1
@@ -14,7 +14,7 @@ var equal_flag := -1
 var not_flag := -1
 
 static var _equal_param_searched_regex := RegEx.create_from_string(r"^(?<start> *)(?<key>[^ \t=]+)(?: *(?<equal>=))?(?: *(?<not>!))?(?: *(?<value_begin>.))?")
-static func create(text : String, offset : int, rule : GrammerEqualParamBacktedRule = null) -> EqualParamElement:
+static func create(text : String, offset : int, rule : GrammarEqualParamBacktedRule = null) -> EqualParamElement:
 	if rule.is_using_key():
 		return _create_using_key(text, offset, rule)
 	var element := EqualParamElement.new()
@@ -58,7 +58,7 @@ static func create(text : String, offset : int, rule : GrammerEqualParamBacktedR
 		element.string = text.substr(offset, maxi(element.not_flag, element.equal_flag) + 1)
 		element.is_faild = false
 		return element
-	var text_ := text if GrammerValue.is_type_backet(element.value_type) else text.substr(0, text.find(",", maxi(element.equal_flag, element.not_flag) + offset))
+	var text_ := text if GrammarValue.is_type_backet(element.value_type) else text.substr(0, text.find(",", maxi(element.equal_flag, element.not_flag) + offset))
 	var value := ElementManager.create_from_rule(text_, offset + element.value_start, rerule)
 	
 	element.value_element = value
@@ -72,7 +72,7 @@ static func create(text : String, offset : int, rule : GrammerEqualParamBacktedR
 		element.string = text.substr(offset, value.get_valid_end() - offset)
 	element.is_faild = false
 	return element
-static func _create_using_key(text : String, offset : int, rule : GrammerEqualParamBacktedRule) -> EqualParamElement:
+static func _create_using_key(text : String, offset : int, rule : GrammarEqualParamBacktedRule) -> EqualParamElement:
 	var element := EqualParamElement.new()
 	element.string_offset = offset
 	element.grammer_rule = rule
@@ -80,7 +80,7 @@ static func _create_using_key(text : String, offset : int, rule : GrammerEqualPa
 	# 键
 	var key_ele_rule := rule.get_element_rule("key")
 	element.key_type = key_ele_rule.get_type()
-	var text_ := text if GrammerValue.is_type_backet(element.key_type) else text.substr(0, text.find("=", offset))
+	var text_ := text if GrammarValue.is_type_backet(element.key_type) else text.substr(0, text.find("=", offset))
 	var key_ele : StringElement = ElementManager.create_from_rule(text_, offset, key_ele_rule)
 	element.key_element = key_ele
 	
@@ -163,9 +163,9 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 		elif value_element is StringElement and not value_element.is_faild:
 			var result_rule := grammer_rule.get_element_rule(key)
 			return (value_element as StringElement).get_column_code_completion_data(column, result_rule, command)
-		data.hint_string = "<%s : %s>" % [get_key_string(), GrammerValue.type_to_string(value_type)]
+		data.hint_string = "<%s : %s>" % [get_key_string(), GrammarValue.type_to_string(value_type)]
 		match value_type:
-			GrammerValue.Type.DICTIONARY, GrammerValue.Type.ARRAY, GrammerValue.Type.QUOTATION:
+			GrammarValue.Type.DICTIONARY, GrammarValue.Type.ARRAY, GrammarValue.Type.QUOTATION:
 				data.supple() ; data.add_data(CodeCompletionData.create_backet_data(value_type))
 	return data
 func _get_column_code_completion_data_using_key(column : int, _rule : ElementRule, command : CommandElement) -> CodeCompletionData:

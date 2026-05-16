@@ -3,7 +3,7 @@ extends SyntaxHighlighter
 ## 语法高亮。
 
 ## 语法。
-var grammer_process : GrammerProcess
+var grammar_process : GrammarProcess
 
 # 入口。
 func _get_line_syntax_highlighting(line: int) -> Dictionary:

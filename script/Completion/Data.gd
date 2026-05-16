@@ -154,14 +154,14 @@ static func _get_weight_point_path(text : String, column : int, insert : String,
 #endregion
 
 ## 创建一个补全括号的数据。
-static func create_backet_data(type : GrammerValue.Type) -> CodeCompletionData:
-	assert(GrammerValue.is_type_backet(type), "Not is backet type.")
+static func create_backet_data(type : GrammarValue.Type) -> CodeCompletionData:
+	assert(GrammarValue.is_type_backet(type), "Not is backet type.")
 	var res := CodeCompletionData.new()
 	
 	match type:
-		GrammerValue.Type.QUOTATION : res.insert_texts = ["\"\""]
-		GrammerValue.Type.ARRAY : res.insert_texts = ["[]"]
-		GrammerValue.Type.DICTIONARY : res.insert_texts = ["{}"]
+		GrammarValue.Type.QUOTATION : res.insert_texts = ["\"\""]
+		GrammarValue.Type.ARRAY : res.insert_texts = ["[]"]
+		GrammarValue.Type.DICTIONARY : res.insert_texts = ["{}"]
 	
 	var value := CodeCompletionDataValue.new()
 	value.inserted_update = true
