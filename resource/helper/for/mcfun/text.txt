@@ -1,0 +1,4 @@
+[title]简介[/title]
+MCfun 就是 [code]Minecraft Function/我的世界函数[/code] 的简称，当然也可以理解成 [code]Minectaft is fun/我的世界很有趣[/code] 。
+
+正如其名，这是帮助 Minecraft 玩家写函数/指令的工具。

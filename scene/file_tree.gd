@@ -3,9 +3,9 @@ extends Tree
 ## 文件树。
 
 ## 根节点路径。
-var root_path : String
+@export_dir() var root_path : String
 ## 根节点名称。
-var root_name : String
+@export var root_name : String
 
 ## 更新树。
 func update_tree_item() -> void:

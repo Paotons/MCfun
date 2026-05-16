@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c56tb0y6fuj01" path="res://scene/file_list_container.gd" id="1_w0n44"]
 [ext_resource type="PackedScene" uid="uid://daio2odmv7kgw" path="res://scene/edit_window/setting.tscn" id="5_pdkdi"]
 [ext_resource type="PackedScene" uid="uid://qyqgjfqhms20" path="res://scene/project_window/setting.tscn" id="6_w0n44"]
+[ext_resource type="PackedScene" uid="uid://bdehv7qu4feyt" path="res://scene/helper/window.tscn" id="7_vsmy6"]
 [ext_resource type="PackedScene" uid="uid://b1mh5o58v8e5g" path="res://scene/file_window/file_system.tscn" id="8_qyh5x"]
 [ext_resource type="PackedScene" uid="uid://diyi5chw3itl4" path="res://scene/project_window/export_setting.tscn" id="9_kijkp"]
 
@@ -644,6 +645,11 @@ flat = true
 script = SubResource("GDScript_yiwpq")
 window = NodePath("../../../../../EditSetting")
 
+[node name="Helper" type="Button" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=1150918165]
+layout_mode = 2
+text = "帮助"
+flat = true
+
 [node name="HSplitContainer" type="HSplitContainer" parent="Base" unique_id=2146239094]
 layout_mode = 2
 size_flags_vertical = 3
@@ -700,28 +706,6 @@ auto_brace_completion_pairs = {
 script = SubResource("GDScript_r0du0")
 _error_hint_label = NodePath("../MarginContainer2/HBoxContainer/error_hint")
 grammar_directory = "res://resource/grammar/default"
-double_input_char_map = null
-double_input_disabled = null
-double_input_interval_time = null
-max_code_expleation = null
-spaceitem_expleation_included_space = null
-color_default = null
-color_key_word = null
-color_number = null
-color_member = null
-color_point_path_mumber = null
-color_option = null
-color_error_option = null
-color_bool = null
-color_selector = null
-color_space = null
-color_stringname = null
-color_string = null
-color_special = null
-color_coord_x = null
-color_coord_y = null
-color_coord_z = null
-color_coord_w = null
 _test_data = "\"   @e [type=hh:gg]\""
 metadata/_custom_type_script = "uid://qbixiwedac0a"
 
@@ -805,6 +789,9 @@ script = SubResource("GDScript_qyh5x")
 
 [node name="FileSystem" parent="." unique_id=816334499 instance=ExtResource("8_qyh5x")]
 visible = false
+wrap_controls = true
+transient = true
+exclusive = true
 
 [node name="FileSaveOptionWindow" type="AcceptDialog" parent="." unique_id=956868818]
 oversampling_override = 1.0
@@ -818,7 +805,11 @@ script = SubResource("GDScript_kijkp")
 [node name="ProjectExportSetting" parent="." unique_id=1489223026 instance=ExtResource("9_kijkp")]
 visible = false
 
+[node name="HelperWindow" parent="." unique_id=1477635680 instance=ExtResource("7_vsmy6")]
+visible = false
+
 [connection signal="project_initial_finished" from="." to="Base/HSplitContainer/VBoxContainer2/CodeEdit" method="_on_edit_project_initial_finished"]
+[connection signal="pressed" from="Base/MarginContainer/MarginContainer/HBoxContainer/Helper" to="HelperWindow" method="popup_centered_clamped"]
 [connection signal="closed" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/CodeEdit" method="_on_file_list_container_closed"]
 [connection signal="saved" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/CodeEdit" method="_on_file_list_container_saved"]
 [connection signal="selected_changed" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/CodeEdit" method="_on_file_list_container_selected_changed"]

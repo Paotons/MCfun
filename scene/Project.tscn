@@ -5,6 +5,21 @@
 [ext_resource type="PackedScene" uid="uid://q873r67430sn" path="res://scene/project_window/load.tscn" id="3_7wlok"]
 [ext_resource type="PackedScene" uid="uid://daio2odmv7kgw" path="res://scene/edit_window/setting.tscn" id="4_5kpg8"]
 [ext_resource type="PackedScene" uid="uid://cxl3ruqkak64o" path="res://scene/file_window/mcfunction_coper.tscn" id="5_jsxg6"]
+[ext_resource type="PackedScene" uid="uid://bdehv7qu4feyt" path="res://scene/helper/window.tscn" id="6_ivmrw"]
+
+[sub_resource type="GDScript" id="GDScript_ivmrw"]
+script/source = "extends Button
+
+func _ready() -> void:
+	if ProjectManager.get_project_count() != 0:
+		return
+	
+	if not FileSystem.is_initialed():
+		await FileSystem.initial_finished
+	await get_tree().process_frame 
+	await get_tree().process_frame # 等待界面布局
+	pressed.emit()
+"
 
 [sub_resource type="GDScript" id="GDScript_t4e8x"]
 script/source = "extends VBoxContainer
@@ -173,6 +188,11 @@ text = "设置"
 layout_mode = 2
 text = "复制"
 
+[node name="Helper" type="Button" parent="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer" unique_id=1040555496]
+layout_mode = 2
+text = "帮助"
+script = SubResource("GDScript_ivmrw")
+
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer" unique_id=1372849124]
 layout_mode = 2
 size_flags_vertical = 3
@@ -233,11 +253,15 @@ visible = false
 [node name="MCFunctionCoperWindow" parent="." unique_id=969437798 instance=ExtResource("5_jsxg6")]
 visible = false
 
+[node name="HelperWindow" parent="." unique_id=1477635680 instance=ExtResource("6_ivmrw")]
+visible = false
+
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button" to="AboutMe" method="popup_centered_clamped"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/Create" to="CreateProjectWindow" method="popup_centered_clamped"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/Load" to="LoadProjectWindow" method="popup_centered_clamped"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/Setting" to="EditSetting" method="popup_centered_clamped"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/Coper" to="MCFunctionCoperWindow" method="popup_centered_clamped"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/Helper" to="HelperWindow" method="popup_centered_clamped"]
 [connection signal="project_pressed" from="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer/ProjectList" to="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer2/VBoxContainer/Edit" method="_on_project_list_project_pressed"]
 [connection signal="selected_project_changed" from="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer/ProjectList" to="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer2/VBoxContainer/Edit" method="_on_project_list_selected_project_changed"]
 [connection signal="selected_project_changed" from="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer/ProjectList" to="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer2/VBoxContainer/Remove" method="_on_project_list_selected_project_changed"]

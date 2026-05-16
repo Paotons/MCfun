@@ -234,6 +234,9 @@ oversampling_override = 1.0
 title = "项目设置"
 position = Vector2i(0, 36)
 size = Vector2i(1152, 648)
+wrap_controls = true
+transient = true
+exclusive = true
 script = SubResource("GDScript_2rgxv")
 
 [node name="Panel" type="Panel" parent="." unique_id=1862995989]
@@ -396,7 +399,7 @@ file_mode = 2
 access = 2
 script = SubResource("GDScript_2f5xw")
 
-[connection signal="close_requested" from="." to="VBoxContainer/HSplitContainer/Tree" method="hide"]
+[connection signal="close_requested" from="." to="." method="hide"]
 [connection signal="editing_toggled" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName/LineEdit" to="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName/LineEdit" method="_on_editing_toggled"]
 [connection signal="editing_toggled" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/GrammarPath" to="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/GrammarPath" method="_on_editing_toggled"]
 [connection signal="pressed" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/Button" to="GrammarPath" method="popup_file_dialog"]

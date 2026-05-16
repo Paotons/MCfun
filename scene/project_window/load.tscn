@@ -104,6 +104,9 @@ oversampling_override = 1.0
 title = "导入项目"
 position = Vector2i(0, 36)
 size = Vector2i(1152, 648)
+wrap_controls = true
+transient = true
+exclusive = true
 
 [node name="Panel" type="Panel" parent="." unique_id=754769394]
 anchors_preset = 15

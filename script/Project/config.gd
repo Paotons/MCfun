@@ -32,7 +32,7 @@ func get_project_version() -> PackedInt32Array:
 	return _config.get_value(_SELECT_PROJECT, "version", [1, 0, 0])
 ## 获取最小游戏版本。
 func get_project_main_engine_version() -> PackedInt32Array:
-	return _config.get_value(_SELECT_PROJECT, "min_engine_varsion", [1, 2, 0])
+	return _config.get_value(_SELECT_PROJECT, "min_engine_varsion", [1, 20, 0])
 ## 获取项目描述。
 func get_project_description() -> String:
 	return _config.get_value(_SELECT_PROJECT, "description", "")

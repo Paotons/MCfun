@@ -1,0 +1,64 @@
+[title]创建项目[/title]
+
+进入项目列表，点击上方工具栏的[code]新建[/code]。
+输入项目名称，建议使用英语命名。
+项目目录可以选择默认。
+
+创建成功，选择项目点击右边的[code]编辑[/code]或者再次点击项目进编辑列表入。
+
+[title]创建文件[/title]
+
+点击上方工具栏[code]文件>>系统[/code]进入文件系统。
+文件系统中找到顶部[code]添加>>mcfun[/code]并输入文件名称，这里就用[code]Welcome[/code]并确认。
+
+然后选中文件，点击旁边的[code]打开>>文件[/code]，打开文件。
+
+[title]编辑文件[/title]
+
+打开文件，自动选中文件。
+可以先输入 [code]give @s app[/code]，这个时候按一下 [code]Enter/换行[/code] 可以快速补全。
+这时候我们就编辑好了 [code]give @s minecraft:apple[/code] 一行指令。
+
+然后点击上面工具栏的[code]文件>>保存[/code]，不然文件可能会丢失。
+
+[title]项目设置[/title]
+
+如果你是最新版 Minecraft，可以不用设置，直接导出。
+
+上方工具栏中的[code]项目>>设置[/code]，可以打开项目设置。
+[code]项目名称:[/code]这个项目的名称。
+[code]项目路径:[/code]这个项目的路径。不可编辑，仅用于复制。
+[code]项目版本:[/code]导出后你想显示的版本。默认 1.0.0。
+[code]项目描述:[/code]导出后，用于资源包描述显示。
+[code]最低游戏版本:[/code]这个资源包运行的 Mincraft 版本。默认 1.20.0。
+[b]注意:[/b]如果资源包中不显示，很可能是这个配置错误。
+
+[title]项目导出[/title]
+
+上方工具栏中点击[code]项目>>导出[/code]，打开导出窗口。
+可以配置导出路径，当然默认也可以。
+点击导出，并等待。
+导出完毕后可能复制路径找到压缩包，或者直接打开定位。
+
+[b]注意:[/b]如果最开始没有设置数据目录，默认会使用软件目录，可能无法直接访问。需要到[code]（编辑器）设置>>界面>>通用>>数据目录[/code]进行更改。
+[b]注意:[/b]导出过程中，窗口无法关闭。
+
+[title]导入游戏[/title]
+
+找到你的地图，一般都是[code]/storage/emulated/0/Android/data/com.mojang.minecraftpe/files/games/com.mojang/minecraftWorlds/[/code]目录中。可根据里面的截图或者[code]levelname.txt[/code]进行判断地图名称。
+找到地图将压缩包解压到[code]behavior_packs[/code]目录，就算成功。
+
+[b]注意:[/b]网易资源包可能在软件内部，不可使用。需要用到复制 [code]mcfunction[/code] 功能。
+
+[title]激活行为包[/title]
+
+进入 Minecraft，打开世界编辑界面中[code]行为包>>我的包[/code]就应该有一个错误图标的选项。点击并激活。
+
+[b]注意:[/b]如果没有显示，可能需要重进游戏或者是[code]项目设置>>最低游戏版本[/code]配置错误。
+
+[title]调用函数[/title]
+
+进入世界，输入 [code]/function Welcome/你的文件名[/code]你就获得了一个苹果。
+
+[b]注意:[/b]如果显示没有函数，可能需要 [code]/reload[/code] 重新加载函数。
+

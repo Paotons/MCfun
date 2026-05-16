@@ -1,0 +1,157 @@
+[gd_scene format=3 uid="uid://bdehv7qu4feyt"]
+
+[ext_resource type="Script" uid="uid://d25eanpg2d10t" path="res://scene/helper/window.gd" id="1_ri6ce"]
+
+[sub_resource type="GDScript" id="GDScript_tnxvb"]
+script/source = "extends Tree
+## 显示帮助的树。
+
+## 目录被选中。
+signal directory_selectrd(directory : String)
+
+## 根节点路径。
+@export_dir var root_path : String
+
+# 树。
+var _tree_items : Array[TreeItem]
+# 树的目录。
+var _tree_directories : PackedStringArray
+
+func _ready() -> void:
+	updata_tree_item()
+
+func updata_tree_item() -> void:
+	clear()
+	_tree_items.clear()
+	_tree_directories.clear()
+	
+	var queue_directories : Array[DirAccess]
+	var queue_tree : Array[TreeItem]
+	
+	var root := create_item()
+	root.set_text(0, \"root\")
+	
+	for dir in DirAccess.get_directories_at(root_path):
+		queue_directories.append(DirAccess.open(root_path.path_join(dir)))
+	queue_tree.resize(queue_directories.size())
+	queue_tree.fill(root)
+	
+	_tree_directories.append(root_path)
+	_tree_items.append(root)
+	
+	while not queue_directories.is_empty():
+		var directory : DirAccess = queue_directories.pop_back()
+		var parent : TreeItem = queue_tree.pop_back()
+		var path := directory.get_current_dir()
+		var tree := parent.create_child()
+		
+		_tree_items.append(tree)
+		_tree_directories.append(path)
+		
+		if directory.file_exists(\"config.cfg\"):
+			var cfg := ConfigFile.new()
+			cfg.load(path.path_join(\"config.cfg\"))
+			_config_tree_item(tree, cfg)
+		else:
+			tree.set_text(0, path.get_file())
+		
+		for dir in directory.get_directories():
+			queue_directories.append(DirAccess.open(path.path_join(dir)))
+			queue_tree.append(tree)
+func _config_tree_item(item : TreeItem, cfg : ConfigFile) -> void:
+	item.set_text(0, cfg.get_value(\"title\", \"title\", \"Unknow\"))
+
+func _on_item_selected() -> void:
+	var tree := get_selected()
+	var index := _tree_items.find(tree)
+	directory_selectrd.emit(\"\" if index == -1 else _tree_directories[index])
+
+func _on_rich_text_label_goto_file(file: String) -> void:
+	if not DirAccess.dir_exists_absolute(root_path.path_join(file)):
+		return
+	var path := DirAccess.open(root_path.path_join(file)).get_current_dir()
+	var index := _tree_directories.find(path)
+	if index == -1:
+		return
+	_tree_items[index].select(0)
+"
+
+[sub_resource type="GDScript" id="GDScript_ri6ce"]
+script/source = "@tool
+extends HelperRichTextLabel
+
+## 跳转到文件。
+signal goto_file(file : String)
+
+func _on_tree_directory_selectrd(directory: String) -> void:
+	var path := directory.path_join(\"text.txt\")
+	if not FileAccess.file_exists(path):
+		set_text(\"\")
+		return
+	var txt := FileAccess.get_file_as_string(path)
+	set_helper_text(txt)
+
+func _on_meta_clicked(meta: Variant) -> void:
+	var value := get_meta_value(meta)
+	match value[\"type\"]:
+		MetaType.NORMAL:
+			return
+		MetaType.GOTO_FILE:
+			goto_file.emit(value[\"file\"])
+"
+
+[node name="HelperWindow" type="AcceptDialog" unique_id=1477635680]
+oversampling_override = 1.0
+title = "帮助"
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+visible = true
+ok_button_text = "关闭"
+script = ExtResource("1_ri6ce")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="." unique_id=1102008164]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 1144.0
+offset_bottom = 599.0
+theme_override_constants/separation = 8
+
+[node name="Tree" type="Tree" parent="HSplitContainer" unique_id=1608331888]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+hide_root = true
+script = SubResource("GDScript_tnxvb")
+root_path = "res://resource/helper"
+
+[node name="MarginContainer" type="MarginContainer" parent="HSplitContainer" unique_id=67141290]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="HSplitContainer/MarginContainer" unique_id=1405431488]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HSplitContainer/MarginContainer" unique_id=1068051456]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/MarginContainer/MarginContainer" unique_id=1392663009]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HSplitContainer/MarginContainer/MarginContainer/ScrollContainer" unique_id=954747177]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 2
+bbcode_enabled = true
+selection_enabled = true
+script = SubResource("GDScript_ri6ce")
+
+[connection signal="confirmed" from="." to="." method="hide"]
+[connection signal="directory_selectrd" from="HSplitContainer/Tree" to="HSplitContainer/MarginContainer/MarginContainer/ScrollContainer/RichTextLabel" method="_on_tree_directory_selectrd"]
+[connection signal="item_selected" from="HSplitContainer/Tree" to="HSplitContainer/Tree" method="_on_item_selected"]
+[connection signal="goto_file" from="HSplitContainer/MarginContainer/MarginContainer/ScrollContainer/RichTextLabel" to="HSplitContainer/Tree" method="_on_rich_text_label_goto_file"]
+[connection signal="meta_clicked" from="HSplitContainer/MarginContainer/MarginContainer/ScrollContainer/RichTextLabel" to="HSplitContainer/MarginContainer/MarginContainer/ScrollContainer/RichTextLabel" method="_on_meta_clicked"]
