@@ -4,6 +4,8 @@ extends GrammerCompiler
 ##
 ## 能够将字典转化成 [GrammerEntry] 可用的数据。
 
+var entry_name := "Entry"
+
 ## 获取结果。
 func get_result() -> Dictionary:
 	return compiled_result
@@ -16,13 +18,13 @@ func _compile(data : Variant) -> void:
 	
 	var from : Dictionary = data
 	compiled_result = {}
-	if not _test_dictionary_key_types(from, 1 << TYPE_STRING, "Entry"):
+	if not _test_dictionary_key_types(from, 1 << TYPE_STRING, entry_name):
 		return
-	if not _test_dictionary_value_types(from, 1 << TYPE_DICTIONARY, "Entry"):
+	if not _test_dictionary_value_types(from, 1 << TYPE_DICTIONARY, entry_name):
 		return
 	
 	for chapter_name : String in data:
-		_compiled_chapter(from[chapter_name], chapter_name)
+		_compiled_chapter(from[chapter_name], "%s[%s]" % [entry_name, chapter_name])
 	_set_is_valid(true)
 
 ## 解析章节。
@@ -41,6 +43,7 @@ func _compiled_chapter(from : Dictionary, name : String) -> void:
 			obj = GrammerStringChapterCompiler.new()
 		GrammerChapter.ChapterType.PATH:
 			obj = GrammerPathChapterCompiler.new()
+	obj.compiler_data = compiler_data
 	obj.compile(from)
 	
 	if not obj.is_valid():
@@ -61,7 +64,7 @@ func _compile_chapter_type(from : Dictionary, to : Dictionary, name : String) ->
 	var type_str := from["type"] as String
 	var type := GrammerChapter.string_to_type(type_str)
 	if type == -1:
-		errors.append("%s[\"type\"] is %s, can not used." % [name, type_str])
+		errors.append("%s[type] is %s, can not used." % [name, type_str])
 		return false
 	
 	to[GrammerChapter.ChapterMeta.TYPE] = type

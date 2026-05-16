@@ -1,0 +1,40 @@
+{
+	"player" : {
+		"attack" : {
+			"knockback" : false,
+			"strong" : false,
+			"weak" : false
+		},
+		"die" : false,
+		"hurt" : false,
+		"hurt_drown" : false,
+		"hurt_fall" : false,
+		"hurt_fire" : false,
+		"hurt_freeze" : false,
+		"hurt_on_fire" : false,
+		"thorns" : {
+			"hit" : false
+		}
+	},
+	"player_levelup" : false,
+	"potion" : {
+		"smash" : false
+	},
+	"raid" : {
+		"horn" : false
+	},
+	"tnt_primed" : false,
+	"weather" : {
+		"rain" : false,
+		"thunder" : false
+	},
+	"wolf" : {
+		"bark" : false,
+		"growl" : false,
+		"howl" : false,
+		"pant" : false,
+		"shake" : false,
+		"step" : false,
+		"whine" : false
+	}
+}

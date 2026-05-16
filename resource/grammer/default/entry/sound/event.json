@@ -1,0 +1,669 @@
+{
+	"": false,
+	"minecraft" : {
+		"": false,
+		"entity" : {
+			"": false,
+			"allay" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"death" : false,
+				"item_given" : false,
+				"item_taken" : false,
+				"item_thrown" : false,
+				"hurt" : false,
+				"idle" : false
+			},
+			"axolotl" : {
+				"": false,
+				"attack" : false,
+				"death" : false,
+				"hurt" : false,
+				"idle" : false,
+				"idle_water" : false,
+				"splash" : false,
+				"swim" : false
+			},
+			"bat" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"loop" : false,
+				"takeoff" : false
+			},
+			"bee" : {
+				"": false,
+				"death" : false,
+				"hurt" : false,
+				"loop" : false,
+				"pollinate" : false,
+				"sting" : false
+			},
+			"blaze" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"shoot" : false
+			},
+			"cat" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"eat" : false,
+				"hiss" : false,
+				"hurt" : false,
+				"purr" : false,
+				"purreow" : false
+			},
+			"chicken" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"egg" : false,
+				"hurt" : false,
+				"step" : false
+			},
+			"cod" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"flop" : false,
+				"hurt" : false
+			},
+			"cow" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"milk" : false,
+				"step" : false
+			},
+			"creeper" : {
+				"": false,
+				"death" : false,
+				"hurt" : false,
+				"primed" : false
+			},
+			"dolphin" : {
+				"": false,
+				"ambient" : false,
+				"attack" : false,
+				"death" : false,
+				"eat" : false,
+				"hurt" : false,
+				"idle_water" : false,
+				"splash" : false,
+				"swim" : false
+			},
+			"donkey" : {
+				"": false,
+				"ambient" : false,
+				"angry" : false,
+				"chest" : false,
+				"death" : false,
+				"hurt" : false,
+				"step" : false
+			},
+			"drowned" : {
+				"": false,
+				"ambient" : false,
+				"ambient_water" : false,
+				"death" : false,
+				"death_water" : false,
+				"hurt" : false,
+				"hurt_water" : false,
+				"shoot" : false,
+				"step" : false,
+				"swim" : false
+			},
+			"elder_guardian" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"flop" : false,
+				"hurt" : false,
+				"curse" : false
+			},
+			"ender_dragon" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"flap" : false,
+				"growl" : false,
+				"hurt" : false
+			},
+			"enderman" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"scream" : false,
+				"stare" : false,
+				"teleport" : false
+			},
+			"endermite" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"step" : false
+			},
+			"evoker" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"prepare_attack" : false,
+				"prepare_summon" : false,
+				"prepare_wololo" : false
+			},
+			"fish" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"flop" : false,
+				"hurt" : false
+			},
+			"fox" : {
+				"": false,
+				"ambient" : false,
+				"bite" : false,
+				"death" : false,
+				"eat" : false,
+				"hurt" : false,
+				"screech" : false,
+				"sleep" : false,
+				"spit" : false,
+				"step" : false
+			},
+			"frog" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"eat" : false,
+				"hurt" : false,
+				"lay_spawn" : false,
+				"step" : false
+			},
+			"ghast" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"screech" : false,
+				"shoot" : false
+			},
+			"glow_squid" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"squirt" : false
+			},
+			"goat" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"eat" : false,
+				"hurt" : false,
+				"horn_break" : false,
+				"prepare_ram" : false,
+				"ram_impact" : false,
+				"step" : false
+			},
+			"guardian" : {
+				"": false,
+				"ambient" : false,
+				"attack" : false,
+				"death" : false,
+				"flop" : false,
+				"hurt" : false,
+				"land" : false
+			},
+			"hoglin" : {
+				"": false,
+				"ambient" : false,
+				"angry" : false,
+				"death" : false,
+				"hurt" : false,
+				"step" : false,
+				"retreat" : false
+			},
+			"horse" : {
+				"": false,
+				"ambient" : false,
+				"angry" : false,
+				"armor" : false,
+				"breathe" : false,
+				"death" : false,
+				"eat" : false,
+				"gallop" : false,
+				"hurt" : false,
+				"jump" : false,
+				"land" : false,
+				"step" : false,
+				"step_wood" : false
+			},
+			"husk" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"step" : false
+			},
+			"iron_golem" : {
+				"": false,
+				"ambient" : false,
+				"attack" : false,
+				"damage" : false,
+				"death" : false,
+				"hurt" : false,
+				"repair" : false,
+				"step" : false
+			},
+			"llama" : {
+				"": false,
+				"ambient" : false,
+				"angry" : false,
+				"chest" : false,
+				"death" : false,
+				"eat" : false,
+				"hurt" : false,
+				"spit" : false,
+				"step" : false,
+				"swag" : false
+			},
+			"magma_cube" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"jump" : false,
+				"step" : false,
+				"squish" : false
+			},
+			"mooshroom" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"milk" : false,
+				"stepp" : false,
+				"suspicious_milk" : false
+			},
+			"ocelot" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false
+			},
+			"panda" : {
+				"": false,
+				"ambient" : false,
+				"aggressive_ambient" : false,
+				"cant_breed" : false,
+				"death" : false,
+				"eat" : false,
+				"hurt" : false,
+				"pre_sneeze" : false,
+				"sneeze" : false,
+				"step" : false,
+				"worried_ambient" : false
+			},
+			"parrot" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"eat" : false,
+				"fly" : false,
+				"hurt" : false,
+				"step" : false
+			},
+			"phantom" : {
+				"": false,
+				"ambient" : false,
+				"bite" : false,
+				"death" : false,
+				"hurt" : false,
+				"flap" : false,
+				"swoop" : false
+			},
+			"pig" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"saddle" : false,
+				"step" : false
+			},
+			"piglin" : {
+				"": false,
+				"ambient" : false,
+				"angry" : false,
+				"celebrate" : false,
+				"converted_to_zombified" : false,
+				"death" : false,
+				"hurt" : false,
+				"jealous" : false,
+				"retreat" : false,
+				"step" : false
+			},
+			"pillager" : {
+				"": false,
+				"ambient" : false,
+				"celebrate" : false,
+				"death" : false,
+				"hurt" : false
+			},
+			"player" : {
+				"": false,
+				"attack" : {"": false,
+				"crit" : false,
+				"knockback" : false,
+				"strong" : false,
+				"sweep" : false,
+				"weak" : false},
+				"breath" : false,
+				"burp" : false,
+				"death" : false,
+				"hurt" : false,
+				"levelup" : false,
+				"teleport" : false
+			},
+			"polar_bear" : {
+				"": false,
+				"ambient" : false,
+				"ambient_baby" : false,
+				"death" : false,
+				"hurt" : false,
+				"step" : false,
+				"warning" : false
+			},
+			"pufferfish" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"flop" : false,
+				"hurt" : false,
+				"blow_up" : false,
+				"blow_out" : false
+			},
+			"rabbit" : {
+				"": false,
+				"ambient" : false,
+				"attack" : false,
+				"death" : false,
+				"hurt" : false,
+				"jump" : false
+			},
+			"ravager" : {
+				"": false,
+				"ambient" : false,
+				"bite" : false,
+				"celebrate" : false,
+				"death" : false,
+				"hurt" : false,
+				"roar" : false,
+				"step" : false,
+				"stun" : false
+			},
+			"salmon" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"flop" : false,
+				"hurt" : false
+			},
+			"sheep" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"shear" : false,
+				"step" : false
+			},
+			"shulker" : {
+				"": false,
+				"ambient" : false,
+				"close" : false,
+				"death" : false,
+				"hurt" : false,
+				"open" : false,
+				"shoot" : false,
+				"teleport" : false
+			},
+			"silverfish" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"step" : false
+			},
+			"skeleton" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"shoot" : false,
+				"step" : false,
+				"convert_to_stray" : false
+			},
+			"slime" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"jump" : false,
+				"squish" : false
+			},
+			"sniffer" : {
+				"": false,
+				"death" : false,
+				"digging" : false,
+				"digging_stop" : false,
+				"drop_seed" : false,
+				"eat" : false,
+				"happy" : false,
+				"hurt" : false,
+				"idle" : false,
+				"long_sniff" : false,
+				"searching" : false,
+				"scenting" : false,
+				"sniff" : false,
+				"step" : false
+			},
+			"snow_golem" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"shoot" : false
+			},
+			"spider" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"step" : false
+			},
+			"squid" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"squirt" : false
+			},
+			"stray" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"step" : false
+			},
+			"strider" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"eat" : false,
+				"happy" : false,
+				"hurt" : false,
+				"step" : false,
+				"step_lava" : false
+			},
+			"tadpole" : {
+				"": false,
+				"death" : false,
+				"hurt" : false
+			},
+			"tropical_fish" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"flop" : false,
+				"hurt" : false
+			},
+			"turtle" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"egg_break" : false,
+				"egg_crack" : false,
+				"egg_hatch" : false,
+				"hurt" : false,
+				"lay_egg" : false,
+				"step" : false,
+				"swim" : false
+			},
+			"vex" : {
+				"": false,
+				"ambient" : false,
+				"charge" : false,
+				"death" : false,
+				"hurt" : false
+			},
+			"villager" : {
+				"": false,
+				"ambient" : false,
+				"celebrate" : false,
+				"death" : false,
+				"hurt" : false,
+				"no" : false,
+				"trade" : false,
+				"yes" : false,
+				"work_armorer" : false,
+				"work_butcher" : false,
+				"work_cartographer" : false,
+				"work_cleric" : false,
+				"work_farmer" : false,
+				"work_fisherman" : false,
+				"work_fletcher" : false,
+				"work_leatherworker" : false,
+				"work_librarian" : false,
+				"work_mason" : false,
+				"work_shepherd" : false,
+				"work_toolsmith" : false,
+				"work_weaponsmith" : false
+			},
+			"vindicator" : {
+				"": false,
+				"ambient" : false,
+				"celebrate" : false,
+				"death" : false,
+				"hurt" : false
+			},
+			"warden" : {
+				"": false,
+				"agitated" : false,
+				"ambient" : false,
+				"angry" : false,
+				"attack" : false,
+				"attack_impact" : false,
+				"death" : false,
+				"digging" : false,
+				"emerging" : false,
+				"heartbeat" : false,
+				"hurt" : false,
+				"listening" : false,
+				"listening_angry" : false,
+				"roar" : false,
+				"sniff" : false,
+				"sonic_boom" : false,
+				"sonic_charge" : false,
+				"step" : false
+			},
+			"witch" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"drink" : false,
+				"hurt" : false,
+				"throw" : false
+			},
+			"wither" : {
+				"": false,
+				"ambient" : false,
+				"break_block" : false,
+				"death" : false,
+				"hurt" : false,
+				"shoot" : false,
+				"spawn" : false,
+				"step" : false
+			},
+			"wither_skeleton" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false,
+				"step" : false
+			},
+			"wolf" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"growl" : false,
+				"howl" : false,
+				"hurt" : false,
+				"pant" : false,
+				"shake" : false,
+				"step" : false,
+				"whine" : false
+			},
+			"zombie" : {
+				"": false,
+				"ambient" : false,
+				"attack_wooden_door" : false,
+				"break_wooden_door" : false,
+				"converted_to_drowned" : false,
+				"death" : false,
+				"hurt" : false,
+				"infect" : false,
+				"step" : false
+			},
+			"zombie_horse" : {
+				"": false,
+				"ambient" : false,
+				"death" : false,
+				"hurt" : false
+			},
+			"zombie_villager" : {
+				"": false,
+				"ambient" : false,
+				"converted" : false,
+				"cure" : false,
+				"death" : false,
+				"hurt" : false,
+				"step" : false
+			},
+			"zombified_piglin" : {
+				"": false,
+				"ambient" : false,
+				"angry" : false,
+				"death" : false,
+				"hurt" : false
+			}
+		}
+	}
+}

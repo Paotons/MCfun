@@ -1,0 +1,54 @@
+{
+	"anvil" : {
+		"use" : false,
+	},
+	"button" : {
+		"click" : false,
+	},
+	"cartography_table" : {
+		"take_result" : false,
+	},
+	"character" : {
+		"create" : false,
+		"delete" : false,
+		"join" : false,
+		"leave" : false,
+		"load" : false,
+		"rename" : false,
+		"select" : false,
+		"swap" : false,
+	},
+	"chest" : {
+		"open" : false,
+		"slot" : false,
+	},
+	"dropdown" : {
+		"select" : false,
+	},
+	"hover" : {
+		"generic" : false,
+	},
+	"inspect" : {
+		"slot" : false,
+	},
+	"loom" : {
+		"select_pattern" : false,
+		"take_result" : false,
+	},
+	"map" : {
+		"close" : false,
+		"close_fail" : false,
+		"open" : false,
+	},
+	"stonecutter" : {
+		"take_result" : false,
+	},
+	"toast" : {
+		"in" : false,
+		"out" : false,
+	},
+	"trade" : {
+		"scribe" : false,
+		"select" : false,
+	}
+}

@@ -21,7 +21,9 @@ class _Path extends GrammerCompiler:
 		return "%s[data]" % chapter + "[%s]".repeat(path.size()) % path
 	
 	func _compile(data : Variant) -> void:
-		var from := data as Dictionary
+		var from : Dictionary = data
+		dictionary_file_replace(from, compiler_data.base_directory)
+		
 		compiled_result = {}
 		
 		if _test_dictionary_key_types(from, 1 << TYPE_STRING, _get_name()):
@@ -46,8 +48,11 @@ class _Path extends GrammerCompiler:
 			
 			elif value is Dictionary:
 				group_mumber.append(key)
+				
 				var obj := _Path.new()
 				obj.chapter = chapter
+				obj.compiler_data = compiler_data
+				
 				obj.path = path.duplicate()
 				obj.path.append(key)
 				obj.compile(value)
@@ -72,9 +77,10 @@ func _compile(data : Variant) -> void:
 		return
 	
 	var obj := _Path.new()
+	obj.compiler_data = compiler_data
 	obj.chapter = chapter_name
-	obj.compile(from["data"])
 	
+	obj.compile(from["data"])
 	if not obj.is_valid():
 		return
 	compiled_result[ChapterMeta.DATA] = obj.get_result()

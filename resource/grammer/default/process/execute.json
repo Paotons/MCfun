@@ -1,0 +1,68 @@
+[
+	{"id" : 0, "goto" : [1, 1, 950, 11, 3, 3, 9, 15, 17, 19, 23], "type" : "option", "items" : ["as", "at", "run", "positioned", "if", "unless", "in", "align", "anchored", "facing", "rotated"]},
+
+	{"id" : 899, "goto" : 999},
+	{"id" : 1, "extends" : 0, "goto" : 0, "type" : "selector", "description" : "target"},
+
+	{"goto" : 999},
+	{"id" : 2, "extends" : 3, "goto" : 0, "type" : "selector", "description" : "target"},
+
+	{"goto" : 999},
+	{"id" : 3, "extends" : 0, "goto" : [2, 4, 6, 28], "type" : "option", "items" : ["entity", "block", "blocks", "score"]},
+
+	{"goto" : 999},
+	{"id" : 4, "extends" : 3, "type" : "coords", "description" : "position"},
+	{"id" : 5, "extends" : 4, "goto" : 0, "type" : "spaceitem", "detail" : "block_name", "description" : "block_name"},
+
+	{"goto" : 999},
+	{"id" : 6, "extends" : 3, "type" : "coords", "description" : "start"},
+	{"id" : 7, "extends" : 6, "type" : "coords", "description" : "end"},
+	{"id" : 8, "extends" : 7, "goto" : 0, "type" : "spaceitem", "detail" : "block_name", "description" : "block_name"},
+
+	{"goto" : 999},
+	{"id" : 9, "extends" : 0, "type" : "option", "items" : ["overworld", "the_nether", "the_end"]},
+	{"id" : 10, "extends" : 9, "goto" : 0},
+
+	{"goto" : 999},
+	{"id" : 11, "extends" : 0, "goto" : 0, "type" : "coords", "description" : "target"},
+	{"id" : 12, "extends" : 0, "type" : "option", "items" : ["as"]},
+	{"id" : 13, "extends" : 12, "items" : ["cmp"]},
+	{"id" : 14, "extends" : 13, "goto" : 0, "type" : "selector"},
+
+	{"goto" : 999},
+	{"id" : 15, "extends" : 0, "type" : "option", "items" : ["x", "y", "z", "xy", "xz", "yz", "xyz"]},
+	{"id" : 16, "extends" : 15, "goto" : 0},
+
+	{"goto" : 999},
+	{"id" : 17, "extends" : 0, "type" : "option", "items" : ["feet", "eyes"]},
+	{"id" : 18, "extends" : 17, "goto" : 0},
+
+	{"goto" : 999},
+	{"id" : 19, "extends" : 0, "goto" : 0, "type" : "coords"},
+	{"id" : 20, "extends" : 0, "type" : "option", "items" : ["entity"]},
+	{"id" : 21, "extends" : 20, "items" : ["cmp"]},
+	{"id" : 22, "extends" : 21, "goto" : 0, "type" : "selector", "description" : "target"},
+
+	{"goto" : 999},
+	{"id" : 23, "extends" : 0, "type" : "float", "description" : "rx"},
+	{"id" : 24, "extends" : 23, "goto" : 0, "type" : "float", "description" : "ry"},
+	{"id" : 25, "extends" : 0, "type" : "option", "items" : ["as"]},
+	{"id" : 26, "extends" : 25, "items" : ["cmp"]},
+	{"id" : 27, "extends" : 26, "goto" : 0, "type" : "selector", "description" : "target"},
+
+	{"goto" : 999},
+	{"id" : 28, "extends" : 3, "type" : "selector", "description" : "target"},
+	{"id" : 29, "extends" : 28, "type" : "word", "description" : "scroeboard", "cmd" : ["completion list scoreboard"]},
+	{"id" : 30, "extends" : 29, "goto" : [31, 32, 32, 32, 32, 32], "type" : "option", "items" : ["matches", "=", ">=", "<=", "<", ">"]},
+
+	{"goto" : 999},
+	{"id" : 31, "extends" : 30, "goto" : 0, "type" : "scope", "description" : "scroe"},
+
+	{"goto" : 999},
+	{"id" : 32, "extends" : 30, "type" : "selector", "description" : "to_target"},
+	{"id" : 33, "extends" : 32, "goto" : 0, "type" : "word", "description" : "to_scroeboard", "cmd" : ["completion list scoreboard"]},
+
+	{"id" : 998, "goto" : 999},
+	{"id" : 950, "extends" : 0, "type" : "command", "description" : "subcommand"},
+	{"id" : 999, "extends" : 900}
+]

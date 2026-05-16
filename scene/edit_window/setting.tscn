@@ -81,7 +81,7 @@ func update_tree_item() -> void:
 	var edit_completion := edit.create_child()
 	edit_completion.set_text(0, \"补全\")
 	var edit_caret := edit.create_child()
-	edit_caret.set_text(0, \"关标\")
+	edit_caret.set_text(0, \"光标\")
 	var edit_behavior := edit.create_child()
 	edit_behavior.set_text(0, \"行为\")
 	var edit_grammer := edit.create_child()

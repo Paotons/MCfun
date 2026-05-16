@@ -1,0 +1,213 @@
+{
+	"armor" : {
+		"equip_chain" : false,
+		"equip_diamond" : false,
+		"equip_gold" : false,
+		"equip_iron" : false,
+		"equip_leather" : false,
+		"equip_netherite" : false,
+		"equip_turtle" : false
+	},
+	"axe" : {
+		"dig" : false,
+		"break" : false,
+		"drop" : false,
+		"hit" : false,
+		"place" : false,
+		"scrape" : false,
+		"strip" : false
+	},
+	"bottle" : {
+		"drink" : false,
+		"empty" : false,
+		"fill" : false
+	},
+	"bucket" : {
+		"empty_fish" : false,
+		"empty_lava" : false,
+		"empty_powder_snow" : false,
+		"empty_water" : false,
+		"fill_fish" : false,
+		"fill_lava" : false,
+		"fill_powder_snow" : false,
+		"fill_water" : false
+	},
+	"brush" : {
+		"brush_sand" : false,
+		"brush_gravel" : false,
+		"brush_complete" : false
+	},
+	"bucket" : false,
+	"campfire" : false,
+	"cartography_table" : false,
+	"chain" : false,
+	"chest" : {
+		"close" : false,
+		"open" : false,
+		"lock" : false
+	},
+	"chorus_fruit" : {
+		"teleport" : false
+	},
+	"composter" : {
+		"fill" : false,
+		"fill_success" : false,
+		"empty" : false,
+		"ready" : false
+	},
+	"crossbow" : {
+		"load" : false,
+		"load_end" : false,
+		"shoot" : false,
+		"quick_charge" : {
+			"1" : false,
+			"2" : false,
+			"3" : false
+		}
+	},
+	"door" : {
+		"close" : false,
+		"open" : false
+	},
+	"elytra" : {
+		"loop" : false
+	},
+	"fence_gate" : {
+		"close" : false,
+		"open" : false
+	},
+	"firecharge" : {
+		"use" : false
+	},
+	"firework" : {
+		"launch" : false,
+		"large_blast" : false,
+		"blast" : false,
+		"twinkle" : false,
+		"shoot" : false
+	},
+	"fishing_rod" : {
+		"cast" : false,
+		"reel" : false
+	},
+	"flintandsteel" : {
+		"use" : false
+	},
+	"flower_pot" : {
+		"place" : false,
+		"break" : false,
+		"hit" : false,
+		"step" : false,
+		"fall" : false
+	},
+	"glass_bottle" : {},
+	"grindstone" : {
+		"use" : false
+	},
+	"hoe" : {
+		"dig" : false,
+		"till" : false
+	},
+	"honey_bottle" : {
+		"drink" : false
+	},
+	"honeycomb" : {
+		"wax_on" : false,
+		"wax_off" : false
+	},
+	"ink_sac" : {
+		"use" : false
+	},
+	"item" : {
+		"frame" : {
+			"add_item" : false,
+			"remove_item" : false,
+			"rotate_item" : false,
+			"place" : false,
+			"break" : false,
+			"hit" : false,
+			"step" : false,
+			"fall" : false
+		},
+		"frame" : {}
+	},
+	"lodestone" : {
+		"compass" : {
+			"lock" : false
+		}
+	},
+	"map" : {
+		"cloning" : false,
+		"extend" : false
+	},
+	"milk_bucket" : false,
+	"minecart" : {
+		"base" : false,
+		"inside" : {
+			"underwater" : false,
+		"underwater" : false
+		}
+	},
+	"mithril" : false,
+	"netherite_block" : false,
+	"netherite_ingot" : false,
+	"shield" : {
+		"block" : false
+	},
+	"shovel" : {
+		"flatten" : false
+	},
+	"shulker_box" : {
+		"close" : false,
+		"open" : false
+	},
+	"sign" : {
+		"waxed_sign_interact_fail" : false
+	},
+	"smithing_table" : {
+		"use" : false
+	},
+	"spyglass" : {
+		"use" : false,
+		"stop" : false
+	},
+	"stick" : false,
+	"stonecutter" : {
+		"use" : false
+	},
+	"sword" : {
+		"hit" : false,
+		"break" : false,
+		"block" : false
+	},
+	"totem" : {
+		"use" : false
+	},
+	"trident" : {
+		"hit" : false,
+		"hit_ground" : false,
+		"return" : false,
+		"riptide" : {
+			"1" : false,
+		"2" : false,
+		"3" : false
+		},
+		"throw" : false,
+		"thunder" : false
+	},
+	"turtle_helmet" : {},
+	"water_bucket" : {},
+	"wolf_armor" : {
+		"break" : false,
+		"crack" : false,
+		"damage" : {
+			"1" : false,
+			"2" : false,
+			"3" : false,
+			"4" : false,
+			"5" : false
+		},
+		"equip" : false,
+		"repair" : false
+	}
+}

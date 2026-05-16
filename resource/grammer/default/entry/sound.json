@@ -1,0 +1,273 @@
+{
+	"type" : "path",
+	"data" : {
+		"ambient" : {
+			"type" : "file",
+			"file" : "entry/sound/ambient.json"
+		},
+		"block" : {
+			"type" : "file",
+			"file" : "entry/sound/block.json"
+		},
+		"entity" : {
+			"type" : "file",
+			"file" : "entry/sound/entity.json"
+		},
+		"dig" : {
+			"type" : "file",
+			"file" : "entry/sound/dig.json"
+		},
+		"event" : {
+			"type" : "file",
+			"file" : "entry/sound/event.json"
+		},
+		"game" : {
+			"type" : "file",
+			"file" : "entry/sound/game.json"
+		},
+		"hit" : {
+			"type" : "file",
+			"file" : "entry/sound/hit.json"
+		},
+		"item" : {
+			"type" : "file",
+			"file" : "entry/sound/item.json"
+		},
+		"jump" : {
+			"type" : "file",
+			"file" : "entry/sound/jump.json"
+		},
+		"land" : {
+			"type" : "file",
+			"file" : "entry/sound/land.json"
+		},
+		"mob" : {
+			"type" : "file",
+			"file" : "entry/sound/mob.json"
+		},
+		"random" : {
+			"type" : "file",
+			"file" : "entry/sound/random.json"
+		},
+		"step" : {
+			"type" : "file",
+			"file" : "entry/sound/step.json"
+		},
+		"ui" : {
+			"type" : "file",
+			"file" : "entry/sound/ui.json"
+		},
+		"use" : {
+			"type" : "file",
+			"file" : "entry/sound/use.json"
+		},
+		
+		"armor" : {
+			"equip_chain" : false,
+			"equip_diamond" : false,
+			"equip_gold" : false,
+			"equip_iron" : false,
+			"equip_leather" : false,
+			"equip_netherite" : false,
+			"equip_turtle" : false,
+			"unequip_chain" : false,
+			"unequip_diamond" : false,
+			"unequip_gold" : false,
+			"unequip_iron" : false,
+			"unequip_leather" : false,
+			"unequip_netherite" : false,
+			"unequip_turtle" : false
+		},
+		"beacon" : {
+			"activate" : false,
+			"ambient" : false,
+			"deactivate" : false,
+			"power" : false
+		},
+		"bottle" : {
+			"dragonbreath" : false,
+			"empty" : false,
+			"fill" : {
+				"dragonbreath" : false
+			},
+		},
+		"bucket" : {
+			"empty" : false,
+			"fill" : {
+				"fish" : false,
+				"lava" : false,
+				"powder_snow" : false,
+				"water" : false
+			},
+		},
+		"camera" : {"take_picture" : false},
+		"cauldron" : {
+			"adddye" : false,
+			"cleanarmor" : false,
+			"cleanbanner" : false,
+			"drip.water" : false,
+			"dyearmor" : false,
+			"explode" : false,
+			"fill" : false,
+			"fillpotion" : false,
+			"take" : false,
+			"takearmor" : false,
+			"takebanner" : false,
+			"takepotion" : false,
+			"takewater" : false
+		},
+		"chorusflower" : {
+			"grow" : false,
+			"death" : false
+		},
+		"conduit" : {
+			"activate" : false,
+			"ambient" : false,
+			"attack" : false,
+			"deactivate" : false,
+			"short" : false,
+			"triggerd" : false
+		},
+		"crossbow" : {
+			"load" : {"start" : false, "middle" : false, "end" : false},
+			"shoot" : false,
+			"quick_charge" : {"start" : false, "middle" : false, "end" : false}
+		},
+		"damage" : {
+			"fall" : {"big" : false, "small" : false},
+			"fatal" : false,
+			"mob" : false,
+			"player" : false,
+			"anvil" : {"land" : false},
+			"thorns" : false
+		},
+		"elytra" : {"loop" : false,"takeoff" : false},
+		"fall" : {
+			"egg" : false, "grass" : false, "gravel" : false, "ladder" : false, "sand" : false,
+			"slime" : false, "stone" : false, "wood" : false
+		},
+		"fire" : {
+			"fire" : false, "ignite" : false
+		},
+		"firework" : {
+			"blast" : false, "blast_far" : false, "large_blast" : false, "large_blast_far" : false, "launch" : false,
+			"shoot" : false, "twinkle" : false, "twinkle_far" : false
+		},
+		"furnace" : {
+			"lit" : false
+		},
+		"leashknot" : {
+			"break" : false,
+			"place" : false
+		},
+
+		"lodestone" : {
+			"compass" : {
+				"link" : {
+					"compass" : false
+				}
+			}
+		},
+
+		"music" : {
+			"menu" : false,
+			"game" : false,
+			"creative" : false,
+			"nether" : false,
+			"end" : false,
+			"under_water" : false,
+			"credits" : false,
+			"overworld" : {
+				"cave" : false,
+				"deep_dark" : false,
+				"dripstone_caves" : false,
+				"grove" : false,
+				"jagged_peaks" : false,
+				"meadow" : false,
+				"frozen_peaks" : false,
+				"stony_peaks" : false,
+				"snowy_slopes" : false,
+				"lush_caves" : false,
+				"dripstone_caves" : false
+			},
+		},
+		"note" : {
+			"harp" : false,
+			"basedrum" : false,
+			"snare" : false,
+			"hat" : false,
+			"bass" : false,
+			"flute" : false,
+			"bell" : false,
+			"guitar" : false,
+			"chime" : false,
+			"xylophone" : false,
+			"iron_xylophone" : false,
+			"cow_bell" : false,
+			"didgeridoo" : false,
+			"bit" : false,
+			"banjo" : false,
+			"pling" : false,
+			"glockenspiel" : false
+		},
+		"portal" : {
+			"portal" : false,
+			"travel" : false,
+			"trigger" : false
+		},
+		"raid" : {
+			"horn" : false
+		},
+		"record" : {
+			"11" : false,
+			"13" : false,
+			"blocks" : false,
+			"cat" : false,
+			"chirp" : false,
+			"creator" : false,
+			"creator_music_box" : false,
+			"far" : false,
+			"mall" : false,
+			"mellohi" : false,
+			"otherside" : false,
+			"pigstep" : false,
+			"precipice" : false,
+			"relic" : false,
+			"stal" : false,
+			"strad" : false,
+			"wait" : false,
+			"ward" : false,
+		},
+		"respawn_anchor" : {
+			"ambient" : false,
+			"charge" : false,
+			"deplete" : false,
+			"set_spawn" : false,
+		},
+		"sculk" : {
+			"block" : false,
+			"catalyst_blast" : false,
+			"catalyst_charge" : false,
+			"catalyst_growth" : false,
+			"charge" : false,
+			"click" : false,
+			"charge_pop" : false,
+			"shriek" : false,
+			"spread" : false,
+			"spread_charge" : false,
+			"vein" : false,
+		},
+		"tile" : {
+			"piston" : {
+				"in" : false,
+				"out" : false,
+			},
+			"waterlily" : false,
+		},
+		"water" : {
+			"lava" : {
+				"ambient" : false,
+			},
+		},
+	}
+}

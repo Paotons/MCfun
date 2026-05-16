@@ -1,0 +1,45 @@
+[
+	{"id" : 0, "extends" : -1, "goto" : [1, 9] , "type" : "option", "items" : ["objectives", "players"]},
+	
+	{"goto" : 999},
+	{"id" : 1, "extends" : 0, "goto" : [2, 5, 6, 8], "type" : "option", "items" : ["add", "remove", "setdisplay", "list"]},
+	
+	{"goto" : 999},
+	{"id" : 2, "extends" : 1, "type" : "word", "description" : "scoreboard_name", "cmd" : ["list scoreboard add self"]},
+	{"id" : 3, "extends" : 2, "type" : "option", "items" : ["dummy"], "is_end" : true},
+	{"id" : 4, "extends" : 3, "type" : "rich_string", "description" : "display_name"},
+	
+	{"goto" : 999},
+	{"id" : 5, "extends" : 1, "goto" : 999, "type" : "word", "is_end" : true, "description" : "scoreboard_name", "cmd" : ["completion list scoreboard"]},
+	
+	{"goto" : 999},
+	{"id" : 6, "extends" : 1, "type" : "option", "items" : ["sidebar", "belowName", "list"]},
+	{"id" : 7, "extends" : 6, "type" : "word", "is_end" : true, "description" : "scoreboard_name", "cmd" : ["completion list scoreboard"]},
+	
+	{"goto" : 999},
+	{"id" : 8, "extends" : 1, "is_end" : true},
+	
+	{"goto" : 999},
+	{"id" : 9, "extends" : 0, "goto" : [10, 10, 10, 13, 15, 16], "type" : "option", "items" : ["set", "add", "remove", "reset", "list", "operation"]},
+	
+	{"goto" : 999},
+	{"id" : 10, "extends" : 9, "type" : "selector"},
+	{"id" : 11, "extends" : 10, "type" : "word", "description" : "scoreboard_name", "cmd" : ["completion list scoreboard"]},
+	{"id" : 12, "extends" : 11, "type" : "int", "is_end" : true, "description" : "score"},
+	
+	{"goto" : 999},
+	{"id" : 13, "extends" : 9, "type" : "selector"},
+	{"id" : 14, "extends" : 13, "type" : "word", "is_end" : true, "description" : "scoreboard_name", "cmd" : ["completion list scoreboard"]},
+	
+	{"goto" : 999},
+	{"id" : 15, "extends" : 9, "type" : "selector", "is_end" : true},
+	
+	{"goto" : 999},
+	{"id" : 16, "extends" : 9, "type" : "selector"},
+	{"id" : 17, "extends" : 16, "type" : "word", "description" : "scoreboard_name", "cmd" : ["completion list scoreboard"]},
+	{"id" : 18, "extends" : 17, "type" : "option", "items" : ["=", "+=", "-=", "*=", "/=", "%=", "<", ">"]},
+	{"id" : 19, "extends" : 18, "type" : "selector"},
+	{"id" : 20, "extends" : 19, "type" : "word", "is_end" : true, "description" : "scoreboard_name", "cmd" : ["completion list scoreboard"]},
+	
+	{"id" : 999}
+]

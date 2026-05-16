@@ -1,0 +1,33 @@
+{
+	"cave" : false,
+	"basalt_deltas" : {
+		"additions" : false,
+		"loop" : false,
+		"mood" : false
+	},
+	"crimson_forest" : {
+		"additions" : false,
+		"loop" : false,
+		"mood" : false
+	},
+	"nether_wastes" : {
+		"additions" : false,
+		"loop" : false,
+		"mood" : false
+	},
+	"soul_sand_valley" : {
+		"additions" : false,
+		"loop" : false,
+		"mood" : false
+	},
+	"warped_forest" : {
+		"additions" : false,
+		"loop" : false,
+		"mood" : false
+	},
+	"weather" : {
+		"lightning" : {"impact" : false},
+		"rain" : false,
+		"thunder" : false
+	}
+}

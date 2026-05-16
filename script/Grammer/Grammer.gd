@@ -303,33 +303,48 @@ func _set_grammer(files : _Files) -> PackedStringArray:
 	elif not FileAccess.file_exists(directory_path.path_join(files.entry)):
 		return  ["Not find entry file."]
 	
-	var obj : Compiler
-	var data : Variant
+	var compiler_data := GrammerCompilerData.new()
+	compiler_data.base_directory = directory_path
 	
-	obj = GrammerEntryCompiler.new()
-	data = JSON.parse_string(FileAccess.get_file_as_string(directory_path.path_join(files.entry)))
+	for i : int in [2, 1, 0]:
+		var error := _set_grammer_doer(i, files, compiler_data)
+		if not error.is_empty():
+			return error
+	
+	return []
+
+func _set_grammer_doer(index : int, files : _Files, compiler_data : GrammerCompilerData) -> PackedStringArray:
+	var obj : GrammerCompiler
+	var data : Dictionary
+	
+	match index:
+		0 :
+			obj = GrammerProcessCompiler.new()
+			data = JSON.parse_string(FileAccess.get_file_as_string(directory_path.path_join(files.main_process)))
+		1 :
+			obj = GrammerLawCompiler.new()
+			data = JSON.parse_string(FileAccess.get_file_as_string(directory_path.path_join(files.law)))
+		2 :
+			obj = GrammerEntryCompiler.new()
+			data = JSON.parse_string(FileAccess.get_file_as_string(directory_path.path_join(files.entry)))
+	obj.compiler_data = compiler_data
+	
+	GrammerCompiler.dictionary_file_replace(data, directory_path)
+	
 	obj.compile(data)
 	if not obj.is_valid():
 		return obj.errors
-	entry = GrammerEntry.new()
-	entry.set_data(obj.get_result())
 	
-	obj = GrammerLawCompiler.new()
-	data = JSON.parse_string(FileAccess.get_file_as_string(directory_path.path_join(files.law)))
-	obj.compile(data)
-	if not obj.is_valid():
-		return obj.errors
-	law = GrammerLaw.new()
-	law.set_data(obj.get_result())
-	
-	obj = GrammerProcessCompiler.new()
-	data = JSON.parse_string(FileAccess.get_file_as_string(directory_path.path_join(files.main_process)))
-	obj.compile(data)
-	if not obj.is_valid():
-		return obj.errors
-	main_process = GrammerProcess.new()
-	main_process.set_data(obj.get_result())
-	
+	match index:
+		0:
+			main_process = GrammerProcess.new()
+			main_process.set_data(obj.get_result())
+		1:
+			law = GrammerLaw.new()
+			law.set_data(obj.get_result())
+		2:
+			entry = GrammerEntry.new()
+			entry.set_data(obj.get_result())
 	return []
 
 
