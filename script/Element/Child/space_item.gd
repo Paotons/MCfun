@@ -36,7 +36,7 @@ static func create(text : String, offset : int) -> SpaceItemElement:
 
 static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> CodeCompletionData:
 	var data := CodeCompletionData.new()
-	var entry := EditManager.get_grammer_entry()
+	var entry := EditManager.get_grammar_entry()
 	var chapter_name : String = rule.spaceitem_get_category() if rule.has_detail() else ""
 	data.hint_string = "<%s : space_item>" % [rule.get_description()]
 	if entry.has_chapter(chapter_name):
@@ -46,7 +46,7 @@ static func get_precast_code_completion_data(_column : int, rule : ElementRule, 
 	return data
 func _get_column_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> CodeCompletionData:
 	var data := CodeCompletionData.new()
-	var entry := EditManager.get_grammer_entry()
+	var entry := EditManager.get_grammar_entry()
 	var chapter_name : String = rule.spaceitem_get_category() if rule.has_detail() else ""
 	data.hint_string = "<%s : space_item>" % [rule.get_description()]
 	if entry.has_chapter(chapter_name):

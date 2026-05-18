@@ -5,7 +5,7 @@ extends BacketElement
 ## 参数结果。
 var value_element : StringElement
 ## 规则。
-var grammer_rule : GrammarParamBacketRule
+var grammar_rule : GrammarParamBacketRule
 ## 变量类型。
 var value_type := -1
 
@@ -22,7 +22,7 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return result
 func _get_column_code_completion_data(column : int, _rule : ElementRule, command : CommandElement) -> CodeCompletionData:
 	var data := CodeCompletionData.new()
-	var result_rule := grammer_rule.get_element_rule()
+	var result_rule := grammar_rule.get_element_rule()
 	if value_element == null:
 		var result_type := ElementManager.value_type_to_type(value_type)
 		return ElementManager.get_precast_code_completion_data(result_type, column, result_rule, command)
@@ -32,7 +32,7 @@ func _get_column_code_completion_data(column : int, _rule : ElementRule, command
 
 static func create(text : String, offset : int, start := "\"", end := "\"", rule : GrammarParamBacketRule = null) -> ParamBacketElement:
 	var element := BacketElement._create_backet_element(ParamBacketElement.new(), text, offset, start, end) as ParamBacketElement
-	element.grammer_rule = rule
+	element.grammar_rule = rule
 	if element.is_faild:
 		return element
 	

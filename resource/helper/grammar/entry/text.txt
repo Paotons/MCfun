@@ -1,0 +1,21 @@
+[title]描述[/title]
+
+用于存储各种列表的文件。
+
+
+[title]V1[/title]
+
+实例：
+[code]{
+	"chapter" : {
+		"type" : "xxx"
+	},
+	"chapter2" : {
+		"type" : "xxx"
+	}
+}[/code]
+
+[b]chapter:[/b] 用于存储这个分类的名称，可以为任意字符。
+[b]chapter.type[/b] 用于表示这个分类的类型，可以为[code]string,spaceitem,path[/code] 还有特殊的 [code]file[/code] 类型。
+
+

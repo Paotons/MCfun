@@ -5,6 +5,22 @@ extends RefCounted
 ## 数据。
 var data : Array
 
+## 如果按照 [param idxs] 走，能够结束，返回 [code]true[/code]。
+func is_indexs_has_end(idxs : PackedInt32Array) -> bool:
+	for i in range(idxs.size() - 1, -1, -1):
+		var exe := get_element(idxs[i])
+		if not exe.has_end():
+			continue
+		return exe.is_end()
+	return false
+## 如果 [param idxs] 走，有附属指令，返回 [code]true[/code]。
+func is_indexs_has_subcommand(idxs : PackedInt32Array) -> bool:
+	for i in range(idxs.size() - 1, -1, -1):
+		var exe := get_element(idxs[i])
+		if exe.get_type() == GrammarValue.Type.COMMAND:
+			return true
+	return false
+
 ## 获取元素。
 func get_element(idx : int) -> ExeElementRule:
 	var exe := ExeElementRule.new()

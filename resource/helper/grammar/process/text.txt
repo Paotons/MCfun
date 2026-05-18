@@ -1,0 +1,3 @@
+[title]描述[/title]
+
+用于告诉编辑器指令的元素该怎么组合。见元素 [file grammar/element]

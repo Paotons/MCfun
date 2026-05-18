@@ -2,40 +2,6 @@ class_name CommandElement
 extends StringElement
 ## 整条指令。
 
-# 创建的进程。
-class _CreateProcess extends RefCounted:
-	# 偏移。
-	var offset : int
-	# 行数。
-	var line : int
-	
-	# 指令规则。
-	var rule : CommandRule
-	
-	# 当前执行元素。
-	var exe_element : ExeElementRule
-	# 执行序列。
-	var exe_index : int
-	# 最大执行序列。
-	var exe_end : int
-	
-	# 可结束标志。
-	var has_end := false
-	
-	# 退出标志。
-	var break_flag := false
-	# 继续标志。
-	var continue_flag := false
-	
-	# 编辑器。
-	var edit : FunctionEdit
-	# 语法。
-	var grammar : GrammarProcess
-	# 规则。
-	var law : GrammarLaw
-	# 字符串。
-	var entry : GrammarEntry
-
 ## 指令类型。
 enum CommandType {
 	## 最开始，根部。
@@ -65,7 +31,7 @@ var head_string : String
 ## 高亮数据。
 var highlight_data : HightLightData
 
-# 是否有子指令。
+## [b]frient [CommandElementCreater]:[/b] 如果是 [code]true[/code]，则表示有子指令。
 var _has_child_element := false
 
 # 头部补全数据。
@@ -80,7 +46,7 @@ static func create(text : String, offset : int, line := -1) -> CommandElement:
 	element.highlight_data = HightLightData.new()
 	
 	# 进程。
-	var process :=_CreateProcess.new()
+	var process :=CommandElementCreaterProcess.new()
 	
 	process.edit = EditManager.get_edit()
 	process.grammar = EditManager.get_grammar_process()
@@ -91,10 +57,13 @@ static func create(text : String, offset : int, line := -1) -> CommandElement:
 	process.offset = offset
 	
 	element.line_id = process.edit.get_line_id(line)
-	element._do_command_from_empty(text, process)
+	
+	var creater := CommandElementCreater.new()
+	creater.command = element
+	creater.run_from_empty(text, process)
 	return element
 ## [param column] 发生更新。
-func update(text : String, column : int) -> void:
+func update(text : String, column : int) -> CommandElement:
 	var offset := string_offset
 	var edit := EditManager.get_edit()
 	# 初始化。
@@ -103,7 +72,7 @@ func update(text : String, column : int) -> void:
 	string = text.substr(offset)
 	
 	# 进程。
-	var process :=_CreateProcess.new()
+	var process :=CommandElementCreaterProcess.new()
 	
 	process.edit = edit
 	process.grammar = EditManager.get_grammar_process()
@@ -113,7 +82,9 @@ func update(text : String, column : int) -> void:
 	
 	process.offset = offset
 	
-	_do_command_from_column(text, process, column)
+	var creater := CommandElementCreater.new()
+	creater.command = self
+	return creater.run_from_column(text, process, column)
 
 func get_highlight(_edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return highlight_data.data
@@ -252,16 +223,16 @@ func is_column_near_selector_head(column : int) -> bool:
 			if element2 is SelectorElement:
 				return column >= element2.get_head_end() and column < element2.get_valid_start()
 	return false
-## 判断序列处于有效开头。
+## 如果序列处于有效开头，返回 [code]true[/code]。
 func is_column_outside_valid(column : int) -> bool:
 	return column <= valid_start
-## 判断序列处于头部位置。
+## 如果序列处于头部位置，返回 [code]true[/code]。
 func is_column_at_head(column : int) -> bool:
 	if column <= string_offset: return false
 	
 	if is_empty(): return true
 	return column <= get_valid_start() + head_string.length()
-## 判断序列处于尾部位置。
+## 如果处于序列处于尾部位置，返回 [code]true[/code]。
 func is_column_at_end(column : int) -> bool:
 	if elements.is_empty():
 		return column > valid_start + get_head_string().length()
@@ -270,7 +241,7 @@ func is_column_at_end(column : int) -> bool:
 		element = elements[elements.size() - i]
 		if element != null: break
 	return not element is CommandElement and column > element.get_valid_end()
-## 获取某个位置在所处的元素序列，返回 [code]-1[/code] 表示非语法上的位置。
+## 返回某个位置在所处的元素序列，返回 [code]-1[/code] 表示非语法上的位置。
 func get_column_map_index(column : int) -> int:
 	for i in elements.size():
 		var element := elements[i]
@@ -306,334 +277,4 @@ func get_faild_element(idx : int) -> ExeElementRule:
 func get_faild_element_count() -> int:
 	return faild_element_idxs.size()
 #endregion
-
-#region 处理。
-# 处理函数。
-func _do_function(element : ExeElementRule, text : String, process : _CreateProcess) -> bool:
-	match element.get_type():
-		GrammarValue.Type.NIL : return _do_nil(text, process)
-		GrammarValue.Type.BOOL, GrammarValue.Type.INT, GrammarValue.Type.FLOAT, GrammarValue.Type.STRING, GrammarValue.Type.WORD, GrammarValue.Type.RICH_STRING, GrammarValue.Type.POINT_PATH, GrammarValue.Type.SCOPE : 
-			return _do_default(text, process)
-		
-		GrammarValue.Type.OPTION : return _do_option(text, process)
-		GrammarValue.Type.COORDS : return _do_coords(text, process)
-		GrammarValue.Type.SELECTOR : return _do_selector(text, process)
-		GrammarValue.Type.SPACEITEM : return _do_spaceitem(text, process)
-		
-		GrammarValue.Type.COMMAND : return _do_subcommand(text, process)
-		GrammarValue.Type.DICTIONARY : return _do_dictionary(text, process)
-		GrammarValue.Type.ARRAY : return _do_array(text, process)
-	push_error("Not do.")
-	breakpoint
-	return true
-
-# 处理开头。
-func _do_head(text : String, process : _CreateProcess) -> bool:
-	var result := HeadElement.create(text, process.offset) as HeadElement
-	
-	for err in result.errors: create_error(err.column, err.string)
-	if result.is_faild: return true
-	is_faild = false
-	valid_start = result.get_valid_start() - process.offset
-	
-	var head := result.get_valid_string()
-	
-	highlight_data.merge(result.get_highlight(process.edit))
-	head_element = result
-	head_string = head
-	
-	if not process.grammar.has_head(head):
-		create_error(result.get_valid_start(), "Unfind command \"%s\"." % [head])
-		return true
-	
-	process.offset = result.get_valid_end()
-	return false
-
-# 处理空值，占位。
-func _do_nil(_text : String, process : _CreateProcess) -> bool:
-	var items := process.exe_element.get_items()
-	if items.is_empty(): return false
-	for item in items:
-		match item:
-			"cmp":
-				faild_element_idxs.clear()
-	add_history(process.exe_index)
-	return false
-
-# 默认处理。
-func _do_default(text : String, process : _CreateProcess) -> bool:
-	var element : StringElement
-	var exe_element := process.exe_element
-	match process.exe_element.get_type():
-		GrammarValue.Type.BOOL : element = BoolElement.create(text, process.offset)
-		GrammarValue.Type.INT : element = IntElement.create(text, process.offset)
-		GrammarValue.Type.FLOAT : element = FloatElement.create(text, process.offset)
-		GrammarValue.Type.STRING: element = StringElement.create(text, process.offset)
-		GrammarValue.Type.WORD : element = WordElement.create(text, process.offset)
-		GrammarValue.Type.RICH_STRING : element = RichStringElement.create(text, process.offset)
-		GrammarValue.Type.POINT_PATH : element = PointPathElement.create(text, process.offset, process.exe_element)
-		GrammarValue.Type.SCOPE : element = ScopeElement.create(text, process.offset)
-		_: assert("Can do the type \"%s\"." % [process.exe_element.get_type()])
-	
-	if element.is_faild:
-		faild_element_idxs.append(process.exe_index)
-		# Err
-		if not process.has_end:
-			for err in element.errors: create_error(err.column, err.string)
-		return true
-	for err in element.errors: create_error(err.column, err.string)
-	
-	# CMD
-	if exe_element.has_cmd():
-		ElementRuleCMD.execute(element, exe_element, self, ElementRuleCMD.ModeFilter.LIST)
-	
-	highlight_data.merge(element.get_highlight(process.edit))
-	
-	process.offset = element.get_valid_end()
-	add_history(process.exe_index, element)
-	return false
-
-# 处理选项。
-func _do_option(text : String, process : _CreateProcess) -> bool:
-	var exe := process.exe_element
-	var result := OptionElement.create(text, process.offset, exe)
-	
-	for err in result.errors: create_error(err.column, err.string)
-	if result.is_faild:
-		faild_element_idxs.append(process.exe_index)
-		return true
-	
-	highlight_data.merge(result.get_highlight(process.edit))
-	
-	if result.has_option():
-		process.offset = result.get_valid_end()
-		
-		add_history(process.exe_index, result)
-		
-		if exe.has_end():
-			process.has_end = exe.is_end()
-		
-		if exe.has_goto():
-			process.exe_index = exe.get_goto(result.option_index)
-			process.continue_flag = true
-			return false
-		
-		process.exe_index += 1
-		process.continue_flag = true
-		return false
-	else:
-		faild_element_idxs.append(process.exe_index)
-	
-		process.exe_index += 1
-		if exe.has_end():
-			process.has_end = exe.is_end()
-		process.continue_flag = true
-		return true
-# 处理坐标。
-func _do_coords(text : String, process : _CreateProcess) -> bool:
-	var result := CoordsElement.create(text, process.offset)
-	for err in result.errors: create_error(err.column, err.string)
-	if result.is_faild: return true
-	
-	highlight_data.merge(result.get_highlight(process.edit))
-	
-	add_history(process.exe_index, result)
-	process.offset = result.get_valid_end()
-	
-	return result.get_valid_size() != 3
-# 处理目标选择器。
-func _do_selector(text : String, process : _CreateProcess) -> bool:
-	var result := SelectorElement.create(text, process.offset)
-	
-	for err in result.errors: create_error(err.column, err.string)
-	if result.is_faild: return true
-	
-	highlight_data.merge(result.get_highlight(process.edit))
-	
-	if result.has_body():
-		var backet := result.get_body_element()
-		for err in backet.errors:
-			create_error(err.column, "Body has error \"%s\"." % [err.string])
-	
-	process.offset = result.get_valid_end()
-	add_history(process.exe_index, result)
-	return false
-# 处理空间物品。
-func _do_spaceitem(text : String, process : _CreateProcess) -> bool:
-	var result := SpaceItemElement.create(text, process.offset)
-	
-	for err in result.errors: create_error(err.column, err.string)
-	if result.is_faild: return true
-	
-	highlight_data.merge(result.get_highlight(process.edit))
-	if not result.has_value():
-		faild_element_idxs.append(process.exe_index)
-		return true
-	
-	process.offset = result.get_valid_end()
-	add_history(process.exe_index, result)
-	return false
-
-#region 处理字典，大括号包括的。
-# 入口
-func _do_dictionary(text : String, process : _CreateProcess) -> bool:
-	var rule := process.exe_element.get_rule()
-	if rule == null:
-		push_warning("Not find rule \"%s\"." % [process.exe_element.get_rule_name()])
-		return _do_dictionary_default(text, process)
-	
-	match rule.get_type():
-		GrammarRule.RuleType.COLON_PARAM_BACKET: return _do_dictionary_colon_param(text, process, rule)
-	push_error("Rule is nul type.")
-	return true
-
-# 处理冒号参数。
-func _do_dictionary_colon_param(text : String, process : _CreateProcess , rule : GrammarRule) -> bool:
-	var result := ColonParamBacketElement.create(text, process.offset, "{", "}", rule)
-	
-	for err in result.errors: create_error(err.column, err.string)
-	if result.is_faild: return true
-	
-	highlight_data.merge(result.get_highlight(process.edit))
-	
-	process.offset = result.get_valid_end()
-	add_history(process.exe_index, result)
-	return false
-# 默认处理。
-func _do_dictionary_default(text : String, process : _CreateProcess) -> bool:
-	var sult := BacketElement.create(text, process.offset, "{", "}")
-	
-	for err in sult.errors: create_error(err.column, err.string)
-	if sult.is_faild: return true
-	
-	process.offset = sult.get_valid_end()
-	add_history(process.exe_index, sult)
-	return false
-#endregion
-
-# 处理数组，中括号包括的，如果是目标选择器，应该就用针对性的目标选择器。
-func _do_array(text : String, process : _CreateProcess) -> bool:
-	var sult := BacketElement.create(text, process.offset, "[", "]")
-	
-	for err in sult.errors: create_error(err.column, err.string)
-	if sult.is_faild: return true
-	
-	process.offset = sult.get_valid_end()
-	add_history(process.exe_index, sult)
-	return false
-# 处理指令中的指令。
-func _do_subcommand(text : String, process : _CreateProcess) -> bool:
-	if process.offset == text.length():
-		create_error(process.offset, "Not find command.")
-		return true
-	
-	var result := CommandElement.create(text, process.offset, process.line)
-	
-	if result.is_empty(): create_error(process.offset, "Not find command.")
-	if result.has_error():
-		faild_element_idxs.append(process.exe_index)
-		for err in result.errors: create_error(process.offset + err.column, err.string)
-	
-	_has_child_element = true
-	highlight_data.merge(result.get_highlight(process.edit))
-	add_history(process.exe_index, result)
-	return true
-#endregion
-
-# 从零开始处理指令。
-func _do_command_from_empty(text : String, process : _CreateProcess) -> void:
-	if _do_head(text, process):
-		return
-	
-	var head := head_element.get_valid_head()
-	process.rule = process.grammar.get_command_rule(head)
-	process.exe_index = 0
-	process.exe_end = process.rule.get_element_count()
-	_do_command_process(text, process)
-	_do_command_tail(text, process)
-# 从一定位置开始处理指令。
-func _do_command_from_column(text : String, process : _CreateProcess, column := 0) -> void:
-	var index : int = get_column_map_index(column) - 1 if not is_column_at_end(column) else exe_element_histories.size() - 1
-	
-	if index < 0: # 相当于重新生成。
-		elements.clear()
-		exe_element_histories.clear()
-		cmd_list.clear()
-		highlight_data.data.clear()
-		
-		if _do_head(text, process): return
-		var head := head_element.get_valid_head()
-		process.rule = process.grammar.get_command_rule(head)
-		process.exe_index = 0
-		process.exe_end = process.rule.get_element_count()
-	else:
-		# 模拟最初环境
-		process.rule = process.grammar.get_command_rule(head_element.get_valid_head())
-		process.exe_index = exe_element_histories[index]
-		process.exe_element = process.rule.get_element(exe_element_histories[index -1]) if index > 0 else null
-		process.exe_end = process.rule.get_element_count()
-		
-		var nearest_element := elements[index]
-		var offset := process.offset
-		if nearest_element is StringElement:
-			offset = nearest_element.string_offset
-			process.offset = offset
-		
-		DictionaryIntKeyT.slice(highlight_data.data, 0, offset + 1)
-		elements = elements.slice(0, index)
-		exe_element_histories = exe_element_histories.slice(0, index)
-		DictionaryIntKeyT.slice(cmd_list, 0, column)
-	_do_command_process(text, process)
-	_do_command_tail(text, process)
-
-# 处理指令的流程。
-func _do_command_process(text : String, process : _CreateProcess) -> void:
-	while process.exe_index < process.exe_end:
-		var exe_element := process.rule.get_element(process.exe_index)
-		
-		# 检查可继承。
-		if not CommandRule.is_can_exetends(exe_element, process.exe_element):
-			process.exe_index += 1
-			continue
-		
-		# 检查是否属于类型。
-		var exe_type := exe_element.get_type()
-		if not ElementManager.is_inherent_type(exe_type):
-			if not ElementManager.try_get_type(text, process.offset).has(exe_type):
-				faild_element_idxs.append(process.exe_index)
-				process.exe_index += 1
-				continue
-		
-		# 成功执行
-		process.exe_element = exe_element
-		if _do_function(exe_element, text, process): return
-		
-		if process.continue_flag:
-			process.continue_flag = false
-			continue
-		if process.break_flag:
-			break
-		
-		# 处理结束。
-		if exe_element.has_end(): process.has_end = exe_element.has_end()
-		
-		# 处理跳转。
-		if exe_element.has_goto():
-			process.exe_index = exe_element.get_goto()
-			continue
-		
-		process.exe_index += 1
-# 处理指令的结尾。
-func _do_command_tail(text : String, process : _CreateProcess) -> void:
-	var length := text.length()
-	if process.has_end:
-		if process.offset < length:
-			var result := StringElement.create(text, process.offset)
-			if not result.is_faild:
-				create_error(result.get_valid_start(), "More string \"%s\"." % [result.get_valid_string()])
-				return
-	else:
-		create_error(process.offset , "Cant end.")
-
-
 

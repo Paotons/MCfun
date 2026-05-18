@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dw3ca0im08urk"]
 
+[ext_resource type="Script" uid="uid://3ib40sa30sdk" path="res://scene/edit_base_control.gd" id="1_4ldgq"]
 [ext_resource type="Script" uid="uid://dbsguqbxsn3im" path="res://script/hightlight/highlight.gd" id="1_uu6xs"]
 [ext_resource type="Script" uid="uid://c56tb0y6fuj01" path="res://scene/file_list_container.gd" id="1_w0n44"]
 [ext_resource type="PackedScene" uid="uid://daio2odmv7kgw" path="res://scene/edit_window/setting.tscn" id="5_pdkdi"]
@@ -8,67 +9,183 @@
 [ext_resource type="PackedScene" uid="uid://b1mh5o58v8e5g" path="res://scene/file_window/file_system.tscn" id="8_qyh5x"]
 [ext_resource type="PackedScene" uid="uid://diyi5chw3itl4" path="res://scene/project_window/export_setting.tscn" id="9_kijkp"]
 
-[sub_resource type="GDScript" id="GDScript_mtpim"]
-script/source = "extends Control
+[sub_resource type="GDScript" id="GDScript_4ldgq"]
+script/source = "extends Node
 
-## 项目初始化结束。
-signal project_initial_finished()
+## 初始化结束。
+signal initial_finish
 
-var project_opend_process : ProjectOpendProcess
-var project_opend_thread : Thread
+enum LoadingType {
+	## 加载项目。
+	PROJECT,
+	## 加载 UI。
+	UI,
+	## 最大值。
+	MAX,
+}
+const _UI_LOADING_PROCESS_COUNT := 3
 
-func _ready() -> void:
-	var project := ProjectManager.get_current_project()
-	project_opend_thread = Thread.new()
-	project_opend_process = ProjectOpendProcess.new()
-	project_opend_thread.start(project._opend.bind(project_opend_process))
-	show_loading()
+var _thread := Thread.new()
+var _base_control : EditBaseControl
+var _project_process := ProjectOpendProcess.new()
+
+var _mutex := Mutex.new()
+var main_process := Vector2i(-1, -1)
+var main_name := \"\"
+var _control_sub_process := Vector2i(-1, -1)
+
+func _get_file_list_container() -> FileListContainer:
+	return $\"../Base/HSplitContainer/FileList/MarginContainer/FileListContainer\"
+func _get_file_list_container_base_control() -> MarginContainer:
+	return $\"../Base/HSplitContainer/FileList\"
+func _get_split_container() -> HSplitContainer:
+	return $\"../Base/HSplitContainer\"
+
+func _get_sub_process() -> Vector2i:
+	match main_process.x:
+		LoadingType.PROJECT:
+			return _project_process.main_process
+		LoadingType.UI:
+			return _control_sub_process
+		_:
+			return Vector2i(-1, -1)
+
+## 开始运行，需要在线程中。
+func start() -> void:
+	_base_control.show_loading()
+	
+	_project_process.mutex = _mutex
+	_thread.start(_on_thread)
 	set_process(true)
 
-func _process(_delta: float) -> void:
-	if not project_opend_thread.is_alive():
-		set_process(false)
-		project_opend_thread.wait_to_finish()
-		project_opend_process = null
-		set_loading(\"\", \"\")
-		hide_lading()
-		project_initial_finished.emit()
-		return
+func _on_thread() -> void:
+	_mutex.lock()
+	main_process.y = LoadingType.MAX
+	main_name = \"正在加载配置\"
+	main_process.x = LoadingType.PROJECT
+	_mutex.unlock()
 	
-	project_opend_process.mutex.lock()
-	set_loading(
-		\"正在\" + project_opend_process.main_name + \"(%d/%d)\" % [project_opend_process.main_process.x, project_opend_process.main_process.y],
-		\"进度：%d/%d\" % [project_opend_process.sub_process.x, project_opend_process.sub_process.y]
+	var project := ProjectManager.get_current_project()
+	project._opend(_project_process)
+	
+	var config := ConfigFile.new()
+	var path := project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.EDIT_UI)
+	if FileAccess.file_exists(path):
+		config.load(path)
+	
+	_mutex.lock()
+	main_name = \"正在加载界面\"
+	main_process.x = LoadingType.UI
+	_control_sub_process.y = _UI_LOADING_PROCESS_COUNT
+	_mutex.unlock()
+	
+	_thread_edit_grammar(config)
+	_thread_edit_split(config)
+	_thread_edit_file_list(config)
+
+func _process(_delta: float) -> void:
+	if _thread.is_started() and not _thread.is_alive():
+		_thread.wait_to_finish()
+		_base_control.set_loading.call_deferred(\"\", \"\")
+		_base_control.hide_lading.call_deferred()
+		set_process(false)
+		initial_finish.emit()
+	
+	_mutex.lock()
+	var sub_process := _get_sub_process()
+	_base_control.set_loading(
+		\"%s(%d / %d)\" % [main_name, main_process.x, main_process.y],
+		\"%d / %d\" % [sub_process.x, sub_process.y]
 	)
-	project_opend_process.mutex.unlock()
+	_mutex.unlock()
 
-func _get_loading_title_label() -> Label:
-	return $Loading/VBoxContainer/Title
-func _get_loading_process_label() -> Label:
-	return $Loading/VBoxContainer/Process
-func _get_loading_panel() -> Panel:
-	return $Loading
+func _thread_edit_grammar(_config : ConfigFile) -> void:
+	_mutex.lock()
+	_control_sub_process.x += 1
+	_mutex.unlock()
+	
+	var project := ProjectManager.get_current_project()
+	var grammar := Grammar.new()
+	var error := grammar.open(project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.GRAMMAR))
+	
+	assert(error.is_empty(), \"Grammar has error.\")
+	(func() -> void:
+		var edit := _base_control._get_function_edit()
+		edit.grammar = grammar
+	).call_deferred()
+func _thread_edit_split(config : ConfigFile) -> void:
+	var offset_1 : int = config.get_value(\"Split\", \"1\", 100)
+	
+	(func() -> void:
+		_get_split_container().split_offset = offset_1
+	).call_deferred()
+func _thread_edit_file_list(config : ConfigFile) -> void:
+	_mutex.lock()
+	_control_sub_process.x += 1
+	_mutex.unlock()
+	
+	var files : PackedStringArray = config.get_value(\"FileList\", \"file_paths\", [])
+	var selected : int = config.get_value(\"FileList\", \"selected\", 0)
+	var visible : bool = config.get_value(\"FileList\", \"visible\", true)
+	(func() -> void:
+		var list := _get_file_list_container()
+		for path in files:
+			list.open_file(path)
+		list.select_file(selected)
+		_get_file_list_container_base_control().visible = visible
+	).call_deferred()
 
-## 显示正在加载。
-func show_loading() -> void:
-	_get_loading_panel().show()
-## 隐藏真正加载。
-func hide_lading() -> void:
-	_get_loading_panel().hide()
-## 设置正在加载。
-func set_loading(title : String, process : String) -> void:
-	_get_loading_title_label().set_text(title)
-	_get_loading_process_label().set_text(process)
+func _on_base_control_ready() -> void:
+	_base_control = get_parent()
+	start()
+"
+
+[sub_resource type="GDScript" id="GDScript_3aibf"]
+script/source = "extends Node
+##
+##
+## 配置文件。
+## FileList -- {file_paths : PackedStringArray, selected : String, visible : bool}
+## Split -- {1 : int}
+
+var _base_control : EditBaseControl
+
+func _get_file_list_container() -> FileListContainer:
+	return $\"../Base/HSplitContainer/FileList/MarginContainer/FileListContainer\"
+func _get_file_list_container_base_control() -> MarginContainer:
+	return $\"../Base/HSplitContainer/FileList\"
+func _get_split_container() -> HSplitContainer:
+	return $\"../Base/HSplitContainer\"
+
+func save_scene() -> void:
+	var project := ProjectManager.get_current_project()
+	var config := ConfigFile.new()
+	
+	_save_split(config)
+	_save_file_list(config)
+	
+	config.save(project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.EDIT_UI))
+
+func _save_split(config : ConfigFile) -> void:
+	config.set_value(\"Split\", \"1\", _get_split_container().split_offset)
+func _save_file_list(config : ConfigFile) -> void:
+	var list := _get_file_list_container()
+	config.set_value(\"FileList\", \"file_paths\", list.get_files())
+	config.set_value(\"FileList\", \"selected\", list.get_selected_index())
+	config.set_value(\"FileList\", \"visible\", _get_file_list_container_base_control().visible)
+
+func _on_base_control_ready() -> void:
+	_base_control = get_parent()
 "
 
 [sub_resource type="GDScript" id="GDScript_ktujv"]
 resource_name = "ProjectMenuButton"
 script/source = "extends MenuButton
 
-## 项目列表。
-const PROJECT_LIST_PACKED := preload(\"uid://cbhgotylj3fjg\")
-## 当前场景。
-const EDIT_PACKED := preload(\"uid://dw3ca0im08urk\")
+## 重新加载项目。
+signal reload_scene
+## 退出项目。
+signal exit_scene
 
 enum ItemIndex {
 	## 设置。
@@ -87,6 +204,8 @@ enum ItemIndex {
 	EXIT_TO_LIST,
 }
 
+var _is_reload := false
+
 func _ready() -> void:
 	get_popup().index_pressed.connect(_on_popup_index_pressed)
 
@@ -97,7 +216,7 @@ func _on_popup_index_pressed(index : int) -> void:
 		ItemIndex.EXPORT: _on_item_export()
 		
 		ItemIndex.RELOAD: reload()
-		ItemIndex.EXIT_TO_LIST: _on_item_exit_to_list()
+		ItemIndex.EXIT_TO_LIST: item_exit_to_list()
 
 # 获取项目设置的窗口。
 func _get_project_window() -> Window:
@@ -107,23 +226,40 @@ func _get_project_export_winodw() -> Window:
 	return $\"../../../../../ProjectExportSetting\"
 func _get_file_list_container() -> FileListContainer:
 	return $\"../../../../HSplitContainer/FileList/MarginContainer/FileListContainer\"
+func _get_project_exit_option_window() -> Window:
+	return $\"../../../../../ProjectExitOptionWindow\"
 
 func _on_open_project_setting() -> void:
 	_get_project_window().popup_centered_clamped()
 
 func reload() -> void:
-	var nam := ProjectManager.get_current_project().get_project_config().get_project_name()
-	ProjectManager.current_project = ProjectManager.get_project(nam)
-	get_tree().reload_current_scene()
-func _on_item_exit_to_list() -> void:
-	_get_file_list_container().save_all_file()
-	ProjectManager.get_current_project().get_project_config().update_project_nearest_time()
-	ProjectManager.current_project = null
-	get_tree().change_scene_to_packed.call_deferred(PROJECT_LIST_PACKED)
+	if not _get_file_list_container().get_not_saved_files().is_empty():
+		_is_reload = true
+		_get_project_exit_option_window().popup_centered_clamped()
+		return
+	reload_scene.emit()
+func item_exit_to_list() -> void:
+	if not _get_file_list_container().get_not_saved_files().is_empty():
+		_is_reload = false
+		_get_project_exit_option_window().popup_centered_clamped()
+		return
+	exit_scene.emit()
 
 func _on_item_export() -> void:
 	_get_project_export_winodw().popup_centered_clamped()
 
+func _on_project_exit_option_window_direct_exit() -> void:
+	if _is_reload:
+		reload_scene.emit()
+	else:
+		exit_scene.emit()
+
+func _on_project_exit_option_window_saved_and_edit() -> void:
+	_get_file_list_container().save_all_file()
+	if _is_reload:
+		reload_scene.emit()
+	else:
+		exit_scene.emit()
 "
 
 [sub_resource type="GDScript" id="GDScript_w0n44"]
@@ -169,6 +305,9 @@ func _get_file_list_window() -> FileDialog:
 # 获取创建文件都窗口。
 func _get_filesystem_window() -> FileSystemWindow:
 	return $\"../../../../../FileSystem\"
+# 获取保存文件窗口。
+func _get_save_file_option_window() -> Window:
+	return $\"../../../../../FileSaveOptionWindow\"
 
 func _ready() -> void:
 	get_popup().index_pressed.connect(_on_popup_index_pressed)
@@ -183,6 +322,7 @@ func _on_popup_index_pressed(index : int) -> void:
 		ItemIndex.OPEN: _on_item_open()
 		
 		ItemIndex.CLOSE: _on_item_close()
+		ItemIndex.CLEAR: _on_item_clear()
 		
 		ItemIndex.SYSTEM: _on_item_system()
 
@@ -191,7 +331,6 @@ func _on_item_save() -> void:
 func _on_item_save_all() -> void:
 	for path in _list_container.get_files():
 		_list_container.save_file(path)
-
 
 func _on_item_undo() -> void:
 	_list_container.undo()
@@ -207,7 +346,19 @@ func _on_item_close() -> void:
 	if path.is_empty():
 		return
 	
-	_list_container.close_file(path)
+	if not _list_container.is_file_saved(path):
+		_get_save_file_option_window().popup_centered_clamped()
+	else:
+		_list_container.close_file(path)
+func _on_item_clear() -> void:
+	for path in _list_container.get_files():
+		
+		if not _list_container.is_file_saved(path):
+			_get_save_file_option_window().popup_centered_clamped()
+			break
+		else:
+			_list_container.close_file(path)
+		await get_tree().process_frame
 
 func _on_item_system() -> void:
 	_get_filesystem_window().popup_centered_clamped()
@@ -217,6 +368,15 @@ func _on_file_list_window_file_selected(path: String) -> void:
 
 func _on_file_system_file_open(path: String) -> void:
 	_list_container.open_file(path)
+
+func _on_file_save_option_window_close() -> void:
+	var path := _list_container.get_selected()
+	_list_container.close_file(path)
+
+func _on_file_save_option_window_save_and_close() -> void:
+	var path := _list_container.get_selected()
+	_list_container.saved.emit(path)
+	_list_container.close_file(path)
 "
 
 [sub_resource type="GDScript" id="GDScript_hr7lf"]
@@ -321,6 +481,168 @@ func _on_show_hide_file_list_button_pressed() -> void:
 
 "
 
+[sub_resource type="GDScript" id="GDScript_y67ap"]
+script/source = "extends Node
+
+@onready var _edit := $\"../FunctionEdit\"
+# 文件保存的缓存目录。
+var _files_chche_directory : DirAccess
+
+## 当前编辑的文件。
+var current_file_path : String
+## 当前编辑的文件是否发生更改。
+var is_current_file_changed : bool
+
+func _get_text() -> String:
+	return _edit.text
+
+func _get_file_list_container() -> FileListContainer:
+	return $\"../../FileList/MarginContainer/FileListContainer\"
+
+## 获取文件在缓存里的数据路径。
+func get_path_at_chache(path : String) -> String:
+	var data_root := FileSystem.data_root
+	if not path.begins_with(data_root):
+		push_error(\"Not in data_root.\")
+		return \"\"
+	
+	path = path.substr(data_root.length() + (0 if data_root.ends_with(\"/\") else 1))
+	return _files_chche_directory.get_current_dir().path_join(path)
+## 加载文件。
+func load_file(path : String) -> void:
+	if path.is_empty():
+		_edit.set_function_text(\"\")
+		return
+	
+	var cache_file := get_path_at_chache(path)
+	var txt : String
+	
+	if FileAccess.file_exists(cache_file):
+		txt = FileAccess.get_file_as_string(cache_file)
+	else:
+		txt = FileAccess.get_file_as_string(path)
+	
+	_edit.set_function_text(txt)
+## 把当前编辑的文件保存到缓存。
+func save_to_cache() -> void:
+	var path := get_path_at_chache(current_file_path)
+	
+	if path.is_empty():
+		return
+	
+	if not DirAccess.dir_exists_absolute(path):
+		_files_chche_directory.make_dir_recursive(path.get_base_dir())
+	
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	file.store_string(_edit.get_text())
+	file.close()
+## 移除在缓存的文件。
+func remove_cache_file(path : String) -> void:
+	var cache_path := get_path_at_chache(path)
+	
+	if FileAccess.file_exists(cache_path):
+		DirAccess.remove_absolute(cache_path)
+
+# 初始化缓存文件目录。
+func _init_files_chache_directory() -> void:
+	var config := ProjectManager.get_current_project().get_project_config()
+	var path := FileSystem.data_root.path_join(\"cache/projects\").path_join(config.get_project_name()).path_join(\"files\")
+	
+	if DirAccess.dir_exists_absolute(path):
+		FileSystem.remove_directory(path)
+	
+	var data_root := DirAccess.open(FileSystem.data_root)
+	data_root.make_dir_recursive(path)
+	
+	_files_chche_directory = DirAccess.open(path)
+
+
+func _on_function_edit_ready() -> void:
+	_init_files_chache_directory()
+
+func _on_function_edit_text_changed() -> void:
+	if current_file_path.is_empty():
+		return
+	
+	if not is_current_file_changed:
+		is_current_file_changed = true
+		_get_file_list_container().set_file_saved_state(current_file_path, false)
+
+func _on_file_list_container_selected_changed(path: String) -> void:
+	assert(path.is_empty() or FileAccess.file_exists(path), \"Not find any file.\")
+	
+	if not current_file_path.is_empty():
+		save_to_cache()
+	
+	current_file_path = path
+	is_current_file_changed = false
+	
+	if path.is_empty():
+		_edit.editable = false
+		_edit.set_function_text(\"\")
+	else:
+		_edit.editable = true
+		load_file(path)
+
+func _on_file_list_container_closed(path: String) -> void:
+	remove_cache_file(path)
+	if path == current_file_path:
+		load_file(\"\")
+		current_file_path = \"\"
+
+func _on_file_list_container_saved(path: String) -> void:
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	
+	if current_file_path == path:
+		file.store_string(_get_text())
+	else:
+		var cache_path := get_path_at_chache(path)
+		if FileAccess.file_exists(cache_path):
+			var string := FileAccess.get_file_as_string(cache_path)
+			file.store_string(string)
+	file.close()
+	
+	remove_cache_file(path)
+
+"
+
+[sub_resource type="GDScript" id="GDScript_4o8ox"]
+script/source = "extends Node
+
+@onready var _edit := $\"../FunctionEdit\" as FunctionEdit
+
+## 用于检测配置文件高亮颜色的选择。
+const CONFIG_HIGHLIGHT_COLOR_SELECT := \"HighLightColor\"
+## 用于检测配置文件编辑器行为。
+const CONFIG_BEHAVIOR := \"EditBehavior\"
+
+# 初始化配置文件。
+func _init_config() -> void:
+	var config := FileSystem.config
+	if config == null:
+		return
+	if config.has_section(CONFIG_BEHAVIOR):
+		_init_config_behavior()
+	if config.has_section(CONFIG_HIGHLIGHT_COLOR_SELECT):
+		_init_config_highlight_color()
+# 初始化配置文件行为。
+func _init_config_behavior() -> void:
+	var config := FileSystem.config
+	_edit.double_input_disabled = not config.get_value(CONFIG_BEHAVIOR, \"double_input_enabled\", true)
+# 初始化配置文件高亮。
+func _init_config_highlight_color() -> void:
+	var config := FileSystem.config
+	for key in config.get_section_keys(CONFIG_HIGHLIGHT_COLOR_SELECT):
+		var value = config.get_value(CONFIG_HIGHLIGHT_COLOR_SELECT, key)
+		if not value is Color:
+			continue
+		var color := value as Color
+		_edit.set_highlight_color(key, color)
+
+func _on_function_edit_ready() -> void:
+	_init_config()
+"
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0du0"]
 bg_color = Color(0.08235294, 0.08235294, 0.08235294, 1)
 
@@ -333,19 +655,6 @@ resource_name = "Edit"
 script/source = "extends FunctionEdit
 
 @export var _error_hint_label : Label
-## 语法目录。
-@export_dir() var grammar_directory : String
-
-## 用于检测配置文件高亮颜色的选择。
-const CONFIG_HIGHLIGHT_COLOR_SELECT := \"HighLightColor\"
-## 用于检测配置文件编辑器行为。
-const CONFIG_BEHAVIOR := \"EditBehavior\"
-# 文件保存的缓存目录。
-var _files_chche_directory : DirAccess
-## 当前编辑的文件。
-var current_file_path : String
-## 当前编辑的文件是否发生更改。
-var is_current_file_changed : bool
 
 func _errors_list_changed() -> void:
 	var line := find_has_error_command()
@@ -364,137 +673,6 @@ func _errors_list_changed() -> void:
 
 func _ready() -> void:
 	super()
-	text_changed.connect(_on_text_changed)
-	_init_config()
-	_init_files_chache_directory()
-
-func _on_text_changed() -> void:
-	if current_file_path.is_empty():
-		return
-	
-	if not is_current_file_changed:
-		is_current_file_changed = true
-		_get_file_list_container().set_file_saved_state(current_file_path, false)
-
-#region 初始化。
-# 初始化缓存文件目录。
-func _init_files_chache_directory() -> void:
-	var config := ProjectManager.get_current_project().get_project_config()
-	var path := FileSystem.data_root.path_join(\"cache/projects\").path_join(config.get_project_name()).path_join(\"files\")
-	
-	if DirAccess.dir_exists_absolute(path):
-		FileSystem.remove_directory(path)
-	
-	var data_root := DirAccess.open(FileSystem.data_root)
-	data_root.make_dir_recursive(path)
-	
-	_files_chche_directory = DirAccess.open(path)
-# 初始化配置文件。
-func _init_config() -> void:
-	var config := FileSystem.config
-	if config == null:
-		return
-	if config.has_section(CONFIG_BEHAVIOR):
-		_init_config_behavior()
-	if config.has_section(CONFIG_HIGHLIGHT_COLOR_SELECT):
-		_init_config_highlight_color()
-# 初始化配置文件行为。
-func _init_config_behavior() -> void:
-	var config := FileSystem.config
-	double_input_disabled = not config.get_value(CONFIG_BEHAVIOR, \"double_input_enabled\", true)
-# 初始化配置文件高亮。
-func _init_config_highlight_color() -> void:
-	var config := FileSystem.config
-	for key in config.get_section_keys(CONFIG_HIGHLIGHT_COLOR_SELECT):
-		var value = config.get_value(CONFIG_HIGHLIGHT_COLOR_SELECT, key)
-		if not value is Color:
-			continue
-		var color := value as Color
-		set_highlight_color(key, color)
-#endregion
-
-#region 文件的工具。
-# 获取文件在缓存里的数据路径。
-func _get_path_at_chache(path : String) -> String:
-	var data_root := FileSystem.data_root
-	if not path.begins_with(data_root):
-		push_error(\"Not in data_root.\")
-		return \"\"
-	path = path.substr(data_root.length() + (0 if data_root.ends_with(\"/\") else 1))
-	return _files_chche_directory.get_current_dir().path_join(path)
-# 加载文件。
-func _load_file(path : String) -> void:
-	var cache_file := _get_path_at_chache(path)
-	var txt : String
-	
-	if FileAccess.file_exists(cache_file):
-		txt = FileAccess.get_file_as_string(cache_file)
-	else:
-		txt = FileAccess.get_file_as_string(path)
-	
-	set_function_text(txt)
-# 把当前编辑的文件保存到缓存。
-func _save_to_chche() -> void:
-	var path := _get_path_at_chache(current_file_path)
-	
-	if path.is_empty():
-		return
-	
-	if not DirAccess.dir_exists_absolute(path):
-		_files_chche_directory.make_dir_recursive(path.get_base_dir())
-	
-	var file := FileAccess.open(path, FileAccess.WRITE)
-	file.store_string(get_text())
-	file.close()
-# 移除在缓存的文件。
-func _remove_cache_file(path : String) -> void:
-	var cache_path := _get_path_at_chache(path)
-	if FileAccess.file_exists(cache_path):
-		DirAccess.remove_absolute(cache_path)
-#endregion
-
-# 获取文件列表容器。
-func _get_file_list_container() -> FileListContainer:
-	return $\"../../FileList/MarginContainer/FileListContainer\"
-# 切换。
-func _on_file_list_container_selected_changed(path: String) -> void:
-	assert(path.is_empty() or FileAccess.file_exists(path), \"Not find any file.\")
-	
-	if not current_file_path.is_empty():
-		_save_to_chche()
-	
-	current_file_path = path
-	is_current_file_changed = false
-	
-	if path.is_empty():
-		editable = false
-		set_function_text(\"\")
-	else:
-		editable = true
-		_load_file(path)
-
-func _on_file_list_container_closed(path: String) -> void:
-	_remove_cache_file(path)
-# 保存。
-func _on_file_list_container_saved(path: String) -> void:
-	var file := FileAccess.open(path, FileAccess.WRITE)
-	if current_file_path == path:
-		file.store_string(get_text())
-	else:
-		var cache_path := _get_path_at_chache(path)
-		if FileAccess.file_exists(cache_path):
-			var string := FileAccess.get_file_as_string(cache_path)
-			file.store_string(string)
-	file.close()
-	
-	_remove_cache_file(path)
-
-func _on_edit_project_initial_finished() -> void:
-	var project := ProjectManager.get_current_project()
-	assert(DirAccess.dir_exists_absolute(grammar_directory), \"Not has directory.\")
-	grammar = Grammar.new()
-	var error := grammar.open(project.get_project_cache().get_grammar_directory())
-	assert(error.is_empty(), \"Grammar has error.\")
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_r0du0"]
@@ -532,6 +710,26 @@ func _on_custom_action(action: StringName) -> void:
 		close.emit()
 	elif action == &\"1\":
 		pass
+	hide()
+"
+
+[sub_resource type="GDScript" id="GDScript_x5ap5"]
+script/source = "extends AcceptDialog
+
+signal saved_and_edit
+signal direct_exit
+
+func _ready() -> void:
+	add_cancel_button(\"取消\")
+	add_button(\"不保存并退出\", false, \"1\")
+
+func _on_confirmed() -> void:
+	saved_and_edit.emit()
+
+func _on_custom_action(action: StringName) -> void:
+	match action:
+		\"1\":
+			direct_exit.emit()
 "
 
 [node name="Edit" type="Control" unique_id=1792355344]
@@ -541,7 +739,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = SubResource("GDScript_mtpim")
+script = ExtResource("1_4ldgq")
+
+[node name="Loader" type="Node" parent="." unique_id=846388973]
+script = SubResource("GDScript_4ldgq")
+
+[node name="Saver" type="Node" parent="." unique_id=1988062796]
+script = SubResource("GDScript_3aibf")
 
 [node name="Base" type="VBoxContainer" parent="." unique_id=749474620]
 layout_mode = 1
@@ -565,7 +769,7 @@ theme_override_constants/margin_right = 5
 [node name="HBoxContainer" type="HBoxContainer" parent="Base/MarginContainer/MarginContainer" unique_id=1667696846]
 layout_mode = 2
 
-[node name="project" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=5126462]
+[node name="ProjectMenuButton" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=5126462]
 layout_mode = 2
 text = "项目"
 item_count = 6
@@ -583,7 +787,7 @@ popup/item_5/text = "退出至列表"
 popup/item_5/id = 4
 script = SubResource("GDScript_ktujv")
 
-[node name="file" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=1567331877]
+[node name="FileMenuButton" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=1567331877]
 layout_mode = 2
 text = "文件"
 item_count = 12
@@ -658,6 +862,8 @@ theme_override_constants/separation = 4
 [node name="FileList" type="MarginContainer" parent="Base/HSplitContainer" unique_id=2009113452]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.15
 script = SubResource("GDScript_pdkdi")
 
 [node name="Panel" type="Panel" parent="Base/HSplitContainer/FileList" unique_id=28391015]
@@ -675,8 +881,15 @@ script = ExtResource("1_w0n44")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Base/HSplitContainer" unique_id=557072463]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="CodeEdit" type="CodeEdit" parent="Base/HSplitContainer/VBoxContainer2" unique_id=12574861 node_paths=PackedStringArray("_error_hint_label")]
+[node name="FunctionEditFiler" type="Node" parent="Base/HSplitContainer/VBoxContainer2" unique_id=703145549]
+script = SubResource("GDScript_y67ap")
+
+[node name="FunctionEditConfiger" type="Node" parent="Base/HSplitContainer/VBoxContainer2" unique_id=85726311]
+script = SubResource("GDScript_4o8ox")
+
+[node name="FunctionEdit" type="CodeEdit" parent="Base/HSplitContainer/VBoxContainer2" unique_id=12574861 node_paths=PackedStringArray("_error_hint_label")]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
@@ -705,7 +918,6 @@ auto_brace_completion_pairs = {
 }
 script = SubResource("GDScript_r0du0")
 _error_hint_label = NodePath("../MarginContainer2/HBoxContainer/error_hint")
-grammar_directory = "res://resource/grammar/default"
 _test_data = "\"   @e [type=hh:gg]\""
 metadata/_custom_type_script = "uid://qbixiwedac0a"
 
@@ -808,20 +1020,41 @@ visible = false
 [node name="HelperWindow" parent="." unique_id=1477635680 instance=ExtResource("7_vsmy6")]
 visible = false
 
-[connection signal="project_initial_finished" from="." to="Base/HSplitContainer/VBoxContainer2/CodeEdit" method="_on_edit_project_initial_finished"]
+[node name="ProjectExitOptionWindow" type="AcceptDialog" parent="." unique_id=1254205356]
+oversampling_override = 1.0
+title = "退出"
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+ok_button_text = "保存并退出"
+dialog_text = "文件没有保存，是否退出。"
+script = SubResource("GDScript_x5ap5")
+
+[connection signal="ready" from="." to="Loader" method="_on_base_control_ready"]
+[connection signal="ready" from="." to="Saver" method="_on_base_control_ready"]
+[connection signal="save_scene" from="." to="Saver" method="save_scene"]
+[connection signal="exit_scene" from="Base/MarginContainer/MarginContainer/HBoxContainer/ProjectMenuButton" to="." method="_on_project_menu_button_exit_scene"]
+[connection signal="reload_scene" from="Base/MarginContainer/MarginContainer/HBoxContainer/ProjectMenuButton" to="." method="_on_project_menu_button_reload_scene"]
 [connection signal="pressed" from="Base/MarginContainer/MarginContainer/HBoxContainer/Helper" to="HelperWindow" method="popup_centered_clamped"]
-[connection signal="closed" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/CodeEdit" method="_on_file_list_container_closed"]
-[connection signal="saved" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/CodeEdit" method="_on_file_list_container_saved"]
-[connection signal="selected_changed" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/CodeEdit" method="_on_file_list_container_selected_changed"]
+[connection signal="closed" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_file_list_container_closed"]
+[connection signal="saved" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_file_list_container_saved"]
+[connection signal="selected_changed" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_file_list_container_selected_changed"]
+[connection signal="ready" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_function_edit_ready"]
+[connection signal="ready" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/FunctionEditConfiger" method="_on_function_edit_ready"]
+[connection signal="text_changed" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_function_edit_text_changed"]
 [connection signal="pressed" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/HBoxContainer/MarginContainer/ShowHideFileListButton" to="Base/HSplitContainer/FileList" method="_on_show_hide_file_list_button_pressed"]
 [connection signal="ready" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/HBoxContainer/error_hint" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/HBoxContainer/error_hint" method="set_text" binds= [""]]
-[connection signal="reload_project" from="ProjectSetting" to="Base/MarginContainer/MarginContainer/HBoxContainer/project" method="reload"]
+[connection signal="reload_project" from="ProjectSetting" to="." method="_on_project_setting_reload_project"]
 [connection signal="close_requested" from="FileListWindow" to="FileListWindow" method="hide"]
-[connection signal="file_selected" from="FileListWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/file" method="_on_file_list_window_file_selected"]
-[connection signal="file_open" from="FileSystem" to="Base/MarginContainer/MarginContainer/HBoxContainer/file" method="_on_file_system_file_open"]
+[connection signal="file_selected" from="FileListWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/FileMenuButton" method="_on_file_list_window_file_selected"]
+[connection signal="file_open" from="FileSystem" to="Base/MarginContainer/MarginContainer/HBoxContainer/FileMenuButton" method="_on_file_system_file_open"]
 [connection signal="multifile_open" from="FileSystem" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" method="open_multifile"]
-[connection signal="close" from="FileSaveOptionWindow" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" method="_on_file_save_option_window_close"]
+[connection signal="close" from="FileSaveOptionWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/FileMenuButton" method="_on_file_save_option_window_close"]
 [connection signal="close_requested" from="FileSaveOptionWindow" to="FileSaveOptionWindow" method="hide"]
 [connection signal="confirmed" from="FileSaveOptionWindow" to="FileSaveOptionWindow" method="_on_confirmed"]
 [connection signal="custom_action" from="FileSaveOptionWindow" to="FileSaveOptionWindow" method="_on_custom_action"]
-[connection signal="save_and_close" from="FileSaveOptionWindow" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" method="_on_file_save_option_window_save_and_close"]
+[connection signal="save_and_close" from="FileSaveOptionWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/FileMenuButton" method="_on_file_save_option_window_save_and_close"]
+[connection signal="canceled" from="ProjectExitOptionWindow" to="ProjectExitOptionWindow" method="hide"]
+[connection signal="confirmed" from="ProjectExitOptionWindow" to="ProjectExitOptionWindow" method="_on_confirmed"]
+[connection signal="custom_action" from="ProjectExitOptionWindow" to="ProjectExitOptionWindow" method="_on_custom_action"]
+[connection signal="direct_exit" from="ProjectExitOptionWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/ProjectMenuButton" method="_on_project_exit_option_window_direct_exit"]
+[connection signal="saved_and_edit" from="ProjectExitOptionWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/ProjectMenuButton" method="_on_project_exit_option_window_saved_and_edit"]

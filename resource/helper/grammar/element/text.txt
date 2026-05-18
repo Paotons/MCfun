@@ -1,0 +1,29 @@
+[title]描述[/title]
+
+一条指令可以拆成各种元素。
+
+比如：
+[code]execute as @a run give @s minecraft:apple 64[/code]
+可以拆成：
+[b]execute:[/b] 指令头。
+[b]as:[/b] 选项。
+[b]@a:[/b] 目标选择器。
+[b]run:[/b] 选项。
+[b]give @s minecraft:apple 64:[/b] 分指令，当然也可以拆开。
+
+[title]类型[/title]
+
+目前元素支持多种类型。
+
+[b]null:[/b] 没有类型，表示占位。
+[b]bool:[/b] 布尔类型，可以表示 [code]false[/code] 和 [code]true[/code] 两个选择。
+[b]int:[/b] 整数类型，可以表示 [code]64[/code] 各种数字。
+[b]float:[/b] 浮点类型，可以表示 [code]0.5[/code] 带小数点的数字。
+[b]option:[/b] 选项，一般都是几个固定选项。
+[b]rich_string:[/b] 彩色字体，支持 [code]§[/code] 显示。
+[b]word:[/b] 单词，仅支持各国语言的字符和连字符号和数组组成，一般表示玩家名。
+[b]string:[/b] 字符串，只要不是空格缩进都能支持。
+[b]coords:[/b] 坐标，可以表示 [code]~~~[code] 或者 [code]^^^3[/code] 各种坐标。
+[b]selector:[/b] 目标选择器，可以表示 [code]@e\[type=player\][code]，甚至是更复杂的选择，也可以支持玩家名称。
+[b]array:[/b] 类似数组一样，中括号包起来的那样。
+[b]dictionary:[/b] 类似字典一样，大括号包起来的一样。

@@ -1,0 +1,23 @@
+[title]描述[/title]
+
+语法规则的主要文件，入口。
+
+[b]format_version:[/b] 解析的版本。
+
+[title]V1[/title]
+
+[code]
+{
+	"format_version" : 1,
+	
+	"files" : {
+		"process" : "process.json",
+		"law" : "law.json",
+		"entry" : "entry.json"
+	}
+}[/code]
+
+[b]files:[/b] 定义各种文件的路径。
+[b]files.process:[/b] 指定流程文件路径。具体内容见 [file grammar/process]
+[b]files.law:[/b] 指定规则文件路径。具体内容见 [file grammar/law]
+[b]files.entry[/b] 指定列表文件路径。具体内容见 [file grammar/entry]

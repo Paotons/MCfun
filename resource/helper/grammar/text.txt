@@ -1,0 +1,9 @@
+[title]语法[/title]
+
+用于定义指令怎么组合。
+
+[title]构成[/title]
+
+流程 [file grammar/process] 指定指令怎么走。
+规则 [file grammar/law] 指定指令特定元素的规则。
+列表 [file grammar/entry] 指定元素特定元素可以填哪些。

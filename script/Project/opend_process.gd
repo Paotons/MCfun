@@ -16,4 +16,4 @@ var main_process := Vector2i(-1, -1)
 ## 分进度/总进度。
 var sub_process := Vector2i(-1, -1)
 ## 锁。
-var mutex := Mutex.new()
+var mutex : Mutex

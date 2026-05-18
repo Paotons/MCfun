@@ -280,6 +280,7 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 5
 
 [node name="NormalConfig" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer" unique_id=380378952]
+visible = false
 layout_mode = 2
 
 [node name="ProjectName" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig" unique_id=1100544815]
@@ -349,7 +350,6 @@ size_flags_horizontal = 10
 script = SubResource("GDScript_u6wxm")
 
 [node name="EditGrammer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer" unique_id=855041151]
-visible = false
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer" unique_id=785968391]

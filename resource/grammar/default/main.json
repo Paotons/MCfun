@@ -5,5 +5,5 @@
 		"process" : "process.json",
 		"entry" : "entry.json",
 		"law" : "law.json",
-	},
+	}
 }

@@ -23,8 +23,9 @@ class _File extends Resource:
 	func get_display_text() -> String:
 		return path.get_file() + ("(*)" if not has_saved else "")
 
-## 当前选中的文件。
+## 当前选中的文件序列。
 var selected_index : int
+
 # 按钮组。
 var _button_group := ButtonGroup.new()
 # 所有文件。
@@ -37,6 +38,7 @@ func _ready() -> void:
 
 func _on_button_group_pressed(button : BaseButton) -> void:
 	var index := button.get_index()
+	selected_index = index
 	selected_changed.emit(_files[index].path)
 
 #region API。
@@ -67,7 +69,7 @@ func open_multifile(paths : PackedStringArray) -> void:
 	
 	_undo_redo.add_undo_method(_close_multifile.bind(paths))
 	_undo_redo.commit_action()
-## 关闭文件。
+## 直接关闭文件。
 func close_file(path : String) -> void:
 	_undo_redo.create_action("close file")
 	_undo_redo.add_do_method(_close_file.bind(path))
@@ -98,6 +100,9 @@ func get_selected() -> String:
 		return ""
 	var index := _button_group.get_pressed_button().get_index()
 	return _files[index].path
+## 获取选中的序列。
+func get_selected_index() -> int:
+	return selected_index
 
 ## 设置文件保存状态。
 func set_file_saved_state(path : String, enabled := true) -> void:
@@ -124,6 +129,25 @@ func save_file(path : String) -> void:
 func save_all_file() -> void:
 	for i in _files.size():
 		_save_file(i)
+## 选择文件序列。
+func select_file(index : int) -> void:
+	if index < 0 or _files.size() <= index:
+		return
+	_select_file(index)
+## 返回没有保存的文件路径数组。
+func get_not_saved_files() -> PackedStringArray:
+	var result : PackedStringArray
+	for file in _files:
+		if not file.has_saved:
+			result.append(file.path)
+	return result
+
+## 移除某个文件。
+func remove_file(index := -1) -> void:
+	var file := _files[index]
+	_remove_file_button(index)
+	_files.remove_at(index)
+	closed.emit(file.path)
 #endregion
 
 #region 文件执行函数。
@@ -144,24 +168,11 @@ func _open_multifile(paths : PackedStringArray) -> void:
 		_select_file(last_index)
 func _close_file(path : String) -> void:
 	var index := _get_file_index(path)
-	if _files[index].has_saved:
-		_remove_file_button(index)
-		_files.remove_at(index)
-		closed.emit(path)
-	else:
-		_select_file(index)
-		_get_file_save_option_window().popup_centered_clamped()
+	remove_file(index)
 func _close_multifile(paths : PackedStringArray) -> void:
 	for path in paths:
 		var index := _get_file_index(path)
-		if _files[index].has_saved:
-			_remove_file_button(index)
-			_files.remove_at(index)
-			closed.emit(path)
-		else:
-			_select_file(index)
-			_get_file_save_option_window().popup_centered_clamped()
-			return
+		remove_file(index)
 # 选中路径。
 func _select_file(index : int) -> bool:
 	if index == -1:
@@ -194,6 +205,7 @@ func _add_file_button(index : int = -1) -> void:
 	button.text = _files[index].get_display_text()
 	button.toggle_mode = true
 	button.button_group = _button_group
+	button.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	add_child(button)
 # 移除文件按钮。
 func _remove_file_button(index : int) -> void:
@@ -212,14 +224,3 @@ func _update_file_button(index : int) -> void:
 	button.text = _files[index].get_display_text()
 #endregion
 
-#region 文件选择保存的窗口。
-# 显示文件保存的选择窗口。
-func _get_file_save_option_window() -> Window:
-	return $"../../../../../FileSaveOptionWindow"
-func _on_file_save_option_window_close() -> void:
-	var path := get_selected()
-	save_file(path)
-	close_file(path)
-func _on_file_save_option_window_save_and_close() -> void:
-	close_file(get_selected())
-#endregion

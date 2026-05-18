@@ -1,0 +1,7 @@
+[title]描述[/title]
+
+用于告诉编辑器，有些元素的具体要求。例如 [code]array[/code] 和 [code]dictionary[/code] 元素见 [file grammar/element]
+
+[title]V1[/title]
+
+必须包含 [code]selector_body[/code] 目标选择器的身体，用来告诉 [code]selector[/code] 要怎么规范。

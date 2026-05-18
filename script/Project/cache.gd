@@ -4,11 +4,21 @@ extends Resource
 ##
 ## 目录模式。[codeblock]
 ## {".mcfun" : 
-## 	{"grammar" : { "compiled" : {}, "name.txt" : false}
+## 	{"grammar" : { "compiled" : {}, "name.txt" : false},
+##	{"edit" : {"ui.cfg" : false}}
 ## }[/codeblock]
 
 # 缓存目录。
 const _CHACHE_DIRECTORY := ".mcfun"
+
+enum DirectoryType {
+	## 缓存。
+	CACHE,
+	## 语法。
+	GRAMMAR,
+	## 编辑器界面。
+	EDIT_UI,
+}
 
 ## 目录。
 var directory : String
@@ -17,9 +27,18 @@ var directory : String
 func _get_cache_directory() -> String:
 	return directory.path_join(_CHACHE_DIRECTORY)
 
-## 返回缓存语法目录。
-func get_grammar_directory() -> String:
-	return _get_cache_directory().path_join("grammar/compiled")
+## 返回缓存语法目录/文件。
+func get_cache_path(type : DirectoryType) -> String:
+	match type:
+		DirectoryType.CACHE:
+			return _get_cache_directory()
+		DirectoryType.GRAMMAR:
+			return _get_cache_directory().path_join("grammar/compiled")
+		DirectoryType.EDIT_UI:
+			return _get_cache_directory().path_join("edit/ui.cfg")
+		_:
+			push_error("Not has type.")
+			return ""
 
 ## [b]friend [Project]:[/b]加载缓存，需要在线程中运行。
 func _load_cache(process : ProjectOpendProcess) -> void:

@@ -1,0 +1,22 @@
+[title]描述[/title]
+
+用于列表 [file grammar/entry] 表示路径的分类。
+
+[title]V1[/title]
+
+表示 [code]playsound[/code] 可以表示为：
+[code]{
+	"type" : "path",
+	"data" : {
+		"mob" : {
+			"cat" : {
+				"" : false,
+				"hit" : false,
+				"dead" : false
+			}
+		}
+	}
+}[/code]
+这样就可以表示为 [code]mob.cat mob.cat.hit mob.cat.deat[/code] 了。
+
+[b]data:[/b] 表示无限嵌套，可以一直嵌套下去。其中 [code]false[/code] 用于占位，可能后续会加入其他功能。

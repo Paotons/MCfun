@@ -1,0 +1,21 @@
+[title]描述[/title]
+
+用于表示列表 [file grammar/entry] 中的元素，开始用来定义各种字符串。
+
+[title]V1[/title]
+
+例如 [code]gamemode[/code] 可表示为：
+[code]{
+	"type" : "string",
+	"data" : [
+		"a",
+		"c",
+		"s"
+	]
+}[/code]
+
+这样就可以表示 [code]gramemode[/code] 有 [code]a,c,s[/code] 三个模式了。
+
+[code]data:[/code] 用于定义各种字符串。
+
+[b]注意：[/b] 由于不能表示其意思，后续可能会进行更进。
