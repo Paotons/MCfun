@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://diyi5chw3itl4" path="res://scene/project_window/export_setting.tscn" id="9_kijkp"]
 
 [sub_resource type="GDScript" id="GDScript_4ldgq"]
+resource_name = "Loader"
 script/source = "extends Node
 
 ## 初始化结束。
@@ -34,6 +35,8 @@ var main_process := Vector2i(-1, -1)
 var main_name := \"\"
 var _control_sub_process := Vector2i(-1, -1)
 
+func _get_function_edit() -> FunctionEdit:
+	return $\"../Base/HSplitContainer/VBoxContainer2/FunctionEdit\"
 func _get_file_list_container() -> FileListContainer:
 	return $\"../Base/HSplitContainer/FileList/MarginContainer/FileListContainer\"
 func _get_file_list_container_base_control() -> MarginContainer:
@@ -114,7 +117,7 @@ func _thread_edit_grammar(_config : ConfigFile) -> void:
 		edit.grammar = grammar
 	).call_deferred()
 func _thread_edit_split(config : ConfigFile) -> void:
-	var offset_1 : int = config.get_value(\"Split\", \"1\", 100)
+	var offset_1 : int = config.get_value(\"Split\", \"1\", 50)
 	
 	(func() -> void:
 		_get_split_container().split_offset = offset_1
@@ -127,12 +130,19 @@ func _thread_edit_file_list(config : ConfigFile) -> void:
 	var files : PackedStringArray = config.get_value(\"FileList\", \"file_paths\", [])
 	var selected : int = config.get_value(\"FileList\", \"selected\", 0)
 	var visible : bool = config.get_value(\"FileList\", \"visible\", true)
+	var caret_positions : Array = config.get_value(\"FileList\", \"file_caret_positions\", [])
 	(func() -> void:
 		var list := _get_file_list_container()
 		for path in files:
 			list.open_file(path)
 		list.select_file(selected)
 		_get_file_list_container_base_control().visible = visible
+		
+		for i in caret_positions.size():
+			list.set_file_caret_position(i, caret_positions[i])
+		
+		if selected < caret_positions.size():
+			_get_function_edit().set_caret_position(0, caret_positions[selected])
 	).call_deferred()
 
 func _on_base_control_ready() -> void:
@@ -150,6 +160,8 @@ script/source = "extends Node
 
 var _base_control : EditBaseControl
 
+func _get_function_edit() -> FunctionEdit:
+	return $\"../Base/HSplitContainer/VBoxContainer2/FunctionEdit\"
 func _get_file_list_container() -> FileListContainer:
 	return $\"../Base/HSplitContainer/FileList/MarginContainer/FileListContainer\"
 func _get_file_list_container_base_control() -> MarginContainer:
@@ -173,6 +185,15 @@ func _save_file_list(config : ConfigFile) -> void:
 	config.set_value(\"FileList\", \"file_paths\", list.get_files())
 	config.set_value(\"FileList\", \"selected\", list.get_selected_index())
 	config.set_value(\"FileList\", \"visible\", _get_file_list_container_base_control().visible)
+	_config_file_list_caret_position(list, config)
+func _config_file_list_caret_position(list : FileListContainer, config : ConfigFile) -> void:
+	var result : Array
+	for i in list.get_file_count():
+		result.append(list.get_file_caret_position(i))
+	if result.size() != 0:
+		var selected := list.get_selected_index()
+		result[selected] = _get_function_edit().get_caret_position()
+	config.set_value(\"FileList\", \"file_caret_positions\", result)
 
 func _on_base_control_ready() -> void:
 	_base_control = get_parent()
@@ -570,8 +591,11 @@ func _on_function_edit_text_changed() -> void:
 
 func _on_file_list_container_selected_changed(path: String) -> void:
 	assert(path.is_empty() or FileAccess.file_exists(path), \"Not find any file.\")
+	var file_container := _get_file_list_container()
 	
 	if not current_file_path.is_empty():
+		var current := file_container.get_file_index(current_file_path)
+		file_container.set_file_caret_position(current, _edit.get_caret_position())
 		save_to_cache()
 	
 	current_file_path = path
@@ -581,8 +605,10 @@ func _on_file_list_container_selected_changed(path: String) -> void:
 		_edit.editable = false
 		_edit.set_function_text(\"\")
 	else:
+		var index := file_container.get_file_index(path)
 		_edit.editable = true
 		load_file(path)
+		_edit.set_caret_position(0, file_container.get_file_caret_position(index))
 
 func _on_file_list_container_closed(path: String) -> void:
 	remove_cache_file(path)
@@ -629,7 +655,14 @@ func _init_config() -> void:
 func _init_config_behavior() -> void:
 	var config := FileSystem.config
 	_edit.double_input_disabled = not config.get_value(CONFIG_BEHAVIOR, \"double_input_enabled\", true)
-# 初始化配置文件高亮。
+	_edit.wrap_mode = config.get_value(CONFIG_BEHAVIOR, \"wrap_mode\", TextEdit.LINE_WRAPPING_NONE)
+	_config_edit_double_input_map(config)
+func _config_edit_double_input_map(config : ConfigFile) -> void:
+	var value : Dictionary = config.get_value(CONFIG_BEHAVIOR, \"double_input_map\", {})
+	if value.is_empty():
+		return
+	var val : Dictionary[String, String] = Dictionary(value, TYPE_STRING, &\"\", null, TYPE_STRING, &\"\", null)
+	_edit.set_double_input_map(val)
 func _init_config_highlight_color() -> void:
 	var config := FileSystem.config
 	for key in config.get_section_keys(CONFIG_HIGHLIGHT_COLOR_SELECT):
@@ -908,17 +941,9 @@ gutters_draw_fold_gutter = true
 code_completion_enabled = true
 indent_size = 8
 auto_brace_completion_enabled = true
-auto_brace_completion_pairs = {
-"\"": "\"",
-"'": "'",
-"(": ")",
-"<": ">",
-"[": "]",
-"{": "}"
-}
+auto_brace_completion_highlight_matching = true
 script = SubResource("GDScript_r0du0")
 _error_hint_label = NodePath("../MarginContainer2/HBoxContainer/error_hint")
-_test_data = "\"   @e [type=hh:gg]\""
 metadata/_custom_type_script = "uid://qbixiwedac0a"
 
 [node name="MarginContainer2" type="MarginContainer" parent="Base/HSplitContainer/VBoxContainer2" unique_id=519901684]

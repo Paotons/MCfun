@@ -12,6 +12,7 @@ signal closed(path : String)
 class _File extends Resource:
 	var path : String
 	var has_saved := true
+	var caret_position := Vector2i()
 	
 	@warning_ignore("shadowed_variable")
 	static func create(path : String, has_saved := true) -> _File:
@@ -51,10 +52,26 @@ func redo() -> void:
 	if _undo_redo.has_redo():
 		_undo_redo.redo()
 
+## 获取文件序列。
+func get_file_index(path : String) -> int:
+	return _files.find_custom(_is_file_path.bind(path))
+## 返回文件光标位置。
+func get_file_caret_position(index : int) -> Vector2i:
+	return _files[index].caret_position
+## 设置文件光标位置。
+func set_file_caret_position(index : int, pos : Vector2) -> void:
+	_files[index].caret_position = pos
+## 返回文件路径。
+func get_file_path(index : int) -> String:
+	return _files[index].path
+## 返回文件数量。
+func get_file_count() -> int:
+	return _files.size()
+
 ## 打开文件。
 func open_file(path : String) -> void:
 	if is_file_opend(path):
-		var index := _get_file_index(path)
+		var index := get_file_index(path)
 		_select_file(index)
 		return
 	_undo_redo.create_action("open file")
@@ -93,7 +110,7 @@ func get_files() -> PackedStringArray:
 
 ## 如果有文件已打开，返回 [code]true[/code]。
 func is_file_opend(path : String) -> bool:
-	return _get_file_index(path) != -1
+	return get_file_index(path) != -1
 ## 获取当前选中的文件。
 func get_selected() -> String:
 	if get_child_count() == 0:
@@ -106,7 +123,7 @@ func get_selected_index() -> int:
 
 ## 设置文件保存状态。
 func set_file_saved_state(path : String, enabled := true) -> void:
-	var index := _get_file_index(path)
+	var index := get_file_index(path)
 	if index == -1:
 		push_error("Dont open file.")
 		return
@@ -114,14 +131,14 @@ func set_file_saved_state(path : String, enabled := true) -> void:
 	_update_file_button(index)
 ## 如果文件已保存，返回 [code]true[/code]。
 func is_file_saved(path : String) -> bool:
-	var index := _get_file_index(path)
+	var index := get_file_index(path)
 	if index == -1:
 		push_error("Dont open file.")
 		return false
 	return _files[index].has_saved
 ## 保存文件。
 func save_file(path : String) -> void:
-	var index := _get_file_index(path)
+	var index := get_file_index(path)
 	if index == -1:
 		return
 	_save_file(index)
@@ -167,11 +184,11 @@ func _open_multifile(paths : PackedStringArray) -> void:
 	if not last_index == -1:
 		_select_file(last_index)
 func _close_file(path : String) -> void:
-	var index := _get_file_index(path)
+	var index := get_file_index(path)
 	remove_file(index)
 func _close_multifile(paths : PackedStringArray) -> void:
 	for path in paths:
-		var index := _get_file_index(path)
+		var index := get_file_index(path)
 		remove_file(index)
 # 选中路径。
 func _select_file(index : int) -> bool:
@@ -192,9 +209,6 @@ func _save_file(index : int) -> void:
 #endregion
 
 #region 文件工具。
-# 获取文件序列。
-func _get_file_index(path : String) -> int:
-	return _files.find_custom(_is_file_path.bind(path))
 # 如果文件路径为 path，返回 true。
 func _is_file_path(file : _File, path : String) -> bool:
 	return file.path == path

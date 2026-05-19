@@ -168,8 +168,68 @@ func _on_visibility_changed() -> void:
 [sub_resource type="GDScript" id="GDScript_w14fy"]
 script/source = "extends CheckBox
 
-## 选择键。
-const SELECT_NAME := \"EditBehavior\"
+func _on_visibility_changed() -> void:
+	if not is_visible_in_tree():
+		return
+	var config := ConfigFile.new()
+	if FileAccess.file_exists(FileSystem.config_path):
+		config.load(FileSystem.config_path)
+	button_pressed = config.get_value(\"EditBehavior\", \"double_input_enabled\", true)
+
+func _pressed() -> void:
+	var config := ConfigFile.new()
+	if FileAccess.file_exists(FileSystem.config_path):
+		config.load(FileSystem.config_path)
+	config.set_value(\"EditBehavior\", \"double_input_enabled\", button_pressed)
+	config.save(FileSystem.config_path)
+	if EditManager.has_edit():
+		EditManager.get_edit().double_input_disabled = not button_pressed
+"
+
+[sub_resource type="GDScript" id="GDScript_y36tn"]
+script/source = "extends TextEdit
+
+func _ready() -> void:
+	var config := ConfigFile.new()
+	if FileAccess.file_exists(FileSystem.config_path):
+		config.load(FileSystem.config_path)
+	
+	var value : Dictionary = config.get_value(\"EditBehavior\", \"double_input_map\", FunctionEdit.DEFAULT_DOUBLE_INPUT_MAP)
+	set_text_from_value(value)
+
+func _on_focus_exited() -> void:
+	var config := ConfigFile.new()
+	if FileAccess.file_exists(FileSystem.config_path):
+		config.load(FileSystem.config_path)
+	
+	var val := get_value_from_text()
+	set_text_from_value(val)
+	
+	config.set_value(\"EditBehavior\", \"double_input_map\", val)
+	config.save(FileSystem.config_path)
+	
+	if EditManager.has_edit():
+		EditManager.get_edit().set_double_input_map(val)
+
+func set_text_from_value(value : Dictionary) -> void:
+	var txt := JSON.stringify(value)
+	text = txt.substr(1, txt.length() - 2)
+func get_value_from_text() -> Dictionary[String, String]:
+	var value = JSON.parse_string(\"{%s}\" % text)
+	if not value is Dictionary:
+		return {}
+	
+	if value is Dictionary:
+		for key in value.keys():
+			if not key is String:
+				value.erase(key)
+			elif not value[key] is String:
+				value.erase(key)
+	return Dictionary(value, TYPE_STRING, &\"\", null, TYPE_STRING, &\"\", null)
+"
+
+[sub_resource type="GDScript" id="GDScript_a8c72"]
+script/source = "extends CheckBox
 
 func _on_visibility_changed() -> void:
 	if not is_visible_in_tree():
@@ -177,16 +237,19 @@ func _on_visibility_changed() -> void:
 	var config := ConfigFile.new()
 	if FileAccess.file_exists(FileSystem.config_path):
 		config.load(FileSystem.config_path)
-	button_pressed = config.get_value(SELECT_NAME, \"double_input_enabled\", true)
+	button_pressed = config.get_value(\"EditBehavior\", \"wrap_mode\", TextEdit.LINE_WRAPPING_NONE) == TextEdit.LINE_WRAPPING_BOUNDARY
 
 func _pressed() -> void:
 	var config := ConfigFile.new()
 	if FileAccess.file_exists(FileSystem.config_path):
 		config.load(FileSystem.config_path)
-	config.set_value(SELECT_NAME, \"double_input_enabled\", button_pressed)
+	var index := TextEdit.LINE_WRAPPING_BOUNDARY if button_pressed else TextEdit.LINE_WRAPPING_NONE
+	config.set_value(\"EditBehavior\", \"wrap_mode\", index)
 	config.save(FileSystem.config_path)
+	
 	if EditManager.has_edit():
-		EditManager.get_edit().double_input_disabled = not button_pressed
+		EditManager.get_edit().wrap_mode = index
+
 "
 
 [sub_resource type="GDScript" id="GDScript_182ur"]
@@ -559,6 +622,33 @@ layout_mode = 2
 size_flags_horizontal = 10
 script = SubResource("GDScript_w14fy")
 
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior" unique_id=2018506517]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/VBoxContainer" unique_id=622596643]
+layout_mode = 2
+text = "映射字符"
+
+[node name="DoubleInputMap" type="TextEdit" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/VBoxContainer" unique_id=2001041231]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "\" \" : \"\\t\", \"s\" : \"§\", \".\" : \"~\", \",\" : \"^\", \"z\" : \"=\", \"n\" : \"!\" , \"a\" : \"@\", \"q\" : \"{\", \"p\" : \"}\", \"w\" : \"[\", \"o\" : \"]\", \"e\" : \"<\", \"i\" : \">\""
+placeholder_text = "\" \" : \"\\t\", \"s\" : \"§\", \".\" : \"~\", \",\" : \"^\", \"z\" : \"=\", \"n\" : \"!\" , \"a\" : \"@\", \"q\" : \"{\", \"p\" : \"}\", \"w\" : \"[\", \"o\" : \"]\", \"e\" : \"<\", \"i\" : \">\""
+wrap_mode = 1
+script = SubResource("GDScript_y36tn")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior" unique_id=331985900]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer2" unique_id=188368594]
+layout_mode = 2
+text = "边界换行"
+
+[node name="WrapMode" type="CheckBox" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer2" unique_id=53001946]
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_a8c72")
+
 [node name="Grammer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=1120137195]
 visible = false
 layout_mode = 2
@@ -637,6 +727,8 @@ script = SubResource("GDScript_iw8q2")
 [connection signal="visibility_changed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" method="_on_visibility_changed"]
 [connection signal="pressed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer2/Button" to="SelectedDataRootWindow" method="popup_centered_clamped"]
 [connection signal="visibility_changed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer/CheckBox" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer/CheckBox" method="_on_visibility_changed"]
+[connection signal="focus_exited" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/VBoxContainer/DoubleInputMap" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/VBoxContainer/DoubleInputMap" method="_on_focus_exited"]
+[connection signal="visibility_changed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer2/WrapMode" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer2/WrapMode" method="_on_visibility_changed"]
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="hide"]
 [connection signal="close_requested" from="SelectedDataRootWindow" to="SelectedDataRootWindow" method="hide"]
 [connection signal="confirmed" from="SelectedDataRootWindow" to="DataRootChangedExitAcceptWindow" method="popup_centered_clamped"]

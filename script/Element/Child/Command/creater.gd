@@ -33,32 +33,51 @@ func run_from_empty(text : String, process : CommandElementCreaterProcess) -> vo
 	_do_command_tail(text, process)
 ## 从一定位置开始处理指令。
 func run_from_column(text : String, process : CommandElementCreaterProcess, column := 0) -> CommandElement:
-	var index : int = command.get_column_map_index(column) - 1 if not command.is_column_at_end(column) else command.exe_element_histories.size() - 1
+	var index : int = command.get_column_map_index(column) if not command.is_column_at_end(column) else command.exe_element_histories.size() - 1
 	
-	if index < 0: # 相当于重新生成。
+	if index < 1: # 相当于重新生成。
 		return CommandElement.create(text, process.offset, command.get_line_index())
 	else:
-		# 模拟最初环境
-		process.rule = process.grammar.get_command_rule(command.head_element.get_valid_head())
-		process.exe_index = command.exe_element_histories[index]
-		process.exe_element = process.rule.get_element(command.exe_element_histories[index -1]) if index > 0 else null
-		process.exe_end = process.rule.get_element_count()
-		
-		var nearest_element := command.elements[index]
-		var offset := process.offset
-		if nearest_element is StringElement:
-			offset = nearest_element.string_offset
-			process.offset = offset
-		
-		DictionaryIntKeyT.slice(_get_hl_data().data, 0, offset + 1)
-		command.elements = command.elements.slice(0, index)
-		command.exe_element_histories = command.exe_element_histories.slice(0, index)
-		DictionaryIntKeyT.slice(command.cmd_list, 0, column)
-		
-		process.has_end = process.rule.is_indexs_has_end(command.exe_element_histories)
-		_do_command_process(text, process)
-		_do_command_tail(text, process)
-		return command
+		if command.elements[index] is CommandElement:
+			var element := command.elements[index] as CommandElement
+			if element.is_valid_head() and element.string_offset + 2 < column:
+				return _run_from_column_suncommand(text, column, index)
+		return _run_from_column_normal(text, process, column, index - 1)
+
+func _run_from_column_suncommand(text : String, column := 0, index := 0) -> CommandElement:
+	var element := command.elements[index] as CommandElement
+	var offset := element.string_offset
+	
+	DictionaryIntKeyT.slice(_get_hl_data().data, 0, offset + 1)
+	DictionaryIntKeyT.slice(command.cmd_list, 0, column)
+	
+	var new_element := element.update(text, column)
+	command.elements[index] = new_element
+	_get_hl_data().merge(new_element.get_highlight(EditManager.get_edit()))
+	command.errors.append_array(new_element.errors)
+	return command
+func _run_from_column_normal(text : String, process : CommandElementCreaterProcess, column := 0, index := 0) -> CommandElement:
+	# 模拟最初环境
+	process.rule = process.grammar.get_command_rule(command.head_element.get_valid_head())
+	process.exe_index = command.exe_element_histories[index]
+	process.exe_element = process.rule.get_element(command.exe_element_histories[index -1]) if index > 0 else null
+	process.exe_end = process.rule.get_element_count()
+	
+	var nearest_element := command.elements[index]
+	var offset := process.offset
+	if nearest_element is StringElement:
+		offset = nearest_element.string_offset
+		process.offset = offset
+	
+	DictionaryIntKeyT.slice(_get_hl_data().data, 0, offset + 1)
+	command.elements = command.elements.slice(0, index)
+	command.exe_element_histories = command.exe_element_histories.slice(0, index)
+	DictionaryIntKeyT.slice(command.cmd_list, 0, column)
+	
+	process.has_end = process.rule.is_indexs_has_end(command.exe_element_histories)
+	_do_command_process(text, process)
+	_do_command_tail(text, process)
+	return command
 
 # 处理函数。
 func _do_function(element : ExeElementRule, text : String, process : CommandElementCreaterProcess) -> bool:
@@ -75,8 +94,7 @@ func _do_function(element : ExeElementRule, text : String, process : CommandElem
 		GrammarValue.Type.COMMAND : return _do_subcommand(text, process)
 		GrammarValue.Type.DICTIONARY : return _do_dictionary(text, process)
 		GrammarValue.Type.ARRAY : return _do_array(text, process)
-	@warning_ignore("assert_always_true")
-	assert(true, "Not do.")
+	breakpoint # 正常情况，不会到这
 	return true
 
 #region 处理。
@@ -274,7 +292,7 @@ func _do_array(text : String, process : CommandElementCreaterProcess) -> bool:
 	process.offset = sult.get_valid_end()
 	add_history(process.exe_index, sult)
 	return false
-# 处理指令中的指令。
+# 处理指令中的附属指令。
 func _do_subcommand(text : String, process : CommandElementCreaterProcess) -> bool:
 	if process.offset == text.length():
 		create_error(process.offset, "Not find command.")
