@@ -11,14 +11,14 @@ var errors : Array[ElementError]
 
 @warning_ignore("unused_parameter")
 ## 虚函数，获取空位补全数据。
-static func get_precast_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> CodeCompletionData:
+static func get_precast_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
 	return null
 @warning_ignore("unused_parameter")
 ## 虚函数，获取补全的当前数据。
-func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> CodeCompletionData:
+func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
 	return null
 ## 获取补全的当前数据。
-func get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> CodeCompletionData:
+func get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
 	is_faild_assert()
 	return _get_column_code_completion_data(column, rule, command)
 

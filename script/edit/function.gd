@@ -28,7 +28,7 @@ var grammar : Grammar
 @export var spaceitem_expleation_included_space := true
 
 # 对于补全指令头用的补全数据。
-static var _code_completion_head_data : CodeCompletionData
+static var _code_completion_head_data : FunctionCompletionData
 #region 颜色。
 @export_group("color", "color")
 ## 默字体认颜色。
@@ -103,7 +103,7 @@ func _filter_code_completion_candidates(candidates: Array[Dictionary]) -> Array[
 	var results : Array[Dictionary]
 	for i in candidates.size():
 		var data := candidates[i]
-		var result := CodeCompletionData.get_weight(line_text, column, data)
+		var result := FunctionCompletionData.get_weight(line_text, column, data)
 		var index := result_simlarities.bsearch(result)
 		result_simlarities.insert(index, result)
 		results.insert(index, data)
@@ -140,10 +140,10 @@ func _do_confirm_code_completion() -> bool:
 	var column := get_caret_column()
 	var line_text := get_line(line)
 	var insert : String = data.insert_text
-	var value : CodeCompletionDataValue = data.default_value
+	var value : FunctionCompletionDataValue = data.default_value
 	
-	var from_column := CodeCompletionData.get_insert_start(line_text, column, data)
-	var to_column := CodeCompletionData.get_insert_end(line_text, column, data)
+	var from_column := FunctionCompletionData.get_insert_start(line_text, column, data)
+	var to_column := FunctionCompletionData.get_insert_end(line_text, column, data)
 	
 	set_caret_column(to_column)
 	remove_area(line, from_column, line, to_column)

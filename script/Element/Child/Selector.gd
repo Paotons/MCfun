@@ -6,7 +6,7 @@ extends StringElement
 const HEAD_TYPE : PackedStringArray = ["a", "e", "r", "p", "s"]
 
 # 头部补全用的数据。
-static var _code_completion_head_data : CodeCompletionData
+static var _code_completion_head_data : FunctionCompletionData
 # 如果是 [code]true[/code]，则采用的玩家名称。
 var _is_player_name := false
 ## 身体的括号。
@@ -23,13 +23,13 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	if has_body():
 		result.merge(_body_backet.get_highlight(edit), true)
 	return result
-static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> CodeCompletionData:
+static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
 	if _code_completion_head_data == null: _initial_code_completion_head()
 	var data := SelectorElement._code_completion_head_data
 	data.hint_string = "<%s : selector>" % [rule.get_description()]
 	return data
-func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> CodeCompletionData:
-	var data : CodeCompletionData
+func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+	var data : FunctionCompletionData
 	
 	# 头部
 	if not is_valid_head():
@@ -37,7 +37,7 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 		data.hint_string = "<%s : selector>" % [rule.get_description()]
 	# 身体
 	elif not has_body():
-		return CodeCompletionData.create_backet_data(GrammarValue.Type.ARRAY)
+		return FunctionCompletionData.create_backet_data(GrammarValue.Type.ARRAY)
 	else:
 		if _body_backet.has_column(column):
 			return _body_backet.get_column_code_completion_data(column, rule, command)
@@ -142,9 +142,9 @@ static func _get_head_types() -> PackedStringArray:
 
 # 初始化头部补全数据。
 static func _initial_code_completion_head() -> void:
-	var data := CodeCompletionData.new()
+	var data := FunctionCompletionData.new()
 	data.insert_texts.append_array(_get_head_types())
-	data.fill_insert_mode(CodeCompletionData.InsertMode.SELECTOR)
+	data.fill_insert_mode(FunctionCompletionData.InsertMode.SELECTOR)
 	data.fill_inserted_update(true)
 	data.supple()
 	_code_completion_head_data = data

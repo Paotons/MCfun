@@ -15,7 +15,7 @@ var flag_columns : PackedInt32Array
 ## 特殊符号类别。
 var flag_types : Array[FlagType]
 ## 对于风格符补全数据。
-static var STYLE_FLAG_CODE_COMPLETION_DATA : CodeCompletionData
+static var STYLE_FLAG_CODE_COMPLETION_DATA : FunctionCompletionData
 
 # 风格符后面的字符对应的颜色。
 # 由 DeepSeek 生成，有问题找它。
@@ -77,8 +77,8 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 				result[column + 2] = {"color" : nearst_color}
 	result[get_valid_end()] = {"color" : edit.color_default}
 	return result
-func _get_column_code_completion_data(column : int, rule : ElementRule, _command : CommandElement) -> CodeCompletionData:
-	var data := CodeCompletionData.new()
+func _get_column_code_completion_data(column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
 	data.hint_string = "<%s : rich_string>" % [rule.get_description()]
 	var index := flag_columns.find(column - string_offset - 1)
 	index = flag_columns.find(column - string_offset - 2) if index == -1 else index
@@ -90,8 +90,8 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, _command
 	elif type == FlagType.STYLE:
 		return STYLE_FLAG_CODE_COMPLETION_DATA
 	return data
-static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> CodeCompletionData:
-	var data := CodeCompletionData.new()
+static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
 	data.hint_string = "<%s : rich_string>" % [rule.get_description()]
 	return data
 
@@ -133,7 +133,7 @@ func _init() -> void:
 
 # 初始化风格补全数据。
 static func _style_code_completion_data_initial() -> void:
-	var data := CodeCompletionData.new()
+	var data := FunctionCompletionData.new()
 	for chr in _STYLE_FLAG_COLOR_MAP:
 		var color := _STYLE_FLAG_COLOR_MAP[chr]
 		data.insert_texts.append(char(chr))

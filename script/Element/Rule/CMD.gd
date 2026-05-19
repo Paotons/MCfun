@@ -36,23 +36,23 @@ static var _COMPILE_REGEXS : Dictionary[String, RegEx] = {
 
 #region 执行。
 ## 执行指令。
-static func execute(element : Element, rule : ElementRule, command : CommandElement, filter := ModeFilter.ALL) -> void:
+static func execute(element : Element, rule : ElementRule, command : BaseCommandElement, filter := ModeFilter.ALL) -> void:
 	for cmd in rule.get_cmd():
 		var head : int = cmd[0]
 		if filter >> head & 1 == 0:
 			continue
 		match head:
 			_Head.LIST: _execute_list(cmd, element, command)
-static func _execute_list(cmd : Array, element : StringElement, command : CommandElement) -> void:
+static func _execute_list(cmd : Array, element : StringElement, command : BaseCommandElement) -> void:
 	if element == null or element.is_faild: return
 	var list_id : int = cmd[2]
 	var mode : int = cmd[1]
 	if mode == _ItemListMode.ADD: # 添加
-		if not command.cmd_list.has(list_id): command.cmd_list[list_id] = {}
-		command.cmd_list[list_id][element.get_valid_start()] = element.get_valid_string()
+		if not command._cmd_list.has(list_id): command._cmd_list[list_id] = {}
+		command._cmd_list[list_id][element.get_valid_start()] = element.get_valid_string()
 ## 执行补全，并把补全的数据返回。
-static func execute_completion(column : int, rule : ElementRule, command : CommandElement) -> CodeCompletionData:
-	var data := CodeCompletionData.new()
+static func execute_completion(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
 	for cmd : Array in rule.get_cmd():
 		if cmd[0] != _Head.COMPLETION:
 			continue

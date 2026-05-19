@@ -21,13 +21,13 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 			if value_element is StringElement:
 				result.merge(value_element.get_highlight(edit), false)
 	return result
-func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> CodeCompletionData:
-	var data := CodeCompletionData.new()
+func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
 	
 	# 键
 	if is_column_at_key(column):
 		data.insert_texts.append_array(grammer_rule.get_keys())
-		data.fill_insert_mode(CodeCompletionData.InsertMode.QUOTATION)
+		data.fill_insert_mode(FunctionCompletionData.InsertMode.QUOTATION)
 		data.hint_string = "<proerty : String>"
 		
 		var key := get_key_string()
@@ -47,7 +47,7 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 		data.hint_string = "<%s : %s>" % [get_key_string(), GrammarValue.type_to_string(value_type)]
 		if not has_value() and GrammarValue.is_type_backet(value_type):
 			data.supple()
-			data.add_data(CodeCompletionData.create_backet_data(value_type))
+			data.add_data(FunctionCompletionData.create_backet_data(value_type))
 	return data
 
 static func create(text : String, offset : int, rule : GrammarColonParamBacketRule = null) -> ColonParamElement:
@@ -69,7 +69,7 @@ static func create(text : String, offset : int, rule : GrammarColonParamBacketRu
 	element.key_end = element.key_element.get_valid_end() - offset if is_key_has_quotation_ else result.get_end("key")
 	
 	if is_key_has_quotation_ and not element.key_element.is_closed():
-		element.create_error(element.key_start, "Key not has closed backet.")
+		element.create_error(element.key_start + offset, "Key not has closed backet.")
 		element.string = text.substr(offset, element.key_end)
 		element.is_faild = false
 		return element
@@ -77,7 +77,7 @@ static func create(text : String, offset : int, rule : GrammarColonParamBacketRu
 	var rereule := rule.get_element_rule(key)
 	element.value_type = rereule.get_type() if rule != null and rule.has_key(key) else -1
 	if element.value_type == -1:
-		element.create_error(element.value_start, "Rule not find property \"%s\"." % [key])
+		element.create_error(element.value_start + offset, "Rule not find property \"%s\"." % [key])
 		element.string = text.substr(offset, element.key_end)
 		element.is_faild = false
 		return element
@@ -85,7 +85,7 @@ static func create(text : String, offset : int, rule : GrammarColonParamBacketRu
 	# 冒号
 	element.colon_flag = result.get_start("colon")
 	if element.colon_flag == -1:
-		element.create_error(element.key_end, "Not find colon flag.")
+		element.create_error(element.key_end + offset, "Not find colon flag.")
 		element.string = text.substr(offset, element.key_end)
 		element.is_faild = false
 		return element
@@ -93,7 +93,7 @@ static func create(text : String, offset : int, rule : GrammarColonParamBacketRu
 	# 值
 	element.value_start = result.get_start("value")
 	if element.value_start == -1:
-		element.create_error(element.colon_flag, "Not find value")
+		element.create_error(element.colon_flag + offset, "Not find value")
 		element.string = text.substr(offset, element.colon_flag + 1)
 		element.is_faild = false
 		return element

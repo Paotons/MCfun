@@ -142,7 +142,7 @@ func _thread_edit_file_list(config : ConfigFile) -> void:
 			list.set_file_caret_position(i, caret_positions[i])
 		
 		if selected < caret_positions.size():
-			_get_function_edit().set_caret_position(0, caret_positions[selected])
+			_get_function_edit().set_caret_position(caret_positions[selected])
 	).call_deferred()
 
 func _on_base_control_ready() -> void:
@@ -608,7 +608,7 @@ func _on_file_list_container_selected_changed(path: String) -> void:
 		var index := file_container.get_file_index(path)
 		_edit.editable = true
 		load_file(path)
-		_edit.set_caret_position(0, file_container.get_file_caret_position(index))
+		_edit.set_caret_position(file_container.get_file_caret_position(index))
 
 func _on_file_list_container_closed(path: String) -> void:
 	remove_cache_file(path)

@@ -9,8 +9,8 @@ func _get_backet_type() -> int:
 	return BacketElementManager.Type.COLON_PARAM
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return super(edit)
-func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> CodeCompletionData:
-	var data := CodeCompletionData.new()
+func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
 	if not has_backet_column(column): return null
 	
 	var param_idx := get_param_index_from_column(column)
@@ -18,7 +18,7 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 	if is_params_empty() or is_param_empty(param_idx):
 		data.hint_string = "<proerty : String>"
 		data.insert_texts.append_array(grammer_rule.get_keys())
-		data.fill_insert_mode(CodeCompletionData.InsertMode.QUOTATION)
+		data.fill_insert_mode(FunctionCompletionData.InsertMode.QUOTATION)
 		data.fill_inserted_update(true)
 		return data
 	
@@ -26,7 +26,7 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 	if param == null: return data
 	
 	data = param.get_column_code_completion_data(column, rule, command)
-	data = CodeCompletionData.new() if data == null else data
+	data = FunctionCompletionData.new() if data == null else data
 	if not is_closed() and not param.has_error():
 		data.insert_texts.append(end_backet)
 	return data

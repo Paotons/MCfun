@@ -10,8 +10,8 @@ var param_type := GrammarValue.Type.ERR
 ## 根据编辑器返回对应的高亮数据。
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return super(edit)
-func _get_column_code_completion_data(column : int, _rule : ElementRule, command : CommandElement) -> CodeCompletionData:
-	var data := CodeCompletionData.new()
+func _get_column_code_completion_data(column : int, _rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
 	var result_rule := grammer_rule.get_element_rule()
 	if not has_backet_column(column): return null
 	
@@ -20,13 +20,13 @@ func _get_column_code_completion_data(column : int, _rule : ElementRule, command
 	
 	if is_params_empty() or is_param_empty(param_idx):
 		if GrammarValue.is_type_backet(param_type):
-			data = CodeCompletionData.create_backet_data(param_type)
+			data = FunctionCompletionData.create_backet_data(param_type)
 	
 	var param := get_param(param_idx)
 	if param == null: return data 
 	
 	data = param.get_column_code_completion_data(column, result_rule, command)
-	data = CodeCompletionData.new() if data == null else data
+	data = FunctionCompletionData.new() if data == null else data
 	if not is_closed() and not param.has_error():
 		data.insert_texts.append(end_backet)
 	return data

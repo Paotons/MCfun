@@ -22,17 +22,17 @@ static func create(text : String, offset : int) -> BoolElement:
 	return element
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return {get_valid_start() : {"color" : edit.color_bool}, get_valid_end() : {"color" : edit.color_default}}
-func _get_column_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> CodeCompletionData:
-	var data := CodeCompletionData.new()
+func _get_column_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
 	data.hint_string = "<%s : bool>" % [rule.get_description()]
 	data.insert_texts = _BOOL_OPTION.duplicate()
-	data.fill_insert_mode(CodeCompletionData.InsertMode.WORLD)
+	data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
 	return data
-static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> CodeCompletionData:
-	var data := CodeCompletionData.new()
+static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
 	data.hint_string = "<%s : bool>" % [rule.get_description()]
 	data.insert_texts = _BOOL_OPTION.duplicate()
-	data.fill_insert_mode(CodeCompletionData.InsertMode.WORLD)
+	data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
 	return data
 
 ## 如果有值，返回 [code]true[/code]。

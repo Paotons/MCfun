@@ -70,6 +70,9 @@ func get_option_string_index(string : String) -> int:
 		var entry := EditManager.get_grammar_entry()
 		for i in items.size():
 			var chapter := entry.get_chapter(items[i]) as GrammarStringChapter
+			if chapter == null:
+				push_error("Not has chapter \"%s\"" % items[i])
+				continue
 			if chapter.has_item(string): return i
 	else:
 		return get_items().find(string)
@@ -82,6 +85,9 @@ func get_option_items() -> PackedStringArray:
 		var entry := EditManager.get_grammar_entry()
 		for i in items.size():
 			var chapter := entry.get_chapter(items[i]) as GrammarStringChapter
+			if chapter == null:
+				push_error("Not has chapter \"%s\"" % items[i])
+				continue
 			res.append_array(chapter.get_items())
 		return res
 	else:

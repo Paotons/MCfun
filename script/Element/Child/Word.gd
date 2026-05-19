@@ -2,14 +2,14 @@ class_name WordElement
 extends StringElement
 ## 不包括任何符号的元素。
 
-func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> CodeCompletionData:
-	var data : CodeCompletionData = ElementRuleCMD.execute_completion(column, rule, command) if rule.has_cmd() else CodeCompletionData.new()
-	data.fill_insert_mode(CodeCompletionData.InsertMode.WORLD)
+func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+	var data : FunctionCompletionData = ElementRuleCMD.execute_completion(column, rule, command) if rule.has_cmd() else FunctionCompletionData.new()
+	data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
 	data.hint_string = "<%s : word>" % [rule.get_description()]
 	return data
-static func get_precast_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> CodeCompletionData:
-	var data : CodeCompletionData = ElementRuleCMD.execute_completion(column, rule, command) if rule.has_cmd() else CodeCompletionData.new()
-	data.fill_insert_mode(CodeCompletionData.InsertMode.WORLD)
+static func get_precast_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+	var data : FunctionCompletionData = ElementRuleCMD.execute_completion(column, rule, command) if rule.has_cmd() else FunctionCompletionData.new()
+	data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
 	data.hint_string = "<%s : word>" % [rule.get_description()]
 	return data
 

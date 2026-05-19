@@ -128,6 +128,9 @@ func compile(data : Variant) -> void:
 	if not obj.is_valid():
 		return
 	compiled_result.merge(obj.get_result())
+	
+	ElementRuleCMD.compile(from, compiled_result)
+	
 	_set_is_valid(true)
 
 # 解析元素 type。

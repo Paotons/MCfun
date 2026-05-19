@@ -2,7 +2,7 @@ class_name CustomCodeEdit
 extends CodeEdit
 ## 自定义编辑器。
 ##
-## 用于过渡。
+## 加入了行 ID，双击输入。
 
 ## 新的一行被加入。
 signal line_added(line : int, line_id : int)
@@ -10,6 +10,14 @@ signal line_added(line : int, line_id : int)
 signal line_removed(line : int, line_id : int)
 ## 行 ID 被重置时发出。
 signal line_id_reseted(old_ids : PackedInt32Array, new_ids : PackedInt32Array)
+
+## 退格。
+const UNICODE_BACKSPACE := 8
+## 缩进。
+const UNICODE_TAB := 9
+## 换行。
+const UNICODE_ENTER := 10
+
 
 #region 输入
 @export_group("input")
@@ -30,6 +38,9 @@ var _nearest_input_position : Dictionary[int, Vector2i]
 #endregion
 
 @export_group("behavior")
+## 判断为非人类输入的最大输入间隔。[br]
+## 用于修复部分设备粘贴靠快速输入导致换行缩进问题。
+@export var unmanned_input_max_delta := 5
 ## 连续退格最大忽略时间差。就是快速退格时不在尝试补全的灵敏度。
 @export var backspace_ignore_completion_max_delta := 200
 ## 设置光标位置时，垂直滚动栏行数偏移量。
@@ -46,22 +57,22 @@ func set_double_input_map(value : Dictionary[String, String]) -> void:
 	double_input_map = value
 	for key in value:
 		_double_input_map_compiled[ord(key)] = value[key]
-#
+
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.pressed:
 			if event.keycode == KEY_ENTER:
 				for i in range(get_caret_count()):
 					_add_edit_line(get_caret_line(i) + 1)
-					_nearest_input_unicode[i] = 10 # \n
+					_nearest_input_unicode[i] = UNICODE_ENTER
 					_nearest_input_time[i] = Time.get_ticks_msec()
 			if event.keycode == KEY_TAB:
 				for i in range(get_caret_count()):
 					var interval : int = Time.get_ticks_msec() - _nearest_input_time.get(i, 0)
-					if interval < 5 and _nearest_input_unicode.get(i, -1) == 10: # 换行
+					if interval < unmanned_input_max_delta and _nearest_input_unicode.get(i, -1) == UNICODE_ENTER:
 						for j in get_line(get_caret_line(i)).length():
 							backspace(i)
-					_nearest_input_unicode[i] = 9 # \t
+					_nearest_input_unicode[i] = UNICODE_TAB
 					_nearest_input_time[i] = Time.get_ticks_msec()
 # 输入字符串。
 func _handle_unicode_input(unicode_char: int, caret_index: int) -> void:
@@ -76,7 +87,7 @@ func _handle_unicode_input(unicode_char: int, caret_index: int) -> void:
 func _backspace(caret_index: int) -> void:
 	var test_index : int = 0 if caret_index == -1 else caret_index
 	
-	var is_backspace := _nearest_input_unicode.get(test_index, -1) as int == 8 # \b
+	var is_backspace := _nearest_input_unicode.get(test_index, -1) as int == UNICODE_BACKSPACE
 	var delta : int = Time.get_ticks_msec() - _nearest_input_time[test_index] if is_backspace and _nearest_input_time.has(test_index) else 0xFFFFFFFF
 	
 	if caret_index >= 0:
@@ -92,10 +103,11 @@ func _backspace(caret_index: int) -> void:
 		add_code_hint()
 	else:
 		clear_hint()
+# 光标处退格。
 func _caret_backspace(caret_index := 0) -> void:
 	_nearest_input_time[caret_index] = Time.get_ticks_msec()
 	_nearest_input_position[caret_index] = Vector2i(get_caret_column(caret_index), get_caret_line(caret_index))
-	_nearest_input_unicode[caret_index] = 8 # \b
+	_nearest_input_unicode[caret_index] = UNICODE_BACKSPACE
 	caret_backspace(caret_index)
 # 双击事件。
 func _double_input(unicode_chr : int, caret_index : int) -> bool:
@@ -111,7 +123,7 @@ func _double_input(unicode_chr : int, caret_index : int) -> bool:
 #region 补全。
 ## 虚函数，对光标处进行补全。
 func _add_code_hint() -> void:
-	pass
+	return
 ## 清空所有补全提示。
 func clear_hint() -> void:
 	cancel_code_completion()
@@ -137,7 +149,6 @@ func add_code_completion_data(data : CodeCompletionData) -> void:
 ## 补全，对光标处进行补全。
 func add_code_hint() -> void:
 	_add_code_hint()
-
 #endregion
 
 #region 光标。
@@ -145,7 +156,7 @@ func add_code_hint() -> void:
 func get_caret_position(index := 0) -> Vector2i:
 	return Vector2i(get_caret_column(index), get_caret_line(index))
 ## 设置光标位置。
-func set_caret_position(index := 0, pos := Vector2i()) -> void:
+func set_caret_position(pos := Vector2i(), index := 0) -> void:
 	var line := maxi(0, mini(get_line_count(),pos.y))
 	set_caret_line(line, index)
 	var l := get_line(line).length()
@@ -154,16 +165,15 @@ func set_caret_position(index := 0, pos := Vector2i()) -> void:
 ## 对光标处进行输入。
 func caret_unicode_input(unicode_char : int, caret_index : int) -> void:
 	var interval : int = Time.get_ticks_msec() - _nearest_input_time.get(caret_index, 0)
-	if interval < 500: # 初筛，非正常差值。
-		if interval < 5: # 识别为原生生态的粘贴。
-			if _nearest_input_unicode.get(caret_index, -1) == 10: # 换行
-				for i in get_line(get_caret_line(caret_index)).length():
-					backspace(caret_index)
-			caret_insert_text(String.chr(unicode_char), caret_index)
+	if interval < unmanned_input_max_delta: # 视为机器输入，解决换行缩进问题。
+		if _nearest_input_unicode.get(caret_index, -1) == UNICODE_ENTER:
+			for i in get_line(get_caret_line(caret_index)).length():
+				backspace(caret_index)
+		caret_insert_text(String.chr(unicode_char), caret_index)
+		return
+	if interval < double_input_interval_time and unicode_char == _nearest_input_unicode.get(caret_index, -1): # 双击
+		if _double_input(unicode_char, caret_index):
 			return
-		if interval < double_input_interval_time and unicode_char == _nearest_input_unicode.get(caret_index, -1): # 双击
-			if _double_input(unicode_char, caret_index):
-				return
 	caret_insert_text(String.chr(unicode_char), caret_index)
 ## 对光标处进行退格。
 func caret_backspace(caret_index : int) -> void:
@@ -201,7 +211,7 @@ func get_caret_nearest_input_position(index := 0) -> Vector2i:
 
 #region 文本。
 ## 移除一块区域的文本。[br]
-## [b]注意：[/b]避免使用传统的 [method remove_text]，因为无法调用 [signal line_removed]。
+## [b]注意：[/b]如果使用传统的 [method remove_text]，不会发射 [signal line_removed]。
 func remove_area(from_line : int, from_column : int, to_line : int, to_column : int) -> void:
 	for i in range(to_line, from_line, -1):
 		_remove_edit_line(i)

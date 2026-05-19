@@ -27,7 +27,13 @@ func _compute(line : int) -> CommandElement:
 			i += 1
 		return null
 	else:
-		var position := edit.get_caret_nearest_input_position()
-		return command.update(text, position.x)
+		var length := text.length()
+		var i := 0
+		while i < length:
+			if text[i] != "\t":
+				var position := edit.get_caret_nearest_input_position()
+				return command.update(text, position.x)
+			i += 1
+		return null
 
 

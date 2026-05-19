@@ -20,8 +20,8 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 			continue
 		result.merge(param.get_highlight(edit), true)
 	return result
-func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> CodeCompletionData:
-	var data := CodeCompletionData.new()
+func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
 	if not has_backet_column(column): return null
 	
 	var param_idx := get_param_index_from_column(column)
@@ -33,7 +33,7 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 	if param == null: return data
 	
 	data = param.get_column_code_completion_data(column, rule, command)
-	data = CodeCompletionData.new() if data == null else data
+	data = FunctionCompletionData.new() if data == null else data
 	if not is_closed() and not param.has_error():
 		data.insert_texts.append(end_backet)
 	return data

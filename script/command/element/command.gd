@@ -1,41 +1,19 @@
 class_name CommandElement
-extends StringElement
+extends BaseCommandElement
 ## 整条指令。
 
-## 指令类型。
-enum CommandType {
-	## 最开始，根部。
-	ROOT,
-	## 直接替代原来的父指令，直达最后，类型于 execute run 分支一样。
-	REPLACE,
-}
-
-## 行的 ID。
-var line_id := -1
-## 指令类型。
-var command_type := CommandType.REPLACE
-## 元素。
-var elements : Array[Element]
 ## 失败的元素序列，可用于预测下一个参数。
 var faild_element_idxs : PackedInt32Array
 ## 经过的执行元素序列。
 var exe_element_histories : PackedInt32Array
-## CMD列表。
-var cmd_list : Dictionary[int, Dictionary]
 
 ## 开头元素。
 var head_element : HeadElement
 ## 头。
 var head_string : String
 
-## 高亮数据。
-var highlight_data : HightLightData
-
-## [b]frient [CommandElementCreater]:[/b] 如果是 [code]true[/code]，则表示有子指令。
-var _has_child_element := false
-
 # 头部补全数据。
-static var _code_completion_head_data : CodeCompletionData
+static var _code_completion_head_data : FunctionCompletionData
 
 static func create(text : String, offset : int, line := -1) -> CommandElement:
 	var element := CommandElement.new()
@@ -43,7 +21,7 @@ static func create(text : String, offset : int, line := -1) -> CommandElement:
 	# 初始化。
 	element.string_offset = offset
 	element.string = text.substr(offset)
-	element.highlight_data = HightLightData.new()
+	element._highlight_data = HightLightData.new()
 	
 	# 进程。
 	var process :=CommandElementCreaterProcess.new()
@@ -56,7 +34,7 @@ static func create(text : String, offset : int, line := -1) -> CommandElement:
 	
 	process.offset = offset
 	
-	element.line_id = process.edit.get_line_id(line)
+	element._line_id = process.edit.get_line_id(line)
 	
 	var creater := CommandElementCreater.new()
 	creater.command = element
@@ -66,10 +44,6 @@ static func create(text : String, offset : int, line := -1) -> CommandElement:
 func update(text : String, column : int) -> CommandElement:
 	var offset := string_offset
 	var edit := EditManager.get_edit()
-	# 初始化。
-	faild_element_idxs.clear()
-	errors.clear()
-	string = text.substr(offset)
 	
 	# 进程。
 	var process :=CommandElementCreaterProcess.new()
@@ -78,7 +52,7 @@ func update(text : String, column : int) -> CommandElement:
 	process.grammar = EditManager.get_grammar_process()
 	process.law = EditManager.get_grammar_law()
 	process.entry = EditManager.get_grammar_entry()
-	process.line = edit.get_line_index(line_id)
+	process.line = get_line_index()
 	
 	process.offset = offset
 	
@@ -86,11 +60,9 @@ func update(text : String, column : int) -> CommandElement:
 	creater.command = self
 	return creater.run_from_column(text, process, column)
 
-func get_highlight(_edit : FunctionEdit) -> Dictionary[int, Dictionary]:
-	return highlight_data.data
-static func get_precast_code_completion_data(_column : int, _rule : ElementRule, _command : CommandElement) -> CodeCompletionData:
+static func get_precast_code_completion_data(_column : int, _rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
 	return _code_completion_head_data
-func _get_column_code_completion_data(column : int, _rule : ElementRule, _command : CommandElement) -> CodeCompletionData:
+func _get_column_code_completion_data(column : int, _rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
 	if _code_completion_head_data == null: _update_code_completion_head_data()
 	
 	if is_column_outside_valid(column): # 不在范围。
@@ -113,15 +85,15 @@ func _get_column_code_completion_data(column : int, _rule : ElementRule, _comman
 	match exe.get_type():
 		GrammarValue.Type.COMMAND:
 			var element : CommandElement = get_element(idx)
-			if element.command_type == CommandElement.CommandType.REPLACE:
+			if element.command_type == CommandType.REPLACE:
 				return _code_completion_head_data if element.is_faild else element.get_column_code_completion_data(column, exe, self)
 		_:
 			var result : StringElement = get_element(idx)
 			return result.get_column_code_completion_data(column, exe, self)
 	return null
 # 补全，指令下一个参数。
-func _get_code_completion_next(column : int) -> CodeCompletionData:
-	var data_main := CodeCompletionData.new()
+func _get_code_completion_next(column : int) -> FunctionCompletionData:
+	var data_main := FunctionCompletionData.new()
 	
 	# 非法头部。
 	if not is_valid_head():
@@ -130,17 +102,17 @@ func _get_code_completion_next(column : int) -> CodeCompletionData:
 	# 上一个是目标选择器
 	if is_column_near_selector_head(column):
 		data_main.supple()
-		data_main.add_data(CodeCompletionData.create_backet_data(GrammarValue.Type.ARRAY))
+		data_main.add_data(FunctionCompletionData.create_backet_data(GrammarValue.Type.ARRAY))
 	
 	# 补全下一个元素
 	for i in get_faild_element_count():
 		var faild_exe := get_faild_element(i)
 		
-		var data := CodeCompletionData.new()
+		var data := FunctionCompletionData.new()
 		var type := faild_exe.get_type()
 		match type:
 			GrammarValue.Type.DICTIONARY, GrammarValue.Type.ARRAY, GrammarValue.Type.QUOTATION:
-				data = CodeCompletionData.create_backet_data(type)
+				data = FunctionCompletionData.create_backet_data(type)
 			GrammarValue.Type.COMMAND:
 				var index := find_history(faild_exe.get_id())
 				var ncommand : CommandElement = get_element(index)
@@ -157,14 +129,10 @@ func _get_code_completion_next(column : int) -> CodeCompletionData:
 
 # 更新指令头补全的数据。
 static func _update_code_completion_head_data() -> void:
-	var data := CodeCompletionData.new()
+	var data := FunctionCompletionData.new()
 	data.insert_texts.append_array(EditManager.get_grammar_process().get_heads())
-	data.fill_insert_mode(CodeCompletionData.InsertMode.WORLD)
+	data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
 	_code_completion_head_data = data
-
-## 获取行数。
-func get_line_index() -> int:
-	return -1 if line_id == -1 else EditManager.get_edit().get_line_index(line_id)
 
 ## 获取头。
 func get_head_string() -> String:
@@ -177,49 +145,31 @@ func is_valid_head() -> bool:
 func is_empty() -> bool:
 	return head_string.is_empty()
 
-## 添加历史。
-func add_history(idx : int, element : Element = null) -> void:
-	exe_element_histories.append(idx)
-	elements.append(element)
+## 移除在范围之外的错误。
+func remove_error_from_range(from : int, to : int) -> void:
+	var new_errs : Array[ElementError] = errors.filter(_is_error_at_range.bind(from, to))
+	errors = new_errs
+# 如果错误是否在指定范围，返回 true。
+func _is_error_at_range(err : ElementError, from : int, to : int) -> bool:
+	return from <= err.column and err.column < to
+
 ## 获取在序列处的历史。
 func get_history(idx : int) -> int:
 	return exe_element_histories[idx]
-## 选找历史。
+## 找到指定序列在历史中的位置。
 func find_history(idx : int) -> int:
 	return exe_element_histories.find(idx)
-## 获取子类指令元素。
-func get_children_element(deep := false) -> Array[CommandElement]:
-	var result : Array[CommandElement]
-	for i in elements:
-		if i is CommandElement:
-			result.append(i)
-			if deep:
-				result.append_array(i.get_children_element(true))
-	return result
-
-## 获取指令列表。
-func get_cmd_list(id : int, column := -1) -> PackedStringArray:
-	var result : PackedStringArray
-	if _has_child_element:
-		for child in get_children_element(true):
-			result.append_array(child.get_cmd_list(id, column))
-	if not cmd_list.has(id): return result
-	column = 0xFFFFFFFF if column == -1 else column
-	var list : Dictionary = cmd_list[id]
-	for key : int in list:
-		if key < column: result.append(list[key])
-	return result
 
 #region 序列
 ## 如果序列前面一个数据是完整的目标选择器头，返回 [code]true[/code]。
 func is_column_near_selector_head(column : int) -> bool:
-	var size := elements.size()
+	var size := _elements.size()
 	for i in size:
-		var element := elements[i]
+		var element := _elements[i]
 		if element is SelectorElement:
 			if element.has_body(): continue
 			if i + 1 >= size: return true
-			var element2 := elements[i + 1]
+			var element2 := _elements[i + 1]
 			if element2 is SelectorElement:
 				return column >= element2.get_head_end() and column < element2.get_valid_start()
 	return false
@@ -234,19 +184,19 @@ func is_column_at_head(column : int) -> bool:
 	return column <= get_valid_start() + head_string.length()
 ## 如果处于序列处于尾部位置，返回 [code]true[/code]。
 func is_column_at_end(column : int) -> bool:
-	if elements.is_empty():
+	if _elements.is_empty():
 		return column > valid_start + get_head_string().length()
 	var element : Element
-	for i in range(1, elements.size() + 1):
-		element = elements[elements.size() - i]
+	for i in range(1, _elements.size() + 1):
+		element = _elements[_elements.size() - i]
 		if element != null: break
 	return not element is CommandElement and column > element.get_valid_end()
 ## 返回某个位置在所处的元素序列，返回 [code]-1[/code] 表示非语法上的位置。
 func get_column_map_index(column : int) -> int:
-	for i in elements.size():
-		var element := elements[i]
+	for i in _elements.size():
+		var element := _elements[i]
 		if element is CommandElement:
-			if element.command_type == CommandElement.CommandType.REPLACE:
+			if element.command_type == CommandType.REPLACE:
 				if column > element.string_offset: return i
 		elif element is StringElement:
 			if element.get_valid_start() < column and column <= element.get_valid_end():
@@ -255,13 +205,6 @@ func get_column_map_index(column : int) -> int:
 #endregion
 
 #region 元素
-## 获取元素。
-func get_element(idx : int) -> Element:
-	return elements[idx]
-## 或取元素数量。
-func get_element_count() -> int:
-	return elements.size()
-
 ## 获取可执行元素规则。
 func get_exe_element(idx : int) -> ExeElementRule:
 	var grammar := EditManager.get_grammar_process()

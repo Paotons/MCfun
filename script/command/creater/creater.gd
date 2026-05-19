@@ -7,15 +7,16 @@ extends RefCounted
 ## 指令元素。
 var command : CommandElement
 
+## 为元素加入历史。
+func _add_history(idx : int, element : Element = null) -> void:
+	command.exe_element_histories.append(idx)
+	command._elements.append(element)
 # 获取失败的列表。
 func _get_failds() -> PackedInt32Array:
 	return command.faild_element_idxs
 # 获取高亮数据。
 func _get_hl_data() -> HightLightData:
-	return command.highlight_data
-## 为元素加入历史。
-func add_history(idx : int, ele : Element = null) -> void:
-	command.add_history(idx, ele)
+	return command._highlight_data
 ## 为元素创建一个错误。
 func create_error(column : int, string : String, type := ElementError.Type.NOTFIND) -> void:
 	command.create_error(column, string, type)
@@ -38,21 +39,25 @@ func run_from_column(text : String, process : CommandElementCreaterProcess, colu
 	if index < 1: # 相当于重新生成。
 		return CommandElement.create(text, process.offset, command.get_line_index())
 	else:
-		if command.elements[index] is CommandElement:
-			var element := command.elements[index] as CommandElement
+		command.faild_element_idxs.clear()
+		command.string = text.substr(command.string_offset)
+		
+		if command._elements[index] is CommandElement:
+			var element := command._elements[index] as CommandElement
 			if element.is_valid_head() and element.string_offset + 2 < column:
 				return _run_from_column_suncommand(text, column, index)
 		return _run_from_column_normal(text, process, column, index - 1)
 
 func _run_from_column_suncommand(text : String, column := 0, index := 0) -> CommandElement:
-	var element := command.elements[index] as CommandElement
+	command.errors.clear()
+	var element := command._elements[index] as CommandElement
 	var offset := element.string_offset
 	
 	DictionaryIntKeyT.slice(_get_hl_data().data, 0, offset + 1)
-	DictionaryIntKeyT.slice(command.cmd_list, 0, column)
+	DictionaryIntKeyT.slice(command._cmd_list, 0, column)
 	
 	var new_element := element.update(text, column)
-	command.elements[index] = new_element
+	command._elements[index] = new_element
 	_get_hl_data().merge(new_element.get_highlight(EditManager.get_edit()))
 	command.errors.append_array(new_element.errors)
 	return command
@@ -63,16 +68,17 @@ func _run_from_column_normal(text : String, process : CommandElementCreaterProce
 	process.exe_element = process.rule.get_element(command.exe_element_histories[index -1]) if index > 0 else null
 	process.exe_end = process.rule.get_element_count()
 	
-	var nearest_element := command.elements[index]
+	var nearest_element := command._elements[index]
 	var offset := process.offset
+	command.remove_error_from_range(0, offset)
 	if nearest_element is StringElement:
 		offset = nearest_element.string_offset
 		process.offset = offset
 	
 	DictionaryIntKeyT.slice(_get_hl_data().data, 0, offset + 1)
-	command.elements = command.elements.slice(0, index)
+	command._elements = command._elements.slice(0, index)
 	command.exe_element_histories = command.exe_element_histories.slice(0, index)
-	DictionaryIntKeyT.slice(command.cmd_list, 0, column)
+	DictionaryIntKeyT.slice(command._cmd_list, 0, column)
 	
 	process.has_end = process.rule.is_indexs_has_end(command.exe_element_histories)
 	_do_command_process(text, process)
@@ -128,7 +134,7 @@ func _do_nil(_text : String, process : CommandElementCreaterProcess) -> bool:
 		match item:
 			"cmp":
 				_get_failds().clear()
-	add_history(process.exe_index)
+	_add_history(process.exe_index)
 	return false
 
 # 默认处理。
@@ -156,12 +162,12 @@ func _do_default(text : String, process : CommandElementCreaterProcess) -> bool:
 	
 	# CMD
 	if exe_element.has_cmd():
-		ElementRuleCMD.execute(element, exe_element, element, ElementRuleCMD.ModeFilter.LIST)
+		ElementRuleCMD.execute(element, exe_element, command, ElementRuleCMD.ModeFilter.LIST)
 	
 	_get_hl_data().merge(element.get_highlight(process.edit))
 	
 	process.offset = element.get_valid_end()
-	add_history(process.exe_index, element)
+	_add_history(process.exe_index, element)
 	return false
 
 # 处理选项。
@@ -179,7 +185,7 @@ func _do_option(text : String, process : CommandElementCreaterProcess) -> bool:
 	if result.has_option():
 		process.offset = result.get_valid_end()
 		
-		add_history(process.exe_index, result)
+		_add_history(process.exe_index, result)
 		
 		if exe.has_end():
 			process.has_end = exe.is_end()
@@ -208,7 +214,7 @@ func _do_coords(text : String, process : CommandElementCreaterProcess) -> bool:
 	
 	_get_hl_data().merge(result.get_highlight(process.edit))
 	
-	add_history(process.exe_index, result)
+	_add_history(process.exe_index, result)
 	process.offset = result.get_valid_end()
 	
 	return result.get_valid_size() != 3
@@ -227,7 +233,7 @@ func _do_selector(text : String, process : CommandElementCreaterProcess) -> bool
 			create_error(err.column, "Body has error \"%s\"." % [err.string])
 	
 	process.offset = result.get_valid_end()
-	add_history(process.exe_index, result)
+	_add_history(process.exe_index, result)
 	return false
 # 处理空间物品。
 func _do_spaceitem(text : String, process : CommandElementCreaterProcess) -> bool:
@@ -242,7 +248,7 @@ func _do_spaceitem(text : String, process : CommandElementCreaterProcess) -> boo
 		return true
 	
 	process.offset = result.get_valid_end()
-	add_history(process.exe_index, result)
+	_add_history(process.exe_index, result)
 	return false
 
 #region 处理字典，大括号包括的。
@@ -268,7 +274,7 @@ func _do_dictionary_colon_param(text : String, process : CommandElementCreaterPr
 	_get_hl_data().merge(result.get_highlight(process.edit))
 	
 	process.offset = result.get_valid_end()
-	add_history(process.exe_index, result)
+	_add_history(process.exe_index, result)
 	return false
 # 默认处理。
 func _do_dictionary_default(text : String, process : CommandElementCreaterProcess) -> bool:
@@ -278,7 +284,7 @@ func _do_dictionary_default(text : String, process : CommandElementCreaterProces
 	if sult.is_faild: return true
 	
 	process.offset = sult.get_valid_end()
-	add_history(process.exe_index, sult)
+	_add_history(process.exe_index, sult)
 	return false
 #endregion
 
@@ -290,7 +296,7 @@ func _do_array(text : String, process : CommandElementCreaterProcess) -> bool:
 	if sult.is_faild: return true
 	
 	process.offset = sult.get_valid_end()
-	add_history(process.exe_index, sult)
+	_add_history(process.exe_index, sult)
 	return false
 # 处理指令中的附属指令。
 func _do_subcommand(text : String, process : CommandElementCreaterProcess) -> bool:
@@ -305,9 +311,12 @@ func _do_subcommand(text : String, process : CommandElementCreaterProcess) -> bo
 		_get_failds().append(process.exe_index)
 		for err in result.errors: create_error(process.offset + err.column, err.string)
 	
+	process.has_end = true
+	process.offset = result.get_valid_end()
 	command._has_child_element = true
+	
 	_get_hl_data().merge(result.get_highlight(process.edit))
-	add_history(process.exe_index, result)
+	_add_history(process.exe_index, result)
 	return true
 #endregion
 
@@ -359,4 +368,3 @@ func _do_command_tail(text : String, process : CommandElementCreaterProcess) -> 
 				return
 	else:
 		create_error(process.offset , "Cant end.")
-

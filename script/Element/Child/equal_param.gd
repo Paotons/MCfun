@@ -132,15 +132,15 @@ static func _create_using_key(text : String, offset : int, rule : GrammarEqualPa
 	element.is_faild = false
 	return element
 
-func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> CodeCompletionData:
+func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
 	if grammer_rule.is_using_key():
 		return _get_column_code_completion_data_using_key(column, rule, command)
-	var data := CodeCompletionData.new()
+	var data := FunctionCompletionData.new()
 	
 	# 键
 	if is_column_at_key(column):
 		data.insert_texts.append_array(grammer_rule.get_keys())
-		data.fill_insert_mode(CodeCompletionData.InsertMode.WORLD)
+		data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
 		data.fill_inserted_update(true)
 		data.hint_string = "<proerty : String>"
 		
@@ -166,10 +166,10 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 		data.hint_string = "<%s : %s>" % [get_key_string(), GrammarValue.type_to_string(value_type)]
 		match value_type:
 			GrammarValue.Type.DICTIONARY, GrammarValue.Type.ARRAY, GrammarValue.Type.QUOTATION:
-				data.supple() ; data.add_data(CodeCompletionData.create_backet_data(value_type))
+				data.supple() ; data.add_data(FunctionCompletionData.create_backet_data(value_type))
 	return data
-func _get_column_code_completion_data_using_key(column : int, _rule : ElementRule, command : CommandElement) -> CodeCompletionData:
-	var data := CodeCompletionData.new()
+func _get_column_code_completion_data_using_key(column : int, _rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
 	if is_column_at_key(column):
 		var key_rule := grammer_rule.get_element_rule("key")
 		if key_element != null and not key_element.is_faild:

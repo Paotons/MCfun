@@ -23,11 +23,11 @@ static func create(text : String, offset : int) -> FloatElement:
 		element.create_error(offset, "String \"%element\" not is valid float." % [valiad_str])
 		return element
 
-static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> CodeCompletionData:
-	var data := CodeCompletionData.new()
+static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
 	data.hint_string = "<%s : float>" % [rule.get_description()]
 	return data
-func get_column_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> CodeCompletionData:
-	var data := CodeCompletionData.new()
+func get_column_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
 	data.hint_string = "<%s : float>" % [rule.get_description()]
 	return data

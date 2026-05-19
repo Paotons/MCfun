@@ -12,21 +12,21 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 		result[split + string_offset + 1] = {"color" : edit.color_point_path_mumber}
 	result[get_valid_end()] = {"color" : edit.color_default}
 	return result
-static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> CodeCompletionData:
-	var data := CodeCompletionData.new()
+static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
 	data.hint_string = "<%s : point_path>" % [rule.get_description()]
 	var chapter := rule.get_point_path_chapter() as GrammarPathChapter
 	for path in chapter.get_paths():
 		data.insert_texts.append(".".join(path))
-	data.fill_insert_mode(CodeCompletionData.InsertMode.POINT_PATH)
+	data.fill_insert_mode(FunctionCompletionData.InsertMode.POINT_PATH)
 	return data
-func _get_column_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> CodeCompletionData:
-	var data := CodeCompletionData.new()
+func _get_column_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
 	data.hint_string = "<%s : point_path>" % [rule.get_description()]
 	var chapter := rule.get_point_path_chapter() as GrammarPathChapter
 	for path in chapter.get_paths():
 		data.insert_texts.append(".".join(path))
-	data.fill_insert_mode(CodeCompletionData.InsertMode.POINT_PATH)
+	data.fill_insert_mode(FunctionCompletionData.InsertMode.POINT_PATH)
 	return data
 
 static func create(text : String, offset : int, rule : ElementRule = null) -> PointPathElement:

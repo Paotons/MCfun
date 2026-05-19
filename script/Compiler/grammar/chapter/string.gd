@@ -8,7 +8,7 @@ class _Item extends GrammarCompiler:
 	func _compile(data : Variant) -> void:
 		var from := data as Array
 		
-		if _test_array_types(from, 1 << TYPE_STRING, "%s[data]" % chapter):
+		if not _test_array_types(from, 1 << TYPE_STRING, "%s[data]" % chapter):
 			return
 		compiled_result = from
 		_set_is_valid(true)

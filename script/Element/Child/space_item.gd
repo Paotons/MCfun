@@ -34,25 +34,25 @@ static func create(text : String, offset : int) -> SpaceItemElement:
 	element.is_faild = false
 	return element
 
-static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> CodeCompletionData:
-	var data := CodeCompletionData.new()
+static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
 	var entry := EditManager.get_grammar_entry()
 	var chapter_name : String = rule.spaceitem_get_category() if rule.has_detail() else ""
 	data.hint_string = "<%s : space_item>" % [rule.get_description()]
 	if entry.has_chapter(chapter_name):
 		var chapter := entry.get_chapter(chapter_name) as GrammarSpaceItemChapter
 		data.insert_texts.append_array(chapter.get_items(EditManager.get_edit().spaceitem_expleation_included_space))
-		data.fill_insert_mode(CodeCompletionData.InsertMode.SPACEITEM)
+		data.fill_insert_mode(FunctionCompletionData.InsertMode.SPACEITEM)
 	return data
-func _get_column_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> CodeCompletionData:
-	var data := CodeCompletionData.new()
+func _get_column_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
 	var entry := EditManager.get_grammar_entry()
 	var chapter_name : String = rule.spaceitem_get_category() if rule.has_detail() else ""
 	data.hint_string = "<%s : space_item>" % [rule.get_description()]
 	if entry.has_chapter(chapter_name):
 		var chapter := entry.get_chapter(chapter_name) as GrammarSpaceItemChapter
 		data.insert_texts.append_array(chapter.get_items(EditManager.get_edit().spaceitem_expleation_included_space))
-		data.fill_insert_mode(CodeCompletionData.InsertMode.SPACEITEM)
+		data.fill_insert_mode(FunctionCompletionData.InsertMode.SPACEITEM)
 	return data
 
 ## 如果是空间物品，返回 [code]true[/code]。
