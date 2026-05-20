@@ -33,6 +33,8 @@ static var _code_completion_head_data : FunctionCompletionData
 @export_group("color", "color")
 ## 默字体认颜色。
 @export var color_default := Color("ffffffbf")
+## 注释颜色。
+@export var color_annotation := Color("829098c6")
 ## 关键字颜色。
 @export var color_key_word := Color("ff7085")
 ## 数字颜色。

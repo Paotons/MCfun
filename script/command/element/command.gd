@@ -18,7 +18,7 @@ static func create(text : String, offset : int, line := -1) -> CommandElement:
 	var element := CommandElement.new()
 	
 	# 初始化。
-	element.command_type = CommandElementManager.CommandType.ROOT
+	element.command_type = CommandElementManager.CommandType.NORMAL
 	element.string_offset = offset
 	element.string = text.substr(offset)
 	element._highlight_data = HightLightData.new()

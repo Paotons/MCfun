@@ -23,7 +23,9 @@ func _compute(line : int) -> CommandElement:
 		var i := 0
 		while i < length:
 			if text[i] != "\t":
-				return BaseCommandElement.create(text, i, line)
+				command = BaseCommandElement.create(text, i, line)
+				command.command_type |= CommandElementManager.CommandType.ROOT
+				return command
 			i += 1
 		return null
 	else:

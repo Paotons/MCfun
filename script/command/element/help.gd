@@ -13,6 +13,7 @@ static func get_precast_code_completion_data(_column : int, _rule : ElementRule,
 
 static func create(text : String, offset : int, line := -1) -> HelpCommandElement:
 	var element := HelpCommandElement.new()
+	element.command_type = CommandElementManager.CommandType.HELP
 	element.string = text.substr(offset)
 	element.string_offset = offset
 	element._line_id = EditManager.get_edit().get_line_id(line)

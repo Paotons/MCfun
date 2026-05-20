@@ -175,12 +175,13 @@ func _open_file(path : String) -> void:
 func _open_multifile(paths : PackedStringArray) -> void:
 	var last_index := -1
 	for path in paths:
-		last_index = _files.size()
+		last_index = _files.size() - 1
 		if is_file_opend(path): continue
 		
 		_files.append(_File.create(path))
 		_add_file_button()
 	
+	await get_tree().process_frame # 等待节点加入
 	if not last_index == -1:
 		_select_file(last_index)
 func _close_file(path : String) -> void:

@@ -16,6 +16,10 @@ enum MainProcess {
 
 ## 路径。
 var path : String
+## 如果为 [code]true[/code]，则保留注释。
+var include_annotation := false
+## 如果为 [code]true[/code]，则保留空行。
+var include_empty := false
 
 ## 锁，线程运行修改当前进度时用的锁。
 var mutex : Mutex

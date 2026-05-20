@@ -21,6 +21,30 @@ func close() -> void:
 		_get_exporting_panel().hide()
 	hide()
 
+## 获取窗口的配置文件。
+func get_window_config() -> ConfigFile:
+	var config := ConfigFile.new()
+	const UI := "UI"
+	
+	config.set_value(UI, "export_path", _get_export_path_line_edit().text)
+	config.set_value(UI, "export_name", _get_export_name_line_edit().text)
+	config.set_value(UI, "export_include_annotation", _get_include_annotation_check().button_pressed)
+	config.set_value(UI, "export_include_empty", _get_include_empty_check().button_pressed)
+	return config
+## 通过配置文件，配置窗口。
+func config_winodw(config : ConfigFile) -> void:
+	const UI := "UI"
+	
+	if not config.has_section(UI):
+		return
+	
+	if config.has_section_key(UI, "export_path"):
+		_get_export_path_line_edit().text = config.get_value(UI, "export_path")
+	if config.has_section_key(UI, "export_name"):
+		_get_export_name_line_edit().text = config.get_value(UI, "export_name")
+	_get_include_annotation_check().button_pressed = config.get_value(UI, "export_include_annotation", false)
+	_get_include_empty_check().button_pressed = config.get_value(UI, "export_include_empty", false)
+
 # 获取导出路径编辑框。
 func _get_export_path_line_edit() -> LineEdit:
 	return $MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Path
@@ -30,6 +54,19 @@ func _get_export_name_line_edit() -> LineEdit:
 # 获取检测标签。
 func _get_test_label() -> Label:
 	return $MarginContainer/ScrollContainer/VBoxContainer/Test
+# 获取保留注释勾选框。
+func _get_include_annotation_check() -> CheckBox:
+	return $MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer3/IncludeAnnotationCheck
+# 获取保留空行的勾选框。
+func _get_include_empty_check() -> CheckBox:
+	return $MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer4/IncludeEmptyCheck
+
+# 正在导出 Panel。
+func _get_exporting_panel() -> Panel:
+	return $Exporting
+# 正在导出的标签。
+func _get_exporting_label() -> Label:
+	return $Exporting/VBoxContainer/Label
 # 关闭检测标签。
 func _close_test_label() -> void:
 	get_ok_button().disabled = false
@@ -56,12 +93,6 @@ func _get_export_path() -> String:
 # 获取导出名称。
 func _get_export_name() -> String:
 	return _get_export_name_line_edit().text
-# 正在导出 Panel。
-func _get_exporting_panel() -> Panel:
-	return $Exporting
-# 正在导出的标签。
-func _get_exporting_label() -> Label:
-	return $Exporting/VBoxContainer/Label
 
 ## 检测一次路径，有错误返回 [code]true[/code]。
 func test_path() -> bool:
@@ -129,6 +160,8 @@ func create_setting() -> ProjectExportSetting:
 	if test_path():
 		return null
 	setting.path = _get_export_path().path_join(_get_export_name())
+	setting.include_annotation = _get_include_annotation_check().button_pressed
+	setting.include_empty = _get_include_empty_check().button_pressed
 	return setting
 
 func _on_path_text_changed(_new_text: String) -> void:

@@ -4,7 +4,7 @@ extends Object
 ##
 ## 静态类。
 
-## 导出。
+## 导出，需要在线程中运行。
 static func export(project : Project, setting : ProjectExportSetting) -> void:
 	setting.mutex = Mutex.new()
 	
@@ -59,14 +59,18 @@ static func _export_create_functions(project : Project, setting : ProjectExportS
 		setting.sub_process =Vector2i(i, fun_paths.size())
 		setting.mutex.unlock()
 		
-		_export_create_function(project, fun_path, packer)
+		_export_create_function(project, fun_path, setting, packer)
 # 创建函数。
-static func _export_create_function(project : Project, fun_path : String, packer : ZIPPacker) -> void:
+static func _export_create_function(project : Project, fun_path : String, setting : ProjectExportSetting, packer : ZIPPacker) -> void:
 	var local := project.get_project_config().global_path_to_local(fun_path)
+	
+	var exporter := MCFunExporter.new()
+	exporter.setting = setting
+	exporter.start(FileAccess.get_file_as_string(fun_path))
 	
 	var to_path := "functions".path_join(local.get_basename() + ".mcfunction")
 	packer.start_file(to_path)
-	packer.write_file(FileAccess.get_file_as_string(fun_path).to_utf8_buffer())
+	packer.write_file(exporter.get_bytes())
 	packer.close_file()
 
 ## 创建一个 [code]manifest[/code] 内容。

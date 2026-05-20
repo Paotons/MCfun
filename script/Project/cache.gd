@@ -17,7 +17,7 @@ enum DirectoryType {
 	## 语法。
 	GRAMMAR,
 	## 编辑器界面。
-	EDIT_UI,
+	EDIT,
 }
 
 ## 目录。
@@ -34,8 +34,8 @@ func get_cache_path(type : DirectoryType) -> String:
 			return _get_cache_directory()
 		DirectoryType.GRAMMAR:
 			return _get_cache_directory().path_join("grammar/compiled")
-		DirectoryType.EDIT_UI:
-			return _get_cache_directory().path_join("edit/ui.cfg")
+		DirectoryType.EDIT:
+			return _get_cache_directory().path_join("edit")
 		_:
 			push_error("Not has type.")
 			return ""

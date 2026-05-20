@@ -47,6 +47,8 @@ ok_button_text = "导出"
 dialog_hide_on_ok = false
 script = ExtResource("1_xymlg")
 
+[node name="Loader" type="Node" parent="." unique_id=1128891033]
+
 [node name="Panel" type="Panel" parent="." unique_id=1792288751]
 anchors_preset = 15
 anchor_right = 1.0
@@ -109,6 +111,28 @@ text = "名称："
 layout_mode = 2
 size_flags_horizontal = 3
 script = SubResource("GDScript_y64do")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1241569118]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer3" unique_id=677171374]
+layout_mode = 2
+text = "保留注释："
+
+[node name="IncludeAnnotationCheck" type="CheckBox" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer3" unique_id=1313523701]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1983446051]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer4" unique_id=1098724874]
+layout_mode = 2
+text = "保留空行："
+
+[node name="IncludeEmptyCheck" type="CheckBox" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer4" unique_id=1038403876]
+layout_mode = 2
+size_flags_horizontal = 10
 
 [node name="ExportPathWindow" type="FileDialog" parent="." unique_id=1750826255]
 oversampling_override = 1.0

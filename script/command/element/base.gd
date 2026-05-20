@@ -20,25 +20,20 @@ var _line_id := -1
 func get_highlight(_edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return _highlight_data.data if _highlight_data != null else Dictionary({}, TYPE_INT,&"", null, TYPE_DICTIONARY, &"", null)
 static func create(text : String, offset : int, line := -1) -> BaseCommandElement:
-	var chr := ""
-	var l := text.length()
-	var i := offset
-	
-	while i < l:
-		chr = text[i]
-		if chr == " ":
-			i += 1
-		else:
-			break
+	var i := StrT.find_unempty(text, offset)
+	var chr := text[-1] if i == -1 else text[i]
 	
 	match chr:
 		" ":
 			var command := BaseCommandElement.new()
 			command.string_offset = offset
 			command._line_id = EditManager.get_edit().get_line_id(line)
+			command.command_type = 0
 			return command
 		"?":
 			return HelpCommandElement.create(text, offset, line)
+		"#":
+			return AnnotationCommandElement.create(text, offset, line)
 		_:
 			return CommandElement.create(text, offset, line)
 ## 虚函数，从 [param column] 处更新。
