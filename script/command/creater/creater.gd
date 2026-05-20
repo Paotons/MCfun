@@ -1,32 +1,32 @@
 class_name CommandElementCreater
-extends RefCounted
+extends BaseCommandElementCreater
 ## 指令元素创建者。
 ##
 ## 用于创建 [CommandElement] 的。
 
-## 指令元素。
-var command : CommandElement
-
+## 获取指令。
+func get_command() -> CommandElement:
+	return command
 ## 为元素加入历史。
 func _add_history(idx : int, element : Element = null) -> void:
-	command.exe_element_histories.append(idx)
-	command._elements.append(element)
+	get_command().exe_element_histories.append(idx)
+	get_command()._elements.append(element)
 # 获取失败的列表。
 func _get_failds() -> PackedInt32Array:
-	return command.faild_element_idxs
+	return get_command().faild_element_idxs
 # 获取高亮数据。
 func _get_hl_data() -> HightLightData:
-	return command._highlight_data
+	return get_command()._highlight_data
 ## 为元素创建一个错误。
 func create_error(column : int, string : String, type := ElementError.Type.NOTFIND) -> void:
-	command.create_error(column, string, type)
+	get_command().create_error(column, string, type)
 
 ## 从零开始处理指令。
 func run_from_empty(text : String, process : CommandElementCreaterProcess) -> void:
 	if _do_head(text, process):
 		return
 	
-	var head := command.head_element.get_valid_head()
+	var head := get_command().head_element.get_valid_head()
 	process.rule = process.grammar.get_command_rule(head)
 	process.exe_index = 0
 	process.exe_end = process.rule.get_element_count()
@@ -34,56 +34,58 @@ func run_from_empty(text : String, process : CommandElementCreaterProcess) -> vo
 	_do_command_tail(text, process)
 ## 从一定位置开始处理指令。
 func run_from_column(text : String, process : CommandElementCreaterProcess, column := 0) -> CommandElement:
-	var index : int = command.get_column_map_index(column) if not command.is_column_at_end(column) else command.exe_element_histories.size() - 1
+	var index : int = get_command().get_column_map_index(column) if not get_command().is_column_at_end(column) else get_command().exe_element_histories.size() - 1
 	
 	if index < 1: # 相当于重新生成。
-		return CommandElement.create(text, process.offset, command.get_line_index())
+		var element := CommandElement.create(text, process.offset, get_command().get_line_index())
+		element.command_type = command.command_type
+		return element
 	else:
-		command.faild_element_idxs.clear()
-		command.string = text.substr(command.string_offset)
+		get_command().faild_element_idxs.clear()
+		get_command().string = text.substr(get_command().string_offset)
 		
-		if command._elements[index] is CommandElement:
-			var element := command._elements[index] as CommandElement
+		if get_command()._elements[index] is CommandElement:
+			var element := get_command()._elements[index] as CommandElement
 			if element.is_valid_head() and element.string_offset + 2 < column:
 				return _run_from_column_suncommand(text, column, index)
 		return _run_from_column_normal(text, process, column, index - 1)
 
 func _run_from_column_suncommand(text : String, column := 0, index := 0) -> CommandElement:
-	command.errors.clear()
-	var element := command._elements[index] as CommandElement
+	get_command().errors.clear()
+	var element := get_command()._elements[index] as CommandElement
 	var offset := element.string_offset
 	
 	DictionaryIntKeyT.slice(_get_hl_data().data, 0, offset + 1)
-	DictionaryIntKeyT.slice(command._cmd_list, 0, column)
+	DictionaryIntKeyT.slice(get_command()._cmd_list, 0, column)
 	
 	var new_element := element.update(text, column)
-	command._elements[index] = new_element
+	get_command()._elements[index] = new_element
 	_get_hl_data().merge(new_element.get_highlight(EditManager.get_edit()))
-	command.errors.append_array(new_element.errors)
-	return command
+	get_command().errors.append_array(new_element.errors)
+	return get_command()
 func _run_from_column_normal(text : String, process : CommandElementCreaterProcess, column := 0, index := 0) -> CommandElement:
 	# 模拟最初环境
-	process.rule = process.grammar.get_command_rule(command.head_element.get_valid_head())
-	process.exe_index = command.exe_element_histories[index]
-	process.exe_element = process.rule.get_element(command.exe_element_histories[index -1]) if index > 0 else null
+	process.rule = process.grammar.get_command_rule(get_command().head_element.get_valid_head())
+	process.exe_index = get_command().exe_element_histories[index]
+	process.exe_element = process.rule.get_element(get_command().exe_element_histories[index -1]) if index > 0 else null
 	process.exe_end = process.rule.get_element_count()
 	
-	var nearest_element := command._elements[index]
+	var nearest_element := get_command()._elements[index]
 	var offset := process.offset
-	command.remove_error_from_range(0, offset)
+	get_command().remove_error_from_range(0, offset)
 	if nearest_element is StringElement:
 		offset = nearest_element.string_offset
 		process.offset = offset
 	
 	DictionaryIntKeyT.slice(_get_hl_data().data, 0, offset + 1)
-	command._elements = command._elements.slice(0, index)
-	command.exe_element_histories = command.exe_element_histories.slice(0, index)
-	DictionaryIntKeyT.slice(command._cmd_list, 0, column)
+	get_command()._elements = get_command()._elements.slice(0, index)
+	get_command().exe_element_histories = get_command().exe_element_histories.slice(0, index)
+	DictionaryIntKeyT.slice(get_command()._cmd_list, 0, column)
 	
-	process.has_end = process.rule.is_indexs_has_end(command.exe_element_histories)
+	process.has_end = process.rule.is_indexs_has_end(get_command().exe_element_histories)
 	_do_command_process(text, process)
 	_do_command_tail(text, process)
-	return command
+	return get_command()
 
 # 处理函数。
 func _do_function(element : ExeElementRule, text : String, process : CommandElementCreaterProcess) -> bool:
@@ -110,17 +112,17 @@ func _do_head(text : String, process : CommandElementCreaterProcess) -> bool:
 	
 	for err in result.errors: create_error(err.column, err.string)
 	if result.is_faild: return true
-	command.is_faild = false
-	command.valid_start = result.get_valid_start() - process.offset
+	get_command().is_faild = false
+	get_command().valid_start = result.get_valid_start() - process.offset
 	
 	var head := result.get_valid_string()
 	
 	_get_hl_data().merge(result.get_highlight(process.edit))
-	command.head_element = result
-	command.head_string = head
+	get_command().head_element = result
+	get_command().head_string = head
 	
 	if not process.grammar.has_head(head):
-		create_error(result.get_valid_start(), "Unfind command \"%s\"." % [head])
+		create_error(result.get_valid_start(), "Unfind get_command() \"%s\"." % [head])
 		return true
 	
 	process.offset = result.get_valid_end()
@@ -162,7 +164,7 @@ func _do_default(text : String, process : CommandElementCreaterProcess) -> bool:
 	
 	# CMD
 	if exe_element.has_cmd():
-		ElementRuleCMD.execute(element, exe_element, command, ElementRuleCMD.ModeFilter.LIST)
+		ElementRuleCMD.execute(element, exe_element, get_command(), ElementRuleCMD.ModeFilter.LIST)
 	
 	_get_hl_data().merge(element.get_highlight(process.edit))
 	
@@ -304,18 +306,21 @@ func _do_subcommand(text : String, process : CommandElementCreaterProcess) -> bo
 		create_error(process.offset, "Not find command.")
 		return true
 	
-	var result := CommandElement.create(text, process.offset, process.line)
+	var result := BaseCommandElement.create(text, process.offset, process.line)
 	
-	if result.is_empty(): create_error(process.offset, "Not find command.")
+	if result.is_empty():
+		create_error(process.offset, "Not find command.")
 	if result.has_error():
 		_get_failds().append(process.exe_index)
 		for err in result.errors: create_error(process.offset + err.column, err.string)
 	
+	result.command_type |= CommandElementManager.CommandType.REPLACE
 	process.has_end = true
-	process.offset = result.get_valid_end()
-	command._has_child_element = true
+	process.offset = text.length()
+	get_command()._has_child_element = true
 	
-	_get_hl_data().merge(result.get_highlight(process.edit))
+	if not result.is_faild:
+		_get_hl_data().merge(result.get_highlight(process.edit))
 	_add_history(process.exe_index, result)
 	return true
 #endregion

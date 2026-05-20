@@ -1,20 +1,9 @@
-@abstract
 class_name BaseCommandElement
 extends StringElement
 ## 指令的基类。
-##
-## 抽象类，你不应该实例化。
 
 ## 指令类型。
-enum CommandType {
-	## 最开始，根部。
-	ROOT,
-	## 直接替代原来的父指令，直达最后，类型于 execute run 分支一样。
-	REPLACE,
-}
-
-## 指令类型。
-var command_type := CommandType.REPLACE
+var command_type : int = CommandElementManager.CommandType.EMPTY
 
 ## [b]frient [CommandElementCreater], [ElementRuleCMD]:[/b] 储存运行时变量的列表。
 var _cmd_list : Dictionary[int, Dictionary]
@@ -29,10 +18,43 @@ var _has_child_element := false
 var _line_id := -1
 
 func get_highlight(_edit : FunctionEdit) -> Dictionary[int, Dictionary]:
-	return _highlight_data.data
+	return _highlight_data.data if _highlight_data != null else Dictionary({}, TYPE_INT,&"", null, TYPE_DICTIONARY, &"", null)
+static func create(text : String, offset : int, line := -1) -> BaseCommandElement:
+	var chr := ""
+	var l := text.length()
+	var i := offset
+	
+	while i < l:
+		chr = text[i]
+		if chr == " ":
+			i += 1
+		else:
+			break
+	
+	match chr:
+		" ":
+			var command := BaseCommandElement.new()
+			command.string_offset = offset
+			command._line_id = EditManager.get_edit().get_line_id(line)
+			return command
+		"?":
+			return HelpCommandElement.create(text, offset, line)
+		_:
+			return CommandElement.create(text, offset, line)
+## 虚函数，从 [param column] 处更新。
+@warning_ignore("unused_parameter")
+func _update(text : String, column : int) -> BaseCommandElement:
+	return create(text, string_offset, get_line_index())
+## 更新指令。
+func update(text : String, column : int) -> BaseCommandElement:
+	return _update(text, column)
 ## 获取这条指令所在的行。
 func get_line_index() -> int:
 	return -1 if _line_id == -1 else EditManager.get_edit().get_line_index(_line_id)
+
+## 如果是空指令，返回 [code]true[/code]。
+func is_empty() -> bool:
+	return command_type == CommandElementManager.CommandType.EMPTY
 
 ## 如果这条指令有子指令，返回 [code]true[/code]。
 func has_child_command() -> bool:

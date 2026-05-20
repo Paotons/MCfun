@@ -13,6 +13,7 @@ func _opend(process : ProjectOpendProcess) -> void:
 		process.main_process.y = ProjectOpendProcess.MainProcessName.MAX
 	
 	project_cache._load_cache(process)
+	ProjectManager.project_opend.emit.call_deferred(self)
 
 ## 获取项目配置。
 func get_project_config() -> ProjectConfig:

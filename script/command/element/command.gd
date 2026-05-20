@@ -1,6 +1,8 @@
 class_name CommandElement
 extends BaseCommandElement
-## 整条指令。
+## 指令。
+##
+## 最普通的指令。
 
 ## 失败的元素序列，可用于预测下一个参数。
 var faild_element_idxs : PackedInt32Array
@@ -12,13 +14,11 @@ var head_element : HeadElement
 ## 头。
 var head_string : String
 
-# 头部补全数据。
-static var _code_completion_head_data : FunctionCompletionData
-
 static func create(text : String, offset : int, line := -1) -> CommandElement:
 	var element := CommandElement.new()
 	
 	# 初始化。
+	element.command_type = CommandElementManager.CommandType.ROOT
 	element.string_offset = offset
 	element.string = text.substr(offset)
 	element._highlight_data = HightLightData.new()
@@ -41,12 +41,12 @@ static func create(text : String, offset : int, line := -1) -> CommandElement:
 	creater.run_from_empty(text, process)
 	return element
 ## [param column] 发生更新。
-func update(text : String, column : int) -> CommandElement:
+func _update(text : String, column : int) -> CommandElement:
 	var offset := string_offset
 	var edit := EditManager.get_edit()
 	
 	# 进程。
-	var process :=CommandElementCreaterProcess.new()
+	var process := CommandElementCreaterProcess.new()
 	
 	process.edit = edit
 	process.grammar = EditManager.get_grammar_process()
@@ -61,14 +61,12 @@ func update(text : String, column : int) -> CommandElement:
 	return creater.run_from_column(text, process, column)
 
 static func get_precast_code_completion_data(_column : int, _rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
-	return _code_completion_head_data
+	return CommandElementManager.get_head_completion_data()
 func _get_column_code_completion_data(column : int, _rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
-	if _code_completion_head_data == null: _update_code_completion_head_data()
-	
 	if is_column_outside_valid(column): # 不在范围。
 		return null
 	elif is_column_at_head(column): # 在头部。
-		return _code_completion_head_data
+		return CommandElementManager.get_head_completion_data()
 	
 	# 在最后结尾
 	if is_column_at_end(column):
@@ -84,9 +82,9 @@ func _get_column_code_completion_data(column : int, _rule : ElementRule, _comman
 	# 为当前做补全
 	match exe.get_type():
 		GrammarValue.Type.COMMAND:
-			var element : CommandElement = get_element(idx)
-			if element.command_type == CommandType.REPLACE:
-				return _code_completion_head_data if element.is_faild else element.get_column_code_completion_data(column, exe, self)
+			var element : BaseCommandElement = get_element(idx)
+			if element.command_type & CommandElementManager.CommandType.REPLACE != 0:
+				return CommandElementManager.get_head_completion_data() if element.is_faild else element.get_column_code_completion_data(column, exe, self)
 		_:
 			var result : StringElement = get_element(idx)
 			return result.get_column_code_completion_data(column, exe, self)
@@ -127,23 +125,12 @@ func _get_code_completion_next(column : int) -> FunctionCompletionData:
 	
 	return data_main
 
-# 更新指令头补全的数据。
-static func _update_code_completion_head_data() -> void:
-	var data := FunctionCompletionData.new()
-	data.insert_texts.append_array(EditManager.get_grammar_process().get_heads())
-	data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
-	_code_completion_head_data = data
-
 ## 获取头。
 func get_head_string() -> String:
 	return head_string
 ## 如果是可用的头，返回 [code]true[/code]。
 func is_valid_head() -> bool:
 	return EditManager.get_grammar_process().has_head(head_string)
-
-## 如果是空，返回 [code]true[/code]。
-func is_empty() -> bool:
-	return head_string.is_empty()
 
 ## 移除在范围之外的错误。
 func remove_error_from_range(from : int, to : int) -> void:
@@ -190,14 +177,15 @@ func is_column_at_end(column : int) -> bool:
 	for i in range(1, _elements.size() + 1):
 		element = _elements[_elements.size() - i]
 		if element != null: break
-	return not element is CommandElement and column > element.get_valid_end()
+	return not element is BaseCommandElement and column > element.get_valid_end()
 ## 返回某个位置在所处的元素序列，返回 [code]-1[/code] 表示非语法上的位置。
 func get_column_map_index(column : int) -> int:
 	for i in _elements.size():
 		var element := _elements[i]
-		if element is CommandElement:
-			if element.command_type == CommandType.REPLACE:
-				if column > element.string_offset: return i
+		if element is BaseCommandElement:
+			if element.command_type & CommandElementManager.CommandType.REPLACE != 0:
+				if column > element.string_offset:
+					return i
 		elif element is StringElement:
 			if element.get_valid_start() < column and column <= element.get_valid_end():
 				return i

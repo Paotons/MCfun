@@ -3,6 +3,10 @@ extends Node
 ##
 ## 全局单例。
 
+## 当有项目打开完成发出。
+@warning_ignore("unused_signal")
+signal project_opend(project : Project)
+
 ## 默认项目列表。
 var project_list_path := "storage/projects"
 ## 项目列表的配置文件。

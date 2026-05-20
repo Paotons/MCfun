@@ -17,7 +17,7 @@ const DEFAULT_DOUBLE_INPUT_MAP : Dictionary[String, String] = {
 }
 
 ## 指令数据。
-var command_elements : Dictionary[int, CommandElement]
+var command_elements : Dictionary[int, BaseCommandElement]
 ## 语法。
 var grammar : Grammar
 
@@ -121,10 +121,10 @@ func _confirm_code_completion(_replace: bool) -> void:
 		cancel_code_completion()
 
 # 对指令进行补全。
-func _command_add_code_hint(command : CommandElement, current_update := true) -> void:
+func _command_add_code_hint(command : BaseCommandElement, current_update := true) -> void:
 	var column := get_caret_column()
 	
-	var data := command.get_column_code_completion_data(column, null, null)
+	var data := null if command.is_faild else command.get_column_code_completion_data(column, null, null)
 	add_code_completion_data(data)
 	if current_update:
 		update_code_completion_options(false)
@@ -208,12 +208,12 @@ func set_highlight_color(color_name : String, color : Color) -> void:
 
 #region 指令。
 ## 返回指定行数的指令的数据。
-func set_command_element(line : int, element : CommandElement) -> void:
+func set_command_element(line : int, element : BaseCommandElement) -> void:
 	var id := get_line_id(line)
 	command_elements[id] = element
 	_errors_list_changed()
 ## 返回指定行行数的指令的数据。
-func get_command_element(line : int) -> CommandElement:
+func get_command_element(line : int) -> BaseCommandElement:
 	return command_elements.get(get_line_id(line))
 ## 返回从 [param from_line] 到 [param to_line] 中最近有错误的指令。
 func find_has_error_command(from_line := 0, to_line := -1) -> int:
