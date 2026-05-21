@@ -159,10 +159,10 @@
 	],
 	"effect" : [
 		{"id" : 0, "extends" : -1, "type" : "selector"},
-		{"id" : 1, "extends" : 0, "goto" : [2, 3], "type" : "option", "detail" : "using_entry", "items" : ["effect_clear", "effective"]},
+		{"id" : 1, "extends" : 0, "goto" : [2, 3], "type" : "option", "detail" : "using_entry", "items" : ["effect_clear", "effective_name"]},
 		
 		{"goto" : 999},
-		{"id" : 2, "extends" : 1, "type" : "option", "detail" : "using_entry", "items" : ["effective"], "is_end" : true},
+		{"id" : 2, "extends" : 1, "type" : "option", "detail" : "using_entry", "items" : ["effective_name"], "is_end" : true},
 		
 		{"goto" : 999},
 		{"id" : 3, "extends" : 1, "type" : "int", "description" : "strong"},

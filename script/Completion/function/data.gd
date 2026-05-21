@@ -53,43 +53,57 @@ func fill_inserted_update(enabled : bool) -> void:
 
 ## 设置插入模式。
 func set_insert_mode(idx := -1, mode := InsertMode.NORMAL) -> void:
-	idx = insert_texts.size() + idx if idx < 0 else idx
-	if values.size() <= idx:
-		values.resize(idx + 1)
-	var value := values[idx]
+	var value : FunctionCompletionDataValue = get_value(idx)
 	if value == null:
 		value = FunctionCompletionDataValue.new()
 		values[idx] = value
 	value.insert_mode = mode
-## 获取插入模式。
-func get_insert_mode(idx : int) -> InsertMode:
-	var value := values[idx]
-	return value.insert_mode if value != null else InsertMode.NORMAL
 ## 填充插入模式。
 func fill_insert_mode(mode := InsertMode.NORMAL) -> void:
 	for value in values:
 		value.insert_mode = mode
+	
 	var size_ := values.size()
 	values.resize(insert_texts.size())
 	for i in range(size_, insert_texts.size()):
 		var value := FunctionCompletionDataValue.new()
 		value.insert_mode = mode
 		values[i] = value
+## 获取指定序列的插入模式。
+func get_insert_mode(idx : int) -> InsertMode:
+	var value := values[idx]
+	return value.insert_mode if value != null else InsertMode.NORMAL
+## 添加指定序列的额外权重。
+func add_extra_weight(idx := -1, weight := 128) -> void:
+	var value : FunctionCompletionDataValue = get_value(idx)
+	if value == null:
+		value = FunctionCompletionDataValue.new()
+		values[idx] = value
+	value.extra_weight += weight
+## 获取指定序列的额外权重。
+func get_extra_weight(idx : int) -> int:
+	if idx < 0 or idx >= values.size():
+		return 0
+	var value : FunctionCompletionDataValue = values[idx]
+	return value.extra_weight
 
 #region 获取权重
 ## 获取权重。
-static func get_weight(text : String, column : int, data : Dictionary) -> int:
+static func get_weight(text : String, column : int, data : Dictionary, hint_word := false) -> int:
 	var chache : Dictionary[_WeightChache, String]
 	var insert : String = data.insert_text
 	var value : FunctionCompletionDataValue = data.default_value
 	var insert_mode : InsertMode = value.insert_mode if value else InsertMode.NORMAL
+	
+	var weight := value.extra_weight
 	match insert_mode:
-		InsertMode.NORMAL: return _get_weight_normal(text, column, insert, chache)
-		InsertMode.WORLD: return _get_weight_world(text, column, insert, chache)
-		InsertMode.SPACEITEM: return _get_weight_spaceitem(text, column, insert, chache)
-		InsertMode.QUOTATION: return _get_weight_quotation(text, column, insert, chache)
-		InsertMode.POINT_PATH: return _get_weight_point_path(text, column, insert, chache)
-		_: return _get_weight_normal(text, column, insert, chache)
+		InsertMode.NORMAL: weight += _get_weight_normal(text, column, insert, chache)
+		InsertMode.WORLD: weight += _get_weight_world(text, column, insert, chache)
+		InsertMode.SPACEITEM: weight += _get_weight_spaceitem(text, column, insert, chache)
+		InsertMode.QUOTATION: weight += _get_weight_quotation(text, column, insert, chache)
+		InsertMode.POINT_PATH: weight += _get_weight_point_path(text, column, insert, chache)
+		_: weight += _get_weight_normal(text, column, insert, chache)
+	return maxi(weight, _get_weight_world(text, column, data.display_text, chache)) if hint_word else weight
 
 # 获取权重，普通。
 static func _get_weight_normal(text : String, column : int, insert : String, chache : Dictionary[_WeightChache, String]) -> int:
@@ -215,6 +229,9 @@ static func _get_insert_end_point_path(text : String, column : int) -> int:
 	return _get_insert_end_world(text, column) if res == -1 else res
 #endregion
 
+# 强调补全额外权重。
+const _HIGHLIGHT_EXTRA_WEIGHT := 768 # 3 * 256，等效两次连续加权
+
 ## 创建一个补全括号的数据。
 static func create_backet_data(type : GrammarValue.Type) -> FunctionCompletionData:
 	assert(GrammarValue.is_type_backet(type), "Not is backet type.")
@@ -227,6 +244,18 @@ static func create_backet_data(type : GrammarValue.Type) -> FunctionCompletionDa
 	
 	var value := FunctionCompletionDataValue.new()
 	value.inserted_update = true
+	value.extra_weight = _HIGHLIGHT_EXTRA_WEIGHT
 	value.inserted_column_offset = -1
+	res.values = [value]
+	return res
+## 创建一个符号数据。
+static func create_flag_data(flag : String, updated := true, column_offset := 0) -> FunctionCompletionData:
+	var res := FunctionCompletionData.new()
+	res.insert_texts = [flag]
+	
+	var value := FunctionCompletionDataValue.new()
+	value.inserted_update = updated
+	value.extra_weight = _HIGHLIGHT_EXTRA_WEIGHT
+	value.inserted_column_offset = column_offset
 	res.values = [value]
 	return res

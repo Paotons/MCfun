@@ -1,6 +1,6 @@
 [title]描述[/title]
 
-用于表示列表 [file grammar/entry] 中的元素，开始用来定义各种字符串。
+用于表示列表 [file grammar/entry]语法>>列表[/file] 中的元素，开始用来定义各种字符串。
 
 [title]V1[/title]
 

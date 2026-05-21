@@ -26,27 +26,64 @@ class _Option extends _Element:
 	const _DETAIL_USING_ENTRY := 0
 	const _DETAIL_DEFAILT := [false]
 	
+	# 选项物体的物体。
+	const _ITEMS_ITEMS := 0
+	# 选项物体的显示。
+	const _ITEMS_DISPLAYS := 1
+	
 	func _compile(data : Variant) -> void:
 		var from := data as Dictionary
 		compiled_result = {}
 		
-		if not _compile_detail(from):
-			return
-		if not (
-			_try_dictionary_key(from, "%s[items]" % element, "items", META_ITEMS, true,
-				_test_value_array_types.bind(1 << TYPE_STRING, "%s[items]" % element),
-			) and
-			_try_dictionary_key(from, "%s[custom]" % element, "custom", META_CUSTOM, false)
-		):
+		if not from.has("items"):
+			errors.append("%s not has items." % element)
 			return
 		
-		var size := (compiled_result[META_ITEMS] as Array).size()
+		var items = from["items"]
+		if not _test_value_type(items, 1 << TYPE_ARRAY | 1 << TYPE_DICTIONARY, "%s[items]" % element):
+			return
+		if items is Array:
+			if not _compile_items_v1(items):
+				return
+		elif items is Dictionary:
+			if not _compile_items_v2(items):
+				return
+		
+		if not _compile_detail(from):
+			return
+		if not _try_dictionary_key(from, "%s[custom]" % element, "custom", META_CUSTOM, false):
+			return
+		
+		
+		var size := (compiled_result[META_ITEMS][_ITEMS_ITEMS] as Array).size()
 		if not _try_dictionary_key(from, "%s[description]" % element, "description", META_DESCRIPTION, false,
 			_test_value_array_types.bind(1 << TYPE_STRING, "%s[description]" % element, size),
 		):
 			return
 		_set_is_valid(true)
+	
+	func _compile_items_v1(from : Array) -> bool:
+		if not _test_array_types(from, 1 << TYPE_STRING, "%s[items]" % element):
+			return false
+		compiled_result[META_ITEMS] = [null, null]
+		compiled_result[META_ITEMS][_ITEMS_ITEMS] = from
+		compiled_result[META_ITEMS][_ITEMS_DISPLAYS] = []
+		return true
+	
+	func _compile_items_v2(from : Dictionary) -> bool:
+		if not _test_dictionary_key_types(from, 1 << TYPE_STRING, "%s[items]" % element):
+			return false
+		if not _test_dictionary_value_types(from, 1 << TYPE_STRING, "%s[items]" % element):
+			return false
 		
+		var keys := from.keys()
+		var values : Array
+		values.resize(keys.size())
+		for i in keys.size():
+			values[i] = from[keys[i]]
+		compiled_result[META_ITEMS] = [keys, values]
+		return true
+	
 	func _compile_detail(from : Dictionary) -> bool:
 		if not from.has("detail"):
 			compiled_result[META_DETAIL] = _DETAIL_DEFAILT.duplicate()

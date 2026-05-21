@@ -33,8 +33,7 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 		var key := get_key_string()
 		if grammer_rule.has_key(key):
 			data.supple()
-			data.insert_texts.append(":")
-			data.set_inserted_update(-1, true)
+			data.add_data(FunctionCompletionData.create_flag_data(":"))
 		return data
 	
 	# 值

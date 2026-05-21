@@ -23,14 +23,17 @@ static func create(text : String, offset : int, rule : ElementRule = null) -> Op
 	return element
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return {get_valid_start() : {"color" : edit.color_option if has_option() else edit.color_error_option}, get_valid_end() : {"color" : edit.color_default}}
+
 func _get_column_code_completion_data(_column : int, _rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
 	var data := FunctionCompletionData.new()
 	data.insert_texts.append_array(element_rule.get_option_items())
+	data.display_texts.append_array(element_rule.get_option_displays())
 	data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
 	return data
 static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
 	var data := FunctionCompletionData.new()
 	data.insert_texts.append_array(rule.get_option_items())
+	data.display_texts.append_array(rule.get_option_displays())
 	data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
 	return data
 

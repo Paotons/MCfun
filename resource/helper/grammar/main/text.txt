@@ -18,6 +18,6 @@
 }[/code]
 
 [b]files:[/b] 定义各种文件的路径。
-[b]files.process:[/b] 指定流程文件路径。具体内容见 [file grammar/process]
-[b]files.law:[/b] 指定规则文件路径。具体内容见 [file grammar/law]
-[b]files.entry[/b] 指定列表文件路径。具体内容见 [file grammar/entry]
+[b]files.process:[/b] 指定流程文件路径。具体内容见 [file grammar/process]语法>>流程[/file]
+[b]files.law:[/b] 指定规则文件路径。具体内容见 [file grammar/law]语法>>规则[/file]
+[b]files.entry[/b] 指定列表文件路径。具体内容见 [file grammar/entry]语法>>章类[/file]

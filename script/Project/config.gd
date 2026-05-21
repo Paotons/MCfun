@@ -67,7 +67,8 @@ func get_edit_grammar_path(test := true) -> String:
 	return path if test and DirAccess.dir_exists_absolute(path) else DEFAULT
 ## 设置编辑器语法路径。
 func set_edit_grammar_path(path : String) -> void:
-	return _config.set_value(_SELECT_EDIT, "grammar", path)
+	_config.set_value(_SELECT_EDIT, "grammar", path)
+	save()
 #endregion
 
 ## 保存。

@@ -146,8 +146,8 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 		
 		var key := get_key_string()
 		if grammer_rule.has_key(key):
-			data.insert_texts.append("=")
-			data.set_inserted_update(-1, true)
+			data.supple()
+			data.add_data(FunctionCompletionData.create_flag_data("="))
 		return data
 	
 	# 值
@@ -173,7 +173,8 @@ func _get_column_code_completion_data_using_key(column : int, _rule : ElementRul
 	if is_column_at_key(column):
 		var key_rule := grammer_rule.get_element_rule("key")
 		if key_element != null and not key_element.is_faild:
-			data.insert_texts.append("=")
+			data.supple()
+			data.add_data(FunctionCompletionData.create_flag_data("="))
 			data.supple()
 			data.add_data(key_element.get_column_code_completion_data(column, key_rule, command))
 	
@@ -181,7 +182,8 @@ func _get_column_code_completion_data_using_key(column : int, _rule : ElementRul
 	elif is_column_at_value(column):
 		var value_rule := grammer_rule.get_element_rule("value")
 		if value_element != null and not value_element.is_faild:
-			data.insert_texts.append("=")
+			data.supple()
+			data.add_data(FunctionCompletionData.create_flag_data("="))
 			data.supple()
 			data.add_data(value_element.get_column_code_completion_data(column, value_rule, command))
 	return data

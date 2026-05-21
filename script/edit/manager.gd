@@ -6,6 +6,7 @@ extends Node
 # 编辑器默认高亮颜色。
 const _EDIT_DEFAULT_HIGHTLIGHT_COLOR : Dictionary[StringName, Color] = {
 	&"default" : Color("ffffffbf"),
+	&"annotation" : Color("829098c6"),
 	&"key_word" : Color("ff7085"),
 	&"number" : Color("a1ffe0"),
 	&"member" : Color("bce0ff"),
@@ -34,6 +35,9 @@ func has_edit() -> bool:
 func get_edit() -> FunctionEdit:
 	return function_edit
 
+## 获取编辑器补全设置。
+func get_completion_setting() -> FunctionCompletionSetting:
+	return function_edit.completion_setting
 ## 获取语法流程。
 func get_grammar_process() -> GrammarProcess:
 	return function_edit.grammar.get_process()
@@ -43,23 +47,6 @@ func get_grammar_law() -> GrammarLaw:
 ## 获取补全项。
 func get_grammar_entry() -> GrammarEntry:
 	return function_edit.grammar.get_entry()
-
-# HACK
-## 获取语法流程。
-func get_grammer_process() -> GrammarProcess:
-	push_warning("grammer -> grammar")
-	return get_grammar_process()
-# HACK
-## 获取规则。
-func get_grammer_law() -> GrammarLaw:
-	push_warning("grammer -> grammar")
-	return get_grammar_law()
-# HACK
-## 获取补全项。
-func get_grammer_entry() -> GrammarEntry:
-	push_warning("grammer -> grammar")
-	return get_grammar_entry()
-
 
 ## 获取编辑器默认高亮颜色。
 func get_edit_default_hightlight_color(id : StringName) -> Color:

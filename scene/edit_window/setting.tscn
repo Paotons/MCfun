@@ -165,6 +165,75 @@ func _on_visibility_changed() -> void:
 		color = default if config == null else config.get_value(SELECT_NAME, color_name, default)
 "
 
+[sub_resource type="GDScript" id="GDScript_62tx0"]
+script/source = "extends CheckBox
+
+func _on_visibility_changed() -> void:
+	if not is_visible_in_tree():
+		return
+	var config := ConfigFile.new()
+	if FileAccess.file_exists(FileSystem.config_path):
+		config.load(FileSystem.config_path)
+	button_pressed = config.get_value(\"EditCompletion\", \"showing_hint_word\", true)
+
+func _pressed() -> void:
+	var config := ConfigFile.new()
+	if FileAccess.file_exists(FileSystem.config_path):
+		config.load(FileSystem.config_path)
+	config.set_value(\"EditCompletion\", \"showing_hint_word\", button_pressed)
+	config.save(FileSystem.config_path)
+	
+	if EditManager.has_edit():
+		EditManager.get_edit().completion_setting.showing_hint_word = button_pressed
+
+
+"
+
+[sub_resource type="GDScript" id="GDScript_5m1da"]
+script/source = "extends CheckBox
+
+func _on_visibility_changed() -> void:
+	if not is_visible_in_tree():
+		return
+	var config := ConfigFile.new()
+	if FileAccess.file_exists(FileSystem.config_path):
+		config.load(FileSystem.config_path)
+	button_pressed = config.get_value(\"EditCompletion\", \"using_hint_word_weight\", false)
+
+func _pressed() -> void:
+	var config := ConfigFile.new()
+	if FileAccess.file_exists(FileSystem.config_path):
+		config.load(FileSystem.config_path)
+	config.set_value(\"EditCompletion\", \"using_hint_word_weight\", button_pressed)
+	config.save(FileSystem.config_path)
+	
+	if EditManager.has_edit():
+		EditManager.get_edit().completion_setting.using_hint_word_weight = button_pressed
+"
+
+[sub_resource type="GDScript" id="GDScript_pb5su"]
+script/source = "extends CheckBox
+
+func _on_visibility_changed() -> void:
+	if not is_visible_in_tree():
+		return
+	var config := ConfigFile.new()
+	if FileAccess.file_exists(FileSystem.config_path):
+		config.load(FileSystem.config_path)
+	button_pressed = config.get_value(\"EditCompletion\", \"using_space_name\", true)
+
+func _pressed() -> void:
+	var config := ConfigFile.new()
+	if FileAccess.file_exists(FileSystem.config_path):
+		config.load(FileSystem.config_path)
+	config.set_value(\"EditCompletion\", \"using_space_name\", button_pressed)
+	config.save(FileSystem.config_path)
+	
+	if EditManager.has_edit():
+		EditManager.get_edit().completion_setting.spaceitem_included_space = button_pressed
+
+"
+
 [sub_resource type="GDScript" id="GDScript_w14fy"]
 script/source = "extends CheckBox
 
@@ -265,9 +334,9 @@ func _ready() -> void:
 script/source = "extends Button
 
 func _pressed() -> void:
-	var res := \"res://resource/grammer/\"
+	var res := \"res://resource/grammar/\"
 	assert(DirAccess.dir_exists_absolute(res), \"Not has dir.\")
-	var to_path := FileSystem.data_root.path_join(\"storage/grammer\")
+	var to_path := FileSystem.data_root.path_join(\"storage/grammar\")
 	if not DirAccess.dir_exists_absolute(to_path):
 		DirAccess.make_dir_recursive_absolute(to_path)
 	
@@ -314,7 +383,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 hide_root = true
 script = SubResource("GDScript_2n6rp")
-option_nodes = [null, null, NodePath("../scene_parent/ScrollContainer/MarginContainer/Normal"), null, NodePath("../scene_parent/ScrollContainer/MarginContainer/HighlightColor"), null, null, NodePath("../scene_parent/ScrollContainer/MarginContainer/EditBehavior"), NodePath("../scene_parent/ScrollContainer/MarginContainer/Grammer")]
+option_nodes = [null, null, NodePath("../scene_parent/ScrollContainer/MarginContainer/Normal"), null, NodePath("../scene_parent/ScrollContainer/MarginContainer/HighlightColor"), NodePath("../scene_parent/ScrollContainer/MarginContainer/Completion"), null, NodePath("../scene_parent/ScrollContainer/MarginContainer/EditBehavior"), NodePath("../scene_parent/ScrollContainer/MarginContainer/Grammer")]
 
 [node name="scene_parent" type="MarginContainer" parent="VBoxContainer/HSplitContainer" unique_id=2037927546]
 layout_mode = 2
@@ -598,9 +667,61 @@ size_flags_horizontal = 10
 script = SubResource("GDScript_h0p1a")
 color_name = "special"
 
+[node name="HBoxContainer16" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=774816932]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer16" unique_id=1059191997]
+layout_mode = 2
+text = "注释颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer16" unique_id=689176319]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "annotation"
+
 [node name="Completion" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=741482542]
 visible = false
 layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Completion" unique_id=848949753]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Completion/HBoxContainer" unique_id=1445644923]
+layout_mode = 2
+text = "显示提示词"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Completion/HBoxContainer" unique_id=870648681]
+layout_mode = 2
+size_flags_horizontal = 10
+button_pressed = true
+script = SubResource("GDScript_62tx0")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Completion" unique_id=997053856]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Completion/HBoxContainer2" unique_id=211103662]
+layout_mode = 2
+text = "提示词加权（注意：勾选该项会带来卡顿）"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Completion/HBoxContainer2" unique_id=2054640031]
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_5m1da")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Completion" unique_id=1977703427]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Completion/HBoxContainer3" unique_id=1466922009]
+layout_mode = 2
+text = "补全空间名称"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Completion/HBoxContainer3" unique_id=1672545349]
+layout_mode = 2
+size_flags_horizontal = 10
+button_pressed = true
+script = SubResource("GDScript_pb5su")
 
 [node name="Caret" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=60601203]
 visible = false
@@ -729,6 +850,7 @@ script = SubResource("GDScript_iw8q2")
 [connection signal="visibility_changed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer/CheckBox" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer/CheckBox" method="_on_visibility_changed"]
 [connection signal="focus_exited" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/VBoxContainer/DoubleInputMap" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/VBoxContainer/DoubleInputMap" method="_on_focus_exited"]
 [connection signal="visibility_changed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer2/WrapMode" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer2/WrapMode" method="_on_visibility_changed"]
+[connection signal="pressed" from="VBoxContainer/SaveReopen/MarginContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="hide"]
 [connection signal="close_requested" from="SelectedDataRootWindow" to="SelectedDataRootWindow" method="hide"]
 [connection signal="confirmed" from="SelectedDataRootWindow" to="DataRootChangedExitAcceptWindow" method="popup_centered_clamped"]

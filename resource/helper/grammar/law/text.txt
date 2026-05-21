@@ -1,6 +1,6 @@
 [title]描述[/title]
 
-用于告诉编辑器，有些元素的具体要求。例如 [code]array[/code] 和 [code]dictionary[/code] 元素见 [file grammar/element]
+用于告诉编辑器，有些元素的具体要求。例如 [code]array[/code] 和 [code]dictionary[/code] 元素见 [file grammar/element]语法>>元素[/file]
 
 [title]V1[/title]
 

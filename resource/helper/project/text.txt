@@ -1,1 +1,1 @@
-项目设置：[file project/setting]
+[file project/setting]项目设置[/file]

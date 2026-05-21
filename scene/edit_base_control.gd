@@ -54,3 +54,9 @@ func _on_project_menu_button_reload_scene() -> void:
 
 func _on_project_setting_reload_project() -> void:
 	reload_scene(true)
+
+func _on_edit_setting_reload_scene() -> void:
+	reload_scene(true)
+
+func _on_error_window_confirmed() -> void:
+	exit_to_project_list(false)

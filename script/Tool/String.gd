@@ -129,7 +129,7 @@ static func get_repeat_count(text : String, start : int) -> int:
 	var e := find_diverse(text, start)
 	return (text.length() if e == -1 else e) - s - 1
 
-## 获取两模糊字符串相似性的权重。
+## 获取两模糊字符串相似性的权重，以 [code]256[/code] 为普通权重。
 static func get_fuzzy_weight(a : String, b : String) -> int:
 	var res := 0
 	var less : String
@@ -142,7 +142,7 @@ static func get_fuzzy_weight(a : String, b : String) -> int:
 		less = b
 		longer = a
 	
-	res += 256 - mini(256, 8 * (longer.length() - less.length())) # 长度接近加权
+	res += 256 - mini(256, 8 * (longer.length() - less.length())) # 长度惩罚
 	
 	var chain := 0
 	var i := 0

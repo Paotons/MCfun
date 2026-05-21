@@ -1,0 +1,3 @@
+[http https://github.com/Paotons/MCfun.git]开源源码[/http]
+
+[http https://github.com/Paotons/MCfun/issues]报告问题[/http]

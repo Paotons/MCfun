@@ -73,6 +73,9 @@ func _load_grammar(process : ProjectOpendProcess) -> void:
 
 # 如果语法改变，返回 true，并重新更新。
 func _test_grammar_name() -> bool:
+	if not DirAccess.dir_exists_absolute(_get_cache_directory().path_join("grammar")):
+		DirAccess.make_dir_absolute(_get_cache_directory().path_join("grammar"))
+	
 	var last_path := _get_cache_directory().path_join("grammar/name.txt")
 	var last_name := FileAccess.get_file_as_string(last_path) if FileAccess.file_exists(last_path) else ""
 	

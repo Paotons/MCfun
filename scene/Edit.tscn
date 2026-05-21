@@ -45,6 +45,8 @@ func _get_split_container() -> HSplitContainer:
 	return $\"../Base/HSplitContainer\"
 func _get_export_setting_window() -> ProjectExportSettingWindow:
 	return $\"../ProjectExportSetting\"
+func _get_error_option_window() -> AcceptDialog:
+	return$\"../ErrorOptionWindow\"
 
 func _get_sub_process() -> Vector2i:
 	match main_process.x:
@@ -87,7 +89,8 @@ func _on_thread() -> void:
 	_control_sub_process.y = _UI_LOADING_PROCESS_COUNT
 	_mutex.unlock()
 	
-	_thread_edit_grammar(config)
+	if not _thread_edit_grammar(config):
+		return
 	_thread_edit_split(config)
 	_thread_edit_file_list(config)
 	
@@ -114,7 +117,7 @@ func _process(_delta: float) -> void:
 	)
 	_mutex.unlock()
 
-func _thread_edit_grammar(_config : ConfigFile) -> void:
+func _thread_edit_grammar(_config : ConfigFile) -> bool:
 	_mutex.lock()
 	_control_sub_process.x += 1
 	_mutex.unlock()
@@ -123,11 +126,21 @@ func _thread_edit_grammar(_config : ConfigFile) -> void:
 	var grammar := Grammar.new()
 	var error := grammar.open(project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.GRAMMAR))
 	
-	assert(error.is_empty(), \"Grammar has error.\")
+	if not error.is_empty():
+		var directory := project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.CACHE).path_join(\"grammar\")
+		FileSystem.remove_directory(directory)
+		(func() -> void:
+			var window := _get_error_option_window()
+			window.dialog_text = \"解析语法时发生错误：%s\" % \"\\n\".join(error)
+			window.popup_centered_clamped()
+		).call_deferred()
+		return false
+	
 	(func() -> void:
 		var edit := _base_control._get_function_edit()
 		edit.grammar = grammar
 	).call_deferred()
+	return true
 func _thread_edit_split(config : ConfigFile) -> void:
 	var offset_1 : int = config.get_value(\"Split\", \"1\", 50)
 	
@@ -160,6 +173,10 @@ func _thread_edit_file_list(config : ConfigFile) -> void:
 func _on_base_control_ready() -> void:
 	_base_control = get_parent()
 	start()
+
+func _enter_tree() -> void:
+	if _thread != null and _thread.is_started() and _thread.is_alive():
+		_thread.wait_to_finish()
 "
 
 [sub_resource type="GDScript" id="GDScript_3aibf"]
@@ -449,6 +466,12 @@ enum ItemIndex {
 	## 选择行。
 	SELECT_LINE,
 	
+	## 分割符。
+	SEPARATOR3,
+	## 补全。
+	ADD_HINT,
+	## 取消补全。
+	UNDO_HINT,
 }
 
 func _ready() -> void:
@@ -465,6 +488,9 @@ func _on_popup_index_pressed(index : int) -> void:
 		
 		ItemIndex.SELECT_ALL : _on_select_all()
 		ItemIndex.SELECT_LINE : _on_select_line()
+		
+		ItemIndex.ADD_HINT : _on_add_hint()
+		ItemIndex.UNDO : _on_undo_hint()
 
 func _on_undo() -> void:
 	var edit := EditManager.get_edit()
@@ -497,7 +523,12 @@ func _on_select_line() -> void:
 		var column := edit.get_line(line).length()
 		edit.select(line, 0, line, column)
 
-
+func _on_add_hint() -> void:
+	var edit := EditManager.get_edit()
+	edit.add_code_hint()
+func _on_undo_hint() -> void:
+	var edit := EditManager.get_edit()
+	edit.clear_hint()
 
 "
 
@@ -663,6 +694,8 @@ script/source = "extends Node
 const CONFIG_HIGHLIGHT_COLOR_SELECT := \"HighLightColor\"
 ## 用于检测配置文件编辑器行为。
 const CONFIG_BEHAVIOR := \"EditBehavior\"
+## 用于检测配置文件补全。
+const CONFIG_COMPLETION := \"EditCompletion\"
 
 # 初始化配置文件。
 func _init_config() -> void:
@@ -673,6 +706,8 @@ func _init_config() -> void:
 		_init_config_behavior()
 	if config.has_section(CONFIG_HIGHLIGHT_COLOR_SELECT):
 		_init_config_highlight_color()
+	if config.has_section(CONFIG_COMPLETION):
+		_init_congig_completion()
 # 初始化配置文件行为。
 func _init_config_behavior() -> void:
 	var config := FileSystem.config
@@ -693,6 +728,12 @@ func _init_config_highlight_color() -> void:
 			continue
 		var color := value as Color
 		_edit.set_highlight_color(key, color)
+func _init_congig_completion() -> void:
+	var config := FileSystem.config
+	var setting := _edit.completion_setting
+	setting.spaceitem_included_space = config.get_value(CONFIG_COMPLETION, \"using_space_name\", true)
+	setting.showing_hint_word = config.get_value(CONFIG_COMPLETION, \"showing_hint_word\", true)
+	setting.using_hint_word_weight = config.get_value(CONFIG_COMPLETION, \"using_hint_word_weight\", false)
 
 func _on_function_edit_ready() -> void:
 	_init_config()
@@ -875,7 +916,7 @@ script = SubResource("GDScript_w0n44")
 [node name="edit" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=856299228]
 layout_mode = 2
 text = "编辑"
-item_count = 9
+item_count = 12
 popup/item_0/text = "撤销"
 popup/item_0/id = 0
 popup/item_1/text = "重做"
@@ -894,6 +935,12 @@ popup/item_7/text = "全选"
 popup/item_7/id = 7
 popup/item_8/text = "选择行"
 popup/item_8/id = 8
+popup/item_9/id = 9
+popup/item_9/separator = true
+popup/item_10/text = "补全"
+popup/item_10/id = 10
+popup/item_11/text = "取消补全"
+popup/item_11/id = 11
 script = SubResource("GDScript_hr7lf")
 
 [node name="setting" type="Button" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=1846478690 node_paths=PackedStringArray("window")]
@@ -1076,6 +1123,15 @@ ok_button_text = "保存并退出"
 dialog_text = "文件没有保存，是否退出。"
 script = SubResource("GDScript_x5ap5")
 
+[node name="ErrorOptionWindow" type="AcceptDialog" parent="." unique_id=440137377]
+oversampling_override = 1.0
+title = "错误"
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+ok_button_text = "退出到项目列表"
+dialog_hide_on_ok = false
+dialog_close_on_escape = false
+
 [connection signal="ready" from="." to="Loader" method="_on_base_control_ready"]
 [connection signal="ready" from="." to="Saver" method="_on_base_control_ready"]
 [connection signal="save_scene" from="." to="Saver" method="save_scene"]
@@ -1090,6 +1146,7 @@ script = SubResource("GDScript_x5ap5")
 [connection signal="text_changed" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_function_edit_text_changed"]
 [connection signal="pressed" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/HBoxContainer/MarginContainer/ShowHideFileListButton" to="Base/HSplitContainer/FileList" method="_on_show_hide_file_list_button_pressed"]
 [connection signal="ready" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/HBoxContainer/error_hint" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/HBoxContainer/error_hint" method="set_text" binds= [""]]
+[connection signal="reload_scene" from="EditSetting" to="." method="_on_edit_setting_reload_scene"]
 [connection signal="reload_project" from="ProjectSetting" to="." method="_on_project_setting_reload_project"]
 [connection signal="close_requested" from="FileListWindow" to="FileListWindow" method="hide"]
 [connection signal="file_selected" from="FileListWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/FileMenuButton" method="_on_file_list_window_file_selected"]
@@ -1105,3 +1162,4 @@ script = SubResource("GDScript_x5ap5")
 [connection signal="custom_action" from="ProjectExitOptionWindow" to="ProjectExitOptionWindow" method="_on_custom_action"]
 [connection signal="direct_exit" from="ProjectExitOptionWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/ProjectMenuButton" method="_on_project_exit_option_window_direct_exit"]
 [connection signal="saved_and_edit" from="ProjectExitOptionWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/ProjectMenuButton" method="_on_project_exit_option_window_saved_and_edit"]
+[connection signal="confirmed" from="ErrorOptionWindow" to="." method="_on_error_window_confirmed"]

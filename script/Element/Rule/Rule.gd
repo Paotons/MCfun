@@ -3,6 +3,7 @@ extends Resource
 ## 结果的规则。
 ##
 ## 用于给各种结果提供给结果的。内涵 [code]type, detail, items, description[/code] 参数。
+# 唉，挺想拆成各种类型的，就是还要兼容 Exe，将就一起。
 
 #region 元素。
 ## 元素类型。
@@ -22,6 +23,10 @@ const META_CUSTOM := 5
 const _DETAIL_OPTION_USING_ENTRY := 0
 # 默认选项细节。
 const _DETAIL_OPTION_DEFAILT := [false]
+# 选项物体的物体。
+const _ITEMS_OPTION_ITEMS := 0
+# 选项物体的显示。
+const _ITEMS_OPTION_DISPLAYS := 1
 #endregion
 
 ## 数据。
@@ -66,7 +71,7 @@ func is_option_using_entry() -> bool:
 ## 如果是选项，获取 [param string] 在其中的序列。
 func get_option_string_index(string : String) -> int:
 	if is_option_using_entry():
-		var items := get_items()
+		var items := _get_option_items()
 		var entry := EditManager.get_grammar_entry()
 		for i in items.size():
 			var chapter := entry.get_chapter(items[i]) as GrammarStringChapter
@@ -75,13 +80,13 @@ func get_option_string_index(string : String) -> int:
 				continue
 			if chapter.has_item(string): return i
 	else:
-		return get_items().find(string)
+		return _get_option_items().find(string)
 	return -1
-##如果是取选项，获取其补全项目。
+## 如果选项，获取其补全项目。
 func get_option_items() -> PackedStringArray:
 	if is_option_using_entry():
 		var res : PackedStringArray
-		var items := get_items()
+		var items := _get_option_items()
 		var entry := EditManager.get_grammar_entry()
 		for i in items.size():
 			var chapter := entry.get_chapter(items[i]) as GrammarStringChapter
@@ -91,7 +96,23 @@ func get_option_items() -> PackedStringArray:
 			res.append_array(chapter.get_items())
 		return res
 	else:
-		return get_items()
+		return _get_option_items()
+## 如果是选项，获取其补全项目的显示文本。
+func get_option_displays() -> PackedStringArray:
+	if is_option_using_entry():
+		var res : PackedStringArray
+		var items := _get_option_items()
+		var entry := EditManager.get_grammar_entry()
+		for i in items.size():
+			var chapter := entry.get_chapter(items[i]) as GrammarStringChapter
+			if chapter == null:
+				push_error("Not has chapter \"%s\"" % items[i])
+				continue
+			res.append_array(chapter.get_displays())
+		return res
+	else:
+		return _get_option_displays()
+
 
 ## 如果是点号路径，获取它的章节名称。
 func get_point_path_chapter_name() -> String:
@@ -140,3 +161,10 @@ func _get_param_backet_rule_name() -> String:
 ## 获取自定义数据。
 func get_custom() -> Variant:
 	return data_main[META_CUSTOM] if data_main.has(META_CUSTOM) else null
+
+# 获取选项物体的物体。
+func _get_option_items() -> PackedStringArray:
+	return data_main[META_ITEMS][_ITEMS_OPTION_ITEMS]
+# 获取选项物体的显示。
+func _get_option_displays() -> PackedStringArray:
+	return data_main[META_ITEMS][_ITEMS_OPTION_DISPLAYS]

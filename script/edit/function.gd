@@ -1,6 +1,8 @@
 class_name FunctionEdit
 extends CustomCodeEdit
 ## 函数编辑器。
+##
+## 补全的插入有改动，如果 [code]display_text[/code] 为空，则显示 [code]insert_text[/code]。
 
 ## 默认双击映射。
 const DEFAULT_DOUBLE_INPUT_MAP : Dictionary[String, String] = {
@@ -24,8 +26,8 @@ var grammar : Grammar
 @export_group("code_expleation")
 ## 最大补全提示数量。
 @export var max_code_expleation := 64
-## 如果为 [code]true[/code]，命令空间补全会包含空间名。
-@export var spaceitem_expleation_included_space := true
+## 补全设置。
+@export var completion_setting := FunctionCompletionSetting.new()
 
 # 对于补全指令头用的补全数据。
 static var _code_completion_head_data : FunctionCompletionData
@@ -101,18 +103,26 @@ func _filter_code_completion_candidates(candidates: Array[Dictionary]) -> Array[
 	var line := get_caret_line()
 	var line_text := get_line(line)
 	
+	var using_hint_word := completion_setting.using_hint_word_weight
 	var result_simlarities : PackedInt32Array
 	var results : Array[Dictionary]
 	for i in candidates.size():
 		var data := candidates[i]
-		var result := FunctionCompletionData.get_weight(line_text, column, data)
-		var index := result_simlarities.bsearch(result)
-		result_simlarities.insert(index, result)
+		var weight := FunctionCompletionData.get_weight(line_text, column, data, using_hint_word)
+		
+		var index := result_simlarities.bsearch(weight)
+		result_simlarities.insert(index, weight)
 		results.insert(index, data)
 	
 	if results.size() > max_code_expleation:
 		results = results.slice(results.size() - max_code_expleation)
 	results.reverse()
+	
+	var disabled_hint_word := not completion_setting.showing_hint_word
+	for result : Dictionary in results:
+		var display : String = result["display_text"]
+		var insert : String = result["insert_text"]
+		result["display_text"] = insert if disabled_hint_word or display.is_empty() else insert + "   (" + display + ")"
 	return results
 
 func _confirm_code_completion(_replace: bool) -> void:
@@ -165,46 +175,48 @@ func _ready_test() -> void:
 #endregion
 
 ## 获取高亮颜色。
-func get_highlight_color(color_name : String) -> Color:
+func get_highlight_color(color_name : StringName) -> Color:
 	match color_name:
-		"default" : return color_default
-		"key_word" : return color_key_word
-		"number" : return color_number
-		"member" : return color_member
-		"point_path_mumber" : return color_point_path_mumber
-		"option" : return color_option
-		"error_option" : return color_error_option
-		"bool" : return color_bool
-		"selector" : return color_selector
-		"space" : return color_space
-		"stringname" : return color_stringname
-		"special" : return color_special
-		"string" : return color_string
-		"coord_x" : return color_coord_x
-		"coord_y" : return color_coord_y
-		"coord_z" : return color_coord_z
+		&"default" : return color_default
+		&"annotation" : return color_annotation
+		&"key_word" : return color_key_word
+		&"number" : return color_number
+		&"member" : return color_member
+		&"point_path_mumber" : return color_point_path_mumber
+		&"option" : return color_option
+		&"error_option" : return color_error_option
+		&"bool" : return color_bool
+		&"selector" : return color_selector
+		&"space" : return color_space
+		&"stringname" : return color_stringname
+		&"special" : return color_special
+		&"string" : return color_string
+		&"coord_x" : return color_coord_x
+		&"coord_y" : return color_coord_y
+		&"coord_z" : return color_coord_z
 		_:
 			push_error("Not has the color \"%s\"." % [color_name])
 			return Color()
 ## 设置高亮颜色。
-func set_highlight_color(color_name : String, color : Color) -> void:
+func set_highlight_color(color_name : StringName, color : Color) -> void:
 	match color_name :
-		"default" : color_default = color
-		"key_word" : color_key_word = color
-		"number" : color_number = color
-		"member" : color_member = color
-		"point_path_mumber" : color_point_path_mumber = color
-		"option" : color_option = color
-		"error_option" : color_error_option = color
-		"bool" : color_bool = color
-		"selector" : color_selector = color
-		"space" : color_space = color
-		"stringname" : color_stringname = color
-		"special" : color_special = color
-		"string" : color_string = color
-		"coord_x" : color_coord_x = color
-		"coord_y" : color_coord_y = color
-		"coord_z" : color_coord_z = color
+		&"default" : color_default = color
+		&"annotation" : color_annotation = color
+		&"key_word" : color_key_word = color
+		&"number" : color_number = color
+		&"member" : color_member = color
+		&"point_path_mumber" : color_point_path_mumber = color
+		&"option" : color_option = color
+		&"error_option" : color_error_option = color
+		&"bool" : color_bool = color
+		&"selector" : color_selector = color
+		&"space" : color_space = color
+		&"stringname" : color_stringname = color
+		&"special" : color_special = color
+		&"string" : color_string = color
+		&"coord_x" : color_coord_x = color
+		&"coord_y" : color_coord_y = color
+		&"coord_z" : color_coord_z = color
 		_:
 			push_error("Not has the color \"%s\"." % [color_name])
 
@@ -251,6 +263,7 @@ func get_command_cmd_list(id : int, line : int, column : int, length := 501) -> 
 #endregion
 
 func set_function_text(value : String) -> void:
+	clear_undo_history()
 	command_elements.clear()
 	var count = value.count("\n") + 1
 	reset_line_ids(count)

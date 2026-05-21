@@ -1,6 +1,7 @@
 class_name FileSystemWindow
 extends Window
 ## 文件系统窗口。
+# 想做复制和移动那些功能的，费力，算了。
 
 @warning_ignore("unused_signal")
 ## 打开文件。

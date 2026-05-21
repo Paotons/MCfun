@@ -41,7 +41,8 @@ static func get_precast_code_completion_data(_column : int, rule : ElementRule, 
 	data.hint_string = "<%s : space_item>" % [rule.get_description()]
 	if entry.has_chapter(chapter_name):
 		var chapter := entry.get_chapter(chapter_name) as GrammarSpaceItemChapter
-		data.insert_texts.append_array(chapter.get_items(EditManager.get_edit().spaceitem_expleation_included_space))
+		data.insert_texts.append_array(chapter.get_items(EditManager.get_completion_setting().spaceitem_included_space))
+		data.display_texts.append_array(chapter.get_displays())
 		data.fill_insert_mode(FunctionCompletionData.InsertMode.SPACEITEM)
 	return data
 func _get_column_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
@@ -51,7 +52,8 @@ func _get_column_code_completion_data(_column : int, rule : ElementRule, _comman
 	data.hint_string = "<%s : space_item>" % [rule.get_description()]
 	if entry.has_chapter(chapter_name):
 		var chapter := entry.get_chapter(chapter_name) as GrammarSpaceItemChapter
-		data.insert_texts.append_array(chapter.get_items(EditManager.get_edit().spaceitem_expleation_included_space))
+		data.insert_texts.append_array(chapter.get_items(EditManager.get_completion_setting().spaceitem_included_space))
+		data.display_texts.append_array(chapter.get_displays())
 		data.fill_insert_mode(FunctionCompletionData.InsertMode.SPACEITEM)
 	return data
 

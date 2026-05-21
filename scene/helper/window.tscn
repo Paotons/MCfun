@@ -98,6 +98,8 @@ func _on_meta_clicked(meta: Variant) -> void:
 			return
 		MetaType.GOTO_FILE:
 			goto_file.emit(value[\"file\"])
+		MetaType.GOTO_HTTP:
+			OS.shell_open(value[\"http\"])
 "
 
 [node name="HelperWindow" type="AcceptDialog" unique_id=1477635680]

@@ -63,7 +63,7 @@ func supple() -> void:
 	arr.fill(CodeEdit.CodeCompletionKind.KIND_MEMBER)
 	kinds.append_array(arr)
 	
-	display_texts.append_array(insert_texts.slice(display_texts.size(), size_))
+	display_texts.resize(size_)
 	
 	arr.resize(size_ - text_colors.size())
 	arr.fill(Color.WHITE)
@@ -99,4 +99,12 @@ func add_data(data : CodeCompletionData) -> void:
 ## 如果字典是补全字典，返回 [code]true[/code]。
 static func is_code_completion_data(dict : Dictionary) -> bool:
 	return dict.has_all(["kind", "display_text", "insert_text", "font_color", "icon", "location", "default_value"])
+
+## 获取变量。
+func get_value(idx : int) -> CodeCompletionDataValue:
+	idx = insert_texts.size() + idx if idx < 0 else idx
+	
+	if values.size() <= idx:
+		values.resize(idx + 1)
+	return values[idx]
 

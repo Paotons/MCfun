@@ -24,14 +24,15 @@ func _compile(data : Variant) -> void:
 		return
 	
 	for chapter_name : String in data:
-		_compiled_chapter(from[chapter_name], chapter_name, "%s[%s]" % [entry_name, chapter_name])
+		if not _compiled_chapter(from[chapter_name], chapter_name, "%s[%s]" % [entry_name, chapter_name]):
+			return
 	_set_is_valid(true)
 
 ## 解析章节。
-func _compiled_chapter(from : Dictionary, key : String, name : String) -> void:
+func _compiled_chapter(from : Dictionary, key : String, name : String) -> bool:
 	var to : Dictionary
 	if not _compile_chapter_type(from, to, name):
-		return
+		return false
 	
 	var type := to[GrammarChapter.ChapterMeta.TYPE] as int
 	
@@ -48,10 +49,11 @@ func _compiled_chapter(from : Dictionary, key : String, name : String) -> void:
 	
 	if not obj.is_valid():
 		errors = obj.errors
-		return
+		return false
 	
 	to.merge(obj.get_result())
 	compiled_result[key] = to
+	return true
 
 # 解析章节类型，成功返回 [code]true[/code]，失败报错并返回 [code]false[/code]。
 func _compile_chapter_type(from : Dictionary, to : Dictionary, name : String) -> bool:

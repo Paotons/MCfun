@@ -315,18 +315,23 @@ func _set_grammar(files : _Files) -> PackedStringArray:
 
 func _set_grammar_doer(index : int, files : _Files, compiler_data : GrammarCompilerData) -> PackedStringArray:
 	var obj : GrammarCompiler
-	var data : Dictionary
+	var path : String
+	var data : Variant
 	
 	match index:
 		0 :
 			obj = GrammarProcessCompiler.new()
-			data = JSON.parse_string(FileAccess.get_file_as_string(directory_path.path_join(files.main_process)))
+			path = directory_path.path_join(files.main_process)
 		1 :
 			obj = GrammarLawCompiler.new()
-			data = JSON.parse_string(FileAccess.get_file_as_string(directory_path.path_join(files.law)))
+			path = directory_path.path_join(files.law)
 		2 :
 			obj = GrammarEntryCompiler.new()
-			data = JSON.parse_string(FileAccess.get_file_as_string(directory_path.path_join(files.entry)))
+			path = directory_path.path_join(files.entry)
+	data = JSON.parse_string(FileAccess.get_file_as_string(path))
+	if data == null or not data is Dictionary:
+		return ["%s not is vaild json." % path]
+	
 	obj.compiler_data = compiler_data
 	
 	GrammarCompiler.dictionary_file_replace(data, directory_path)

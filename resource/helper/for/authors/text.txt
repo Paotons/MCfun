@@ -1,0 +1,9 @@
+[title]作者[/title]
+
+[b]创始人：[/b]泡桐树(Paotons)
+
+[title]特别感谢[/title]
+
+[b]Mojang[/b] 创造了游戏主体
+
+[b]Godot[/b] 提供了引擎

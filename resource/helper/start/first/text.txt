@@ -48,7 +48,7 @@
 找到你的地图，一般都是[code]/storage/emulated/0/Android/data/com.mojang.minecraftpe/files/games/com.mojang/minecraftWorlds/[/code]目录中。可根据里面的截图或者[code]levelname.txt[/code]进行判断地图名称。
 找到地图将压缩包解压到[code]behavior_packs[/code]目录，就算成功。
 
-[b]注意：[/b]网易行为包可能在软件内部，不可使用。需要手动复制到指令方块，使用指令帮手 [file tool/coper] 可以帮助你快速复制函数中的指令。
+[b]注意：[/b]网易行为包可能在软件内部，不可使用。需要手动复制到指令方块，使用 [file tool/coper]复制帮手[/file] 可以帮助你快速复制函数中的指令。
 
 [title]激活行为包[/title]
 

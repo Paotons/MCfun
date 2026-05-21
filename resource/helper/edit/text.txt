@@ -1,1 +1,1 @@
-设置：[file edit/setting]
+[file edit/setting]编辑器设置[/file]

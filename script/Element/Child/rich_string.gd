@@ -17,8 +17,8 @@ var flag_types : Array[FlagType]
 ## 对于风格符补全数据。
 static var STYLE_FLAG_CODE_COMPLETION_DATA : FunctionCompletionData
 
+# 这些映射表由 DeepSeek 生成，有问题怪它。
 # 风格符后面的字符对应的颜色。
-# 由 DeepSeek 生成，有问题找它。
 const _STYLE_FLAG_COLOR_MAP : Dictionary[int, Color] = {
 	# 数字
 	0x30: Color(0, 0, 0),        # '0' black

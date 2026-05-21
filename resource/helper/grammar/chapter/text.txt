@@ -1,8 +1,8 @@
 [title]描述[/title]
 
-是列表 [file grammar/entry] 中的各种元素。
+是列表 [file grammar/entry]语法>>章类[/file] 中的各种元素。
 
 [title]V1[/title]
-表示普通字符串的 [file grammar/chapter/string]
-表示 [code]minecraft:apple[/code] 的 [file grammar/chapter/spaceitem]
-表示 [code]mob.zombile.hit[/code] 的 [file grammar/chapter/path]
+表示普通字符串的 [file grammar/chapter/string]语法>>章类>>字符串[/file]
+表示 [code]minecraft:apple[/code] 的 [file grammar/chapter/spaceitem]语法>>章类>>空间物品[/file]
+表示 [code]mob.zombile.hit[/code] 的 [file grammar/chapter/path]语法>>章类>>路径[/file]

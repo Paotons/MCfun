@@ -1,6 +1,6 @@
 [title]描述[/title]
 
-用于列表 [file grammar/entry] 表示路径的分类。
+用于列表 [file grammar/entry]语法>>列表[/file] 表示路径的分类。
 
 [title]V1[/title]
 
