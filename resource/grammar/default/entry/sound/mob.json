@@ -1,676 +1,676 @@
 {
-	"agent" : {
-		"spawn" : false
-	},
-	"armor_stand" : {
-		"break" : false,
-		"hit" : false,
-		"land" : false,
-		"place" : false
-	},
-	"axolotl" : {
-		"attack" : false,
-		"death" : false,
-		"eat" : false,
-		"flop" : false,
-		"hurt" : false,
-		"idle" : false,
-		"idle_water" : false,
-		"splash" : false,
-		"swim" : false
-	},
-	"bat" : {
-		"death" : false,
-		"hurt" : false,
-		"idle" : false,
-		"loop" : false,
-		"takeoff" : false
-	},
-	"bee" : {
-		"aggressive" : false,
-		"death" : false,
-		"hurt" : false,
-		"idle" : false,
-		"loop" : false,
-		"pollinate" : false,
-		"sting" : false
-	},
-	"blaze" : {
-		"breathe" : false,
-		"death" : false,
-		"hit" : false,
-		"idle" : false,
-		"shoot" : false
-	},
-	"cat" : {
-		"beg" : false,
-		"death" : false,
-		"eat" : false,
-		"hiss" : false,
-		"hit" : false,
-		"idle" : false,
-		"meow" : false,
-		"purreow" : false,
-		"purr" : false,
-		"scream" : false,
-		"stray_meow" : false
-	},
-	"chicken" : {
-		"ambient" : false,
-		"death" : false,
-		"egg" : false,
-		"hurt" : false,
-		"plop" : false,
-		"step" : false
-	},
-	"cod" : {
-		"death" : false,
-		"flop" : false,
-		"hurt" : false,
-		"idle" : false
-	},
-	"cow" : {
-		"death" : false,
-		"hurt" : false,
-		"idle" : false,
-		"milk" : false,
-		"step" : false
-	},
-	"creeper" : {
-		"death" : false,
-		"primed" : false
-	},
-	"dolphin" : {
-		"attack" : false,
-		"death" : false,
-		"eat" : false,
-		"hurt" : false,
-		"idle" : false,
-		"jump" : false,
-		"play" : false,
-		"splash" : false,
-		"swim" : false
-	},
-	"donkey" : {
-		"angry" : false,
-		"death" : false,
-		"eat" : false,
-		"hurt" : false,
-		"idle" : false
-	},
-	"drowned" : {
-		"ambient" : false,
-		"ambient_water" : false,
-		"death" : false,
-		"death_water" : false,
-		"hurt" : false,
-		"hurt_water" : false,
-		"shoot" : false,
-		"step" : false,
-		"swim" : false
-	},
-	"elder_guardian" : {
-		"ambient" : false,
-		"curse" : false,
-		"death" : false,
-		"flop" : false,
-		"hit" : false,
-		"idle" : false
-	},
-	"ender_dragon" : {
-		"death" : false,
-		"flap" : false,
-		"growl" : false,
-		"hit" : false
-	},
-	"enderman" : {
-		"ambient" : false,
-		"death" : false,
-		"hit" : false,
-		"scream" : false,
-		"stare" : false,
-		"teleport" : false
-	},
-	"endermite" : {
-		"ambient" : false,
-		"death" : false,
-		"hit" : false,
-		"step" : false
-	},
-	"evoker" : {
-		"ambient" : false,
-		"cast_spell" : false,
-		"celebrate" : false,
-		"death" : false,
-		"hurt" : false,
-		"prepare_attack" : false,
-		"prepare_summon" : false,
-		"prepare_wololo" : false
-	},
-	"fish" : {
-		"ambient" : false,
-		"death" : false,
-		"flop" : false,
-		"hurt" : false,
-		"step" : false
-	},
-	"fox" : {
-		"aggro" : false,
-		"ambient" : false,
-		"bite" : false,
-		"death" : false,
-		"eat" : false,
-		"hurt" : false,
-		"sleep" : false,
-		"sniff" : false,
-		"spit" : false,
-		"teleport" : false
-	},
-	"frog" : {
-		"ambient" : false,
-		"death" : false,
-		"eat" : false,
-		"hurt" : false,
-		"jump_to_block" : false,
-		"lay_spawn" : false,
-		"tongue" : false
-	},
-	"ghast" : {
-		"affectionate_scream" : false,
-		"charge" : false,
-		"death" : false,
-		"fireball" : false,
-		"hurt" : false,
-		"moan" : false,
-		"scream" : false
-	},
-	"glow_squid" : {
-		"ambient" : false,
-		"death" : false,
-		"hurt" : false,
-		"squirt" : false
-	},
-	"goat" : {
-		"ambient" : false,
-		"death" : false,
-		"eat" : false,
-		"horn_break" : false,
-		"hurt" : false,
-		"milk" : false,
-		"prepare_ram" : false,
-		"ram_impact" : false,
-		"screaming.ambient" : false,
-		"screaming.death" : false,
-		"screaming.eat" : false,
-		"screaming.hurt" : false,
-		"screaming.milk" : false,
-		"screaming.prepare_ram" : false,
-		"screaming.ram_impact" : false,
-		"step" : false
-	},
-	"guardian" : {
-		"ambient" : false,
-		"attack" : false,
-		"death" : false,
-		"flop" : false,
-		"hit" : false,
-		"land" : false,
-		"swim" : false
-	},
-	"hoglin" : {
-		"ambient" : false,
-		"angry" : false,
-		"attack" : false,
-		"death" : false,
-		"hurt" : false,
-		"retreat" : false,
-		"step" : false
-	},
-	"horse" : {
-		"angry" : false,
-		"armor" : false,
-		"breathe" : false,
-		"death" : false,
-		"eat" : false,
-		"gallop" : false,
-		"hurt" : false,
-		"idle" : false,
-		"jump" : false,
-		"land" : false,
-		"saddle" : false,
-		"step" : false,
-		"step_lava" : false,
-		"step_wood" : false
-	},
-	"husk" : {
-		"ambient" : false,
-		"death" : false,
-		"hurt" : false,
-		"step" : false
-	},
-	"iron_golem" : {
-		"attack" : false,
-		"damage" : false,
-		"death" : false,
-		"hurt" : false,
-		"repair" : false,
-		"step" : false,
-		"walk" : false
-	},
-	"llama" : {
-		"ambient" : false,
-		"anger" : false,
-		"chest" : false,
-		"death" : false,
-		"eat" : false,
-		"hurt" : false,
-		"spit" : false,
-		"step" : false,
-		"swag" : false
-	},
-	"magma_cube" : {
-		"big" : {
-			"hurt" : false,
-			"idle" : false,
-			"jump" : false
-		},
-		"death" : false,
-		"hurt" : false,
-		"idle" : false,
-		"jump" : false,
-		"small" : {
-			"hurt" : false,
-			"idle" : false,
-			"jump" : false
-		},
-		"squish" : {
-			"big" : false,
-			"small" : false
-		}
-	},
-	"mooshroom" : {
-		"ambient" : false,
-		"convert" : false,
-		"death" : false,
-		"eat" : false,
-		"hurt" : false,
-		"milk" : false,
-		"suspicious_milk" : false
-	},
-	"mule" : {
-		"ambient" : false,
-		"chest" : false,
-		"death" : false,
-		"hurt" : false
-	},
-	"npclegacy" : {
-		"death" : false,
-		"hurt" : false,
-		"idle" : false
-	},
-	"ocelot" : {
-		"ambient" : false,
-		"death" : false,
-		"hurt" : false
-	},
-	"panda" : {
-		"aggressive_ambient" : false,
-		"aggressive_bite" : false,
-		"ambient" : false,
-		"bleat" : false,
-		"cant_breed" : false,
-		"death" : false,
-		"eat" : false,
-		"hurt" : false,
-		"idle" : false,
-		"layer_bite" : false,
-		"pre_sneeze" : false,
-		"sneeze" : false,
-		"step" : false,
-		"worried_ambient" : false
-	},
-	"parrot" : {
-		"ambient" : false,
-		"death" : false,
-		"eat" : false,
-		"fly" : false,
-		"hurt" : false,
-		"idle" : false,
-		"step" : false
-	},
-	"phantom" : {
-		"ambient" : false,
-		"bite" : false,
-		"death" : false,
-		"flap" : false,
-		"hurt" : false,
-		"swoop" : false
-	},
-	"pig" : {
-		"ambient" : false,
-		"boar" : {
-			"ambient" : false,
-			"death" : false,
-			"hurt" : false
-		},
-		"death" : false,
-		"hurt" : false,
-		"saddle" : false,
-		"step" : false
-	},
-	"piglin" : {
-		"ambient" : false,
-		"angry" : false,
-		"celebrate" : false,
-		"converted_to_zombified" : false,
-		"death" : false,
-		"hurt" : false,
-		"jealous" : false,
-		"retreat" : false,
-		"step" : false
-	},
-	"piglin_brute" : {
-		"ambient" : false,
-		"angry" : false,
-		"death" : false,
-		"hurt" : false,
-		"step" : false
-	},
-	"pillager" : {
-		"ambient" : false,
-		"celebrate" : false,
-		"death" : false,
-		"hurt" : false
-	},
-	"polar_bear" : {
-		"ambient" : false,
-		"ambient_baby" : false,
-		"death" : false,
-		"hurt" : false,
-		"step" : false,
-		"warning" : false
-	},
-	"pufferfish" : {
-		"ambient" : false,
-		"death" : false,
-		"flop" : false,
-		"hurt" : false,
-		"sting" : false
-	},
-	"rabbit" : {
-		"ambient" : false,
-		"attack" : false,
-		"death" : false,
-		"hurt" : false,
-		"jump" : false
-	},
-	"ravager" : {
-		"ambient" : false,
-		"attack" : false,
-		"celebrate" : false,
-		"death" : false,
-		"hurt" : false,
-		"roar" : false,
-		"step" : false,
-		"stun" : false
-	},
-	"salmon" : {
-		"death" : false,
-		"flop" : false,
-		"hurt" : false,
-		"idle" : false
-	},
-	"sheep" : {
-		"ambient" : false,
-		"death" : false,
-		"hurt" : false,
-		"shear" : false,
-		"step" : false
-	},
-	"shulker" : {
-		"ambient" : false,
-		"close" : false,
-		"death" : false,
-		"hurt" : false,
-		"open" : false,
-		"shoot" : false,
-		"teleport" : false
-	},
-	"silverfish" : {
-		"ambient" : false,
-		"death" : false,
-		"hit" : false,
-		"step" : false
-	},
-	"skeleton" : {
-		"ambient" : false,
-		"converted_to_stray" : false,
-		"death" : false,
-		"hurt" : false,
-		"step" : false
-	},
-	"skeleton_horse" : {
-		"ambient" : false,
-		"death" : false,
-		"hurt" : false,
-		"swim" : false
-	},
-	"slime" : {
-		"attack" : false,
-		"big" : {
-			"hurt" : false,
-			"idle" : false,
-			"jump" : false
-		},
-		"death" : false,
-		"hurt" : false,
-		"idle" : false,
-		"jump" : false,
-		"small" : {
-			"hurt" : false,
-			"idle" : false,
-			"jump" : false
-		},
-		"squish" : {
-			"big" : false,
-			"small" : false
-		}
-	},
-	"sniffer" : {
-		"death" : false,
-		"digging" : false,
-		"drop_seed" : false,
-		"eat" : false,
-		"happy" : false,
-		"hurt" : false,
-		"idle" : false,
-		"searching" : false,
-		"sniffsniff" : false,
-		"stand_up" : false,
-		"step" : false
-	},
-	"snow_golem" : {
-		"ambient" : false,
-		"death" : false,
-		"hurt" : false,
-		"shoot" : false
-	},
-	"spider" : {
-		"ambient" : false,
-		"death" : false,
-		"hurt" : false,
-		"step" : false
-	},
-	"squid" : {
-		"ambient" : false,
-		"death" : false,
-		"hurt" : false,
-		"squirt" : false
-	},
-	"stray" : {
-		"ambient" : false,
-		"death" : false,
-		"hurt" : false,
-		"step" : false
-	},
-	"strider" : {
-		"death" : false,
-		"eat" : false,
-		"hurt" : false,
-		"idle" : false,
-		"step" : false,
-		"step_lava" : false,
-		"temper" : false
-	},
-	"tadpole" : {
-		"death" : false,
-		"flop" : false,
-		"grow_up" : false,
-		"hurt" : false
-	},
-	"tropicalfish" : {
-		"death" : false,
-		"flop" : false,
-		"hurt" : false,
-		"idle" : false
-	},
-	"turtle" : {
-		"ambient" : false,
-		"ambient_baby" : false,
-		"death" : false,
-		"death_baby" : false,
-		"egg_break" : false,
-		"egg_click" : false,
-		"egg_crack" : false,
-		"egg_hatch" : false,
-		"hurt" : false,
-		"hurt_baby" : false,
-		"lay_egg" : false,
-		"swim" : false
-	},
-	"vex" : {
-		"ambient" : false,
-		"charge" : false,
-		"death" : false,
-		"hurt" : false
-	},
-	"villager" : {
-		"ambient" : false,
-		"celebrate" : false,
-		"death" : false,
-		"hit" : false,
-		"no" : false,
-		"trade" : false,
-		"yes" : false
-	},
-	"vindicator" : {
-		"ambient" : false,
-		"celebrate" : false,
-		"death" : false,
-		"hurt" : false
-	},
-	"wan" : {
-		"death" : false,
-		"hurt" : false
-	},
-	"warden" : {
-		"agitated" : false,
-		"angry" : false,
-		"attack" : false,
-		"attack_impact" : false,
-		"death" : false,
-		"digging" : false,
-		"emerging" : false,
-		"heartbeat" : false,
-		"hurt" : false,
-		"idle" : false,
-		"listening" : false,
-		"listening_angry" : false,
-		"nearby_close" : false,
-		"nearby_closer" : false,
-		"nearby_closest" : false,
-		"roar" : false,
-		"sniff" : false,
-		"slightly_angry" : false,
-		"sonic_boom" : false,
-		"sonic_charge" : false,
-		"step" : false,
-		"tendril_clicks" : false
-	},
-	"witch" : {
-		"ambient" : false,
-		"celebrate" : false,
-		"death" : false,
-		"drink" : false,
-		"hurt" : false,
-		"throw" : false
-	},
-	"wither" : {
-		"ambient" : false,
-		"break_block" : false,
-		"death" : false,
-		"hurt" : false,
-		"shoot" : false,
-		"spawn" : false,
-		"step" : false
-	},
-	"wither_skeleton" : {
-		"ambient" : false,
-		"death" : false,
-		"hurt" : false,
-		"step" : false
-	},
-	"wolf" : {
-		"ambient" : false,
-		"death" : false,
-		"growl" : false,
-		"howl" : false,
-		"hurt" : false,
-		"pant" : false,
-		"shake" : false,
-		"step" : false,
-		"whine" : false
-	},
-	"zoglin" : {
-		"ambient" : false,
-		"angry" : false,
-		"attack" : false,
-		"death" : false,
-		"hurt" : false,
-		"step" : false
-	},
-	"zombie" : {
-		"ambient" : false,
-		"break_door_metal" : false,
-		"break_door_wood" : false,
-		"converted_to_drowned" : false,
-		"death" : false,
-		"hurt" : false,
-		"infect" : false,
-		"step" : false,
-		"villager_ambient" : false,
-		"villager_converted" : false,
-		"villager_death" : false,
-		"villager_hurt" : false,
-		"wood_break" : false
-	},
-	"zombie_horse" : {
-		"ambient" : false,
-		"death" : false,
-		"hurt" : false
-	},
-	"zombie_pigman" : {
-		"ambient" : false,
-		"angry" : false,
-		"death" : false,
-		"hurt" : false
-	},
-	"zombie_villager" : {
-		"ambient" : false,
-		"convert" : false,
-		"cure" : false,
-		"death" : false,
-		"hurt" : false,
-		"step" : false
-	}
+    "agent" : {
+        "spawn" : "特工生成"
+    },
+    "armor_stand" : {
+        "break" : "盔甲架被破坏",
+        "hit" : "盔甲架被击打",
+        "land" : "盔甲架落地",
+        "place" : "盔甲架被放置"
+    },
+    "axolotl" : {
+        "attack" : "美西螈攻击",
+        "death" : "美西螈死亡",
+        "eat" : "美西螈进食",
+        "flop" : "美西螈扑腾",
+        "hurt" : "美西螈受伤",
+        "idle" : "美西螈空闲",
+        "idle_water" : "美西螈水中空闲",
+        "splash" : "美西螈溅水",
+        "swim" : "美西螈游泳"
+    },
+    "bat" : {
+        "death" : "蝙蝠死亡",
+        "hurt" : "蝙蝠受伤",
+        "idle" : "蝙蝠空闲",
+        "loop" : "蝙蝠循环音效",
+        "takeoff" : "蝙蝠起飞"
+    },
+    "bee" : {
+        "aggressive" : "蜜蜂攻击状态",
+        "death" : "蜜蜂死亡",
+        "hurt" : "蜜蜂受伤",
+        "idle" : "蜜蜂空闲",
+        "loop" : "蜜蜂循环音效",
+        "pollinate" : "蜜蜂授粉",
+        "sting" : "蜜蜂蜇人"
+    },
+    "blaze" : {
+        "breathe" : "烈焰人呼吸",
+        "death" : "烈焰人死亡",
+        "hit" : "烈焰人被击打",
+        "idle" : "烈焰人空闲",
+        "shoot" : "烈焰人射击"
+    },
+    "cat" : {
+        "beg" : "猫乞讨",
+        "death" : "猫死亡",
+        "eat" : "猫进食",
+        "hiss" : "猫嘶嘶声",
+        "hit" : "猫被击打",
+        "idle" : "猫空闲",
+        "meow" : "猫喵喵叫",
+        "purreow" : "猫呼噜喵",
+        "purr" : "猫呼噜声",
+        "scream" : "猫尖叫",
+        "stray_meow" : "流浪猫喵叫"
+    },
+    "chicken" : {
+        "ambient" : "鸡环境音",
+        "death" : "鸡死亡",
+        "egg" : "鸡下蛋",
+        "hurt" : "鸡受伤",
+        "plop" : "鸡扑通声",
+        "step" : "鸡脚步声"
+    },
+    "cod" : {
+        "death" : "鳕鱼死亡",
+        "flop" : "鳕鱼扑腾",
+        "hurt" : "鳕鱼受伤",
+        "idle" : "鳕鱼空闲"
+    },
+    "cow" : {
+        "death" : "牛死亡",
+        "hurt" : "牛受伤",
+        "idle" : "牛空闲",
+        "milk" : "牛挤奶",
+        "step" : "牛脚步声"
+    },
+    "creeper" : {
+        "death" : "苦力怕死亡",
+        "primed" : "苦力怕引爆"
+    },
+    "dolphin" : {
+        "attack" : "海豚攻击",
+        "death" : "海豚死亡",
+        "eat" : "海豚进食",
+        "hurt" : "海豚受伤",
+        "idle" : "海豚空闲",
+        "jump" : "海豚跳跃",
+        "play" : "海豚玩耍",
+        "splash" : "海豚溅水",
+        "swim" : "海豚游泳"
+    },
+    "donkey" : {
+        "angry" : "驴愤怒",
+        "death" : "驴死亡",
+        "eat" : "驴进食",
+        "hurt" : "驴受伤",
+        "idle" : "驴空闲"
+    },
+    "drowned" : {
+        "ambient" : "溺尸环境音",
+        "ambient_water" : "溺尸水中环境音",
+        "death" : "溺尸死亡",
+        "death_water" : "溺尸水中死亡",
+        "hurt" : "溺尸受伤",
+        "hurt_water" : "溺尸水中受伤",
+        "shoot" : "溺尸射击",
+        "step" : "溺尸脚步声",
+        "swim" : "溺尸游泳"
+    },
+    "elder_guardian" : {
+        "ambient" : "远古守卫者环境音",
+        "curse" : "远古守卫者诅咒",
+        "death" : "远古守卫者死亡",
+        "flop" : "远古守卫者扑腾",
+        "hit" : "远古守卫者被击打",
+        "idle" : "远古守卫者空闲"
+    },
+    "ender_dragon" : {
+        "death" : "末影龙死亡",
+        "flap" : "末影龙振翅",
+        "growl" : "末影龙咆哮",
+        "hit" : "末影龙被击打"
+    },
+    "enderman" : {
+        "ambient" : "末影人环境音",
+        "death" : "末影人死亡",
+        "hit" : "末影人被击打",
+        "scream" : "末影人尖叫",
+        "stare" : "末影人凝视",
+        "teleport" : "末影人瞬移"
+    },
+    "endermite" : {
+        "ambient" : "末影螨环境音",
+        "death" : "末影螨死亡",
+        "hit" : "末影螨被击打",
+        "step" : "末影螨脚步声"
+    },
+    "evoker" : {
+        "ambient" : "唤魔者环境音",
+        "cast_spell" : "唤魔者施法",
+        "celebrate" : "唤魔者庆祝",
+        "death" : "唤魔者死亡",
+        "hurt" : "唤魔者受伤",
+        "prepare_attack" : "唤魔者准备攻击",
+        "prepare_summon" : "唤魔者准备召唤",
+        "prepare_wololo" : "唤魔者准备变色"
+    },
+    "fish" : {
+        "ambient" : "鱼环境音",
+        "death" : "鱼死亡",
+        "flop" : "鱼扑腾",
+        "hurt" : "鱼受伤",
+        "step" : "鱼脚步声"
+    },
+    "fox" : {
+        "aggro" : "狐狸挑衅",
+        "ambient" : "狐狸环境音",
+        "bite" : "狐狸撕咬",
+        "death" : "狐狸死亡",
+        "eat" : "狐狸进食",
+        "hurt" : "狐狸受伤",
+        "sleep" : "狐狸睡觉",
+        "sniff" : "狐狸嗅闻",
+        "spit" : "狐狸吐口水",
+        "teleport" : "狐狸瞬移"
+    },
+    "frog" : {
+        "ambient" : "青蛙环境音",
+        "death" : "青蛙死亡",
+        "eat" : "青蛙进食",
+        "hurt" : "青蛙受伤",
+        "jump_to_block" : "青蛙跳向方块",
+        "lay_spawn" : "青蛙产卵",
+        "tongue" : "青蛙舌头"
+    },
+    "ghast" : {
+        "affectionate_scream" : "恶魂亲昵尖叫",
+        "charge" : "恶魂充能",
+        "death" : "恶魂死亡",
+        "fireball" : "恶魂火球",
+        "hurt" : "恶魂受伤",
+        "moan" : "恶魂呻吟",
+        "scream" : "恶魂尖叫"
+    },
+    "glow_squid" : {
+        "ambient" : "发光鱿鱼环境音",
+        "death" : "发光鱿鱼死亡",
+        "hurt" : "发光鱿鱼受伤",
+        "squirt" : "发光鱿鱼喷墨"
+    },
+    "goat" : {
+        "ambient" : "山羊环境音",
+        "death" : "山羊死亡",
+        "eat" : "山羊进食",
+        "horn_break" : "山羊角折断",
+        "hurt" : "山羊受伤",
+        "milk" : "山羊挤奶",
+        "prepare_ram" : "山羊准备冲撞",
+        "ram_impact" : "山羊冲撞击中",
+        "screaming.ambient" : "尖叫山羊环境音",
+        "screaming.death" : "尖叫山羊死亡",
+        "screaming.eat" : "尖叫山羊进食",
+        "screaming.hurt" : "尖叫山羊受伤",
+        "screaming.milk" : "尖叫山羊挤奶",
+        "screaming.prepare_ram" : "尖叫山羊准备冲撞",
+        "screaming.ram_impact" : "尖叫山羊冲撞击中",
+        "step" : "山羊脚步声"
+    },
+    "guardian" : {
+        "ambient" : "守卫者环境音",
+        "attack" : "守卫者攻击",
+        "death" : "守卫者死亡",
+        "flop" : "守卫者扑腾",
+        "hit" : "守卫者被击打",
+        "land" : "守卫者落地",
+        "swim" : "守卫者游泳"
+    },
+    "hoglin" : {
+        "ambient" : "疣猪兽环境音",
+        "angry" : "疣猪兽愤怒",
+        "attack" : "疣猪兽攻击",
+        "death" : "疣猪兽死亡",
+        "hurt" : "疣猪兽受伤",
+        "retreat" : "疣猪兽后退",
+        "step" : "疣猪兽脚步声"
+    },
+    "horse" : {
+        "angry" : "马愤怒",
+        "armor" : "马装备盔甲",
+        "breathe" : "马呼吸",
+        "death" : "马死亡",
+        "eat" : "马进食",
+        "gallop" : "马奔驰",
+        "hurt" : "马受伤",
+        "idle" : "马空闲",
+        "jump" : "马跳跃",
+        "land" : "马落地",
+        "saddle" : "马装备鞍",
+        "step" : "马脚步声",
+        "step_lava" : "马熔岩中脚步声",
+        "step_wood" : "马木质地面脚步声"
+    },
+    "husk" : {
+        "ambient" : "尸壳环境音",
+        "death" : "尸壳死亡",
+        "hurt" : "尸壳受伤",
+        "step" : "尸壳脚步声"
+    },
+    "iron_golem" : {
+        "attack" : "铁傀儡攻击",
+        "damage" : "铁傀儡受损",
+        "death" : "铁傀儡死亡",
+        "hurt" : "铁傀儡受伤",
+        "repair" : "铁傀儡被修复",
+        "step" : "铁傀儡脚步声",
+        "walk" : "铁傀儡行走"
+    },
+    "llama" : {
+        "ambient" : "羊驼环境音",
+        "anger" : "羊驼愤怒",
+        "chest" : "羊驼装备箱子",
+        "death" : "羊驼死亡",
+        "eat" : "羊驼进食",
+        "hurt" : "羊驼受伤",
+        "spit" : "羊驼吐口水",
+        "step" : "羊驼脚步声",
+        "swag" : "羊驼装饰"
+    },
+    "magma_cube" : {
+        "big" : {
+            "hurt" : "大型岩浆怪受伤",
+            "idle" : "大型岩浆怪空闲",
+            "jump" : "大型岩浆怪跳跃"
+        },
+        "death" : "岩浆怪死亡",
+        "hurt" : "岩浆怪受伤",
+        "idle" : "岩浆怪空闲",
+        "jump" : "岩浆怪跳跃",
+        "small" : {
+            "hurt" : "小型岩浆怪受伤",
+            "idle" : "小型岩浆怪空闲",
+            "jump" : "小型岩浆怪跳跃"
+        },
+        "squish" : {
+            "big" : "大型岩浆怪挤压声",
+            "small" : "小型岩浆怪挤压声"
+        }
+    },
+    "mooshroom" : {
+        "ambient" : "哞菇环境音",
+        "convert" : "哞菇转换",
+        "death" : "哞菇死亡",
+        "eat" : "哞菇进食",
+        "hurt" : "哞菇受伤",
+        "milk" : "哞菇挤奶",
+        "suspicious_milk" : "哞菇可疑的奶"
+    },
+    "mule" : {
+        "ambient" : "骡环境音",
+        "chest" : "骡装备箱子",
+        "death" : "骡死亡",
+        "hurt" : "骡受伤"
+    },
+    "npclegacy" : {
+        "death" : "NPC死亡",
+        "hurt" : "NPC受伤",
+        "idle" : "NPC空闲"
+    },
+    "ocelot" : {
+        "ambient" : "豹猫环境音",
+        "death" : "豹猫死亡",
+        "hurt" : "豹猫受伤"
+    },
+    "panda" : {
+        "aggressive_ambient" : "熊猫攻击状态环境音",
+        "aggressive_bite" : "熊猫攻击撕咬",
+        "ambient" : "熊猫环境音",
+        "bleat" : "熊猫叫声",
+        "cant_breed" : "熊猫无法繁殖",
+        "death" : "熊猫死亡",
+        "eat" : "熊猫进食",
+        "hurt" : "熊猫受伤",
+        "idle" : "熊猫空闲",
+        "layer_bite" : "熊猫咬击",
+        "pre_sneeze" : "熊猫即将打喷嚏",
+        "sneeze" : "熊猫打喷嚏",
+        "step" : "熊猫脚步声",
+        "worried_ambient" : "熊猫担忧环境音"
+    },
+    "parrot" : {
+        "ambient" : "鹦鹉环境音",
+        "death" : "鹦鹉死亡",
+        "eat" : "鹦鹉进食",
+        "fly" : "鹦鹉飞行",
+        "hurt" : "鹦鹉受伤",
+        "idle" : "鹦鹉空闲",
+        "step" : "鹦鹉脚步声"
+    },
+    "phantom" : {
+        "ambient" : "幻翼环境音",
+        "bite" : "幻翼撕咬",
+        "death" : "幻翼死亡",
+        "flap" : "幻翼振翅",
+        "hurt" : "幻翼受伤",
+        "swoop" : "幻翼俯冲"
+    },
+    "pig" : {
+        "ambient" : "猪环境音",
+        "boar" : {
+            "ambient" : "野猪环境音",
+            "death" : "野猪死亡",
+            "hurt" : "野猪受伤"
+        },
+        "death" : "猪死亡",
+        "hurt" : "猪受伤",
+        "saddle" : "猪装备鞍",
+        "step" : "猪脚步声"
+    },
+    "piglin" : {
+        "ambient" : "猪灵环境音",
+        "angry" : "猪灵愤怒",
+        "celebrate" : "猪灵庆祝",
+        "converted_to_zombified" : "猪灵转化为僵尸猪灵",
+        "death" : "猪灵死亡",
+        "hurt" : "猪灵受伤",
+        "jealous" : "猪灵嫉妒",
+        "retreat" : "猪灵后退",
+        "step" : "猪灵脚步声"
+    },
+    "piglin_brute" : {
+        "ambient" : "猪灵蛮兵环境音",
+        "angry" : "猪灵蛮兵愤怒",
+        "death" : "猪灵蛮兵死亡",
+        "hurt" : "猪灵蛮兵受伤",
+        "step" : "猪灵蛮兵脚步声"
+    },
+    "pillager" : {
+        "ambient" : "掠夺者环境音",
+        "celebrate" : "掠夺者庆祝",
+        "death" : "掠夺者死亡",
+        "hurt" : "掠夺者受伤"
+    },
+    "polar_bear" : {
+        "ambient" : "北极熊环境音",
+        "ambient_baby" : "北极熊幼崽环境音",
+        "death" : "北极熊死亡",
+        "hurt" : "北极熊受伤",
+        "step" : "北极熊脚步声",
+        "warning" : "北极熊警告"
+    },
+    "pufferfish" : {
+        "ambient" : "河豚环境音",
+        "death" : "河豚死亡",
+        "flop" : "河豚扑腾",
+        "hurt" : "河豚受伤",
+        "sting" : "河豚刺击"
+    },
+    "rabbit" : {
+        "ambient" : "兔子环境音",
+        "attack" : "兔子攻击",
+        "death" : "兔子死亡",
+        "hurt" : "兔子受伤",
+        "jump" : "兔子跳跃"
+    },
+    "ravager" : {
+        "ambient" : "劫掠兽环境音",
+        "attack" : "劫掠兽攻击",
+        "celebrate" : "劫掠兽庆祝",
+        "death" : "劫掠兽死亡",
+        "hurt" : "劫掠兽受伤",
+        "roar" : "劫掠兽怒吼",
+        "step" : "劫掠兽脚步声",
+        "stun" : "劫掠兽眩晕"
+    },
+    "salmon" : {
+        "death" : "鲑鱼死亡",
+        "flop" : "鲑鱼扑腾",
+        "hurt" : "鲑鱼受伤",
+        "idle" : "鲑鱼空闲"
+    },
+    "sheep" : {
+        "ambient" : "羊环境音",
+        "death" : "羊死亡",
+        "hurt" : "羊受伤",
+        "shear" : "羊被剪毛",
+        "step" : "羊脚步声"
+    },
+    "shulker" : {
+        "ambient" : "潜影贝环境音",
+        "close" : "潜影贝关闭",
+        "death" : "潜影贝死亡",
+        "hurt" : "潜影贝受伤",
+        "open" : "潜影贝打开",
+        "shoot" : "潜影贝射击",
+        "teleport" : "潜影贝瞬移"
+    },
+    "silverfish" : {
+        "ambient" : "蠹虫环境音",
+        "death" : "蠹虫死亡",
+        "hit" : "蠹虫被击打",
+        "step" : "蠹虫脚步声"
+    },
+    "skeleton" : {
+        "ambient" : "骷髅环境音",
+        "converted_to_stray" : "骷髅转化为流浪者",
+        "death" : "骷髅死亡",
+        "hurt" : "骷髅受伤",
+        "step" : "骷髅脚步声"
+    },
+    "skeleton_horse" : {
+        "ambient" : "骷髅马环境音",
+        "death" : "骷髅马死亡",
+        "hurt" : "骷髅马受伤",
+        "swim" : "骷髅马游泳"
+    },
+    "slime" : {
+        "attack" : "史莱姆攻击",
+        "big" : {
+            "hurt" : "大型史莱姆受伤",
+            "idle" : "大型史莱姆空闲",
+            "jump" : "大型史莱姆跳跃"
+        },
+        "death" : "史莱姆死亡",
+        "hurt" : "史莱姆受伤",
+        "idle" : "史莱姆空闲",
+        "jump" : "史莱姆跳跃",
+        "small" : {
+            "hurt" : "小型史莱姆受伤",
+            "idle" : "小型史莱姆空闲",
+            "jump" : "小型史莱姆跳跃"
+        },
+        "squish" : {
+            "big" : "大型史莱姆挤压声",
+            "small" : "小型史莱姆挤压声"
+        }
+    },
+    "sniffer" : {
+        "death" : "嗅探兽死亡",
+        "digging" : "嗅探兽挖掘",
+        "drop_seed" : "嗅探兽丢下种子",
+        "eat" : "嗅探兽进食",
+        "happy" : "嗅探兽开心",
+        "hurt" : "嗅探兽受伤",
+        "idle" : "嗅探兽空闲",
+        "searching" : "嗅探兽搜索",
+        "sniffsniff" : "嗅探兽嗅闻",
+        "stand_up" : "嗅探兽站起",
+        "step" : "嗅探兽脚步声"
+    },
+    "snow_golem" : {
+        "ambient" : "雪傀儡环境音",
+        "death" : "雪傀儡死亡",
+        "hurt" : "雪傀儡受伤",
+        "shoot" : "雪傀儡射击"
+    },
+    "spider" : {
+        "ambient" : "蜘蛛环境音",
+        "death" : "蜘蛛死亡",
+        "hurt" : "蜘蛛受伤",
+        "step" : "蜘蛛脚步声"
+    },
+    "squid" : {
+        "ambient" : "鱿鱼环境音",
+        "death" : "鱿鱼死亡",
+        "hurt" : "鱿鱼受伤",
+        "squirt" : "鱿鱼喷墨"
+    },
+    "stray" : {
+        "ambient" : "流浪者环境音",
+        "death" : "流浪者死亡",
+        "hurt" : "流浪者受伤",
+        "step" : "流浪者脚步声"
+    },
+    "strider" : {
+        "death" : "炽足兽死亡",
+        "eat" : "炽足兽进食",
+        "hurt" : "炽足兽受伤",
+        "idle" : "炽足兽空闲",
+        "step" : "炽足兽脚步声",
+        "step_lava" : "炽足兽熔岩中脚步声",
+        "temper" : "炽足兽情绪"
+    },
+    "tadpole" : {
+        "death" : "蝌蚪死亡",
+        "flop" : "蝌蚪扑腾",
+        "grow_up" : "蝌蚪长大",
+        "hurt" : "蝌蚪受伤"
+    },
+    "tropicalfish" : {
+        "death" : "热带鱼死亡",
+        "flop" : "热带鱼扑腾",
+        "hurt" : "热带鱼受伤",
+        "idle" : "热带鱼空闲"
+    },
+    "turtle" : {
+        "ambient" : "海龟环境音",
+        "ambient_baby" : "海龟幼崽环境音",
+        "death" : "海龟死亡",
+        "death_baby" : "海龟幼崽死亡",
+        "egg_break" : "海龟蛋破裂",
+        "egg_click" : "海龟蛋点击声",
+        "egg_crack" : "海龟蛋裂开",
+        "egg_hatch" : "海龟蛋孵化",
+        "hurt" : "海龟受伤",
+        "hurt_baby" : "海龟幼崽受伤",
+        "lay_egg" : "海龟下蛋",
+        "swim" : "海龟游泳"
+    },
+    "vex" : {
+        "ambient" : "恼鬼环境音",
+        "charge" : "恼鬼冲锋",
+        "death" : "恼鬼死亡",
+        "hurt" : "恼鬼受伤"
+    },
+    "villager" : {
+        "ambient" : "村民环境音",
+        "celebrate" : "村民庆祝",
+        "death" : "村民死亡",
+        "hit" : "村民被击打",
+        "no" : "村民拒绝",
+        "trade" : "村民交易",
+        "yes" : "村民同意"
+    },
+    "vindicator" : {
+        "ambient" : "卫道士环境音",
+        "celebrate" : "卫道士庆祝",
+        "death" : "卫道士死亡",
+        "hurt" : "卫道士受伤"
+    },
+    "wan" : {
+        "death" : "？死亡",
+        "hurt" : "？受伤"
+    },
+    "warden" : {
+        "agitated" : "监守者激动",
+        "angry" : "监守者愤怒",
+        "attack" : "监守者攻击",
+        "attack_impact" : "监守者攻击命中",
+        "death" : "监守者死亡",
+        "digging" : "监守者挖掘",
+        "emerging" : "监守者出现",
+        "heartbeat" : "监守者心跳",
+        "hurt" : "监守者受伤",
+        "idle" : "监守者空闲",
+        "listening" : "监守者倾听",
+        "listening_angry" : "监守者愤怒地倾听",
+        "nearby_close" : "监守者附近靠近",
+        "nearby_closer" : "监守者附近更近",
+        "nearby_closest" : "监守者附近极近",
+        "roar" : "监守者咆哮",
+        "sniff" : "监守者嗅闻",
+        "slightly_angry" : "监守者轻微愤怒",
+        "sonic_boom" : "监守者音爆",
+        "sonic_charge" : "监守者音波充能",
+        "step" : "监守者脚步声",
+        "tendril_clicks" : "监守者触须咔哒声"
+    },
+    "witch" : {
+        "ambient" : "女巫环境音",
+        "celebrate" : "女巫庆祝",
+        "death" : "女巫死亡",
+        "drink" : "女巫饮用药水",
+        "hurt" : "女巫受伤",
+        "throw" : "女巫投掷"
+    },
+    "wither" : {
+        "ambient" : "凋灵环境音",
+        "break_block" : "凋灵破坏方块",
+        "death" : "凋灵死亡",
+        "hurt" : "凋灵受伤",
+        "shoot" : "凋灵射击",
+        "spawn" : "凋灵生成",
+        "step" : "凋灵脚步声"
+    },
+    "wither_skeleton" : {
+        "ambient" : "凋灵骷髅环境音",
+        "death" : "凋灵骷髅死亡",
+        "hurt" : "凋灵骷髅受伤",
+        "step" : "凋灵骷髅脚步声"
+    },
+    "wolf" : {
+        "ambient" : "狼环境音",
+        "death" : "狼死亡",
+        "growl" : "狼咆哮",
+        "howl" : "狼嚎叫",
+        "hurt" : "狼受伤",
+        "pant" : "狼喘息",
+        "shake" : "狼抖动",
+        "step" : "狼脚步声",
+        "whine" : "狼呜咽"
+    },
+    "zoglin" : {
+        "ambient" : "僵尸疣猪兽环境音",
+        "angry" : "僵尸疣猪兽愤怒",
+        "attack" : "僵尸疣猪兽攻击",
+        "death" : "僵尸疣猪兽死亡",
+        "hurt" : "僵尸疣猪兽受伤",
+        "step" : "僵尸疣猪兽脚步声"
+    },
+    "zombie" : {
+        "ambient" : "僵尸环境音",
+        "break_door_metal" : "僵尸破坏金属门",
+        "break_door_wood" : "僵尸破坏木门",
+        "converted_to_drowned" : "僵尸转化为溺尸",
+        "death" : "僵尸死亡",
+        "hurt" : "僵尸受伤",
+        "infect" : "僵尸感染",
+        "step" : "僵尸脚步声",
+        "villager_ambient" : "僵尸村民环境音",
+        "villager_converted" : "僵尸村民被治愈",
+        "villager_death" : "僵尸村民死亡",
+        "villager_hurt" : "僵尸村民受伤",
+        "wood_break" : "木头破坏"
+    },
+    "zombie_horse" : {
+        "ambient" : "僵尸马环境音",
+        "death" : "僵尸马死亡",
+        "hurt" : "僵尸马受伤"
+    },
+    "zombie_pigman" : {
+        "ambient" : "僵尸猪人环境音",
+        "angry" : "僵尸猪人愤怒",
+        "death" : "僵尸猪人死亡",
+        "hurt" : "僵尸猪人受伤"
+    },
+    "zombie_villager" : {
+        "ambient" : "僵尸村民环境音",
+        "convert" : "僵尸村民转化",
+        "cure" : "僵尸村民被治愈",
+        "death" : "僵尸村民死亡",
+        "hurt" : "僵尸村民受伤",
+        "step" : "僵尸村民脚步声"
+    }
 }

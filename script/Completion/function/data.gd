@@ -95,7 +95,7 @@ static func get_weight(text : String, column : int, data : Dictionary, hint_word
 	var value : FunctionCompletionDataValue = data.default_value
 	var insert_mode : InsertMode = value.insert_mode if value else InsertMode.NORMAL
 	
-	var weight := value.extra_weight
+	var weight := value.extra_weight if value != null else 0
 	match insert_mode:
 		InsertMode.NORMAL: weight += _get_weight_normal(text, column, insert, chache)
 		InsertMode.WORLD: weight += _get_weight_world(text, column, insert, chache)

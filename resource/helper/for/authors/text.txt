@@ -7,3 +7,5 @@
 [b]Mojang[/b] 创造了游戏主体
 
 [b]Godot[/b] 提供了引擎
+
+[b]DeepSeek[/b] 打的苦力

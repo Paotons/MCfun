@@ -68,7 +68,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=515419801]
 layout_mode = 2
-text = "v0.1.0"
+text = "v0.8.4-alpha.0"
 script = SubResource("GDScript_e344j")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1031317699]
@@ -113,7 +113,8 @@ layout_mode = 2
 text = "Mojang 创造了游戏主体
 
 Godot 提供了引擎
-"
+
+DeepSeek 干的苦力"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=462260626]
 layout_mode = 2

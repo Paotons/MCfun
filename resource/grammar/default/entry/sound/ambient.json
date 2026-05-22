@@ -1,33 +1,43 @@
 {
-	"cave" : false,
+	"description": "环境音效设置",
+	"cave" : "洞穴环境音",
 	"basalt_deltas" : {
-		"additions" : false,
-		"loop" : false,
-		"mood" : false
+		"description": "玄武岩三角洲群系环境音",
+		"additions" : "附加音效",
+		"loop" : "循环音效",
+		"mood" : "氛围音效"
 	},
 	"crimson_forest" : {
-		"additions" : false,
-		"loop" : false,
-		"mood" : false
+		"description": "绯红森林群系环境音",
+		"additions" : "附加音效",
+		"loop" : "循环音效",
+		"mood" : "氛围音效"
 	},
 	"nether_wastes" : {
-		"additions" : false,
-		"loop" : false,
-		"mood" : false
+		"description": "下界荒地群系环境音",
+		"additions" : "附加音效",
+		"loop" : "循环音效",
+		"mood" : "氛围音效"
 	},
 	"soul_sand_valley" : {
-		"additions" : false,
-		"loop" : false,
-		"mood" : false
+		"description": "灵魂沙峡谷群系环境音",
+		"additions" : "附加音效",
+		"loop" : "循环音效",
+		"mood" : "氛围音效"
 	},
 	"warped_forest" : {
-		"additions" : false,
-		"loop" : false,
-		"mood" : false
+		"description": "诡异森林群系环境音",
+		"additions" : "附加音效",
+		"loop" : "循环音效",
+		"mood" : "氛围音效"
 	},
 	"weather" : {
-		"lightning" : {"impact" : false},
-		"rain" : false,
-		"thunder" : false
+		"description": "天气环境音",
+		"lightning" : {
+			"description": "闪电音效",
+			"impact" : "闪电冲击音"
+		},
+		"rain" : "雨声",
+		"thunder" : "雷声"
 	}
 }

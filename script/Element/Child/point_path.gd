@@ -18,6 +18,7 @@ static func get_precast_code_completion_data(_column : int, rule : ElementRule, 
 	var chapter := rule.get_point_path_chapter() as GrammarPathChapter
 	for path in chapter.get_paths():
 		data.insert_texts.append(".".join(path))
+	data.display_texts.append_array(chapter.get_path_displays())
 	data.fill_insert_mode(FunctionCompletionData.InsertMode.POINT_PATH)
 	return data
 func _get_column_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
@@ -26,6 +27,7 @@ func _get_column_code_completion_data(_column : int, rule : ElementRule, _comman
 	var chapter := rule.get_point_path_chapter() as GrammarPathChapter
 	for path in chapter.get_paths():
 		data.insert_texts.append(".".join(path))
+	data.display_texts.append_array(chapter.get_path_displays())
 	data.fill_insert_mode(FunctionCompletionData.InsertMode.POINT_PATH)
 	return data
 

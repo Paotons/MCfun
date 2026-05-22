@@ -2,20 +2,12 @@ class_name SelectorElement
 extends StringElement
 ## 目标选择器。
 
-## 头的类型。
-const HEAD_TYPE : PackedStringArray = ["a", "e", "r", "p", "s"]
-
-# 头部补全用的数据。
-static var _code_completion_head_data : FunctionCompletionData
 # 如果是 [code]true[/code]，则采用的玩家名称。
 var _is_player_name := false
 ## 身体的括号。
 var _body_backet : EqualParamBacketElement
 ## 头部结束位置。
 var head_end := -1
-
-func _init() -> void:
-	if _code_completion_head_data == null: _initial_code_completion_head()
 
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	var result : Dictionary[int, Dictionary]
@@ -24,8 +16,7 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 		result.merge(_body_backet.get_highlight(edit), true)
 	return result
 static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
-	if _code_completion_head_data == null: _initial_code_completion_head()
-	var data := SelectorElement._code_completion_head_data
+	var data := EditManager.get_grammar_entry().get_selector_head_completion_data()
 	data.hint_string = "<%s : selector>" % [rule.get_description()]
 	return data
 func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
@@ -33,7 +24,7 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 	
 	# 头部
 	if not is_valid_head():
-		data = _code_completion_head_data
+		data = EditManager.get_grammar_entry().get_selector_head_completion_data()
 		data.hint_string = "<%s : selector>" % [rule.get_description()]
 	# 身体
 	elif not has_body():
@@ -131,20 +122,3 @@ static func is_selector(text : String) -> bool:
 	if text.length() > 1:
 		return true
 	return false
-
-## 返回可用的头部。
-static func _get_head_types() -> PackedStringArray:
-	var arr : PackedStringArray
-	arr.resize(HEAD_TYPE.size())
-	for i in HEAD_TYPE.size():
-		arr[i] = "@" + HEAD_TYPE[i]
-	return arr
-
-# 初始化头部补全数据。
-static func _initial_code_completion_head() -> void:
-	var data := FunctionCompletionData.new()
-	data.insert_texts.append_array(_get_head_types())
-	data.fill_insert_mode(FunctionCompletionData.InsertMode.SELECTOR)
-	data.fill_inserted_update(true)
-	data.supple()
-	_code_completion_head_data = data

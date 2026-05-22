@@ -1,4 +1,9 @@
 {
+	"selector_head" : {
+		"type" : "file",
+		"file" : "entry/selector_head.json"
+	},
+	
 	"item_name": {
 		"type": "file",
 		"file": "entry/item.json"
@@ -23,6 +28,7 @@
 		"type": "file",
 		"file": "entry/sound.json"
 	},
+	
 	"game_rule_name_to_int": {
 		"type": "string",
 		"data": {
@@ -108,24 +114,23 @@
 		"type": "path",
 		"data": {
 			"slot": {
-				"weapon": {
-					"mainhand": false,
-					"offhand": false
-				},
-				"armor": {
-					"": false,
-					"head": false,
-					"chest": false,
-					"legs": false,
-					"feet": false
-				},
-				"hotbar": false,
-				"inventory": false,
-				"enderchest": false,
-				"mule_chest": false,
-				"saddle": false,
-				"horse_armor": false,
-				"pig_saddle": false
+			    "weapon": {
+			        "mainhand": "主手",
+			        "offhand": "副手"
+			    },
+			    "armor": {
+			        "head": "头盔",
+			        "chest": "胸甲",
+			        "legs": "护腿",
+			        "feet": "靴子"
+			    },
+			    "hotbar": "快捷栏",
+			    "inventory": "物品栏",
+			    "enderchest": "末影箱",
+			    "mule_chest": "骡子箱子",
+			    "saddle": "鞍",
+			    "horse_armor": "马铠",
+			    "pig_saddle": "猪鞍"
 			}
 		}
 	},
@@ -133,7 +138,7 @@
 		"type": "path",
 		"data": {
 			"slot": {
-				"container": false
+				"container": "容器"
 			}
 		}
 	}

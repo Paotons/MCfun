@@ -1,213 +1,211 @@
 {
-	"armor" : {
-		"equip_chain" : false,
-		"equip_diamond" : false,
-		"equip_gold" : false,
-		"equip_iron" : false,
-		"equip_leather" : false,
-		"equip_netherite" : false,
-		"equip_turtle" : false
-	},
-	"axe" : {
-		"dig" : false,
-		"break" : false,
-		"drop" : false,
-		"hit" : false,
-		"place" : false,
-		"scrape" : false,
-		"strip" : false
-	},
-	"bottle" : {
-		"drink" : false,
-		"empty" : false,
-		"fill" : false
-	},
-	"bucket" : {
-		"empty_fish" : false,
-		"empty_lava" : false,
-		"empty_powder_snow" : false,
-		"empty_water" : false,
-		"fill_fish" : false,
-		"fill_lava" : false,
-		"fill_powder_snow" : false,
-		"fill_water" : false
-	},
-	"brush" : {
-		"brush_sand" : false,
-		"brush_gravel" : false,
-		"brush_complete" : false
-	},
-	"bucket" : false,
-	"campfire" : false,
-	"cartography_table" : false,
-	"chain" : false,
-	"chest" : {
-		"close" : false,
-		"open" : false,
-		"lock" : false
-	},
-	"chorus_fruit" : {
-		"teleport" : false
-	},
-	"composter" : {
-		"fill" : false,
-		"fill_success" : false,
-		"empty" : false,
-		"ready" : false
-	},
-	"crossbow" : {
-		"load" : false,
-		"load_end" : false,
-		"shoot" : false,
-		"quick_charge" : {
-			"1" : false,
-			"2" : false,
-			"3" : false
-		}
-	},
-	"door" : {
-		"close" : false,
-		"open" : false
-	},
-	"elytra" : {
-		"loop" : false
-	},
-	"fence_gate" : {
-		"close" : false,
-		"open" : false
-	},
-	"firecharge" : {
-		"use" : false
-	},
-	"firework" : {
-		"launch" : false,
-		"large_blast" : false,
-		"blast" : false,
-		"twinkle" : false,
-		"shoot" : false
-	},
-	"fishing_rod" : {
-		"cast" : false,
-		"reel" : false
-	},
-	"flintandsteel" : {
-		"use" : false
-	},
-	"flower_pot" : {
-		"place" : false,
-		"break" : false,
-		"hit" : false,
-		"step" : false,
-		"fall" : false
-	},
-	"glass_bottle" : {},
-	"grindstone" : {
-		"use" : false
-	},
-	"hoe" : {
-		"dig" : false,
-		"till" : false
-	},
-	"honey_bottle" : {
-		"drink" : false
-	},
-	"honeycomb" : {
-		"wax_on" : false,
-		"wax_off" : false
-	},
-	"ink_sac" : {
-		"use" : false
-	},
-	"item" : {
-		"frame" : {
-			"add_item" : false,
-			"remove_item" : false,
-			"rotate_item" : false,
-			"place" : false,
-			"break" : false,
-			"hit" : false,
-			"step" : false,
-			"fall" : false
-		},
-		"frame" : {}
-	},
-	"lodestone" : {
-		"compass" : {
-			"lock" : false
-		}
-	},
-	"map" : {
-		"cloning" : false,
-		"extend" : false
-	},
-	"milk_bucket" : false,
-	"minecart" : {
-		"base" : false,
-		"inside" : {
-			"underwater" : false,
-		"underwater" : false
-		}
-	},
-	"mithril" : false,
-	"netherite_block" : false,
-	"netherite_ingot" : false,
-	"shield" : {
-		"block" : false
-	},
-	"shovel" : {
-		"flatten" : false
-	},
-	"shulker_box" : {
-		"close" : false,
-		"open" : false
-	},
-	"sign" : {
-		"waxed_sign_interact_fail" : false
-	},
-	"smithing_table" : {
-		"use" : false
-	},
-	"spyglass" : {
-		"use" : false,
-		"stop" : false
-	},
-	"stick" : false,
-	"stonecutter" : {
-		"use" : false
-	},
-	"sword" : {
-		"hit" : false,
-		"break" : false,
-		"block" : false
-	},
-	"totem" : {
-		"use" : false
-	},
-	"trident" : {
-		"hit" : false,
-		"hit_ground" : false,
-		"return" : false,
-		"riptide" : {
-			"1" : false,
-		"2" : false,
-		"3" : false
-		},
-		"throw" : false,
-		"thunder" : false
-	},
-	"turtle_helmet" : {},
-	"water_bucket" : {},
-	"wolf_armor" : {
-		"break" : false,
-		"crack" : false,
-		"damage" : {
-			"1" : false,
-			"2" : false,
-			"3" : false,
-			"4" : false,
-			"5" : false
-		},
-		"equip" : false,
-		"repair" : false
-	}
+    "armor" : {
+        "equip_chain" : "装备锁链盔甲",
+        "equip_diamond" : "装备钻石盔甲",
+        "equip_gold" : "装备金盔甲",
+        "equip_iron" : "装备铁盔甲",
+        "equip_leather" : "装备皮革盔甲",
+        "equip_netherite" : "装备下界合金盔甲",
+        "equip_turtle" : "装备海龟壳"
+    },
+    "axe" : {
+        "dig" : "斧头挖掘",
+        "break" : "斧头破坏",
+        "drop" : "斧头掉落",
+        "hit" : "斧头击中",
+        "place" : "斧头放置",
+        "scrape" : "斧头刮削（铜块除锈）",
+        "strip" : "斧头剥皮（原木去皮）"
+    },
+    "bottle" : {
+        "drink" : "饮用",
+        "empty" : "倒空瓶子",
+        "fill" : "装满瓶子"
+    },
+    "bucket" : {
+        "empty_fish" : "倒出鱼",
+        "empty_lava" : "倒出熔岩",
+        "empty_powder_snow" : "倒出细雪",
+        "empty_water" : "倒出水",
+        "fill_fish" : "装鱼",
+        "fill_lava" : "装熔岩",
+        "fill_powder_snow" : "装细雪",
+        "fill_water" : "装水"
+    },
+    "brush" : {
+        "brush_sand" : "刷扫沙子",
+        "brush_gravel" : "刷扫沙砾",
+        "brush_complete" : "刷扫完成"
+    },
+    "bucket" : "桶（通用）",
+    "campfire" : "营火",
+    "cartography_table" : "制图台",
+    "chain" : "锁链",
+    "chest" : {
+        "close" : "关闭箱子",
+        "open" : "打开箱子",
+        "lock" : "锁住箱子"
+    },
+    "chorus_fruit" : {
+        "teleport" : "紫颂果瞬移"
+    },
+    "composter" : {
+        "fill" : "填充堆肥桶",
+        "fill_success" : "堆肥成功",
+        "empty" : "清空堆肥桶",
+        "ready" : "堆肥完成"
+    },
+    "crossbow" : {
+        "load" : "装填弩",
+        "load_end" : "装填完成",
+        "shoot" : "发射弩箭",
+        "quick_charge" : {
+            "1" : "快速装填 I",
+            "2" : "快速装填 II",
+            "3" : "快速装填 III"
+        }
+    },
+    "door" : {
+        "close" : "关闭门",
+        "open" : "打开门"
+    },
+    "elytra" : {
+        "loop" : "鞘翅滑翔循环"
+    },
+    "fence_gate" : {
+        "close" : "关闭栅栏门",
+        "open" : "打开栅栏门"
+    },
+    "firecharge" : {
+        "use" : "使用火焰弹"
+    },
+    "firework" : {
+        "launch" : "发射烟花火箭",
+        "large_blast" : "大型爆炸",
+        "blast" : "爆炸",
+        "twinkle" : "闪烁",
+        "shoot" : "射击（弩发射烟花）"
+    },
+    "fishing_rod" : {
+        "cast" : "抛竿",
+        "reel" : "收竿"
+    },
+    "flintandsteel" : {
+        "use" : "使用打火石"
+    },
+    "flower_pot" : {
+        "place" : "放置花盆",
+        "break" : "破坏花盆",
+        "hit" : "击中花盆",
+        "step" : "踩踏花盆",
+        "fall" : "花盆坠落"
+    },
+    "glass_bottle" : "玻璃瓶",
+    "grindstone" : {
+        "use" : "使用砂轮"
+    },
+    "hoe" : {
+        "dig" : "锄头挖掘",
+        "till" : "锄地"
+    },
+    "honey_bottle" : {
+        "drink" : "饮用蜂蜜瓶"
+    },
+    "honeycomb" : {
+        "wax_on" : "涂蜡",
+        "wax_off" : "除蜡"
+    },
+    "ink_sac" : {
+        "use" : "使用墨囊"
+    },
+    "item" : {
+        "frame" : {
+            "add_item" : "物品框添加物品",
+            "remove_item" : "物品框移除物品",
+            "rotate_item" : "物品框旋转物品",
+            "place" : "放置物品框",
+            "break" : "破坏物品框",
+            "hit" : "击中物品框",
+            "step" : "踩踏物品框",
+            "fall" : "物品框坠落"
+        }
+    },
+    "lodestone" : {
+        "compass" : {
+            "lock" : "磁石指针锁定"
+        }
+    },
+    "map" : {
+        "cloning" : "复制地图",
+        "extend" : "扩展地图"
+    },
+    "milk_bucket" : "奶桶",
+    "minecart" : {
+        "base" : "矿车（基础）",
+        "inside" : {
+            "underwater" : "水下矿车内"
+        }
+    },
+    "mithril" : "秘银",
+    "netherite_block" : "下界合金块",
+    "netherite_ingot" : "下界合金锭",
+    "shield" : {
+        "block" : "盾牌格挡"
+    },
+    "shovel" : {
+        "flatten" : "铲子压平（土径）"
+    },
+    "shulker_box" : {
+        "close" : "关闭潜影盒",
+        "open" : "打开潜影盒"
+    },
+    "sign" : {
+        "waxed_sign_interact_fail" : "涂蜡告示牌交互失败"
+    },
+    "smithing_table" : {
+        "use" : "使用锻造台"
+    },
+    "spyglass" : {
+        "use" : "使用望远镜",
+        "stop" : "停止使用望远镜"
+    },
+    "stick" : "木棍",
+    "stonecutter" : {
+        "use" : "使用切石机"
+    },
+    "sword" : {
+        "hit" : "剑击中",
+        "break" : "剑破坏",
+        "block" : "剑格挡"
+    },
+    "totem" : {
+        "use" : "使用不死图腾"
+    },
+    "trident" : {
+        "hit" : "三叉戟击中",
+        "hit_ground" : "三叉戟击中地面",
+        "return" : "三叉戟返回",
+        "riptide" : {
+            "1" : "激流 I",
+            "2" : "激流 II",
+            "3" : "激流 III"
+        },
+        "throw" : "投掷三叉戟",
+        "thunder" : "三叉戟引雷"
+    },
+    "turtle_helmet" : "海龟壳",
+    "water_bucket" : "水桶",
+    "wolf_armor" : {
+        "break" : "狼铠破碎",
+        "crack" : "狼铠开裂",
+        "damage" : {
+            "1" : "狼铠损坏 1级",
+            "2" : "狼铠损坏 2级",
+            "3" : "狼铠损坏 3级",
+            "4" : "狼铠损坏 4级",
+            "5" : "狼铠损坏 5级"
+        },
+        "equip" : "装备狼铠",
+        "repair" : "修复狼铠"
+    }
 }

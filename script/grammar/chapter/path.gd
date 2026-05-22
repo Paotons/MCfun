@@ -6,8 +6,12 @@ var main_data : Dictionary
 enum _PathMeta {
 	# 表示可直接结尾。
 	IS_END,
+	# 直接结尾的显示。
+	DISPLAY,
 	# 表示直接结尾的成员。
 	MUMBER,
+	# 成员的显示。
+	MUMBER_DISPLAYS,
 	# 表示成员的分组。
 	GROUP_MUMBER,
 	# 分组数据。
@@ -20,13 +24,19 @@ func _get_type() -> ChapterType:
 func _set_data(data : Dictionary) -> void:
 	main_data = data[ChapterMeta.DATA]
 
-## 获取指定路径下所有的子路径。
+## 返回指定路径下所有的子路径。
 func get_paths(path : PackedStringArray = []) -> Array[PackedStringArray]:
 	var tree := _get_path_tree(main_data, path)
 	if tree.is_empty():
 		return []
 	return _get_paths(tree, path)
-## 获取指定路径下子路径的数量。
+## 返回指定路径下所有子路径的显示。
+func get_path_displays(path : PackedStringArray = []) -> PackedStringArray:
+	var tree := _get_path_tree(main_data, path)
+	if tree.is_empty():
+		return []
+	return _get_path_displays(tree)
+## 返回指定路径下子路径的数量。
 func get_paths_count(path : PackedStringArray = []) -> int:
 	var tree := _get_path_tree(main_data, path)
 	if tree.is_empty():
@@ -41,13 +51,13 @@ func has_path(path : PackedStringArray) -> bool:
 		else:
 			return false
 	return true
-## 获取指定路径下所有的分支。
+## 返回指定路径下所有的分支。
 func get_branchs(path : PackedStringArray) -> PackedStringArray:
 	var tree := _get_path_tree(main_data, path)
 	if tree.is_empty():
 		return []
 	return _get_branchs(tree)
-## 获取指定路径下分支的数量。
+## 返回指定路径下分支的数量。
 func get_branch_count(path : PackedStringArray) -> int:
 	var tree := _get_path_tree(main_data, path)
 	if tree.is_empty():
@@ -107,22 +117,48 @@ static func _has_branch(tree : Dictionary, branch : String) -> bool:
 	if branch.is_empty():
 		return tree[_PathMeta.IS_END]
 	return tree[_PathMeta.MUMBER].has(branch) or tree[_PathMeta.GROUP_MUMBER].has(branch)
-# 获取这个树指定路径下的全部路径。
+# 返回这个树指定路径下的全部路径。
 static func _get_paths(tree : Dictionary, path := PackedStringArray()) -> Array[PackedStringArray]:
 	if tree.is_empty(): return []
 	var res : Array[PackedStringArray]
 	
-	if (tree[_PathMeta.IS_END] as bool) == true:
-		res.append(path.duplicate())
-	if not (tree[_PathMeta.MUMBER] as PackedStringArray).is_empty():
-		for mumber in tree[_PathMeta.MUMBER] as PackedStringArray:
-			res.append(path + PackedStringArray([mumber]))
-	if not (tree[_PathMeta.GROUP_MUMBER] as PackedStringArray).is_empty():
-		var mumbers := tree[_PathMeta.GROUP_MUMBER] as PackedStringArray
-		var trees := tree[_PathMeta.GROUP_DATA] as Array[Dictionary]
-		for i in mumbers.size():
-			res.append_array(_get_paths(trees[i], path + PackedStringArray([mumbers[i]])))
+	var queue_trees : Array[Dictionary] = [tree]
+	var queue_paths : Array[PackedStringArray] = [path]
+	
+	while not queue_trees.is_empty():
+		tree = queue_trees.pop_back()
+		path = queue_paths.pop_back()
+		
+		if (tree[_PathMeta.IS_END] as bool) == true:
+			res.append(path.duplicate())
+		
+		if not (tree[_PathMeta.MUMBER] as PackedStringArray).is_empty():
+			for mumber in tree[_PathMeta.MUMBER] as PackedStringArray:
+				res.append(path + PackedStringArray([mumber]))
+		
+		if not (tree[_PathMeta.GROUP_MUMBER] as PackedStringArray).is_empty():
+			queue_trees.append_array(tree[_PathMeta.GROUP_DATA])
+			for mumber : String in tree[_PathMeta.GROUP_MUMBER]:
+				queue_paths.append(path + PackedStringArray([mumber]))
 	return res
+# 返回这个数下指定路径的显示。
+static func _get_path_displays(tree : Dictionary) -> PackedStringArray:
+	if tree.is_empty(): return []
+	var res : PackedStringArray
+	
+	var queue_trees : Array[Dictionary] = [tree]
+	
+	while not queue_trees.is_empty():
+		tree = queue_trees.pop_back()
+		
+		if (tree[_PathMeta.IS_END] as bool) == true:
+			res.append(tree[_PathMeta.DISPLAY])
+		res.append_array(tree[_PathMeta.MUMBER_DISPLAYS])
+		
+		if not (tree[_PathMeta.GROUP_MUMBER] as PackedStringArray).is_empty():
+			queue_trees.append_array(tree[_PathMeta.GROUP_DATA])
+	return res
+
 # 获取树下所有的路径数量。
 static func _get_paths_count(tree : Dictionary) -> int:
 	var res := 0
@@ -139,3 +175,12 @@ static func _get_paths_count(tree : Dictionary) -> int:
 		queue_tree.append_array(tree[_PathMeta.GROUP_DATA])
 	
 	return res
+
+static func _get_tree_display(tree : Dictionary) -> String:
+	return tree[_PathMeta.DISPLAY]
+static func _get_tree_mumber(tree : Dictionary) -> PackedStringArray:
+	return tree[_PathMeta.MUMBER]
+static func _get_tree_group_mumber(tree : Dictionary) -> Array[Dictionary]:
+	return tree[_PathMeta.GROUP_DATA]
+static func _get_tree_mumber_displays(tree : Dictionary) -> PackedStringArray:
+	return tree[_PathMeta.MUMBER_DISPLAYS]

@@ -36,5 +36,6 @@ static func get_head_completion_data(grammar : GrammarProcess = null) -> Functio
 		data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
 		_head_completion_data = data
 	
+	push_warning("Function has moved to grammar process.")
 	return _head_completion_data
 

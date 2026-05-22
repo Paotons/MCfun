@@ -7,9 +7,23 @@ extends Resource
 ## 解析后的语法规则，给机器看的。
 var main_data : Dictionary
 
+#region 缓存。
+var _head_completion_data : FunctionCompletionData
+
 ## 设置数据。
 func set_data(data : Dictionary) -> void:
 	main_data = data
+## 返回指令头的补全数据。
+func get_head_completion_data() -> FunctionCompletionData:
+	if _head_completion_data != null:
+		return _head_completion_data
+	
+	var data := FunctionCompletionData.new()
+	data.insert_texts.append_array(get_heads())
+	data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
+	_head_completion_data = data
+	
+	return _head_completion_data
 
 ## 获取指令的一个项。
 func get_item(head : String, idx : int) -> ExeElementRule:

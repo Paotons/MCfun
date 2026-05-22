@@ -187,6 +187,13 @@ func compile(path : String, to_path : String) -> PackedStringArray:
 	if not errors.is_empty():
 		return errors
 	
+	if entry == null:
+		return ["Entry is null."]
+	elif law == null:
+		return ["Law is null."]
+	elif main_process == null:
+		return ["Process is null."]
+	
 	_save_grammar(to_path)
 	return []
 
@@ -316,7 +323,8 @@ func _set_grammar(files : _Files) -> PackedStringArray:
 func _set_grammar_doer(index : int, files : _Files, compiler_data : GrammarCompilerData) -> PackedStringArray:
 	var obj : GrammarCompiler
 	var path : String
-	var data : Variant
+	var data : Dictionary
+	var json := JSON.new()
 	
 	match index:
 		0 :
@@ -328,10 +336,12 @@ func _set_grammar_doer(index : int, files : _Files, compiler_data : GrammarCompi
 		2 :
 			obj = GrammarEntryCompiler.new()
 			path = directory_path.path_join(files.entry)
-	data = JSON.parse_string(FileAccess.get_file_as_string(path))
-	if data == null or not data is Dictionary:
-		return ["%s not is vaild json." % path]
-	
+	json.parse(FileAccess.get_file_as_string(path))
+	if json.get_error_line() != 0:
+		return ["%s json has error\n[%d] : %s." % [path, json.get_error_line(), json.get_error_message()]]
+	if not json.data is Dictionary:
+		return ["%s data should be dictionary, but is %s." % [path, type_string(typeof(json.data))]]
+	data = json.data
 	obj.compiler_data = compiler_data
 	
 	GrammarCompiler.dictionary_file_replace(data, directory_path)

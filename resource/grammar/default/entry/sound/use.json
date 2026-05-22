@@ -1,54 +1,54 @@
 {
-	"anvil" : {
-		"use" : false,
-	},
-	"button" : {
-		"click" : false,
-	},
-	"cartography_table" : {
-		"take_result" : false,
-	},
-	"character" : {
-		"create" : false,
-		"delete" : false,
-		"join" : false,
-		"leave" : false,
-		"load" : false,
-		"rename" : false,
-		"select" : false,
-		"swap" : false,
-	},
-	"chest" : {
-		"open" : false,
-		"slot" : false,
-	},
-	"dropdown" : {
-		"select" : false,
-	},
-	"hover" : {
-		"generic" : false,
-	},
-	"inspect" : {
-		"slot" : false,
-	},
-	"loom" : {
-		"select_pattern" : false,
-		"take_result" : false,
-	},
-	"map" : {
-		"close" : false,
-		"close_fail" : false,
-		"open" : false,
-	},
-	"stonecutter" : {
-		"take_result" : false,
-	},
-	"toast" : {
-		"in" : false,
-		"out" : false,
-	},
-	"trade" : {
-		"scribe" : false,
-		"select" : false,
-	}
+    "anvil" : {
+        "use" : "使用铁砧"
+    },
+    "button" : {
+        "click" : "点击按钮"
+    },
+    "cartography_table" : {
+        "take_result" : "取出制图台结果"
+    },
+    "character" : {
+        "create" : "创建角色",
+        "delete" : "删除角色",
+        "join" : "加入角色",
+        "leave" : "离开角色",
+        "load" : "加载角色",
+        "rename" : "重命名角色",
+        "select" : "选择角色",
+        "swap" : "交换角色"
+    },
+    "chest" : {
+        "open" : "打开箱子",
+        "slot" : "箱子槽位操作"
+    },
+    "dropdown" : {
+        "select" : "选择下拉选项"
+    },
+    "hover" : {
+        "generic" : "悬停通用"
+    },
+    "inspect" : {
+        "slot" : "检查槽位"
+    },
+    "loom" : {
+        "select_pattern" : "选择织布机图案",
+        "take_result" : "取出织布机结果"
+    },
+    "map" : {
+        "close" : "关闭地图",
+        "close_fail" : "关闭地图失败",
+        "open" : "打开地图"
+    },
+    "stonecutter" : {
+        "take_result" : "取出切石机结果"
+    },
+    "toast" : {
+        "in" : "吐司进入",
+        "out" : "吐司退出"
+    },
+    "trade" : {
+        "scribe" : "交易书写",
+        "select" : "选择交易"
+    }
 }

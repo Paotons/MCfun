@@ -17,3 +17,6 @@ var main_process := Vector2i(-1, -1)
 var sub_process := Vector2i(-1, -1)
 ## 锁。
 var mutex : Mutex
+
+## 错误。
+var errors : PackedStringArray

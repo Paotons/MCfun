@@ -69,7 +69,8 @@ func _load_grammar(process : ProjectOpendProcess) -> void:
 		if DirAccess.dir_exists_absolute(to_path):
 			FileSystem.remove_directory(to_path)
 		DirAccess.make_dir_absolute(to_path)
-		Grammar.new().compile(project.get_project_config().get_edit_grammar_path(), to_path)
+		var errors := Grammar.new().compile(project.get_project_config().get_edit_grammar_path(), to_path)
+		process.errors.append_array(errors)
 
 # 如果语法改变，返回 true，并重新更新。
 func _test_grammar_name() -> bool:

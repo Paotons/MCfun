@@ -47,6 +47,11 @@ func _get_export_setting_window() -> ProjectExportSettingWindow:
 	return $\"../ProjectExportSetting\"
 func _get_error_option_window() -> AcceptDialog:
 	return$\"../ErrorOptionWindow\"
+# 弹出错误。
+func _popup_error(text : String) -> void:
+	var window := _get_error_option_window()
+	window.dialog_text = text
+	window.popup_centered_clamped()
 
 func _get_sub_process() -> Vector2i:
 	match main_process.x:
@@ -77,6 +82,16 @@ func _on_thread() -> void:
 	
 	var project := ProjectManager.get_current_project()
 	project._opend(_project_process)
+	
+	_mutex.lock()
+	var errors := _project_process.errors
+	_mutex.unlock()
+	
+	if not errors.is_empty():
+		var directory := project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.CACHE).path_join(\"grammar\")
+		FileSystem.remove_directory(directory)
+		_popup_error.call_deferred(\"语法内容发生错误：\\n%s\" % \"\\n\".join(errors))
+		return
 	
 	var config := ConfigFile.new()
 	var path := project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.EDIT)
@@ -124,16 +139,12 @@ func _thread_edit_grammar(_config : ConfigFile) -> bool:
 	
 	var project := ProjectManager.get_current_project()
 	var grammar := Grammar.new()
-	var error := grammar.open(project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.GRAMMAR))
+	var errors := grammar.open(project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.GRAMMAR))
 	
-	if not error.is_empty():
+	if not errors.is_empty():
 		var directory := project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.CACHE).path_join(\"grammar\")
 		FileSystem.remove_directory(directory)
-		(func() -> void:
-			var window := _get_error_option_window()
-			window.dialog_text = \"解析语法时发生错误：%s\" % \"\\n\".join(error)
-			window.popup_centered_clamped()
-		).call_deferred()
+		_popup_error.call_deferred(\"语法内容发生错误：\\n%s\" % \"\\n\".join(errors))
 		return false
 	
 	(func() -> void:
@@ -1162,4 +1173,5 @@ dialog_close_on_escape = false
 [connection signal="custom_action" from="ProjectExitOptionWindow" to="ProjectExitOptionWindow" method="_on_custom_action"]
 [connection signal="direct_exit" from="ProjectExitOptionWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/ProjectMenuButton" method="_on_project_exit_option_window_direct_exit"]
 [connection signal="saved_and_edit" from="ProjectExitOptionWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/ProjectMenuButton" method="_on_project_exit_option_window_saved_and_edit"]
+[connection signal="close_requested" from="ErrorOptionWindow" to="ErrorOptionWindow" method="popup_centered_clamped"]
 [connection signal="confirmed" from="ErrorOptionWindow" to="." method="_on_error_window_confirmed"]

@@ -63,211 +63,251 @@
 		},
 		
 		"armor" : {
-			"equip_chain" : false,
-			"equip_diamond" : false,
-			"equip_gold" : false,
-			"equip_iron" : false,
-			"equip_leather" : false,
-			"equip_netherite" : false,
-			"equip_turtle" : false,
-			"unequip_chain" : false,
-			"unequip_diamond" : false,
-			"unequip_gold" : false,
-			"unequip_iron" : false,
-			"unequip_leather" : false,
-			"unequip_netherite" : false,
-			"unequip_turtle" : false
+			"equip_chain" : "装备锁链盔甲",
+			"equip_diamond" : "装备钻石盔甲",
+			"equip_gold" : "装备金盔甲",
+			"equip_iron" : "装备铁盔甲",
+			"equip_leather" : "装备皮革盔甲",
+			"equip_netherite" : "装备下界合金盔甲",
+			"equip_turtle" : "装备海龟壳",
+			"unequip_chain" : "卸下锁链盔甲",
+			"unequip_diamond" : "卸下钻石盔甲",
+			"unequip_gold" : "卸下金盔甲",
+			"unequip_iron" : "卸下铁盔甲",
+			"unequip_leather" : "卸下皮革盔甲",
+			"unequip_netherite" : "卸下下界合金盔甲",
+			"unequip_turtle" : "卸下海龟壳"
 		},
 		"beacon" : {
-			"activate" : false,
-			"ambient" : false,
-			"deactivate" : false,
-			"power" : false
+  			"activate" : "信标激活音效",
+			"ambient" : "信标环境音效",
+			"deactivate" : "信标停用音效",
+			"power" : "信标能量音效"
 		},
 		"bottle" : {
-			"dragonbreath" : false,
-			"empty" : false,
+			"dragonbreath" : "龙息瓶音效",
+			"empty" : "倒空瓶子音效",
 			"fill" : {
-				"dragonbreath" : false
-			},
+				"dragonbreath" : "填充龙息瓶音效",
+				"" : "填充瓶子音效"
+			}
 		},
 		"bucket" : {
-			"empty" : false,
+			"empty" : "倒空桶音效",
 			"fill" : {
-				"fish" : false,
-				"lava" : false,
-				"powder_snow" : false,
-				"water" : false
-			},
+				"fish" : "装鱼桶音效",
+				"lava" : "装熔岩桶音效",
+				"powder_snow" : "装细雪桶音效",
+				"water" : "装水桶音效",
+				"" : "填充桶音效"
+			}
 		},
-		"camera" : {"take_picture" : false},
+		"camera" : {
+			"take_picture" : "拍照音效"
+		},
 		"cauldron" : {
-			"adddye" : false,
-			"cleanarmor" : false,
-			"cleanbanner" : false,
-			"drip.water" : false,
-			"dyearmor" : false,
-			"explode" : false,
-			"fill" : false,
-			"fillpotion" : false,
-			"take" : false,
-			"takearmor" : false,
-			"takebanner" : false,
-			"takepotion" : false,
-			"takewater" : false
+			"adddye" : "炼药锅加染料音效",
+			"cleanarmor" : "炼药锅清洁盔甲音效",
+			"cleanbanner" : "炼药锅清洁旗帜音效",
+			"drip.water" : "炼药锅滴水音效",
+			"dyearmor" : "炼药锅染色盔甲音效",
+			"explode" : "炼药锅爆炸音效",
+			"fill" : "填充炼药锅音效",
+			"fillpotion" : "炼药锅填充药水音效",
+			"take" : "从炼药锅取物音效",
+			"takearmor" : "从炼药锅取盔甲音效",
+			"takebanner" : "从炼药锅取旗帜音效",
+			"takepotion" : "从炼药锅取药水音效",
+			"takewater" : "从炼药锅取水音效"
 		},
 		"chorusflower" : {
-			"grow" : false,
-			"death" : false
+			"grow" : "紫颂花生长音效",
+			"death" : "紫颂花死亡音效"
 		},
 		"conduit" : {
-			"activate" : false,
-			"ambient" : false,
-			"attack" : false,
-			"deactivate" : false,
-			"short" : false,
-			"triggerd" : false
+			"activate" : "潮涌核心激活音效",
+			"ambient" : "潮涌核心环境音效",
+			"attack" : "潮涌核心攻击音效",
+			"deactivate" : "潮涌核心停用音效",
+			"short" : "潮涌核心短促音效",
+			"triggerd" : "潮涌核心触发音效"
 		},
 		"crossbow" : {
-			"load" : {"start" : false, "middle" : false, "end" : false},
-			"shoot" : false,
-			"quick_charge" : {"start" : false, "middle" : false, "end" : false}
+			"load" : {
+				"start" : "弩装填开始音效",
+				"middle" : "弩装填中段音效",
+				"end" : "弩装填完成音效",
+				"" : "弩装填音效"
+			},
+			"shoot" : "弩射击音效",
+			"quick_charge" : {
+				"start" : "弩快速装填开始音效",
+				"middle" : "弩快速装填中段音效",
+				"end" : "弩快速装填完成音效",
+				"" : "弩快速装填音效"
+			}
 		},
 		"damage" : {
-			"fall" : {"big" : false, "small" : false},
-			"fatal" : false,
-			"mob" : false,
-			"player" : false,
-			"anvil" : {"land" : false},
-			"thorns" : false
+			"fall" : {
+				"big" : "大坠落伤害音效",
+				"small" : "小坠落伤害音效",
+				"" : "坠落伤害音效"
+			},
+			"fatal" : "致命伤害音效",
+			"mob" : "生物伤害音效",
+			"player" : "玩家伤害音效",
+			"anvil" : {
+				"land" : "铁砧落地音效",
+				"" : "铁砧伤害音效"
+			},
+			"thorns" : "荆棘伤害音效"
 		},
-		"elytra" : {"loop" : false,"takeoff" : false},
+		"elytra" : {
+			"loop" : "鞘翅飞行循环音效",
+			"takeoff" : "鞘翅起飞音效"
+		},
 		"fall" : {
-			"egg" : false, "grass" : false, "gravel" : false, "ladder" : false, "sand" : false,
-			"slime" : false, "stone" : false, "wood" : false
+			"egg" : "鸡蛋掉落音效",
+			"grass" : "草掉落音效",
+			"gravel" : "沙砾掉落音效",
+			"ladder" : "梯子掉落音效",
+			"sand" : "沙子掉落音效",
+			"slime" : "黏液块掉落音效",
+			"stone" : "石头掉落音效",
+			"wood" : "木头掉落音效"
 		},
 		"fire" : {
-			"fire" : false, "ignite" : false
+			"fire" : "火焰音效",
+			"ignite" : "点火音效"
 		},
 		"firework" : {
-			"blast" : false, "blast_far" : false, "large_blast" : false, "large_blast_far" : false, "launch" : false,
-			"shoot" : false, "twinkle" : false, "twinkle_far" : false
+			"blast" : "烟花爆炸音效",
+			"blast_far" : "烟花远距离爆炸音效",
+			"large_blast" : "烟花大型爆炸音效",
+			"large_blast_far" : "烟花大型远距爆炸音效",
+			"launch" : "烟花发射音效",
+			"shoot" : "烟花射击音效",
+			"twinkle" : "烟花闪烁音效",
+			"twinkle_far" : "烟花远距闪烁音效"
 		},
 		"furnace" : {
-			"lit" : false
+			"lit" : "熔炉燃烧音效"
 		},
 		"leashknot" : {
-			"break" : false,
-			"place" : false
+			"break" : "拴绳结破坏音效",
+			"place" : "放置拴绳结音效"
 		},
-
 		"lodestone" : {
 			"compass" : {
 				"link" : {
-					"compass" : false
-				}
+					"compass" : "磁石罗盘绑定音效",
+					"" : "磁石绑定音效"
+				},
+				"" : "磁石音效"
 			}
 		},
-
 		"music" : {
-			"menu" : false,
-			"game" : false,
-			"creative" : false,
-			"nether" : false,
-			"end" : false,
-			"under_water" : false,
-			"credits" : false,
+			"menu" : "主菜单音乐",
+			"game" : "游戏音乐",
+			"creative" : "创造模式音乐",
+			"nether" : "下界音乐",
+			"end" : "末地音乐",
+			"under_water" : "水下音乐",
+			"credits" : "鸣谢音乐",
 			"overworld" : {
-				"cave" : false,
-				"deep_dark" : false,
-				"dripstone_caves" : false,
-				"grove" : false,
-				"jagged_peaks" : false,
-				"meadow" : false,
-				"frozen_peaks" : false,
-				"stony_peaks" : false,
-				"snowy_slopes" : false,
-				"lush_caves" : false,
-				"dripstone_caves" : false
-			},
+				"cave" : "洞穴音乐",
+				"deep_dark" : "深暗之域音乐",
+				"dripstone_caves" : "滴水石洞音乐",
+				"grove" : "树林音乐",
+				"jagged_peaks" : "尖峭山峰音乐",
+				"meadow" : "草甸音乐",
+				"frozen_peaks" : "冰封山峰音乐",
+				"stony_peaks" : "石峰音乐",
+				"snowy_slopes" : "雪坡音乐",
+				"lush_caves" : "繁茂洞穴音乐",
+				"" : "主世界音乐"
+			}
 		},
 		"note" : {
-			"harp" : false,
-			"basedrum" : false,
-			"snare" : false,
-			"hat" : false,
-			"bass" : false,
-			"flute" : false,
-			"bell" : false,
-			"guitar" : false,
-			"chime" : false,
-			"xylophone" : false,
-			"iron_xylophone" : false,
-			"cow_bell" : false,
-			"didgeridoo" : false,
-			"bit" : false,
-			"banjo" : false,
-			"pling" : false,
-			"glockenspiel" : false
+			"harp" : "竖琴音色",
+			"basedrum" : "底鼓音色",
+			"snare" : "小鼓音色",
+			"hat" : "镲音色",
+			"bass" : "贝斯音色",
+			"flute" : "长笛音色",
+			"bell" : "钟琴音色",
+			"guitar" : "吉他音色",
+			"chime" : "风铃音色",
+			"xylophone" : "木琴音色",
+			"iron_xylophone" : "铁木琴音色",
+			"cow_bell" : "牛铃音色",
+			"didgeridoo" : "迪吉里杜管音色",
+			"bit" : "比特音色",
+			"banjo" : "班卓琴音色",
+			"pling" : "叮音色",
+			"glockenspiel" : "钟琴音色"
 		},
 		"portal" : {
-			"portal" : false,
-			"travel" : false,
-			"trigger" : false
+			"portal" : "传送门音效",
+			"travel" : "传送旅行音效",
+			"trigger" : "传送门触发音效"
 		},
 		"raid" : {
-			"horn" : false
+			"horn" : "袭击号角音效"
 		},
 		"record" : {
-			"11" : false,
-			"13" : false,
-			"blocks" : false,
-			"cat" : false,
-			"chirp" : false,
-			"creator" : false,
-			"creator_music_box" : false,
-			"far" : false,
-			"mall" : false,
-			"mellohi" : false,
-			"otherside" : false,
-			"pigstep" : false,
-			"precipice" : false,
-			"relic" : false,
-			"stal" : false,
-			"strad" : false,
-			"wait" : false,
-			"ward" : false,
+			"11" : "唱片11",
+			"13" : "唱片13",
+			"blocks" : "唱片Blocks",
+			"cat" : "唱片Cat",
+			"chirp" : "唱片Chirp",
+			"creator" : "唱片Creator",
+			"creator_music_box" : "唱片Creator Music Box",
+			"far" : "唱片Far",
+			"mall" : "唱片Mall",
+			"mellohi" : "唱片Mellohi",
+			"otherside" : "唱片Otherside",
+			"pigstep" : "唱片Pigstep",
+			"precipice" : "唱片Precipice",
+			"relic" : "唱片Relic",
+			"stal" : "唱片Stal",
+			"strad" : "唱片Strad",
+			"wait" : "唱片Wait",
+			"ward" : "唱片Ward"
 		},
 		"respawn_anchor" : {
-			"ambient" : false,
-			"charge" : false,
-			"deplete" : false,
-			"set_spawn" : false,
+			"ambient" : "重生锚环境音效",
+			"charge" : "重生锚充能音效",
+			"deplete" : "重生锚耗尽音效",
+			"set_spawn" : "设置重生点音效"
 		},
 		"sculk" : {
-			"block" : false,
-			"catalyst_blast" : false,
-			"catalyst_charge" : false,
-			"catalyst_growth" : false,
-			"charge" : false,
-			"click" : false,
-			"charge_pop" : false,
-			"shriek" : false,
-			"spread" : false,
-			"spread_charge" : false,
-			"vein" : false,
+			"block" : "幽匿块音效",
+			"catalyst_blast" : "幽匿催发爆裂音效",
+			"catalyst_charge" : "幽匿催发充能音效",
+			"catalyst_growth" : "幽匿催发生长音效",
+			"charge" : "幽匿充能音效",
+			"click" : "幽匿点击音效",
+			"charge_pop" : "幽匿充能爆音效",
+			"shriek" : "幽匿尖啸音效",
+			"spread" : "幽匿扩散音效",
+			"spread_charge" : "幽匿扩散充能音效",
+			"vein" : "幽匿脉络音效"
 		},
 		"tile" : {
 			"piston" : {
-				"in" : false,
-				"out" : false,
+				"in" : "活塞收回音效",
+				"out" : "活塞伸出音效",
+				"" : "活塞音效"
 			},
-			"waterlily" : false,
+			"waterlily" : "睡莲音效"
 		},
 		"water" : {
 			"lava" : {
-				"ambient" : false,
+				"ambient" : "熔岩环境音效",
+				"" : "熔岩音效"
 			},
-		},
+			"" : "水音效"
+		}
 	}
 }

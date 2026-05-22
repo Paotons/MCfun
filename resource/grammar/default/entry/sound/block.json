@@ -1,650 +1,652 @@
 {
-	"bamboo" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"bamboo_sapling" : {
-		"break" : false,
-		"place" : false
-	},
-	"barrel" : {
-		"close" : false,
-		"open" : false
-	},
-	"basalt" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"beacon" : {
-		"activate" : false,
-		"ambient" : false,
-		"deactivate" : false,
-		"power" : false
-	},
-	"beehive" : {
-		"drip" : false,
-		"enter" : false,
-		"exit" : false,
-		"shear" : false,
-		"work" : false
-	},
-	"bell" : {
-		"hit" : false,
-		"resonate" : false
-	},
-	"blastfurnace" : {
-		"fire_crackle" : false
-	},
-	"bone_block" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"brewing_stand" : {
-		"brew" : false
-	},
-	"bubble_column" : {
-		"bubble" : false,
-		"upwards_ambient" : false,
-		"upwards_inside" : false,
-		"whirlpool_ambient" : false,
-		"whirlpool_inside" : false
-	},
-	"button" : {
-		"click" : false,
-		"click_off" : false,
-		"click_on" : false
-	},
-	"cake" : {
-		"add_candle" : false,
-		"eat" : false
-	},
-	"calcite" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"campfire" : {
-		"crackle" : false
-	},
-	"candle" : {
-		"ambient" : false,
-		"break" : false,
-		"extinguish" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"cave_vines" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"pick_berries" : false,
-		"place" : false,
-		"step" : false
-	},
-	"chain" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"chest" : {
-		"close" : false,
-		"lock" : false,
-		"open" : false
-	},
-	"chorus_flower" : {
-		"death" : false,
-		"grow" : false
-	},
-	"composter" : {
-		"empty" : false,
-		"fill" : false,
-		"fill_success" : false,
-		"ready" : false
-	},
-	"conduit" : {
-		"activate" : false,
-		"ambient" : false,
-		"attack" : false,
-		"deactivate" : false,
-		"short" : false
-	},
-	"copper" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"coral_block" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"deepslate" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"deepslate_bricks" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"deepslate_tiles" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"door" : {
-		"close" : false,
-		"open" : false
-	},
-	"dripstone_block" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"enchanting_table" : {
-		"use" : false
-	},
-	"ender_chest" : {
-		"close" : false,
-		"open" : false
-	},
-	"fence_gate" : {
-		"close" : false,
-		"open" : false
-	},
-	"fire" : {
-		"ambient" : false,
-		"extinguish" : false
-	},
-	"fletching_table" : {
-		"use" : false
-	},
-	"flowering_azalea" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"frog_spawn" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"froglight" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"fungus" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"furnace" : {
-		"fire_crackle" : false
-	},
-	"glass" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"grass" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"gravel" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"grindstone" : {
-		"use" : false
-	},
-	"hanging_roots" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"honey_block" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"slide" : false,
-		"step" : false
-	},
-	"iron_bars" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"iron_door" : {
-		"close" : false,
-		"open" : false
-	},
-	"iron_trapdoor" : {
-		"close" : false,
-		"open" : false
-	},
-	"ladder" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"lantern" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"large_amethyst_bud" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"lavacaeldron" : {
-		"extinguish" : false
-	},
-	"lectern" : {
-		"book" : false
-	},
-	"lever" : {
-		"click" : false,
-		"click_off" : false,
-		"click_on" : false
-	},
-	"lodestone" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"loom" : {
-		"use" : false
-	},
-	"mangrove_roots" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"medium_amethyst_bud" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"moss_block" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"moss_carpet" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"mud" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"mud_bricks" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"muddy_mangrove_roots" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"nether_brick" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"nether_gold_ore" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"nether_sprouts" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"nether_wart" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"netherite_block" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"netherrack" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"note_block" : {
-		"basedrum" : false,
-		"banjo" : false,
-		"bass" : false,
-		"bell" : false,
-		"bit" : false,
-		"chime" : false,
-		"cow_bell" : false,
-		"didgeridoo" : false,
-		"flute" : false,
-		"guitar" : false,
-		"harp" : false,
-		"hat" : false,
-		"iron_xylophone" : false,
-		"pling" : false,
-		"snare" : false,
-		"xylophone" : false
-	},
-	"nylium" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"pointed_dripstone" : {
-		"break" : false,
-		"drip_water" : false,
-		"drip_lava" : false,
-		"fall" : false,
-		"hit" : false,
-		"land" : false,
-		"place" : false,
-		"step" : false
-	},
-	"polished_deepslate" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"powder_snow" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"pumpkin" : {
-		"carve" : false
-	},
-	"roots" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"sand" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"scaffolding" : {
-		"break" : false,
-		"climb" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"sculk" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"sculk_catalyst" : {
-		"bloom" : false,
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"sculk_sensor" : {
-		"break" : false,
-		"clicking" : false,
-		"clicking_stop" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"sculk_shrieker" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"shriek" : false,
-		"step" : false
-	},
-	"sculk_vein" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"shroomlight" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"shulker_box" : {
-		"close" : false,
-		"open" : false
-	},
-	"sign" : {
-		"dye" : false,
-		"ink_sac" : false
-	},
-	"slime_block" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"small_amethyst_bud" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"smithing_table" : {
-		"use" : false
-	},
-	"smoker" : {
-		"fire_crackle" : false
-	},
-	"snow" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"soul_sand" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"soul_soil" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"spore_blossom" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"stem" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"stone" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"sweet_berry_bush" : {
-		"break" : false,
-		"pick" : false,
-		"place" : false
-	},
-	"trapdoor" : {
-		"close" : false,
-		"open" : false
-	},
-	"tripwire" : {
-		"attach" : false,
-		"click_off" : false,
-		"click_on" : false,
-		"detach" : false
-	},
-	"tuff" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"vault" : {
-		"activate" : false,
-		"ambient" : false,
-		"deactivate" : false,
-		"eject_item" : false,
-		"insert_item" : false,
-		"open" : false,
-		"open_shutter" : false
-	},
-	"vine" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"wood" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
-	},
-	"wool" : {
-		"break" : false,
-		"fall" : false,
-		"hit" : false,
-		"place" : false,
-		"step" : false
+	"block": {
+		"bamboo": {
+			"break": "破坏竹子",
+			"fall": "竹子落下",
+			"hit": "击打竹子",
+			"place": "放置竹子",
+			"step": "在竹子上行走"
+		},
+		"bamboo_sapling": {
+			"break": "破坏竹笋",
+			"place": "放置竹笋"
+		},
+		"barrel": {
+			"close": "关闭桶",
+			"open": "打开桶"
+		},
+		"basalt": {
+			"break": "破坏玄武岩",
+			"fall": "玄武岩落下",
+			"hit": "击打玄武岩",
+			"place": "放置玄武岩",
+			"step": "在玄武岩上行走"
+		},
+		"beacon": {
+			"activate": "激活信标",
+			"ambient": "信标环境音效",
+			"deactivate": "停用信标",
+			"power": "信标能量"
+		},
+		"beehive": {
+			"drip": "蜜蜂滴落",
+			"enter": "蜜蜂进入蜂巢",
+			"exit": "蜜蜂离开蜂巢",
+			"shear": "剪切蜂巢",
+			"work": "蜜蜂工作"
+		},
+		"bell": {
+			"hit": "敲击钟",
+			"resonate": "钟共鸣"
+		},
+		"blastfurnace": {
+			"fire_crackle": "高炉火焰噼啪声"
+		},
+		"bone_block": {
+			"break": "破坏骨块",
+			"fall": "骨块落下",
+			"hit": "击打骨块",
+			"place": "放置骨块",
+			"step": "在骨块上行走"
+		},
+		"brewing_stand": {
+			"brew": "酿造台酿造"
+		},
+		"bubble_column": {
+			"bubble": "气泡柱气泡",
+			"upwards_ambient": "上升气泡环境音",
+			"upwards_inside": "气泡柱内部上升音",
+			"whirlpool_ambient": "漩涡气泡环境音",
+			"whirlpool_inside": "气泡柱内部漩涡音"
+		},
+		"button": {
+			"click": "按钮点击",
+			"click_off": "按钮关闭点击",
+			"click_on": "按钮开启点击"
+		},
+		"cake": {
+			"add_candle": "蛋糕添加蜡烛",
+			"eat": "吃蛋糕"
+		},
+		"calcite": {
+			"break": "破坏方解石",
+			"fall": "方解石落下",
+			"hit": "击打方解石",
+			"place": "放置方解石",
+			"step": "在方解石上行走"
+		},
+		"campfire": {
+			"crackle": "营火噼啪声"
+		},
+		"candle": {
+			"ambient": "蜡烛环境音",
+			"break": "破坏蜡烛",
+			"extinguish": "熄灭蜡烛",
+			"fall": "蜡烛落下",
+			"hit": "击打蜡烛",
+			"place": "放置蜡烛",
+			"step": "在蜡烛上行走"
+		},
+		"cave_vines": {
+			"break": "破坏洞穴藤蔓",
+			"fall": "洞穴藤蔓落下",
+			"hit": "击打洞穴藤蔓",
+			"pick_berries": "采摘发光浆果",
+			"place": "放置洞穴藤蔓",
+			"step": "在洞穴藤蔓上行走"
+		},
+		"chain": {
+			"break": "破坏锁链",
+			"fall": "锁链落下",
+			"hit": "击打锁链",
+			"place": "放置锁链",
+			"step": "在锁链上行走"
+		},
+		"chest": {
+			"close": "关闭箱子",
+			"lock": "锁定箱子",
+			"open": "打开箱子"
+		},
+		"chorus_flower": {
+			"death": "紫颂花死亡",
+			"grow": "紫颂花生长"
+		},
+		"composter": {
+			"empty": "清空堆肥桶",
+			"fill": "填充堆肥桶",
+			"fill_success": "成功堆肥",
+			"ready": "堆肥完成"
+		},
+		"conduit": {
+			"activate": "激活潮涌核心",
+			"ambient": "潮涌核心环境音",
+			"attack": "潮涌核心攻击",
+			"deactivate": "停用潮涌核心",
+			"short": "潮涌核心短音"
+		},
+		"copper": {
+			"break": "破坏铜块",
+			"fall": "铜块落下",
+			"hit": "击打铜块",
+			"place": "放置铜块",
+			"step": "在铜块上行走"
+		},
+		"coral_block": {
+			"break": "破坏珊瑚块",
+			"fall": "珊瑚块落下",
+			"hit": "击打珊瑚块",
+			"place": "放置珊瑚块",
+			"step": "在珊瑚块上行走"
+		},
+		"deepslate": {
+			"break": "破坏深板岩",
+			"fall": "深板岩落下",
+			"hit": "击打深板岩",
+			"place": "放置深板岩",
+			"step": "在深板岩上行走"
+		},
+		"deepslate_bricks": {
+			"break": "破坏深板岩砖",
+			"fall": "深板岩砖落下",
+			"hit": "击打深板岩砖",
+			"place": "放置深板岩砖",
+			"step": "在深板岩砖上行走"
+		},
+		"deepslate_tiles": {
+			"break": "破坏深板岩瓦",
+			"fall": "深板岩瓦落下",
+			"hit": "击打深板岩瓦",
+			"place": "放置深板岩瓦",
+			"step": "在深板岩瓦上行走"
+		},
+		"door": {
+			"close": "关闭门",
+			"open": "开门"
+		},
+		"dripstone_block": {
+			"break": "破坏滴水石块",
+			"fall": "滴水石块落下",
+			"hit": "击打滴水石块",
+			"place": "放置滴水石块",
+			"step": "在滴水石块上行走"
+		},
+		"enchanting_table": {
+			"use": "使用附魔台"
+		},
+		"ender_chest": {
+			"close": "关闭末影箱",
+			"open": "打开末影箱"
+		},
+		"fence_gate": {
+			"close": "关闭栅栏门",
+			"open": "打开栅栏门"
+		},
+		"fire": {
+			"ambient": "火焰环境音",
+			"extinguish": "火焰熄灭"
+		},
+		"fletching_table": {
+			"use": "使用制箭台"
+		},
+		"flowering_azalea": {
+			"break": "破坏盛开的杜鹃花丛",
+			"fall": "盛开的杜鹃花丛落下",
+			"hit": "击打盛开的杜鹃花丛",
+			"place": "放置盛开的杜鹃花丛",
+			"step": "在盛开的杜鹃花丛上行走"
+		},
+		"frog_spawn": {
+			"break": "破坏青蛙卵",
+			"fall": "青蛙卵落下",
+			"hit": "击打青蛙卵",
+			"place": "放置青蛙卵",
+			"step": "在青蛙卵上行走"
+		},
+		"froglight": {
+			"break": "破坏蛙光体",
+			"fall": "蛙光体落下",
+			"hit": "击打蛙光体",
+			"place": "放置蛙光体",
+			"step": "在蛙光体上行走"
+		},
+		"fungus": {
+			"break": "破坏菌类",
+			"fall": "菌类落下",
+			"hit": "击打菌类",
+			"place": "放置菌类",
+			"step": "在菌类上行走"
+		},
+		"furnace": {
+			"fire_crackle": "熔炉火焰噼啪声"
+		},
+		"glass": {
+			"break": "破坏玻璃",
+			"fall": "玻璃落下",
+			"hit": "击打玻璃",
+			"place": "放置玻璃",
+			"step": "在玻璃上行走"
+		},
+		"grass": {
+			"break": "破坏草方块",
+			"fall": "草方块落下",
+			"hit": "击打草方块",
+			"place": "放置草方块",
+			"step": "在草方块上行走"
+		},
+		"gravel": {
+			"break": "破坏沙砾",
+			"fall": "沙砾落下",
+			"hit": "击打沙砾",
+			"place": "放置沙砾",
+			"step": "在沙砾上行走"
+		},
+		"grindstone": {
+			"use": "使用砂轮"
+		},
+		"hanging_roots": {
+			"break": "破坏垂根",
+			"fall": "垂根落下",
+			"hit": "击打垂根",
+			"place": "放置垂根",
+			"step": "在垂根上行走"
+		},
+		"honey_block": {
+			"break": "破坏蜜脾块",
+			"fall": "蜜脾块落下",
+			"hit": "击打蜜脾块",
+			"place": "放置蜜脾块",
+			"slide": "在蜜脾块上滑动",
+			"step": "在蜜脾块上行走"
+		},
+		"iron_bars": {
+			"break": "破坏铁栏杆",
+			"fall": "铁栏杆落下",
+			"hit": "击打铁栏杆",
+			"place": "放置铁栏杆",
+			"step": "在铁栏杆上行走"
+		},
+		"iron_door": {
+			"close": "关闭铁门",
+			"open": "打开铁门"
+		},
+		"iron_trapdoor": {
+			"close": "关闭铁活板门",
+			"open": "打开铁活板门"
+		},
+		"ladder": {
+			"break": "破坏梯子",
+			"fall": "梯子落下",
+			"hit": "击打梯子",
+			"place": "放置梯子",
+			"step": "在梯子上行走"
+		},
+		"lantern": {
+			"break": "破坏灯笼",
+			"fall": "灯笼落下",
+			"hit": "击打灯笼",
+			"place": "放置灯笼",
+			"step": "在灯笼上行走"
+		},
+		"large_amethyst_bud": {
+			"break": "破坏大型紫晶芽",
+			"fall": "大型紫晶芽落下",
+			"hit": "击打大型紫晶芽",
+			"place": "放置大型紫晶芽",
+			"step": "在大型紫晶芽上行走"
+		},
+		"lavacaeldron": {
+			"extinguish": "熔岩熄灭"
+		},
+		"lectern": {
+			"book": "讲台翻书"
+		},
+		"lever": {
+			"click": "拉杆点击",
+			"click_off": "拉杆关闭",
+			"click_on": "拉杆开启"
+		},
+		"lodestone": {
+			"break": "破坏磁石",
+			"fall": "磁石落下",
+			"hit": "击打磁石",
+			"place": "放置磁石",
+			"step": "在磁石上行走"
+		},
+		"loom": {
+			"use": "使用织布机"
+		},
+		"mangrove_roots": {
+			"break": "破坏红树根",
+			"fall": "红树根落下",
+			"hit": "击打红树根",
+			"place": "放置红树根",
+			"step": "在红树根上行走"
+		},
+		"medium_amethyst_bud": {
+			"break": "破坏中型紫晶芽",
+			"fall": "中型紫晶芽落下",
+			"hit": "击打中型紫晶芽",
+			"place": "放置中型紫晶芽",
+			"step": "在大型紫晶芽上行走"
+		},
+		"moss_block": {
+			"break": "破坏苔藓块",
+			"fall": "苔藓块落下",
+			"hit": "击打苔藓块",
+			"place": "放置苔藓块",
+			"step": "在苔藓块上行走"
+		},
+		"moss_carpet": {
+			"break": "破坏苔藓地毯",
+			"fall": "苔藓地毯落下",
+			"hit": "击打苔藓地毯",
+			"place": "放置苔藓地毯",
+			"step": "在苔藓地毯上行走"
+		},
+		"mud": {
+			"break": "破坏泥巴",
+			"fall": "泥巴落下",
+			"hit": "击打泥巴",
+			"place": "放置泥巴",
+			"step": "在泥巴上行走"
+		},
+		"mud_bricks": {
+			"break": "破坏泥砖",
+			"fall": "泥砖落下",
+			"hit": "击打泥砖",
+			"place": "放置泥砖",
+			"step": "在泥砖上行走"
+		},
+		"muddy_mangrove_roots": {
+			"break": "破坏沾泥的红树根",
+			"fall": "沾泥的红树根落下",
+			"hit": "击打沾泥的红树根",
+			"place": "放置沾泥的红树根",
+			"step": "在沾泥的红树根上行走"
+		},
+		"nether_brick": {
+			"break": "破坏下界砖",
+			"fall": "下界砖落下",
+			"hit": "击打下界砖",
+			"place": "放置下界砖",
+			"step": "在下界砖上行走"
+		},
+		"nether_gold_ore": {
+			"break": "破坏下界金矿",
+			"fall": "下界金矿落下",
+			"hit": "击打下界金矿",
+			"place": "放置下界金矿",
+			"step": "在下界金矿上行走"
+		},
+		"nether_sprouts": {
+			"break": "破坏下界苗",
+			"fall": "下界苗落下",
+			"hit": "击打下界苗",
+			"place": "放置下界苗",
+			"step": "在下界苗上行走"
+		},
+		"nether_wart": {
+			"break": "破坏下界疣",
+			"fall": "下界疣落下",
+			"hit": "击打下界疣",
+			"place": "放置下界疣",
+			"step": "在下界疣上行走"
+		},
+		"netherite_block": {
+			"break": "破坏下界合金块",
+			"fall": "下界合金块落下",
+			"hit": "击打下界合金块",
+			"place": "放置下界合金块",
+			"step": "在下界合金块上行走"
+		},
+		"netherrack": {
+			"break": "破坏下界岩",
+			"fall": "下界岩落下",
+			"hit": "击打下界岩",
+			"place": "放置下界岩",
+			"step": "在下界岩上行走"
+		},
+		"note_block": {
+			"basedrum": "底鼓音效",
+			"banjo": "班卓琴音效",
+			"bass": "贝斯音效",
+			"bell": "钟琴音效",
+			"bit": "比特音效",
+			"chime": "风铃音效",
+			"cow_bell": "牛铃音效",
+			"didgeridoo": "迪吉里杜管音效",
+			"flute": "长笛音效",
+			"guitar": "吉他音效",
+			"harp": "竖琴音效",
+			"hat": "踩镲音效",
+			"iron_xylophone": "铁木琴音效",
+			"pling": "叮铃声效",
+			"snare": "小鼓音效",
+			"xylophone": "木琴音效"
+		},
+		"nylium": {
+			"break": "破坏菌岩",
+			"fall": "菌岩落下",
+			"hit": "击打菌岩",
+			"place": "放置菌岩",
+			"step": "在菌岩上行走"
+		},
+		"pointed_dripstone": {
+			"break": "破坏滴水石锥",
+			"drip_water": "滴水石锥滴水",
+			"drip_lava": "滴水石锥滴熔岩",
+			"fall": "滴水石锥落下",
+			"hit": "击打滴水石锥",
+			"land": "滴水石锥落地",
+			"place": "放置滴水石锥",
+			"step": "在滴水石锥上行走"
+		},
+		"polished_deepslate": {
+			"break": "破坏磨制深板岩",
+			"fall": "磨制深板岩落下",
+			"hit": "击打磨制深板岩",
+			"place": "放置磨制深板岩",
+			"step": "在磨制深板岩上行走"
+		},
+		"powder_snow": {
+			"break": "破坏细雪",
+			"fall": "细雪落下",
+			"hit": "击打细雪",
+			"place": "放置细雪",
+			"step": "在细雪上行走"
+		},
+		"pumpkin": {
+			"carve": "雕刻南瓜"
+		},
+		"roots": {
+			"break": "破坏菌索",
+			"fall": "菌索落下",
+			"hit": "击打菌索",
+			"place": "放置菌索",
+			"step": "在菌索上行走"
+		},
+		"sand": {
+			"break": "破坏沙子",
+			"fall": "沙子落下",
+			"hit": "击打沙子",
+			"place": "放置沙子",
+			"step": "在沙子上行走"
+		},
+		"scaffolding": {
+			"break": "破坏脚手架",
+			"climb": "爬脚手架",
+			"fall": "脚手架落下",
+			"hit": "击打脚手架",
+			"place": "放置脚手架",
+			"step": "在脚手架上行走"
+		},
+		"sculk": {
+			"break": "破坏幽匿块",
+			"fall": "幽匿块落下",
+			"hit": "击打幽匿块",
+			"place": "放置幽匿块",
+			"step": "在幽匿块上行走"
+		},
+		"sculk_catalyst": {
+			"bloom": "幽匿催发体绽放",
+			"break": "破坏幽匿催发体",
+			"fall": "幽匿催发体落下",
+			"hit": "击打幽匿催发体",
+			"place": "放置幽匿催发体",
+			"step": "在幽匿催发体上行走"
+		},
+		"sculk_sensor": {
+			"break": "破坏幽匿感测体",
+			"clicking": "幽匿感测体点击",
+			"clicking_stop": "幽匿感测体停止点击",
+			"fall": "幽匿感测体落下",
+			"hit": "击打幽匿感测体",
+			"place": "放置幽匿感测体",
+			"step": "在幽匿感测体上行走"
+		},
+		"sculk_shrieker": {
+			"break": "破坏幽匿尖啸体",
+			"fall": "幽匿尖啸体落下",
+			"hit": "击打幽匿尖啸体",
+			"place": "放置幽匿尖啸体",
+			"shriek": "幽匿尖啸体尖啸",
+			"step": "在幽匿尖啸体上行走"
+		},
+		"sculk_vein": {
+			"break": "破坏幽匿脉络",
+			"fall": "幽匿脉络落下",
+			"hit": "击打幽匿脉络",
+			"place": "放置幽匿脉络",
+			"step": "在幽匿脉络上行走"
+		},
+		"shroomlight": {
+			"break": "破坏菌光体",
+			"fall": "菌光体落下",
+			"hit": "击打菌光体",
+			"place": "放置菌光体",
+			"step": "在菌光体上行走"
+		},
+		"shulker_box": {
+			"close": "关闭潜影盒",
+			"open": "打开潜影盒"
+		},
+		"sign": {
+			"dye": "告示牌染色",
+			"ink_sac": "使用墨囊"
+		},
+		"slime_block": {
+			"break": "破坏黏液块",
+			"fall": "黏液块落下",
+			"hit": "击打黏液块",
+			"place": "放置黏液块",
+			"step": "在黏液块上行走"
+		},
+		"small_amethyst_bud": {
+			"break": "破坏小型紫晶芽",
+			"fall": "小型紫晶芽落下",
+			"hit": "击打小型紫晶芽",
+			"place": "放置小型紫晶芽",
+			"step": "在小型紫晶芽上行走"
+		},
+		"smithing_table": {
+			"use": "使用锻造台"
+		},
+		"smoker": {
+			"fire_crackle": "烟熏炉火焰噼啪声"
+		},
+		"snow": {
+			"break": "破坏雪",
+			"fall": "雪落下",
+			"hit": "击打雪",
+			"place": "放置雪",
+			"step": "在雪上行走"
+		},
+		"soul_sand": {
+			"break": "破坏灵魂沙",
+			"fall": "灵魂沙落下",
+			"hit": "击打灵魂沙",
+			"place": "放置灵魂沙",
+			"step": "在灵魂沙上行走"
+		},
+		"soul_soil": {
+			"break": "破坏灵魂土",
+			"fall": "灵魂土落下",
+			"hit": "击打灵魂土",
+			"place": "放置灵魂土",
+			"step": "在灵魂土上行走"
+		},
+		"spore_blossom": {
+			"break": "破坏孢子花",
+			"fall": "孢子花落下",
+			"hit": "击打孢子花",
+			"place": "放置孢子花",
+			"step": "在孢子花上行走"
+		},
+		"stem": {
+			"break": "破坏菌柄",
+			"fall": "菌柄落下",
+			"hit": "击打菌柄",
+			"place": "放置菌柄",
+			"step": "在菌柄上行走"
+		},
+		"stone": {
+			"break": "破坏石头",
+			"fall": "石头落下",
+			"hit": "击打石头",
+			"place": "放置石头",
+			"step": "在石头上行走"
+		},
+		"sweet_berry_bush": {
+			"break": "破坏甜浆果丛",
+			"pick": "采摘甜浆果",
+			"place": "放置甜浆果丛"
+		},
+		"trapdoor": {
+			"close": "关闭活板门",
+			"open": "打开活板门"
+		},
+		"tripwire": {
+			"attach": "绊线钩连接",
+			"click_off": "绊线钩关闭",
+			"click_on": "绊线钩开启",
+			"detach": "绊线钩断开"
+		},
+		"tuff": {
+			"break": "破坏凝灰岩",
+			"fall": "凝灰岩落下",
+			"hit": "击打凝灰岩",
+			"place": "放置凝灰岩",
+			"step": "在凝灰岩上行走"
+		},
+		"vault": {
+			"activate": "激活 vault",
+			"ambient": "vault 环境音",
+			"deactivate": "停用 vault",
+			"eject_item": "vault 弹射物品",
+			"insert_item": "vault 插入物品",
+			"open": "打开 vault",
+			"open_shutter": "vault 百叶窗开启"
+		},
+		"vine": {
+			"break": "破坏藤蔓",
+			"fall": "藤蔓落下",
+			"hit": "击打藤蔓",
+			"place": "放置藤蔓",
+			"step": "在藤蔓上行走"
+		},
+		"wood": {
+			"break": "破坏木头",
+			"fall": "木头落下",
+			"hit": "击打木头",
+			"place": "放置木头",
+			"step": "在木头上行走"
+		},
+		"wool": {
+			"break": "破坏羊毛",
+			"fall": "羊毛落下",
+			"hit": "击打羊毛",
+			"place": "放置羊毛",
+			"step": "在羊毛上行走"
+		}
 	}
 }

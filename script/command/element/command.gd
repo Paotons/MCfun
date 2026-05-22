@@ -61,12 +61,12 @@ func _update(text : String, column : int) -> CommandElement:
 	return creater.run_from_column(text, process, column)
 
 static func get_precast_code_completion_data(_column : int, _rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
-	return CommandElementManager.get_head_completion_data()
+	return EditManager.get_grammar_process().get_head_completion_data()
 func _get_column_code_completion_data(column : int, _rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
 	if is_column_outside_valid(column): # 不在范围。
 		return null
 	elif is_column_at_head(column): # 在头部。
-		return CommandElementManager.get_head_completion_data()
+		return EditManager.get_grammar_process().get_head_completion_data()
 	
 	# 在最后结尾
 	if is_column_at_end(column):
@@ -84,7 +84,7 @@ func _get_column_code_completion_data(column : int, _rule : ElementRule, _comman
 		GrammarValue.Type.COMMAND:
 			var element : BaseCommandElement = get_element(idx)
 			if element.command_type & CommandElementManager.CommandType.REPLACE != 0:
-				return CommandElementManager.get_head_completion_data() if element.is_faild else element.get_column_code_completion_data(column, exe, self)
+				return EditManager.get_grammar_process().get_head_completion_data() if element.is_faild else element.get_column_code_completion_data(column, exe, self)
 		_:
 			var result : StringElement = get_element(idx)
 			return result.get_column_code_completion_data(column, exe, self)
