@@ -28,6 +28,11 @@
 		"type": "file",
 		"file": "entry/sound.json"
 	},
+	"world_name" : {
+		"type" : "file",
+		"file" : "entry/world.json"
+	},
+	
 	
 	"game_rule_name_to_int": {
 		"type": "string",

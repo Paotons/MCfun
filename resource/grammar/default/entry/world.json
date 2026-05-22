@@ -1,0 +1,8 @@
+{
+	"type" : "string",
+	"data" : {
+		"overworld" : "主世界",
+		"the_nether" : "下界",
+		"the_end" : "末地"
+	}
+}

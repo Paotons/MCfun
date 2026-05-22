@@ -40,13 +40,10 @@ class _Option extends _Element:
 			return
 		
 		var items = from["items"]
-		if not _test_value_type(items, 1 << TYPE_ARRAY | 1 << TYPE_DICTIONARY, "%s[items]" % element):
+		if not _test_value_type(items, 1 << TYPE_ARRAY, "%s[items]" % element):
 			return
 		if items is Array:
 			if not _compile_items_v1(items):
-				return
-		elif items is Dictionary:
-			if not _compile_items_v2(items):
 				return
 		
 		if not _compile_detail(from):
@@ -54,22 +51,35 @@ class _Option extends _Element:
 		if not _try_dictionary_key(from, "%s[custom]" % element, "custom", META_CUSTOM, false):
 			return
 		
-		
-		var size := (compiled_result[META_ITEMS][_ITEMS_ITEMS] as Array).size()
 		if not _try_dictionary_key(from, "%s[description]" % element, "description", META_DESCRIPTION, false,
-			_test_value_array_types.bind(1 << TYPE_STRING, "%s[description]" % element, size),
+			_test_value_array_types.bind(1 << TYPE_STRING, "%s[description]" % element),
 		):
 			return
 		_set_is_valid(true)
 	
 	func _compile_items_v1(from : Array) -> bool:
-		if not _test_array_types(from, 1 << TYPE_STRING, "%s[items]" % element):
+		if not _test_array_types(from, 1 << TYPE_STRING | 1 << TYPE_DICTIONARY, "%s[items]" % element):
 			return false
-		compiled_result[META_ITEMS] = [null, null]
-		compiled_result[META_ITEMS][_ITEMS_ITEMS] = from
-		compiled_result[META_ITEMS][_ITEMS_DISPLAYS] = []
+		
+		var keys : PackedStringArray
+		var values : PackedStringArray
+		for i in from.size():
+			var value = from[i]
+			if value is String:
+				keys.append(value)
+				values.append("")
+			elif value is Dictionary:
+				if not _test_dictionary_key_types(value, 1 << TYPE_STRING, "%s[item][%d]" % [element, i]):
+					return false
+				elif not _test_dictionary_value_types(value, 1 << TYPE_STRING, "%s[item][%d]" % [element, i]):
+					return false
+				keys.append(value.keys().back())
+				values.append(value.values().back())
+		
+		compiled_result[META_ITEMS] = [keys, values]
 		return true
 	
+	# 字典无法保证与 goto 的顺序。
 	func _compile_items_v2(from : Dictionary) -> bool:
 		if not _test_dictionary_key_types(from, 1 << TYPE_STRING, "%s[items]" % element):
 			return false
@@ -162,6 +172,7 @@ func compile(data : Variant) -> void:
 	obj.element = element_name
 	obj.compile(from)
 	
+	_add_error_from_object(obj)
 	if not obj.is_valid():
 		return
 	compiled_result.merge(obj.get_result())

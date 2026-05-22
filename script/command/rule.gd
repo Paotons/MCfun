@@ -3,7 +3,10 @@ extends RefCounted
 ## 指令规则。
 
 ## 数据。
-var data : Array
+var main_data : Array
+
+func set_data(value : Array) -> void:
+	main_data = value
 
 ## 如果按照 [param idxs] 走，能够结束，返回 [code]true[/code]。
 func is_indexs_has_end(idxs : PackedInt32Array) -> bool:
@@ -21,14 +24,14 @@ func is_indexs_has_subcommand(idxs : PackedInt32Array) -> bool:
 			return true
 	return false
 
-## 获取元素。
+## 返回元素。
 func get_element(idx : int) -> ExeElementRule:
 	var exe := ExeElementRule.new()
-	exe.data_main = data[idx]
+	exe.data_main = main_data[idx]
 	return exe
-## 获取元素数量。
+## 返回元素数量。
 func get_element_count() -> int:
-	return data.size()
+	return main_data.size()
 
 ## 如果一个 [param a] 可以继承到 [param b] 下，返回 [code]true[/code]。
 static func is_can_exetends(a : ExeElementRule, b : ExeElementRule = null) -> bool:

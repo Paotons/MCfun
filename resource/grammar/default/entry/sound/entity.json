@@ -1,737 +1,737 @@
 {
-	"entity": {
-		"allay": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"item_given": "给予物品音效",
-			"item_taken": "接收物品音效",
-			"item_thrown": "投掷物品音效"
-		},
-		"axolotl": {
-			"ambient": "环境音效",
-			"attack": "攻击音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"idle_water": "水中空闲音效",
-			"splash": "溅水音效",
-			"swim": "游泳音效"
-		},
-		"bat": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"loop": "循环飞行音效",
-			"takeoff": "起飞音效"
-		},
-		"bee": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"loop": "循环飞行音效",
-			"pollinate": "授粉音效",
-			"sting": "蜇刺音效"
-		},
-		"blaze": {
-			"ambient": "环境音效",
-			"breath": "呼吸音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"shoot": "射击音效"
-		},
-		"cat": {
-			"ambient": "环境音效",
-			"beg": "乞求音效",
-			"death": "死亡音效",
-			"eat": "进食音效",
-			"hiss": "嘶嘶声",
-			"hurt": "受伤音效",
-			"meow": "喵喵叫",
-			"puff": "炸毛音效",
-			"purr": "咕噜声",
-			"purreow": "咕噜喵叫",
-			"stray": "流浪猫音效"
-		},
-		"chicken": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"egg": "下蛋音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"plop": "扑通声",
-			"step": "脚步声"
-		},
-		"cod": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"flop": "扑腾声",
-			"hurt": "受伤音效",
-			"idle": "空闲音效"
-		},
-		"cow": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"milk": "挤奶音效",
-			"step": "脚步声"
-		},
-		"creeper": {
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"primed": "点燃音效"
-		},
-		"dolphin": {
-			"ambient": "环境音效",
-			"attack": "攻击音效",
-			"death": "死亡音效",
-			"eat": "进食音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"idle_water": "水中空闲音效",
-			"jump": "跳跃音效",
-			"play": "玩耍音效",
-			"splash": "溅水音效",
-			"swim": "游泳音效"
-		},
-		"donkey": {
-			"ambient": "环境音效",
-			"angry": "愤怒音效",
-			"chest": "箱子音效",
-			"death": "死亡音效",
-			"eat": "进食音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"jump": "跳跃音效",
-			"land": "落地音效",
-			"step": "脚步声",
-			"step_lava": "熔岩脚步声"
-		},
-		"drowned": {
-			"ambient": "环境音效",
-			"ambient_water": "水中环境音效",
-			"death": "死亡音效",
-			"death_water": "水中死亡音效",
-			"hurt": "受伤音效",
-			"hurt_water": "水中受伤音效",
-			"shoot": "射击音效",
-			"step": "脚步声",
-			"swim": "游泳音效"
-		},
-		"elder_guardian": {
-			"ambient": "环境音效",
-			"curse": "诅咒音效",
-			"death": "死亡音效",
-			"death_land": "陆地死亡音效",
-			"flop": "扑腾声",
-			"hit": "击中音效",
-			"hit_land": "陆地击中音效",
-			"idle": "空闲音效",
-			"idle_land": "陆地空闲音效"
-		},
-		"ender_dragon": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"flap": "振翅声",
-			"growl": "咆哮声",
-			"hurt": "受伤音效",
-			"shoot": "射击音效"
-		},
-		"enderman": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"scream": "尖叫声",
-			"stare": "凝视音效",
-			"teleport": "瞬移音效"
-		},
-		"endermite": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"step": "脚步声"
-		},
-		"evoker": {
-			"ambient": "环境音效",
-			"cast_spell": "施法音效",
-			"celebrate": "庆祝音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"prepare_attack": "准备攻击音效",
-			"prepare_summon": "准备召唤音效",
-			"prepare_wololo": "准备变换音效"
-		},
-		"fox": {
-			"aggro": "主动攻击音效",
-			"ambient": "环境音效",
-			"bite": "撕咬音效",
-			"death": "死亡音效",
-			"eat": "进食音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"sleep": "睡眠音效",
-			"sniff": "嗅闻音效",
-			"spit": "吐口水音效"
-		},
-		"frog": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"eat": "进食音效",
-			"hurt": "受伤音效",
-			"lay_spawn": "产卵音效",
-			"step": "脚步声"
-		},
-		"ghast": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"screech": "尖啸声",
-			"shoot": "射击音效",
-			"scream": "尖叫声"
-		},
-		"glow_squid": {
-			"ambient": "环境音效",
-			"ambient_water": "水中环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"squirt": "喷墨音效"
-		},
-		"goat": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"eat": "进食音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"prepare_ram": "准备冲撞音效",
-			"pre_ram": "冲撞前摇音效",
-			"ram_impact": "冲撞撞击音效",
-			"screaming.ambient": "尖叫声环境音效",
-			"screaming.death": "尖叫声死亡音效",
-			"screaming.eat": "尖叫声进食音效",
-			"screaming.hurt": "尖叫声受伤音效",
-			"screaming.idle": "尖叫声空闲音效",
-			"screaming.prepare_ram": "尖叫声准备冲撞音效",
-			"screaming.pre_ram": "尖叫声冲撞前摇音效",
-			"screaming.ram_impact": "尖叫声冲撞撞击音效",
-			"step": "脚步声"
-		},
-		"guardian": {
-			"ambient": "环境音效",
-			"ambient_land": "陆地环境音效",
-			"attack": "攻击音效",
-			"death": "死亡音效",
-			"death_land": "陆地死亡音效",
-			"flop": "扑腾声",
-			"hit": "击中音效",
-			"hit_land": "陆地击中音效",
-			"idle": "空闲音效"
-		},
-		"hoglin": {
-			"ambient": "环境音效",
-			"angry": "愤怒音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"retreat": "撤退音效",
-			"step": "脚步声"
-		},
-		"horse": {
-			"ambient": "环境音效",
-			"angry": "愤怒音效",
-			"armor": "盔甲音效",
-			"breath": "呼吸音效",
-			"death": "死亡音效",
-			"eat": "进食音效",
-			"gallop": "飞奔音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"jump": "跳跃音效",
-			"land": "落地音效",
-			"saddle": "鞍具音效",
-			"step": "脚步声",
-			"step_lava": "熔岩脚步声",
-			"step_wood": "木质脚步声"
-		},
-		"husk": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"step": "脚步声"
-		},
-		"iron_golem": {
-			"attack": "攻击音效",
-			"damage": "受损音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"repair": "修复音效",
-			"step": "脚步声",
-			"walk": "行走音效"
-		},
-		"llama": {
-			"ambient": "环境音效",
-			"angry": "愤怒音效",
-			"chest": "箱子音效",
-			"death": "死亡音效",
-			"eat": "进食音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"spit": "吐口水音效",
-			"step": "脚步声",
-			"swag": "装饰品音效"
-		},
-		"magma_cube": {
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"jump": "跳跃音效",
-			"land": "落地音效",
-			"sqish": "挤压声"
-		},
-		"mooshroom": {
-			"ambient": "环境音效",
-			"convert": "转换音效",
-			"death": "死亡音效",
-			"eat": "进食音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"milk": "挤奶音效",
-			"suspicious_milk": "可疑的挤奶音效",
-			"step": "脚步声"
-		},
-		"mule": {
-			"ambient": "环境音效",
-			"chest": "箱子音效",
-			"death": "死亡音效",
-			"eat": "进食音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"jump": "跳跃音效",
-			"land": "落地音效",
-			"step": "脚步声",
-			"step_lava": "熔岩脚步声"
-		},
-		"ocelot": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效"
-		},
-		"panda": {
-			"aggressive_ambient": "好斗环境音效",
-			"ambient": "环境音效",
-			"bleat": "咩叫声",
-			"breed": "繁殖音效",
-			"death": "死亡音效",
-			"eat": "进食音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"lazy_ambient": "慵懒环境音效",
-			"playful_ambient": "顽皮环境音效",
-			"pre_sneeze": "打喷嚏前摇音效",
-			"sneeze": "打喷嚏音效",
-			"step": "脚步声",
-			"worried_ambient": "担忧环境音效"
-		},
-		"parrot": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"eat": "进食音效",
-			"fly": "飞行音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"step": "脚步声"
-		},
-		"phantom": {
-			"ambient": "环境音效",
-			"bite": "撕咬音效",
-			"death": "死亡音效",
-			"flap": "振翅声",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"swoop": "俯冲音效"
-		},
-		"pig": {
-			"ambient": "环境音效",
-			"boar": "猪叫",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"saddle": "鞍具音效",
-			"step": "脚步声"
-		},
-		"piglin": {
-			"ambient": "环境音效",
-			"angry": "愤怒音效",
-			"celebrate": "庆祝音效",
-			"converted_to_zombified": "僵尸化音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"jealous": "嫉妒音效",
-			"retreat": "撤退音效",
-			"step": "脚步声"
-		},
-		"piglin_brute": {
-			"ambient": "环境音效",
-			"angry": "愤怒音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"step": "脚步声"
-		},
-		"pillager": {
-			"ambient": "环境音效",
-			"celebrate": "庆祝音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效"
-		},
-		"polar_bear": {
-			"ambient": "环境音效",
-			"ambient_baby": "幼年环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"step": "脚步声",
-			"warning": "警告音效"
-		},
-		"player": {
-			"breath": "呼吸音效",
-			"burp": "打嗝声",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"hurt_drown": "溺水受伤音效",
-			"hurt_fall_big": "高处摔落受伤音效",
-			"hurt_fall_small": "低处摔落受伤音效",
-			"hurt_fire": "火焰受伤音效",
-			"hurt_freeze": "冰冻受伤音效",
-			"hurt_on_fire": "着火受伤音效",
-			"levelup": "升级音效",
-			"teleport": "瞬移音效"
-		},
-		"rabbit": {
-			"ambient": "环境音效",
-			"attack": "攻击音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"jump": "跳跃音效"
-		},
-		"ravager": {
-			"ambient": "环境音效",
-			"bite": "撕咬音效",
-			"celebrate": "庆祝音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"roar": "咆哮声",
-			"stun": "眩晕音效"
-		},
-		"salmon": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"flop": "扑腾声",
-			"hurt": "受伤音效",
-			"idle": "空闲音效"
-		},
-		"sheep": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"shear": "剪羊毛音效",
-			"step": "脚步声"
-		},
-		"shulker": {
-			"ambient": "环境音效",
-			"close": "关闭音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"open": "开启音效",
-			"shoot": "射击音效",
-			"teleport": "瞬移音效"
-		},
-		"silverfish": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"step": "脚步声"
-		},
-		"skeleton": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"shoot": "射击音效",
-			"step": "脚步声",
-			"step_swim": "游泳脚步声"
-		},
-		"skeleton_horse": {
-			"ambient": "环境音效",
-			"ambient_water": "水中环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"jump": "跳跃音效",
-			"land": "落地音效",
-			"step": "脚步声",
-			"step_lava": "熔岩脚步声",
-			"step_swim": "游泳脚步声",
-			"swim": "游泳音效"
-		},
-		"slime": {
-			"attack": "攻击音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"jump": "跳跃音效",
-			"land": "落地音效",
-			"sqish": "挤压声"
-		},
-		"snow_golem": {
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"shoot": "射击音效"
-		},
-		"spider": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"step": "脚步声"
-		},
-		"squid": {
-			"ambient": "环境音效",
-			"ambient_water": "水中环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"squirt": "喷墨音效"
-		},
-		"stray": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"step": "脚步声"
-		},
-		"strider": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"eat": "进食音效",
-			"happy": "快乐音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"panic": "恐慌音效",
-			"retreat": "撤退音效",
-			"step": "脚步声",
-			"step_lava": "熔岩脚步声",
-			"temper": "温顺音效"
-		},
-		"tadpole": {
-			"death": "死亡音效",
-			"hurt": "受伤音效"
-		},
-		"trader_llama": {
-			"ambient": "环境音效",
-			"angry": "愤怒音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"spit": "吐口水音效",
-			"step": "脚步声"
-		},
-		"tropical_fish": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"flop": "扑腾声",
-			"hurt": "受伤音效",
-			"idle": "空闲音效"
-		},
-		"turtle": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"egg_break": "蛋破碎音效",
-			"egg_click": "蛋点击音效",
-			"egg_crack": "蛋裂开音效",
-			"egg_hatch": "孵化音效",
-			"egg_hatched": "孵化完成音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"lay_egg": "产卵音效",
-			"step": "脚步声",
-			"swim": "游泳音效",
-			"walk": "行走音效"
-		},
-		"vex": {
-			"ambient": "环境音效",
-			"charge": "冲锋音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效"
-		},
-		"villager": {
-			"ambient": "环境音效",
-			"celebrate": "庆祝音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"no": "拒绝音效",
-			"trade": "交易音效",
-			"yes": "同意音效",
-			"work_armorer": "盔甲匠工作音效",
-			"work_butcher": "屠夫工作音效",
-			"work_cartographer": "制图师工作音效",
-			"work_cleric": "牧师工作音效",
-			"work_farmer": "农民工作音效",
-			"work_fisherman": "渔夫工作音效",
-			"work_fletcher": "制箭师工作音效",
-			"work_leatherworker": "皮匠工作音效",
-			"work_librarian": "图书管理员工作音效",
-			"work_mason": "石匠工作音效",
-			"work_shepherd": "牧羊人工作音效",
-			"work_toolsmith": "工具匠工作音效",
-			"work_weaponsmith": "武器匠工作音效"
-		},
-		"vindicator": {
-			"ambient": "环境音效",
-			"celebrate": "庆祝音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效"
-		},
-		"wandering_trader": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"disappeared": "消失音效",
-			"drink_milk": "喝奶音效",
-			"drink_potion": "喝药水音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"no": "拒绝音效",
-			"reappeared": "重现音效",
-			"trade": "交易音效",
-			"yes": "同意音效"
-		},
-		"warden": {
-			"agitated": "焦躁音效",
-			"ambient": "环境音效",
-			"angry": "愤怒音效",
-			"attack": "攻击音效",
-			"death": "死亡音效",
-			"digging": "挖掘音效",
-			"emerge": "钻出音效",
-			"heartbeat": "心跳声",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"listening": "聆听音效",
-			"listening_angry": "愤怒聆听音效",
-			"nearby_close": "附近较近音效",
-			"nearby_closer": "附近更近音效",
-			"nearby_closest": "附近最近音效",
-			"roar": "咆哮声",
-			"sniff": "嗅闻音效",
-			"sonic_boom": "音爆音效",
-			"sonic_charge": "音波充能音效",
-			"step": "脚步声",
-			"tendril_clicks": "触须咔哒声"
-		},
-		"witch": {
-			"ambient": "环境音效",
-			"celebrate": "庆祝音效",
-			"death": "死亡音效",
-			"drink": "喝药水音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"throw": "投掷音效"
-		},
-		"wither": {
-			"ambient": "环境音效",
-			"break_block": "破坏方块音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"shoot": "射击音效",
-			"spawn": "生成音效",
-			"step": "脚步声"
-		},
-		"wither_skeleton": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"step": "脚步声"
-		},
-		"wolf": {
-			"ambient": "环境音效",
-			"death": "死亡音效",
-			"growl": "低吼声",
-			"howl": "嚎叫声",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"pant": "喘息声",
-			"shake": "抖动声",
-			"step": "脚步声",
-			"whine": "呜咽声"
-		},
-		"zoglin": {
-			"ambient": "环境音效",
-			"angry": "愤怒音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"step": "脚步声"
-		},
-		"zombie": {
-			"ambient": "环境音效",
-			"break_door": "破门音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"infect": "感染音效",
-			"step": "脚步声",
-			"step_swim": "游泳脚步声",
-			"swim": "游泳音效"
-		},
-		"zombie_horse": {
-			"ambient": "环境音效",
-			"ambient_water": "水中环境音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"jump": "跳跃音效",
-			"land": "落地音效",
-			"step": "脚步声",
-			"step_lava": "熔岩脚步声",
-			"step_swim": "游泳脚步声",
-			"swim": "游泳音效"
-		},
-		"zombie_villager": {
-			"ambient": "环境音效",
-			"convert": "转换音效",
-			"cure": "治愈音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"step": "脚步声"
-		},
-		"zombified_piglin": {
-			"ambient": "环境音效",
-			"angry": "愤怒音效",
-			"death": "死亡音效",
-			"hurt": "受伤音效",
-			"idle": "空闲音效",
-			"step": "脚步声"
+	"entity" : {
+		"allay" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"item_given" : "给予物品音效",
+			"item_taken" : "接收物品音效",
+			"item_thrown" : "投掷物品音效"
+		},
+		"axolotl" : {
+			"ambient" : "环境音效",
+			"attack" : "攻击音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"idle_water" : "水中空闲音效",
+			"splash" : "溅水音效",
+			"swim" : "游泳音效"
+		},
+		"bat" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"loop" : "循环飞行音效",
+			"takeoff" : "起飞音效"
+		},
+		"bee" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"loop" : "循环飞行音效",
+			"pollinate" : "授粉音效",
+			"sting" : "蜇刺音效"
+		},
+		"blaze" : {
+			"ambient" : "环境音效",
+			"breath" : "呼吸音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"shoot" : "射击音效"
+		},
+		"cat" : {
+			"ambient" : "环境音效",
+			"beg" : "乞求音效",
+			"death" : "死亡音效",
+			"eat" : "进食音效",
+			"hiss" : "嘶嘶声",
+			"hurt" : "受伤音效",
+			"meow" : "喵喵叫",
+			"puff" : "炸毛音效",
+			"purr" : "咕噜声",
+			"purreow" : "咕噜喵叫",
+			"stray" : "流浪猫音效"
+		},
+		"chicken" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"egg" : "下蛋音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"plop" : "扑通声",
+			"step" : "脚步声"
+		},
+		"cod" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"flop" : "扑腾声",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效"
+		},
+		"cow" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"milk" : "挤奶音效",
+			"step" : "脚步声"
+		},
+		"creeper" : {
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"primed" : "点燃音效"
+		},
+		"dolphin" : {
+			"ambient" : "环境音效",
+			"attack" : "攻击音效",
+			"death" : "死亡音效",
+			"eat" : "进食音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"idle_water" : "水中空闲音效",
+			"jump" : "跳跃音效",
+			"play" : "玩耍音效",
+			"splash" : "溅水音效",
+			"swim" : "游泳音效"
+		},
+		"donkey" : {
+			"ambient" : "环境音效",
+			"angry" : "愤怒音效",
+			"chest" : "箱子音效",
+			"death" : "死亡音效",
+			"eat" : "进食音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"jump" : "跳跃音效",
+			"land" : "落地音效",
+			"step" : "脚步声",
+			"step_lava" : "熔岩脚步声"
+		},
+		"drowned" : {
+			"ambient" : "环境音效",
+			"ambient_water" : "水中环境音效",
+			"death" : "死亡音效",
+			"death_water" : "水中死亡音效",
+			"hurt" : "受伤音效",
+			"hurt_water" : "水中受伤音效",
+			"shoot" : "射击音效",
+			"step" : "脚步声",
+			"swim" : "游泳音效"
+		},
+		"elder_guardian" : {
+			"ambient" : "环境音效",
+			"curse" : "诅咒音效",
+			"death" : "死亡音效",
+			"death_land" : "陆地死亡音效",
+			"flop" : "扑腾声",
+			"hit" : "击中音效",
+			"hit_land" : "陆地击中音效",
+			"idle" : "空闲音效",
+			"idle_land" : "陆地空闲音效"
+		},
+		"ender_dragon" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"flap" : "振翅声",
+			"growl" : "咆哮声",
+			"hurt" : "受伤音效",
+			"shoot" : "射击音效"
+		},
+		"enderman" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"scream" : "尖叫声",
+			"stare" : "凝视音效",
+			"teleport" : "瞬移音效"
+		},
+		"endermite" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"step" : "脚步声"
+		},
+		"evoker" : {
+			"ambient" : "环境音效",
+			"cast_spell" : "施法音效",
+			"celebrate" : "庆祝音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"prepare_attack" : "准备攻击音效",
+			"prepare_summon" : "准备召唤音效",
+			"prepare_wololo" : "准备变换音效"
+		},
+		"fox" : {
+			"aggro" : "主动攻击音效",
+			"ambient" : "环境音效",
+			"bite" : "撕咬音效",
+			"death" : "死亡音效",
+			"eat" : "进食音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"sleep" : "睡眠音效",
+			"sniff" : "嗅闻音效",
+			"spit" : "吐口水音效"
+		},
+		"frog" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"eat" : "进食音效",
+			"hurt" : "受伤音效",
+			"lay_spawn" : "产卵音效",
+			"step" : "脚步声"
+		},
+		"ghast" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"screech" : "尖啸声",
+			"shoot" : "射击音效",
+			"scream" : "尖叫声"
+		},
+		"glow_squid" : {
+			"ambient" : "环境音效",
+			"ambient_water" : "水中环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"squirt" : "喷墨音效"
+		},
+		"goat" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"eat" : "进食音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"prepare_ram" : "准备冲撞音效",
+			"pre_ram" : "冲撞前摇音效",
+			"ram_impact" : "冲撞撞击音效",
+			"screaming.ambient" : "尖叫声环境音效",
+			"screaming.death" : "尖叫声死亡音效",
+			"screaming.eat" : "尖叫声进食音效",
+			"screaming.hurt" : "尖叫声受伤音效",
+			"screaming.idle" : "尖叫声空闲音效",
+			"screaming.prepare_ram" : "尖叫声准备冲撞音效",
+			"screaming.pre_ram" : "尖叫声冲撞前摇音效",
+			"screaming.ram_impact" : "尖叫声冲撞撞击音效",
+			"step" : "脚步声"
+		},
+		"guardian" : {
+			"ambient" : "环境音效",
+			"ambient_land" : "陆地环境音效",
+			"attack" : "攻击音效",
+			"death" : "死亡音效",
+			"death_land" : "陆地死亡音效",
+			"flop" : "扑腾声",
+			"hit" : "击中音效",
+			"hit_land" : "陆地击中音效",
+			"idle" : "空闲音效"
+		},
+		"hoglin" : {
+			"ambient" : "环境音效",
+			"angry" : "愤怒音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"retreat" : "撤退音效",
+			"step" : "脚步声"
+		},
+		"horse" : {
+			"ambient" : "环境音效",
+			"angry" : "愤怒音效",
+			"armor" : "盔甲音效",
+			"breath" : "呼吸音效",
+			"death" : "死亡音效",
+			"eat" : "进食音效",
+			"gallop" : "飞奔音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"jump" : "跳跃音效",
+			"land" : "落地音效",
+			"saddle" : "鞍具音效",
+			"step" : "脚步声",
+			"step_lava" : "熔岩脚步声",
+			"step_wood" : "木质脚步声"
+		},
+		"husk" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"step" : "脚步声"
+		},
+		"iron_golem" : {
+			"attack" : "攻击音效",
+			"damage" : "受损音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"repair" : "修复音效",
+			"step" : "脚步声",
+			"walk" : "行走音效"
+		},
+		"llama" : {
+			"ambient" : "环境音效",
+			"angry" : "愤怒音效",
+			"chest" : "箱子音效",
+			"death" : "死亡音效",
+			"eat" : "进食音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"spit" : "吐口水音效",
+			"step" : "脚步声",
+			"swag" : "装饰品音效"
+		},
+		"magma_cube" : {
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"jump" : "跳跃音效",
+			"land" : "落地音效",
+			"sqish" : "挤压声"
+		},
+		"mooshroom" : {
+			"ambient" : "环境音效",
+			"convert" : "转换音效",
+			"death" : "死亡音效",
+			"eat" : "进食音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"milk" : "挤奶音效",
+			"suspicious_milk" : "可疑的挤奶音效",
+			"step" : "脚步声"
+		},
+		"mule" : {
+			"ambient" : "环境音效",
+			"chest" : "箱子音效",
+			"death" : "死亡音效",
+			"eat" : "进食音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"jump" : "跳跃音效",
+			"land" : "落地音效",
+			"step" : "脚步声",
+			"step_lava" : "熔岩脚步声"
+		},
+		"ocelot" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效"
+		},
+		"panda" : {
+			"aggressive_ambient" : "好斗环境音效",
+			"ambient" : "环境音效",
+			"bleat" : "咩叫声",
+			"breed" : "繁殖音效",
+			"death" : "死亡音效",
+			"eat" : "进食音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"lazy_ambient" : "慵懒环境音效",
+			"playful_ambient" : "顽皮环境音效",
+			"pre_sneeze" : "打喷嚏前摇音效",
+			"sneeze" : "打喷嚏音效",
+			"step" : "脚步声",
+			"worried_ambient" : "担忧环境音效"
+		},
+		"parrot" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"eat" : "进食音效",
+			"fly" : "飞行音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"step" : "脚步声"
+		},
+		"phantom" : {
+			"ambient" : "环境音效",
+			"bite" : "撕咬音效",
+			"death" : "死亡音效",
+			"flap" : "振翅声",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"swoop" : "俯冲音效"
+		},
+		"pig" : {
+			"ambient" : "环境音效",
+			"boar" : "猪叫",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"saddle" : "鞍具音效",
+			"step" : "脚步声"
+		},
+		"piglin" : {
+			"ambient" : "环境音效",
+			"angry" : "愤怒音效",
+			"celebrate" : "庆祝音效",
+			"converted_to_zombified" : "僵尸化音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"jealous" : "嫉妒音效",
+			"retreat" : "撤退音效",
+			"step" : "脚步声"
+		},
+		"piglin_brute" : {
+			"ambient" : "环境音效",
+			"angry" : "愤怒音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"step" : "脚步声"
+		},
+		"pillager" : {
+			"ambient" : "环境音效",
+			"celebrate" : "庆祝音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效"
+		},
+		"polar_bear" : {
+			"ambient" : "环境音效",
+			"ambient_baby" : "幼年环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"step" : "脚步声",
+			"warning" : "警告音效"
+		},
+		"player" : {
+			"breath" : "呼吸音效",
+			"burp" : "打嗝声",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"hurt_drown" : "溺水受伤音效",
+			"hurt_fall_big" : "高处摔落受伤音效",
+			"hurt_fall_small" : "低处摔落受伤音效",
+			"hurt_fire" : "火焰受伤音效",
+			"hurt_freeze" : "冰冻受伤音效",
+			"hurt_on_fire" : "着火受伤音效",
+			"levelup" : "升级音效",
+			"teleport" : "瞬移音效"
+		},
+		"rabbit" : {
+			"ambient" : "环境音效",
+			"attack" : "攻击音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"jump" : "跳跃音效"
+		},
+		"ravager" : {
+			"ambient" : "环境音效",
+			"bite" : "撕咬音效",
+			"celebrate" : "庆祝音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"roar" : "咆哮声",
+			"stun" : "眩晕音效"
+		},
+		"salmon" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"flop" : "扑腾声",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效"
+		},
+		"sheep" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"shear" : "剪羊毛音效",
+			"step" : "脚步声"
+		},
+		"shulker" : {
+			"ambient" : "环境音效",
+			"close" : "关闭音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"open" : "开启音效",
+			"shoot" : "射击音效",
+			"teleport" : "瞬移音效"
+		},
+		"silverfish" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"step" : "脚步声"
+		},
+		"skeleton" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"shoot" : "射击音效",
+			"step" : "脚步声",
+			"step_swim" : "游泳脚步声"
+		},
+		"skeleton_horse" : {
+			"ambient" : "环境音效",
+			"ambient_water" : "水中环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"jump" : "跳跃音效",
+			"land" : "落地音效",
+			"step" : "脚步声",
+			"step_lava" : "熔岩脚步声",
+			"step_swim" : "游泳脚步声",
+			"swim" : "游泳音效"
+		},
+		"slime" : {
+			"attack" : "攻击音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"jump" : "跳跃音效",
+			"land" : "落地音效",
+			"sqish" : "挤压声"
+		},
+		"snow_golem" : {
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"shoot" : "射击音效"
+		},
+		"spider" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"step" : "脚步声"
+		},
+		"squid" : {
+			"ambient" : "环境音效",
+			"ambient_water" : "水中环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"squirt" : "喷墨音效"
+		},
+		"stray" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"step" : "脚步声"
+		},
+		"strider" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"eat" : "进食音效",
+			"happy" : "快乐音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"panic" : "恐慌音效",
+			"retreat" : "撤退音效",
+			"step" : "脚步声",
+			"step_lava" : "熔岩脚步声",
+			"temper" : "温顺音效"
+		},
+		"tadpole" : {
+			"death" : "死亡音效",
+			"hurt" : "受伤音效"
+		},
+		"trader_llama" : {
+			"ambient" : "环境音效",
+			"angry" : "愤怒音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"spit" : "吐口水音效",
+			"step" : "脚步声"
+		},
+		"tropical_fish" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"flop" : "扑腾声",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效"
+		},
+		"turtle" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"egg_break" : "蛋破碎音效",
+			"egg_click" : "蛋点击音效",
+			"egg_crack" : "蛋裂开音效",
+			"egg_hatch" : "孵化音效",
+			"egg_hatched" : "孵化完成音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"lay_egg" : "产卵音效",
+			"step" : "脚步声",
+			"swim" : "游泳音效",
+			"walk" : "行走音效"
+		},
+		"vex" : {
+			"ambient" : "环境音效",
+			"charge" : "冲锋音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效"
+		},
+		"villager" : {
+			"ambient" : "环境音效",
+			"celebrate" : "庆祝音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"no" : "拒绝音效",
+			"trade" : "交易音效",
+			"yes" : "同意音效",
+			"work_armorer" : "盔甲匠工作音效",
+			"work_butcher" : "屠夫工作音效",
+			"work_cartographer" : "制图师工作音效",
+			"work_cleric" : "牧师工作音效",
+			"work_farmer" : "农民工作音效",
+			"work_fisherman" : "渔夫工作音效",
+			"work_fletcher" : "制箭师工作音效",
+			"work_leatherworker" : "皮匠工作音效",
+			"work_librarian" : "图书管理员工作音效",
+			"work_mason" : "石匠工作音效",
+			"work_shepherd" : "牧羊人工作音效",
+			"work_toolsmith" : "工具匠工作音效",
+			"work_weaponsmith" : "武器匠工作音效"
+		},
+		"vindicator" : {
+			"ambient" : "环境音效",
+			"celebrate" : "庆祝音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效"
+		},
+		"wandering_trader" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"disappeared" : "消失音效",
+			"drink_milk" : "喝奶音效",
+			"drink_potion" : "喝药水音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"no" : "拒绝音效",
+			"reappeared" : "重现音效",
+			"trade" : "交易音效",
+			"yes" : "同意音效"
+		},
+		"warden" : {
+			"agitated" : "焦躁音效",
+			"ambient" : "环境音效",
+			"angry" : "愤怒音效",
+			"attack" : "攻击音效",
+			"death" : "死亡音效",
+			"digging" : "挖掘音效",
+			"emerge" : "钻出音效",
+			"heartbeat" : "心跳声",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"listening" : "聆听音效",
+			"listening_angry" : "愤怒聆听音效",
+			"nearby_close" : "附近较近音效",
+			"nearby_closer" : "附近更近音效",
+			"nearby_closest" : "附近最近音效",
+			"roar" : "咆哮声",
+			"sniff" : "嗅闻音效",
+			"sonic_boom" : "音爆音效",
+			"sonic_charge" : "音波充能音效",
+			"step" : "脚步声",
+			"tendril_clicks" : "触须咔哒声"
+		},
+		"witch" : {
+			"ambient" : "环境音效",
+			"celebrate" : "庆祝音效",
+			"death" : "死亡音效",
+			"drink" : "喝药水音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"throw" : "投掷音效"
+		},
+		"wither" : {
+			"ambient" : "环境音效",
+			"break_block" : "破坏方块音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"shoot" : "射击音效",
+			"spawn" : "生成音效",
+			"step" : "脚步声"
+		},
+		"wither_skeleton" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"step" : "脚步声"
+		},
+		"wolf" : {
+			"ambient" : "环境音效",
+			"death" : "死亡音效",
+			"growl" : "低吼声",
+			"howl" : "嚎叫声",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"pant" : "喘息声",
+			"shake" : "抖动声",
+			"step" : "脚步声",
+			"whine" : "呜咽声"
+		},
+		"zoglin" : {
+			"ambient" : "环境音效",
+			"angry" : "愤怒音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"step" : "脚步声"
+		},
+		"zombie" : {
+			"ambient" : "环境音效",
+			"break_door" : "破门音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"infect" : "感染音效",
+			"step" : "脚步声",
+			"step_swim" : "游泳脚步声",
+			"swim" : "游泳音效"
+		},
+		"zombie_horse" : {
+			"ambient" : "环境音效",
+			"ambient_water" : "水中环境音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"jump" : "跳跃音效",
+			"land" : "落地音效",
+			"step" : "脚步声",
+			"step_lava" : "熔岩脚步声",
+			"step_swim" : "游泳脚步声",
+			"swim" : "游泳音效"
+		},
+		"zombie_villager" : {
+			"ambient" : "环境音效",
+			"convert" : "转换音效",
+			"cure" : "治愈音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"step" : "脚步声"
+		},
+		"zombified_piglin" : {
+			"ambient" : "环境音效",
+			"angry" : "愤怒音效",
+			"death" : "死亡音效",
+			"hurt" : "受伤音效",
+			"idle" : "空闲音效",
+			"step" : "脚步声"
 		}
 	}
 }

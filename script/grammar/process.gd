@@ -4,15 +4,21 @@ extends Resource
 ##
 ## 含有多个可执行元素。
 
+const _COMMAND_DESCRIPTION := 0
+const _COMMAND_DATA := 1
+
 ## 解析后的语法规则，给机器看的。
 var main_data : Dictionary
 
 #region 缓存。
+# 指令的队列。
+var _queue_heads : PackedStringArray
 var _head_completion_data : FunctionCompletionData
 
 ## 设置数据。
 func set_data(data : Dictionary) -> void:
 	main_data = data
+	_queue_heads = PackedStringArray(data.keys())
 ## 返回指令头的补全数据。
 func get_head_completion_data() -> FunctionCompletionData:
 	if _head_completion_data != null:
@@ -20,46 +26,47 @@ func get_head_completion_data() -> FunctionCompletionData:
 	
 	var data := FunctionCompletionData.new()
 	data.insert_texts.append_array(get_heads())
+	data.display_texts.append_array(get_descriptions())
 	data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
 	_head_completion_data = data
 	
 	return _head_completion_data
 
-## 获取指令的一个项。
+## 返回指令的一个项。
 func get_item(head : String, idx : int) -> ExeElementRule:
 	if not has_head(head):
 		push_error("Not has head named \"%s\"." % [head])
 		return null
-	var command : Array = main_data[head]
+	var command := _get_command_data(head)
 	if command.size() <= absi(idx):
 		push_error("Command's size is %d, but get %d." % [command.size(), idx])
 		return null
 	var item := ExeElementRule.new()
 	item.data_main = command[idx]
 	return item
-## 获取指令项的数量。
+## 返回指令项的数量。
 func get_item_count(head : String) -> int:
 	if not has_head(head):
 		push_error("Not has head named \"%s\"." % [head])
 		return -1
-	return main_data[head].size()
-## 获取一条指令中为 ID 项的序列。
+	return _get_command_data(head).size()
+## 返回一条指令中为 ID 项的序列。
 func get_item_index(head : String, id : int) -> int:
 	if not has_head(head):
 		return -1
-	var command : Array = main_data[head]
+	var command := _get_command_data(head)
 	var i := 0
 	for item : Dictionary in command:
 		if item[ExeElementRule.META_ID] == id:
 			return i
 		i += 1
 	return -1
-## 获取从某个序列开始经过的历史序列。
+## 返回从某个序列开始经过的历史序列。
 func get_item_histories(head : String, start : int, exclude_nil := false) -> PackedInt32Array:
 	if not has_head(head):
 		push_error("Not has head \"%s\"" % [head])
 		return []
-	var command : Array = main_data[head]
+	var command := _get_command_data(head)
 	var i := start
 	var size := command.size()
 	var histories : PackedInt32Array
@@ -98,18 +105,36 @@ func get_item_histories(head : String, start : int, exclude_nil := false) -> Pac
 			i += 1
 	return result
 
-## 包含指令。
+## 返回指定指令的描述。
+func get_command_description(head : String) -> String:
+	if not has_head(head):
+		return ""
+	return _get_command_description(head)
+## 如果有这个头，返回 [code]true[/code]。
 func has_head(head : String) -> bool:
 	return main_data.has(head)
-## 获取指令的数量。
+## 返回指令的数量。
 func get_command_count() -> int:
 	return main_data.size()
-## 获取指令规则。
+## 返回指令规则。
 func get_command_rule(head : String) -> CommandRule:
 	if not has_head(head): return null
 	var rule := CommandRule.new()
-	rule.data = main_data[head]
+	rule.set_data(_get_command_data(head))
 	return rule
-## 获取所有指令头。
+## 返回所有指令头。
 func get_heads() -> PackedStringArray:
-	return main_data.keys()
+	return _queue_heads
+## 返回所有指令的描述。
+func get_descriptions() -> PackedStringArray:
+	var res : PackedStringArray
+	for head in _queue_heads:
+		res.append(_get_command_description(head))
+	return res
+
+# 返回指令的数据。
+func _get_command_data(head : String) -> Array:
+	return main_data[head][_COMMAND_DATA]
+# 返回指令的描述。
+func _get_command_description(head : String) -> String:
+	return main_data[head][_COMMAND_DESCRIPTION]

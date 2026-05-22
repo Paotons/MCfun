@@ -78,6 +78,7 @@ class _Element extends Compiler:
 class _Option extends _Element:
 	## 元素物体。
 	const META_ITEMS := 2
+	const _ITEMS_ITEMS := 0
 	
 	func _compile(data : Variant) -> void:
 		var form := data as Dictionary
@@ -89,7 +90,7 @@ class _Option extends _Element:
 		):
 			return
 		
-		var size := (compiled_result[META_ITEMS] as Array).size()
+		var size := (compiled_result[META_ITEMS][_ITEMS_ITEMS] as Array).size()
 		if form.has("goto"):
 			if not _test_value_array_types(form["goto"], 1 << TYPE_INT | 1 << TYPE_FLOAT, "%s[goto]" % element, size):
 				return
@@ -144,6 +145,7 @@ func _compile(data : Variant) -> void:
 	ele.element_name = element_name
 	ele.compile(data)
 	
+	_add_error_from_object(ele)
 	if not ele.is_valid():
 		return
 	compiled_result = ele.get_result()
