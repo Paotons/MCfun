@@ -50,8 +50,8 @@ static func get_string(text : String, start : int) -> String:
 	return text.substr(s, e - s)
 
 # 字母的正则表达式。
-static var _is_letter_chr_regex := RegEx.create_from_string(r"^\p{L}|\p{Pc}$")
-static var _find_letter_chr_regex := RegEx.create_from_string(r"^[\p{L}\p{Pc}]+")
+static var _is_letter_chr_regex := RegEx.create_from_string(r"^[\p{L}|\p{Pc}0-9]$")
+static var _find_letter_chr_regex := RegEx.create_from_string(r"^[\p{L}\p{Pc}0-9]+")
 ## 如果是单词，返回 [code]true[/code]。
 static func is_letter_char_ord(chr_ord : int) -> bool:
 	return _is_letter_chr_regex.search(String.chr(chr_ord)) != null

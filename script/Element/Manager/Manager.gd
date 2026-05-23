@@ -42,6 +42,8 @@ enum Type {
 	SPACEITEM,
 	## 点号路径。
 	POINT_PATH,
+	## 文件路径。
+	FILE_PATH,
 	## 范围。
 	SCOPE,
 	## 坐标。
@@ -85,6 +87,7 @@ const _VALUE_TYPE_TO_Element_MAP : Dictionary[int, int] = {
 	GrammarValue.Type.OPTION : Type.OPTION,
 	GrammarValue.Type.RICH_STRING : Type.RICH_STRING,
 	GrammarValue.Type.POINT_PATH : Type.POINT_PATH,
+	GrammarValue.Type.FILE_PATH : Type.FILE_PATH,
 	GrammarValue.Type.SCOPE : Type.SCOPE,
 	GrammarValue.Type.COORD : Type.COORD,
 	
@@ -99,6 +102,7 @@ const _INHERENT_TYPE : Array[GrammarValue.Type] = [
 	GrammarValue.Type.NIL,
 	GrammarValue.Type.STRING,
 	GrammarValue.Type.RICH_STRING,
+	GrammarValue.Type.FILE_PATH,
 	GrammarValue.Type.OPTION,
 	GrammarValue.Type.COMMAND,
 ]
@@ -146,7 +150,7 @@ static func try_get_type(text : String, offset : int) -> Array[GrammarValue.Type
 		return [GrammarValue.Type.FLOAT, GrammarValue.Type.COORD, GrammarValue.Type.COORDS, GrammarValue.Type.SCOPE]
 	
 	if StrT.is_letter_char_ord(valid_str.unicode_at(0)):
-		return [GrammarValue.Type.WORD, GrammarValue.Type.POINT_PATH, GrammarValue.Type.SELECTOR, GrammarValue.Type.SPACEITEM, GrammarValue.Type.BOOL]
+		return [GrammarValue.Type.WORD, GrammarValue.Type.POINT_PATH, GrammarValue.Type.SELECTOR,GrammarValue.Type.SPACEITEM, GrammarValue.Type.BOOL]
 	
 	return []
 
@@ -157,7 +161,7 @@ static func create_from_rule(text : String, offset : int, rule : ElementRule) ->
 	var params : Array
 	
 	match value_type:
-		GrammarValue.Type.OPTION, GrammarValue.Type.POINT_PATH:
+		GrammarValue.Type.OPTION, GrammarValue.Type.POINT_PATH, GrammarValue.Type.FILE_PATH:
 			params = [rule]
 		_:
 			if GrammarValue.is_type_backet(value_type):
@@ -194,6 +198,9 @@ static func _create_from_params(type : int, text : String, offset : int, params 
 			return RichStringElement.create(text, offset)
 		Type.POINT_PATH:
 			return PointPathElement.create(text, offset, params[0])
+		Type.FILE_PATH:
+			return FilePathElement.create(text, offset, params[0])
+		
 		Type.SCOPE:
 			return ScopeElement.create(text, offset)
 		Type.COORD:
@@ -221,7 +228,7 @@ static func _create_from_params(type : int, text : String, offset : int, params 
 	return null
 
 ## 通过空位补全数据。
-static func get_precast_code_completion_data(type : int, column : int, rule : ElementRule, command : CommandElement) -> CodeCompletionData:
+static func get_precast_code_completion_data(type : int, column : int, rule : ElementRule, command : BaseCommandElement) -> CodeCompletionData:
 	match type:
 		Type.NIL, Type.PARAM, Type.COMMAND:
 			return null
@@ -247,6 +254,10 @@ static func get_precast_code_completion_data(type : int, column : int, rule : El
 			return RichStringElement.get_precast_code_completion_data(column, rule, command)
 		Type.POINT_PATH:
 			return PointPathElement.get_precast_code_completion_data(column, rule, command)
+		Type.FILE_PATH:
+			return FilePathElement.get_precast_code_completion_data(column, rule, command)
+		Type.FILE_PATH:
+			return FilePathElement.get_precast_code_completion_data(column, rule, command)
 		Type.SCOPE:
 			return ScopeElement.get_precast_code_completion_data(column, rule, command)
 		Type.COORD:
@@ -269,8 +280,7 @@ static func get_precast_code_completion_data(type : int, column : int, rule : El
 		Type.ARRAY:
 			return ArrayBacketElement.get_precast_code_completion_data(column, rule, command)
 		_:
-			push_error("Not has the type.")
-			breakpoint
+			breakpoint # 正常下不会到这里来
 			return null
 
 

@@ -29,8 +29,6 @@ var grammar : Grammar
 ## 补全设置。
 @export var completion_setting := FunctionCompletionSetting.new()
 
-# 对于补全指令头用的补全数据。
-static var _code_completion_head_data : FunctionCompletionData
 #region 颜色。
 @export_group("color", "color")
 ## 默字体认颜色。
@@ -140,9 +138,6 @@ func _command_add_code_hint(command : BaseCommandElement, current_update := true
 	add_code_completion_data(data)
 	if current_update:
 		update_code_completion_options(false)
-# 对指令的开头进行补全。
-func _command_add_code_hint_head() -> void:
-	add_code_completion_data(_code_completion_head_data)
 
 # 进行补全内容的替换。
 func _do_confirm_code_completion() -> bool:

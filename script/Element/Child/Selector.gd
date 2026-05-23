@@ -15,11 +15,11 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	if has_body():
 		result.merge(_body_backet.get_highlight(edit), true)
 	return result
-static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
 	var data := EditManager.get_grammar_entry().get_selector_head_completion_data()
 	data.hint_string = "<%s : selector>" % [rule.get_description()]
 	return data
-func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+func _get_column_code_completion_data(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
 	var data : FunctionCompletionData
 	
 	# 头部

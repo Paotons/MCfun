@@ -21,7 +21,7 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 			if value_element is StringElement:
 				result.merge(value_element.get_highlight(edit), false)
 	return result
-func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+func _get_column_code_completion_data(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
 	var data := FunctionCompletionData.new()
 	
 	# 键

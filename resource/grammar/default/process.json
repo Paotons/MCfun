@@ -73,13 +73,13 @@
 	"defaultgamemode" : {
 		"description" : "设置新玩家加入时的默认游戏模式",
 		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "option", "detail" : "using_entry", "items" : ["game_mode_name"], "is_end" : true}
+			{"id" : 0, "extends" : -1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["game_mode_name"], "is_end" : true}
 		]
 	},
 	"gamerule" : {
 		"description" : "设置或查询游戏规则",
 		"data" : [
-			{"id" : 0, "extends" : -1, "goto" : [1, 2], "type" : "option", "detail" : "using_entry", "items" : ["game_rule_name_to_int", "game_rule_name_to_bool"], "is_end" : true},
+			{"id" : 0, "extends" : -1, "goto" : [1, 2], "type" : "option", "detail" : {"using_entry" : true}, "items" : ["game_rule_name_to_int", "game_rule_name_to_bool"], "is_end" : true},
 			{"goto" : 999},
 			{"id" : 1, "extends" : 0, "type" : "int", "description" : "数值"},
 			{"goto" : 999},
@@ -117,7 +117,7 @@
 	"summon" : {
 		"description" : "生成一个实体",
 		"data" : [
-			{"id" : 0, "extends" : -1, "goto" : 1, "type" : "spaceitem", "detail" : "entity_name", "is_end" : true, "description" : "实体类型"},
+			{"id" : 0, "extends" : -1, "goto" : 1, "type" : "spaceitem", "detail" : {"chapter" : "entity_name"}, "is_end" : true, "description" : "实体类型"},
 			{"goto" : 999},
 			{"id" : 1, "extends" : 0, "goto" : 5, "type" : "coords", "description" : "位置"},
 			{"id" : 2, "extends" : 0, "type" : "rich_string", "description" : "名称"},
@@ -135,14 +135,14 @@
 			{"id" : 10, "extends" : 7, "type" : "selector", "is_end" : true},
 			{"id" : 11, "extends" : 10, "goto" : 12, "items" : ["cmp"]},
 			{"goto" : 999},
-			{"id" : 12, "type" : "spaceitem", "detail" : "entity_event_name", "description" : "事件"},
+			{"id" : 12, "type" : "spaceitem", "detail" : {"chapter" : "entity_event_name"}, "description" : "事件"},
 			{"id" : 999}
 		]
 	},
 	"gamemode" : {
 		"description" : "设置玩家的游戏模式",
 		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "option", "detail" : "using_entry", "items" : ["game_mode_name"], "is_end" : true},
+			{"id" : 0, "extends" : -1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["game_mode_name"], "is_end" : true},
 			{"id" : 1, "extends" : 0, "type" : "selector", "description" : "目标"}
 		]
 	},
@@ -150,10 +150,10 @@
 		"description" : "给予玩家物品",
 		"data" : [
 			{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标"},
-			{"id" : 1, "extends" : 0, "type" : "spaceitem", "detail" : "item_name", "is_end" : true, "description" : "物品名称"},
+			{"id" : 1, "extends" : 0, "type" : "spaceitem", "detail" : {"chapter" : "item_name"}, "is_end" : true, "description" : "物品名称"},
 			{"id" : 2, "extends" : 1, "type" : "int", "description" : "数量"},
 			{"id" : 3, "extends" : 2, "type" : "int", "description" : "数据组"},
-			{"id" : 4, "extends" : 3, "type" : "dictionary", "detail" : "item_component", "description" : "物品组件"}
+			{"id" : 4, "extends" : 3, "type" : "dictionary", "detail" : {"rule" : "item_component"}, "description" : "物品组件"}
 		]
 	},
 	"clear" : {
@@ -161,7 +161,7 @@
 		"data" : [
 			{"id" : 0, "extends" : -1, "is_end" : true},
 			{"id" : 1, "extends" : -1, "type" : "selector"},
-			{"id" : 2, "extends" : 1, "type" : "spaceitem", "detail" : "item_name", "description" : "物品名称"},
+			{"id" : 2, "extends" : 1, "type" : "spaceitem", "detail" : {"chapter" : "item_name"}, "description" : "物品名称"},
 			{"id" : 3, "extends" : 2, "type" : "int", "description" : "最大数量"}
 		]
 	},
@@ -196,9 +196,9 @@
 		"description" : "管理状态效果",
 		"data" : [
 			{"id" : 0, "extends" : -1, "type" : "selector"},
-			{"id" : 1, "extends" : 0, "goto" : [2, 3], "type" : "option", "detail" : "using_entry", "items" : ["effect_clear", "effective_name"]},
+			{"id" : 1, "extends" : 0, "goto" : [2, 3], "type" : "option", "detail" : {"using_entry" : true}, "items" : ["effect_clear", "effective_name"]},
 			{"goto" : 999},
-			{"id" : 2, "extends" : 1, "type" : "option", "detail" : "using_entry", "items" : ["effective_name"], "is_end" : true},
+			{"id" : 2, "extends" : 1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["effective_name"], "is_end" : true},
 			{"goto" : 999},
 			{"id" : 3, "extends" : 1, "type" : "int", "description" : "强度"},
 			{"id" : 4, "extends" : 3, "type" : "int", "description" : "时间", "is_end" : true},
@@ -226,16 +226,16 @@
 			{"id" : 0, "extends" : -1, "goto" : [1, 3], "type" : "option", "items" : ["entity", "block"]},
 			{"goto" : 999},
 			{"id" : 1, "extends" : 0, "type" : "selector", "description" : "target"},
-			{"id" : 2, "extends" : 1, "goto" : 5, "type" : "point_path", "detail" : "slot_entity_name", "description" : "位置"},
+			{"id" : 2, "extends" : 1, "goto" : 5, "type" : "point_path", "detail" : {"chapter" : "slot_entity_name"}, "description" : "位置"},
 			{"goto" : 999},
 			{"id" : 3, "entends" : 0, "type" : "coords", "description" : "position"},
-			{"id" : 4, "extends" : 3, "goto" : 5, "type" : "point_path", "detail" : "slot_block_name", "description" : "位置"},
+			{"id" : 4, "extends" : 3, "goto" : 5, "type" : "point_path", "detail" : {"chapter" : "slot_block_name"}, "description" : "位置"},
 			{"goto" : 999},
 			{"id" : 5, "type" : "int", "description" : "slot_index"},
-			{"id" : 6, "extends" : 5, "type" : "spaceitem", "detail" : "item_name", "is_end" : true, "description" : "物品名称"},
+			{"id" : 6, "extends" : 5, "type" : "spaceitem", "detail" : {"chapter" : "item_name"}, "is_end" : true, "description" : "物品名称"},
 			{"id" : 7, "extends" : 6, "type" : "int", "description" : "数量"},
 			{"id" : 8, "extends" : 7, "type" : "int", "description" : "数据组"},
-			{"id" : 9, "extends" : 8, "type" : "dictionary", "detail" : "item_component", "description" : "物品组件"},
+			{"id" : 9, "extends" : 8, "type" : "dictionary", "detail" : {"rule" : "item_component"}, "description" : "物品组件"},
 			{"id" : 999}
 		]
 	},
@@ -243,7 +243,7 @@
 		"description" : "发送JSON格式的消息",
 		"data" : [
 			{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标"},
-			{"id" : 1, "extends" : 0, "type" : "dictionary", "detail" : "t_show", "is_end" : true}
+			{"id" : 1, "extends" : 0, "type" : "dictionary", "detail" : {"rule" : "t_show"}, "is_end" : true}
 		]
 	},
 	"help" : {
@@ -286,7 +286,7 @@
 		"description" : "将一个方块替换为另一个方块",
 		"data" : [
 			{"id" : 0, "extends" : -1, "type" : "coords", "description" : "位置"},
-			{"id" : 1, "extends" : 0, "type" : "spaceitem", "detail" : "block_name", "is_end" : true, "description" : "方块类型"},
+			{"id" : 1, "extends" : 0, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "is_end" : true, "description" : "方块类型"},
 			{"id" : 2, "extends" : 1, "type" : "option", "items" : [{"destroy" : "破坏"}, {"keep" : "保持"}, {"replace" : "替换"}]}
 		]
 	},
@@ -295,11 +295,11 @@
 		"data" : [
 			{"id" : 0, "extends" : -1, "type" : "coords", "description" : "起始位置"},
 			{"id" : 1, "extends" : 0, "type" : "coords", "description" : "终点位置"},
-			{"id" : 2, "extends" : 1, "type" : "spaceitem", "detail" : "block_name", "description" : "方块名称"},
+			{"id" : 2, "extends" : 1, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "description" : "方块名称"},
 			{"id" : 3, "extends" : 2, "type" : "int", "is_end" : true, "description" : "方块数据组"},
 			{"id" : 4, "extends" : 3, "goto" : [999, 999, 999, 999, 5], "type" : "option", "items" : [{"destroy" : "破坏"}, {"hollow" : ""}, {"keep" : "保持"}, {"outline" : "轮廓"}, {"replace" : "替换"}]},
 			
-			{"id" : 5, "extends" : 1, "type" : "spaceitem", "detail" : "block_name", "description" : "替换的方块名称"},
+			{"id" : 5, "extends" : 1, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "description" : "替换的方块名称"},
 			{"id" : 6, "extends" : 2, "type" : "int", "is_end" : true, "description" : "替换的方块数据组"},
 			
 			{"id" : 999}
@@ -332,7 +332,7 @@
 	"playsound" : {
 		"description" : "播放音效",
 		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "point_path", "detail" : "sound_name", "description" : "声音名称"},
+			{"id" : 0, "extends" : -1, "type" : "point_path", "detail" : {"chapter" : "sound_name"}, "description" : "声音名称"},
 			{"id" : 1, "extends" : 0, "type" : "selector", "is_end" : true, "description" : "目标"},
 			{"id" : 2, "extends" : 1, "type" : "coords", "description" : "位置"},
 			{"id" : 3, "extends" : 2, "type" : "float", "description" : "音量"},
@@ -344,7 +344,7 @@
 		"description" : "停止播放音效",
 		"data" : [
 			{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true, "description" : "目标"},
-			{"id" : 1, "extends" : 0, "type" : "point_path", "detail" : "sound_name", "description" : "声音名称"}
+			{"id" : 1, "extends" : 0, "type" : "point_path", "detail" : {"chapter" : "sound_name"}, "description" : "声音名称"}
 		]
 	},
 	"particle" : {
@@ -399,14 +399,14 @@
 		"description" : "检测指定位置的方块类型",
 		"data" : [
 			{"id" : 0, "extends" : -1, "type" : "coords", "description" : "位置"},
-			{"id" : 1, "extends" : 0, "type" : "spaceitem", "detail" : "block_name", "is_end" : true, "description" : "方块名称"},
+			{"id" : 1, "extends" : 0, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "is_end" : true, "description" : "方块名称"},
 			{"id" : 2, "extends" : 1, "type" : "int", "description" : "方块数据组"}
 		]
 	},
 	"function" : {
 		"description" : "运行函数",
 		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "string", "description" : "函数名称", "is_end" : true}
+			{"id" : 0, "extends" : -1, "type" : "file_path", "detail" : {"extensions" : ["mcfun"], "using_extension" : false}, "description" : "函数名称", "is_end" : true}
 		]
 	},
 	"clone" : {

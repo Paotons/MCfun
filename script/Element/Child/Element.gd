@@ -11,14 +11,14 @@ var errors : Array[ElementError]
 
 @warning_ignore("unused_parameter")
 ## 虚函数，获取空位补全数据。
-static func get_precast_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+static func get_precast_code_completion_data(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
 	return null
 @warning_ignore("unused_parameter")
 ## 虚函数，获取补全的当前数据。
-func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+func _get_column_code_completion_data(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
 	return null
 ## 获取补全的当前数据。
-func get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+func get_column_code_completion_data(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
 	is_faild_assert()
 	return _get_column_code_completion_data(column, rule, command)
 
@@ -45,4 +45,13 @@ func create_error(column : int, string : String, type := ElementError.Type.NOTFI
 ## 如果有错误，返回 [code]true[/code]。
 func has_error() -> bool:
 	return not errors.is_empty()
+
+## 移除在指定范围之外的错误。
+func remove_error_from_range(from : int, to : int) -> void:
+	var new_errs : Array[ElementError] = errors.filter(_is_error_at_range.bind(from, to))
+	errors = new_errs
+
+# 如果错误是否在指定范围，返回 true。
+func _is_error_at_range(err : ElementError, from : int, to : int) -> bool:
+	return from <= err.column and err.column < to
 

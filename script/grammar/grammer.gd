@@ -6,6 +6,13 @@ extends Resource
 ## v1目录模式。[codeblock]
 ## {"files" : {"main_process" : false, "law" : false, "entry" : false}, "main" : false}
 ## [/codeblock]
+enum ProcessType {
+	# 普通。
+	NORMAL = 0,
+	# 本地。
+	NATIVE = 1,
+}
+
 class _Files extends Resource:
 	var main_process : String
 	var entry : String
@@ -63,8 +70,8 @@ var directory_path : String
 
 ## 主进程。
 var main_process : GrammarProcess
-## TODO 引擎进程。
-var engine_process : GrammarProcess
+## 本地进程。
+var native_process := GrammarProcess.new()
 ## 账目。
 var entry : GrammarEntry
 ## 规则。
@@ -72,7 +79,10 @@ var law : GrammarLaw
 
 ## 返回进程。
 func get_process(idx := 0) -> GrammarProcess:
-	return main_process if idx == 0 else null
+	match idx:
+		ProcessType.NORMAL : return main_process
+		ProcessType.NATIVE : return native_process
+		_ : return null
 ## 返回账目。
 func get_entry(idx := 0) -> GrammarEntry:
 	return entry if idx == 0 else null
@@ -124,9 +134,14 @@ func open(path : String) -> PackedStringArray:
 		return errors
 	
 	match _data.format_version:
-		0 : return []
-		1 : return _open_v1(path)
+		0 : pass
+		1 : errors = _open_v1(path)
 		_ : return ["Unvaild format_version %d." % _data.format_version]
+	
+	if not errors.is_empty():
+		return errors
+	
+	return _set_native_process()
 
 @warning_ignore("unused_parameter")
 func _open_v1(path : String) -> PackedStringArray:
@@ -195,6 +210,19 @@ func compile(path : String, to_path : String) -> PackedStringArray:
 		return ["Process is null."]
 	
 	_save_grammar(to_path)
+	_set_native_process()
+	return []
+
+func _set_native_process() -> PackedStringArray:
+	const COMPILED := "res://resource/native/compiled/process"
+	
+	assert(FileAccess.file_exists(COMPILED), "Not compiled process.")
+	
+	var file := FileAccess.open(COMPILED, FileAccess.READ)
+	var data : Dictionary = file.get_var()
+	file.close()
+	
+	native_process.set_data(data)
 	return []
 
 #region 保存。
@@ -302,6 +330,7 @@ func _read_main_v1(data : Dictionary) -> PackedStringArray:
 	return []
 #endregion
 
+#region 设置语法。
 func _set_grammar(files : _Files) -> PackedStringArray:
 	if not FileAccess.file_exists(directory_path.path_join(files.main_process)):
 		return ["Not find main_process file."]
@@ -361,5 +390,5 @@ func _set_grammar_doer(index : int, files : _Files, compiler_data : GrammarCompi
 			entry = GrammarEntry.new()
 			entry.set_data(obj.get_result())
 	return []
-
+#endregion
 

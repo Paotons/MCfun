@@ -1,0 +1,10 @@
+{
+	"tag" : {
+		"description" : "管理标签",
+		"data" : [
+			{"id" : 0, "extends" : -1, "type" : "option", "items" : [{"add" : "添加标签"}]},
+			
+			{"id" : 999}
+		]
+	}
+}

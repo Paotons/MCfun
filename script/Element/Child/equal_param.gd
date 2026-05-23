@@ -132,7 +132,7 @@ static func _create_using_key(text : String, offset : int, rule : GrammarEqualPa
 	element.is_faild = false
 	return element
 
-func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+func _get_column_code_completion_data(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
 	if grammer_rule.is_using_key():
 		return _get_column_code_completion_data_using_key(column, rule, command)
 	var data := FunctionCompletionData.new()
@@ -168,7 +168,7 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 			GrammarValue.Type.DICTIONARY, GrammarValue.Type.ARRAY, GrammarValue.Type.QUOTATION:
 				data.supple() ; data.add_data(FunctionCompletionData.create_backet_data(value_type))
 	return data
-func _get_column_code_completion_data_using_key(column : int, _rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+func _get_column_code_completion_data_using_key(column : int, _rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
 	var data := FunctionCompletionData.new()
 	if is_column_at_key(column):
 		var key_rule := grammer_rule.get_element_rule("key")

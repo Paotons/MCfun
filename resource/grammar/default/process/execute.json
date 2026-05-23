@@ -14,15 +14,15 @@
 	
 		{"goto" : 999},
 		{"id" : 4, "extends" : 3, "type" : "coords", "description" : "位置"},
-		{"id" : 5, "extends" : 4, "goto" : 0, "type" : "spaceitem", "detail" : "block_name", "description" : "方块"},
+		{"id" : 5, "extends" : 4, "goto" : 0, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "description" : "方块"},
 	
 		{"goto" : 999},
 		{"id" : 6, "extends" : 3, "type" : "coords", "description" : "起始位置"},
 		{"id" : 7, "extends" : 6, "type" : "coords", "description" : "终点位置"},
-		{"id" : 8, "extends" : 7, "goto" : 0, "type" : "spaceitem", "detail" : "block_name", "description" : "方块"},
+		{"id" : 8, "extends" : 7, "goto" : 0, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "description" : "方块"},
 	
 		{"goto" : 999},
-		{"id" : 9, "extends" : 0, "type" : "option", "detail" : "using_entry", "items" : ["world_name"]},
+		{"id" : 9, "extends" : 0, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["world_name"]},
 		{"id" : 10, "extends" : 9, "goto" : 0},
 	
 		{"goto" : 999},

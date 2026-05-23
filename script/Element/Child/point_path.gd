@@ -12,19 +12,19 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 		result[split + string_offset + 1] = {"color" : edit.color_point_path_mumber}
 	result[get_valid_end()] = {"color" : edit.color_default}
 	return result
-static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
 	var data := FunctionCompletionData.new()
 	data.hint_string = "<%s : point_path>" % [rule.get_description()]
-	var chapter := rule.get_point_path_chapter() as GrammarPathChapter
+	var chapter := rule.get_chapter() as GrammarPathChapter
 	for path in chapter.get_paths():
 		data.insert_texts.append(".".join(path))
 	data.display_texts.append_array(chapter.get_path_displays())
 	data.fill_insert_mode(FunctionCompletionData.InsertMode.POINT_PATH)
 	return data
-func _get_column_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+func _get_column_code_completion_data(_column : int, rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
 	var data := FunctionCompletionData.new()
 	data.hint_string = "<%s : point_path>" % [rule.get_description()]
-	var chapter := rule.get_point_path_chapter() as GrammarPathChapter
+	var chapter := rule.get_chapter() as GrammarPathChapter
 	for path in chapter.get_paths():
 		data.insert_texts.append(".".join(path))
 	data.display_texts.append_array(chapter.get_path_displays())
@@ -57,7 +57,7 @@ static func create(text : String, offset : int, rule : ElementRule = null) -> Po
 		path.append("")
 		element.create_error(element.get_valid_end(), "Cant end with \".\".")
 	
-	var chapter := rule.get_point_path_chapter() as GrammarPathChapter
+	var chapter := rule.get_chapter() as GrammarPathChapter
 	if not chapter.has_path(path):
 		element.create_error(offset, "Not has the path.")
 	return element

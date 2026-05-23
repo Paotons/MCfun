@@ -16,12 +16,12 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 		result[coord.get_valid_start()] = {"color" : colors[i] if i < 3 else edit.color_number}
 		result[coord.get_valid_end()] = {"color" : edit.color_default}
 	return result
-static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
 	var data := FunctionCompletionData.new()
 	data.hint_string = "<%s : coords>" % [rule.get_description()]
 	data.insert_texts.append_array(["~ ~ ~", "^ ^ ^"])
 	return data
-func get_column_code_completion_data(column : int, rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+func get_column_code_completion_data(column : int, rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
 	var data := FunctionCompletionData.new()
 	var idx := get_param_index_from_column(column)
 	data.hint_string = "<%s : coords%s>" % [rule.get_description(), "_" + COORD_TAG[idx] if 0 <= idx and idx < COORD_TAG.size() else ""]

@@ -16,11 +16,11 @@ var valid_start := -1
 
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return {get_valid_start() : {"color" : edit.color_string}, get_valid_end() : {"color" : edit.color_default}}
-func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+func _get_column_code_completion_data(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
 	var data : FunctionCompletionData = ElementRuleCMD.execute_completion(column, rule, command) if rule.has_cmd() else FunctionCompletionData.new()
 	data.hint_string = "<%s : string>" % [rule.get_description()]
 	return data
-static func get_precast_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+static func get_precast_code_completion_data(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
 	var data : FunctionCompletionData = ElementRuleCMD.execute_completion(column, rule, command) if rule.has_cmd() else FunctionCompletionData.new()
 	data.hint_string = "<%s : string>" % [rule.get_description()]
 	return data

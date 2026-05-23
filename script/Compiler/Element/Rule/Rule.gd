@@ -11,7 +11,6 @@ class _Default extends _Element:
 		compiled_result = {}
 		
 		if not (
-			_try_dictionary_key_direct(from, "%s[detail]" % element, "detail", META_DETAIL, false) and
 			_try_dictionary_key_direct(from, "%s[items]" % element, "items", META_ITEMS, false) and
 			_try_dictionary_key(from, "%s[description]" % element, "description", META_DESCRIPTION, false,
 				_test_value_type.bind(1 << TYPE_STRING, "%s[description]" % [element]),
@@ -46,8 +45,6 @@ class _Option extends _Element:
 			if not _compile_items_v1(items):
 				return
 		
-		if not _compile_detail(from):
-			return
 		if not _try_dictionary_key(from, "%s[custom]" % element, "custom", META_CUSTOM, false):
 			return
 		
@@ -118,9 +115,6 @@ class _Nil extends _Element:
 		compiled_result = {}
 		
 		if not (
-			_try_dictionary_key(from, "%s[detail]" % element, "detail", META_DETAIL, false,
-				_test_value_type.bind(1 << TYPE_STRING, "%s[detail]" % element)
-			) and
 			_try_dictionary_key(from, "%s[items]" % element, "items", META_ITEMS, false,
 				_test_array_types.bind(1 << TYPE_STRING, "%s[items]" % element)
 			) and
@@ -130,6 +124,69 @@ class _Nil extends _Element:
 			_try_dictionary_key_direct(from, "%s[custom]" % element, "custom", META_CUSTOM, false)
 		):
 			return
+		_set_is_valid(true)
+
+class _Detail extends _Element:
+	var value_type : int
+	
+	# 类型 : 默认值 --- 值
+	# Option : [false] --- [using_entry]
+	# dict, arr, quot : [""] --- [rule]
+	# spa_item, poi_path : [""] -- [chapter]
+	# fil_path : [["", true]] --- [extensions, using_extension]
+	
+	func _get_name() -> String:
+		return "%s[items]" % element
+	func _compile(data : Variant) -> void:
+		if not _test_value_type(data, 1 << TYPE_STRING | 1 << TYPE_DICTIONARY, _get_name()):
+			return
+		
+		if data is String:
+			_compile_v1(data)
+		elif data is Dictionary:
+			_compile_v2(data)
+	
+	func _compile_v1(from : String) -> void:
+		match value_type:
+			GrammarValue.Type.OPTION:
+				compiled_result = [true] if from == "using_entry" else [false]
+			GrammarValue.Type.DICTIONARY, GrammarValue.Type.ARRAY, GrammarValue.Type.QUOTATION:
+				compiled_result = [from]
+			GrammarValue.Type.SPACEITEM, GrammarValue.Type.POINT_PATH:
+				compiled_result = [from]
+			GrammarValue.Type.FILE_PATH:
+				compiled_result = [[from], true]
+			_:
+				compiled_result = from
+		_set_is_valid(true)
+	func _compile_v2(from : Dictionary) -> void:
+		if not _test_dictionary_key_types(from, 1 << TYPE_STRING, _get_name()):
+			return
+		
+		match value_type:
+			GrammarValue.Type.OPTION:
+				if from.has("using_entry") and not _test_value_type(from["using_entry"], 1 << TYPE_BOOL, "%s[using_entry]" % _get_name()):
+					return
+				compiled_result = [from.get("using_entry", false)]
+			GrammarValue.Type.DICTIONARY, GrammarValue.Type.ARRAY, GrammarValue.Type.QUOTATION:
+				if from.has("rule") and not _test_value_type(from["rule"], 1 << TYPE_STRING, "%s[rule]" % _get_name()):
+					return
+				compiled_result = [from.get("rule", "")]
+			GrammarValue.Type.SPACEITEM, GrammarValue.Type.POINT_PATH:
+				if from.has("chapter") and not _test_value_type(from["chapter"], 1 << TYPE_STRING, "%s[chapter]" % _get_name()):
+					return
+				compiled_result = [from.get("chapter", "")]
+			GrammarValue.Type.FILE_PATH:
+				if from.has("extensions") and not _test_value_type(from["extensions"], 1 << TYPE_ARRAY, "%s[extensions]" % _get_name()):
+					return
+				elif from.has("using_extension") and not _test_value_type(from["using_extension"], 1 << TYPE_BOOL, "%s[using_extension]" % _get_name()):
+					return
+				var arr : Array =from.get("extensions", [])
+				if not _test_array_types(arr, 1 << TYPE_STRING, "%s[extensions]" % _get_name()):
+					return
+				compiled_result = [arr, from.get("using_extension", true)]
+			_:
+				compiled_result = from
 		_set_is_valid(true)
 
 ## 元素名称。
@@ -176,6 +233,17 @@ func compile(data : Variant) -> void:
 	if not obj.is_valid():
 		return
 	compiled_result.merge(obj.get_result())
+	
+	if from.has("detail"):
+		var det := _Detail.new()
+		det.element = element_name
+		det.value_type = type
+		det.compile(from["detail"])
+		
+		_add_error_from_object(det)
+		if not det.is_valid():
+			return
+		compiled_result[META_DETAIL] = det.get_result()
 	
 	ElementRuleCMD.compile(from, compiled_result)
 	

@@ -17,7 +17,7 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 			continue
 		result.merge(param.get_highlight(edit), true)
 	return result
-func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+func _get_column_code_completion_data(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
 	var data := FunctionCompletionData.new()
 	if not has_column(column): return null
 	

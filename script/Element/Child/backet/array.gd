@@ -10,7 +10,7 @@ var param_type := GrammarValue.Type.ERR
 ## 根据编辑器返回对应的高亮数据。
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return super(edit)
-func _get_column_code_completion_data(column : int, _rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+func _get_column_code_completion_data(column : int, _rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
 	var data := FunctionCompletionData.new()
 	var result_rule := grammer_rule.get_element_rule()
 	if not has_backet_column(column): return null

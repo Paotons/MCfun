@@ -20,7 +20,7 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	else:
 		super(edit)
 	return result
-func _get_column_code_completion_data(column : int, _rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+func _get_column_code_completion_data(column : int, _rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
 	var data := FunctionCompletionData.new()
 	var result_rule := grammar_rule.get_element_rule()
 	if value_element == null:

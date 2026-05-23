@@ -1,11 +1,17 @@
-class_name CommandElementCreater
+class_name NativeCommandElementCreater
 extends ProcessCommandElementCreater
-## 指令元素创建者。
-##
-## 用于创建 [CommandElement] 的。
+## 本地指令的创建者。
 
-## 从零开始处理指令。
+## 完全从无开始创建。
 func run_from_empty(text : String, process : CommandElementCreaterProcess) -> void:
+	if text[process.offset] != "&":
+		create_error(0, "Native command should begin with \"&\".")
+		return get_command()
+	get_command().is_faild = false
+	get_command().valid_start = process.offset
+	_get_hl_data().merge({process.offset : {"color" : process.edit.color_key_word}, process.offset + 1 : {"color" : process.edit.color_default}})
+	process.offset += 1
+	
 	if not _do_head(text, process):
 		return
 	
@@ -22,8 +28,6 @@ func _do_head(text : String, process : CommandElementCreaterProcess) -> bool:
 	
 	for err in result.errors: create_error(err.column, err.string)
 	if result.is_faild: return false
-	get_command().is_faild = false
-	get_command().valid_start = result.get_valid_start() - process.offset
 	
 	var head := result.get_valid_string()
 	
@@ -37,3 +41,4 @@ func _do_head(text : String, process : CommandElementCreaterProcess) -> bool:
 	
 	process.offset = result.get_valid_end()
 	return true
+

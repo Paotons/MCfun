@@ -32,6 +32,8 @@ enum Type {
 	RICH_STRING,
 	## 点号路径。
 	POINT_PATH,
+	## 文件路径。
+	FILE_PATH,
 	## 轴。
 	COORD,
 	## 范围。
@@ -68,6 +70,7 @@ const _TYPE_STRING_MAPPING : Dictionary[Type, String] = {
 	Type.SPACEITEM : "spaceitem",
 	Type.RICH_STRING : "rich_string",
 	Type.POINT_PATH : "point_path",
+	Type.FILE_PATH : "file_path",
 	Type.SCOPE : "scope",
 	Type.COORD : "coord",
 	Type.COORDS : "coords",

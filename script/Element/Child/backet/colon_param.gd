@@ -9,7 +9,7 @@ func _get_backet_type() -> int:
 	return BacketElementManager.Type.COLON_PARAM
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return super(edit)
-func _get_column_code_completion_data(column : int, rule : ElementRule, command : CommandElement) -> FunctionCompletionData:
+func _get_column_code_completion_data(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
 	var data := FunctionCompletionData.new()
 	if not has_backet_column(column): return null
 	

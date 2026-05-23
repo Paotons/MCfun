@@ -19,23 +19,6 @@ enum CommandType {
 	HELP = 1 << 4,
 	## 注释。
 	ANNOTATION = 1 << 5,
+	## 本地指令。
+	NATIVE = 1 << 6,
 }
-
-# 指令头补全数据。
-static var _head_completion_data : FunctionCompletionData
-# 语法实例 id。
-static var _grammar_instance_id := -1
-
-static func get_head_completion_data(grammar : GrammarProcess = null) -> FunctionCompletionData:
-	if grammar == null:
-		grammar = EditManager.get_grammar_process()
-	
-	if grammar.get_instance_id() != _grammar_instance_id:
-		var data := FunctionCompletionData.new()
-		data.insert_texts.append_array(grammar.get_heads())
-		data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
-		_head_completion_data = data
-	
-	push_warning("Function has moved to grammar process.")
-	return _head_completion_data
-

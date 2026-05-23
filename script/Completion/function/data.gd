@@ -149,6 +149,7 @@ static func get_insert_start(text : String, column : int, data : Dictionary) -> 
 	var insert_mode : InsertMode = InsertMode.NORMAL if value == null else value.insert_mode
 	match insert_mode:
 		InsertMode.NORMAL: return column
+		InsertMode.STRING: return _get_insert_start_string(text, column)
 		InsertMode.WORLD: return _get_insert_start_world(text, column)
 		
 		InsertMode.SPACEITEM: return _get_insert_start_spaceitem(text, column)
@@ -163,6 +164,7 @@ static func get_insert_end(text : String, column : int, data : Dictionary) -> in
 	var insert_mode : InsertMode = InsertMode.NORMAL if value == null else value.insert_mode
 	match insert_mode:
 		InsertMode.NORMAL: return column
+		InsertMode.STRING: return _get_insert_end_string(text, column)
 		InsertMode.WORLD: return _get_insert_end_world(text, column)
 		
 		InsertMode.SPACEITEM: return _get_insert_end_spaceitem(text, column)
@@ -170,6 +172,15 @@ static func get_insert_end(text : String, column : int, data : Dictionary) -> in
 		InsertMode.QUOTATION: return _get_insert_end_quotation(text, column)
 		InsertMode.POINT_PATH: return _get_insert_end_point_path(text, column)
 		_: return column
+
+# 获取字符串补全的开头。
+static func _get_insert_start_string(text : String, column : int) -> int:
+	var a := StrT.rfind_empty(text, column - 1)
+	return 0 if a == -1 else a + 1
+# 获取字符串补全的结尾。
+static func _get_insert_end_string(text : String, column : int) -> int:
+	var a := StrT.find_empty(text, column)
+	return column if a == -1 else a
 
 # 获取单词补全的开头。
 static func _get_insert_start_world(text : String, column : int) -> int:

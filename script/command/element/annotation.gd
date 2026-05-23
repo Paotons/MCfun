@@ -2,11 +2,11 @@ class_name AnnotationCommandElement
 extends BaseCommandElement
 ## 注释指令。
 
-static func get_precast_code_completion_data(_column : int, _rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+static func get_precast_code_completion_data(_column : int, _rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
 	var data := FunctionCompletionData.new()
 	data.insert_texts.append_array(["#"])
 	return data
-func _get_column_code_completion_data(_column : int, _rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+func _get_column_code_completion_data(_column : int, _rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
 	return null
 
 static func create(text : String, offset : int, line := -1) -> AnnotationCommandElement:

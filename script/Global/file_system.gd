@@ -61,11 +61,13 @@ func _init_main_directory() -> void:
 	_init_cache_directory()
 	_init_config_file()
 	_init_grammar_directory()
+# 初始化缓存目录。
 func _init_cache_directory() -> void:
 	cache_path = user_root.path_join("cache")
 	if DirAccess.dir_exists_absolute(cache_path):
 		clear_cache()
 	DirAccess.make_dir_absolute(cache_path)
+# 初始化配置文件目录。
 func _init_config_file() -> void:
 	config_path = user_root.path_join("config.cfg")
 	if FileAccess.file_exists(config_path):
@@ -74,6 +76,7 @@ func _init_config_file() -> void:
 		config.load(cache_path.path_join("config.cfg"))
 		
 		get_window().content_scale_factor = config.get_value("UINormal", "window_scale_factor", 1.0)
+# 初始化语法目录。
 func _init_grammar_directory() -> void:
 	if not is_initialed():
 		await initial_finished
@@ -81,6 +84,30 @@ func _init_grammar_directory() -> void:
 	var path := data_root.path_join("storage/grammar")
 	if not DirAccess.dir_exists_absolute(path):
 		copy_directory(GRAMMER_PATH, path)
+	
+	if OS.has_feature("editor"):
+		_init_grammar_native_process()
+# 初始化本地流程目录。
+func _init_grammar_native_process() -> void:
+	const PATH := "res://resource/native/process.json"
+	const COMPILED := "res://resource/native/compiled/process"
+	
+	if FileAccess.file_exists(COMPILED):
+		return
+	var data : Dictionary = JSON.parse_string(FileAccess.get_file_as_string(PATH))
+	
+	var process := GrammarProcessCompiler.new()
+	process.compile(data)
+	
+	assert(process.is_valid(), "Native is unvaild.")
+	
+	if not DirAccess.dir_exists_absolute(COMPILED.get_base_dir()):
+		DirAccess.make_dir_recursive_absolute(COMPILED.get_base_dir())
+	
+	var file := FileAccess.open(COMPILED, FileAccess.WRITE)
+	file.store_var(process.get_result())
+	file.close()
+
 #endregion
 
 ## 选择数据目录。
@@ -179,6 +206,27 @@ func get_access_time(path : String) -> int:
 		for dir in directory.get_directories():
 			queue_directories.append(DirAccess.open(directory.get_current_dir().path_join(dir)))
 	return time
+## 返回指定目录下指定扩展名的文件，没有返回所有文件。
+func get_directory_files(path : String, extensions : PackedStringArray = [], clip := true) -> PackedStringArray:
+	if FileAccess.file_exists(path):
+		return PackedStringArray([path]) if extensions.is_empty() or extensions.has(path.get_extension()) else PackedStringArray()
+	if not DirAccess.dir_exists_absolute(path):
+		return PackedStringArray()
+	
+	var start := path.length() + (1 if not path.ends_with("/") else 0) if clip else 0
+	var result : PackedStringArray
+	var queue_directories : Array[DirAccess] = [DirAccess.open(path)]
+	while not queue_directories.is_empty():
+		var directory : DirAccess = queue_directories.pop_back()
+		var dpath := directory.get_current_dir()
+		
+		for file in directory.get_files():
+			if extensions.is_empty() or extensions.has(file.get_extension()):
+				result.append(dpath.path_join(file).substr(start))
+		
+		for dir in directory.get_directories():
+			queue_directories.append(DirAccess.open(dpath.path_join(dir)))
+	return result
 
 ## 清理缓存。
 func clear_cache() -> void:

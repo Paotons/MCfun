@@ -4,9 +4,9 @@ extends BaseCommandElement
 ##
 ## 类似 [code]help[/code] 指令。
 
-func _get_column_code_completion_data(_column : int, _rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+func _get_column_code_completion_data(_column : int, _rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
 	return EditManager.get_grammar_process().get_head_completion_data()
-static func get_precast_code_completion_data(_column : int, _rule : ElementRule, _command : CommandElement) -> FunctionCompletionData:
+static func get_precast_code_completion_data(_column : int, _rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
 	var data := FunctionCompletionData.new()
 	data.insert_texts.append_array(["?"])
 	return data
