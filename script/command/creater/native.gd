@@ -7,8 +7,9 @@ func run_from_empty(text : String, process : CommandElementCreaterProcess) -> vo
 	if text[process.offset] != "&":
 		create_error(0, "Native command should begin with \"&\".")
 		return get_command()
+	
 	get_command().is_faild = false
-	get_command().valid_start = process.offset
+	get_command().valid_start = 0
 	_get_hl_data().merge({process.offset : {"color" : process.edit.color_key_word}, process.offset + 1 : {"color" : process.edit.color_default}})
 	process.offset += 1
 	

@@ -1,5 +1,5 @@
 class_name BacketElement
-extends StringElement
+extends BaseStringElement
 ## 普通括号。
 ##
 ## 所有括号类的基类。

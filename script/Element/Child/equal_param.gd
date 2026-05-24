@@ -68,7 +68,7 @@ static func create(text : String, offset : int, rule : GrammarEqualParamBacktedR
 		element.value_start = -1
 		element.is_faild = false
 		return element
-	if value is StringElement:
+	if value is BaseStringElement:
 		element.string = text.substr(offset, value.get_valid_end() - offset)
 	element.is_faild = false
 	return element
@@ -81,7 +81,7 @@ static func _create_using_key(text : String, offset : int, rule : GrammarEqualPa
 	var key_ele_rule := rule.get_element_rule("key")
 	element.key_type = key_ele_rule.get_type()
 	var text_ := text if GrammarValue.is_type_backet(element.key_type) else text.substr(0, text.find("=", offset))
-	var key_ele : StringElement = ElementManager.create_from_rule(text_, offset, key_ele_rule)
+	var key_ele : BaseStringElement = ElementManager.create_from_rule(text_, offset, key_ele_rule)
 	element.key_element = key_ele
 	
 	if key_ele == null or key_ele.is_faild:
@@ -117,7 +117,7 @@ static func _create_using_key(text : String, offset : int, rule : GrammarEqualPa
 	var value_ele_rule := rule.get_element_rule("value")
 	element.value_type = value_ele_rule.get_type()
 	text_ = text
-	var value_ele : StringElement = ElementManager.create_from_rule(text_, i, value_ele_rule)
+	var value_ele : BaseStringElement = ElementManager.create_from_rule(text_, i, value_ele_rule)
 	element.value_element = value_ele
 	
 	if value_ele == null or value_ele.is_faild:
@@ -160,9 +160,9 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 			var type := ElementManager.value_type_to_type(value_type)
 			data.supple()
 			data.add_data(ElementManager.get_precast_code_completion_data(type, column, result_rule, command))
-		elif value_element is StringElement and not value_element.is_faild:
+		elif value_element is BaseStringElement and not value_element.is_faild:
 			var result_rule := grammer_rule.get_element_rule(key)
-			return (value_element as StringElement).get_column_code_completion_data(column, result_rule, command)
+			return (value_element as BaseStringElement).get_column_code_completion_data(column, result_rule, command)
 		data.hint_string = "<%s : %s>" % [get_key_string(), GrammarValue.type_to_string(value_type)]
 		match value_type:
 			GrammarValue.Type.DICTIONARY, GrammarValue.Type.ARRAY, GrammarValue.Type.QUOTATION:
@@ -200,7 +200,7 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 			result.merge({get_key_start() : {"color" : edit.color_member}, get_key_end() : {"color" : edit.color_default}})
 		if has_value():
 			if value_element != null:
-				if value_element is StringElement:
+				if value_element is BaseStringElement:
 					result.merge(value_element.get_highlight(edit))
 	return result
 

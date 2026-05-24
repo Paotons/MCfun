@@ -32,7 +32,7 @@ func _get_column_code_completion_data(_column : int, rule : ElementRule, _comman
 	return data
 
 static func create(text : String, offset : int, rule : ElementRule = null) -> PointPathElement:
-	var element := _create_string_element(PointPathElement.new(), text, offset) as PointPathElement
+	var element := StringElement._create_string_element(PointPathElement.new(), text, offset) as PointPathElement
 	
 	if element.is_faild:
 		return element

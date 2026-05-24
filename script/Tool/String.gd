@@ -157,3 +157,16 @@ static func get_fuzzy_weight(a : String, b : String) -> int:
 		i = i_ + 1
 	
 	return res
+
+## 生成一个随机 base63 字符串，内容包括 [code]A-Za-z0-9_[/code]。
+static func rand_base63(length : int, sed := -1) -> String:
+	const CHARS := "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"
+	
+	var num := RandomNumberGenerator.new()
+	num.seed = randi() if sed == -1 else sed
+	var res : PackedByteArray
+	res.resize(length)
+	
+	for i in length:
+		res[i] = CHARS.unicode_at(num.randi_range(0, 62))
+	return res.get_string_from_utf8()

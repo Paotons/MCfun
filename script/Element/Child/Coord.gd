@@ -1,5 +1,5 @@
 class_name CoordElement
-extends StringElement
+extends BaseStringElement
 ## 轴。
 
 ## 轴的模式。
@@ -16,7 +16,7 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return {get_valid_start() : {"color" : edit.color_number}, get_valid_end() : {"color" : edit.color_default}}
 
 static func create(text : String, offset : int) -> CoordElement:
-	var element := _create_string_element(CoordElement.new(), text, offset) as CoordElement
+	var element := StringElement._create_string_element(CoordElement.new(), text, offset) as CoordElement
 	
 	if element.is_faild:
 		return element

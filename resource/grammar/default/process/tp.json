@@ -1,0 +1,27 @@
+{
+	"description" : "传送实体",
+	"data" : [
+		{"id" : 0, "extends" : -1, "goto" : 2, "type" : "selector", "is_end" : true, "description" : "目标"},
+		{"id" : 1, "extends" : -1, "type" : "coords", "is_end" : true, "description" : "地点"},
+		{"id" : 800, "extends" : 1, "goto" : 5, "items" : ["cmp"]},
+		{"goto" : 999},
+		{"id" : 2, "extends" : 0, "goto" : 998, "type" : "selector", "is_end" : true, "description" : "到目标"},
+		{"id" : 3, "extends" : 0, "type" : "coords", "is_end" : true, "description" : "地点"},
+		{"id" : 4, "extends" : 3, "goto" : 5, "items" : ["cmp"]},
+		{"goto" : 999},
+		{"id" : 5, "goto" : 8, "type" : "float", "is_end" : false, "description" : "水平方向"},
+		{"id" : 6, "type" : "option", "items" : ["facing"]},
+		{"id" : 7, "extends" : 6, "goto" : 9, "items" : ["cmp"]},
+		{"goto" : 999},
+		{"id" : 8, "extends" : 5, "goto" : 998, "type" : "float", "is_end" : true, "description" : "垂直方向"},
+		{"goto" : 999},
+		{"id" : 9, "goto" : 998, "type" : "coords"},
+		{"id" : 10, "type" : "option", "items" : ["entity"]},
+		{"id" : 11, "extends" : 10, "goto" : 12, "items" : ["cmp"]},
+		{"goto" : 999},
+		{"id" : 12, "extends" : 11, "goto" : 998, "type" : "selector"},
+		{"goto" : 999},
+		{"id" : 998, "type" : "bool", "description" : "更新区块"},
+		{"id" : 999}
+	]
+}

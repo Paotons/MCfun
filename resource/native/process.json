@@ -1,10 +1,27 @@
 {
-	"tag" : {
-		"description" : "管理标签",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "option", "items" : [{"add" : "添加标签"}]},
+	"string": {
+		"description": "直接输出后续字符串",
+		"data": [
+			{"id": 0, "extends": -1, "type": "string", "detail": {"long": true}, "is_end": true, "description": "内容"}
+		]
+	},
+	"tp": {
+		"description": "传送实体",
+		"data": [
+			{"id": 0, "extends": -1, "type": "selector", "dscription": "目标"},
+			{"id": 1, "extends": 0, "goto": [2], "type": "option", "items": [{"score": "通过分数"}]},
 			
-			{"id" : 999}
+			{"goto": 999},
+			{"id": 2, "extends": 1, "type": "option", "items": ["x", "y", "z", "xy", "xz", "yz", "xyz"]},
+			{"id": 3, "extends": 2, "type": "selector", "description": "计分版实体"},
+			{"id": 4, "extends": 3, "type": "word", "is_end": true, "description": "计分版", "cmd": ["completion list scoreboard"]},
+			{"id": 5, "extends": 4, "type": "option", "items": [{"to": "到位置"}, {"offset": "偏移"}]},
+			{"id" : 6, "extends" : 5, "type" : "float", "description" : "缩放"},
+			{"id" : 7, "extends" : 6, "type" : "int", "description" : "迭代次数"},
+			
+			{"goto" : 999},
+			
+			{"id": 999}
 		]
 	}
 }

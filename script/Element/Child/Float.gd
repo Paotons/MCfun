@@ -1,5 +1,5 @@
 class_name FloatElement
-extends StringElement
+extends BaseStringElement
 
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return {get_valid_start() : {"color" : edit.color_number}, get_valid_end() : {"color" : edit.color_default}}
@@ -31,3 +31,7 @@ func get_column_code_completion_data(_column : int, rule : ElementRule, _command
 	var data := FunctionCompletionData.new()
 	data.hint_string = "<%s : float>" % [rule.get_description()]
 	return data
+
+## 获取值。
+func get_value() -> float:
+	return get_valid_string().to_float()

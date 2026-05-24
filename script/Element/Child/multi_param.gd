@@ -1,5 +1,5 @@
 class_name MultiParamElement
-extends StringElement
+extends BaseStringElement
 ## 更多变量组成的元素。
 ##
 ## 抽象类，你不能实例化这个类。

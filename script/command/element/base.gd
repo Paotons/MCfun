@@ -1,5 +1,5 @@
 class_name BaseCommandElement
-extends StringElement
+extends BaseStringElement
 ## 指令的基类。
 
 ## 指令类型。
@@ -28,7 +28,7 @@ static func create(text : String, offset : int, line := -1) -> BaseCommandElemen
 			var command := BaseCommandElement.new()
 			command.string_offset = offset
 			command._line_id = EditManager.get_edit().get_line_id(line)
-			command.command_type = 0
+			command.command_type = CommandElementManager.CommandType.EMPTY
 			return command
 		"?":
 			return HelpCommandElement.create(text, offset, line)

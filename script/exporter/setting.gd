@@ -14,12 +14,26 @@ enum MainProcess {
 	MAX,
 }
 
+enum DoErrorMode {
+	## 忽略。
+	IGNORE,
+	## 直接输出。
+	DIRECTION,
+}
+
+#region 只读。
 ## 路径。
 var path : String
 ## 如果为 [code]true[/code]，则保留注释。
 var include_annotation := false
 ## 如果为 [code]true[/code]，则保留空行。
 var include_empty := false
+## 错误处理模式。
+var do_error_mode := DoErrorMode.IGNORE
+#endregion
+
+## 错误。
+var errors : PackedStringArray
 
 ## 锁，线程运行修改当前进度时用的锁。
 var mutex : Mutex
@@ -29,3 +43,4 @@ var main_process : int
 var current_process : String
 ## 分进度，[param x]为当前进度，[param y]为分总进度。
 var sub_process : Vector2i
+

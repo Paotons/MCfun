@@ -1,6 +1,6 @@
 class_name CoordsElement
 extends MultiParamElement
-## 多个轴。
+## 坐标。
 
 ## 轴的标签。
 const COORD_TAG : PackedStringArray = ["x", "y", "z", "w"]
@@ -56,7 +56,6 @@ static func create(text : String, offset : int, size := 3) -> CoordsElement:
 	element.valid_start = element.params[0].get_valid_start() - offset
 	element.is_faild = false
 	return element
-
 
 ## 获取大小。
 func get_size() -> int:

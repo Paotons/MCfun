@@ -18,7 +18,7 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 		result.merge({get_key_start() : {"color" : edit.color_member}, get_key_end() : {"color" : edit.color_default}})
 	if has_value():
 		if value_element != null:
-			if value_element is StringElement:
+			if value_element is BaseStringElement:
 				result.merge(value_element.get_highlight(edit), false)
 	return result
 func _get_column_code_completion_data(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
@@ -40,8 +40,8 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 	elif is_column_at_value(column):
 		if not grammer_rule.has_key(get_key_string()):
 			return null
-		if value_element != null and value_element is StringElement and not value_element.is_faild:
-			return (value_element as StringElement).get_column_code_completion_data(column, rule, command)
+		if value_element != null and value_element is BaseStringElement and not value_element.is_faild:
+			return (value_element as BaseStringElement).get_column_code_completion_data(column, rule, command)
 		
 		data.hint_string = "<%s : %s>" % [get_key_string(), GrammarValue.type_to_string(value_type)]
 		if not has_value() and GrammarValue.is_type_backet(value_type):
@@ -109,7 +109,7 @@ static func create(text : String, offset : int, rule : GrammarColonParamBacketRu
 		element.value_start = -1
 		element.is_faild = false
 		return element
-	if value is StringElement:
+	if value is BaseStringElement:
 		element.string = text.substr(offset, value.get_valid_end() - offset)
 	element.is_faild = false
 	return element

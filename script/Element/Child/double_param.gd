@@ -1,5 +1,5 @@
 @abstract class_name DoubleParamElement
-extends StringElement
+extends BaseStringElement
 ## 有两个参数的元素。
 ##
 ## 这两个参数，可通过键 [code]key[/code] 和值 [code]value[/code] 来访问。抽象类，你不应该实例化这个类。
@@ -13,9 +13,9 @@ var value_start := -1
 ## 值的结束。
 var value_end := -1
 ## 键的结果。
-var key_element : StringElement
+var key_element : BaseStringElement
 ## 值的结果。
-var value_element : StringElement
+var value_element : BaseStringElement
 ## 键的预期类型。
 var key_type := -1
 ## 值的预期类型。

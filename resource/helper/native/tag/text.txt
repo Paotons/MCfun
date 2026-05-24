@@ -1,0 +1,7 @@
+[title]描述[/title]
+
+对原生 [code]tag[/code] 的扩展。
+
+[title]用法[/title]
+
+[code]&tag add

@@ -161,7 +161,7 @@ static func create_from_rule(text : String, offset : int, rule : ElementRule) ->
 	var params : Array
 	
 	match value_type:
-		GrammarValue.Type.OPTION, GrammarValue.Type.POINT_PATH, GrammarValue.Type.FILE_PATH:
+		GrammarValue.Type.OPTION, GrammarValue.Type.POINT_PATH, GrammarValue.Type.FILE_PATH, GrammarValue.Type.STRING, GrammarValue.Type.RICH_STRING:
 			params = [rule]
 		_:
 			if GrammarValue.is_type_backet(value_type):
@@ -184,7 +184,7 @@ static func _create_from_params(type : int, text : String, offset : int, params 
 		Type.FLOAT:
 			return FloatElement.create(text, offset)
 		Type.STRING:
-			return StringElement.create(text, offset)
+			return StringElement.create(text, offset, params[0])
 		
 		Type.WORD:
 			return WordElement.create(text, offset)

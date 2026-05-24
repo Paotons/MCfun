@@ -43,7 +43,7 @@ static func execute(element : Element, rule : ElementRule, command : BaseCommand
 			continue
 		match head:
 			_Head.LIST: _execute_list(cmd, element, command)
-static func _execute_list(cmd : Array, element : StringElement, command : BaseCommandElement) -> void:
+static func _execute_list(cmd : Array, element : BaseStringElement, command : BaseCommandElement) -> void:
 	if element == null or element.is_faild: return
 	var list_id : int = cmd[2]
 	var mode : int = cmd[1]

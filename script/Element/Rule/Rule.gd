@@ -32,6 +32,9 @@ const _DETAIL_DICTIONARY_RULE := 0
 const _DETAIL_QUOTATION_RULE := 0
 const _DETAIL_SPACE_ITEM_CHAPTER := 0
 const _DETAIL_POINT_PATH_CHAPTER := 0
+const _DETAIL_STRING_IS_LONG := 0
+const _DETAIL_RICH_STRING_IS_LONG := 0
+const _DETAIL_COMMAND_TYPES := 0
 
 const _DETAIL_FILE_PATH_EXTENSIONS := 0
 const _DETAIL_FILE_PATH_USING_EXTENSION := 1
@@ -68,6 +71,11 @@ func get_items() -> Array:
 func has_detail() -> bool:
 	return data_main.has(META_DETAIL)
 
+## 如果是指令，返回它的类型。
+func get_command_types() -> int:
+	return _get_detail()[_DETAIL_COMMAND_TYPES] if data_main.has(META_DETAIL) else 0xFFFFFFFF
+
+#region 选项。
 ## 如果是选项，并且使用条目，则返回 [code]true[/code]。
 func is_option_using_entry() -> bool:
 	return _get_detail()[_DETAIL_OPTION_USING_ENTRY] if data_main.has(META_DETAIL) else false
@@ -115,6 +123,21 @@ func get_option_displays() -> PackedStringArray:
 		return res
 	else:
 		return _get_option_displays()
+#endregion
+
+#region is_long
+## 如果是长元素，返回 [code]true[/code]。
+func is_long() -> bool:
+	match get_type():
+		GrammarValue.Type.STRING: return _is_string_long()
+		GrammarValue.Type.RICH_STRING: return _is_rich_string_long()
+		_: return false
+
+func _is_string_long() -> bool:
+	return _get_detail()[_DETAIL_STRING_IS_LONG] if data_main.has(META_DETAIL) else false
+func _is_rich_string_long() -> bool:
+	return _get_detail()[_DETAIL_RICH_STRING_IS_LONG] if data_main.has(META_DETAIL) else false
+#endregion
 
 #region 章节。
 ## 获取章节。
@@ -159,19 +182,23 @@ func _get_param_backet_rule_name() -> String:
 		return _get_detail()[_DETAIL_QUOTATION_RULE] if data_main.has(META_DETAIL) else ""
 #endregion
 
+#region 文件。
 ## 如果是文件路径，返回可用扩展名。
 func get_file_path_extensions() -> PackedStringArray:
 	return _get_detail()[_DETAIL_FILE_PATH_EXTENSIONS] if data_main.has(META_DETAIL) else PackedStringArray()
 ## 如果是文件路径，使用扩展名，返回 [code]true[/code]。
 func is_file_path_using_extension() -> bool:
 	return _get_detail()[_DETAIL_FILE_PATH_USING_EXTENSION] if data_main.has(META_DETAIL) else true
+#endregion
 
+#region cmd
 ## 如果有指令，返回 [code]true[/code]。
 func has_cmd() -> bool:
 	return data_main.has(META_CMD)
 ## 返回指令。
 func get_cmd() -> Array:
 	return data_main[META_CMD] if has_cmd() else []
+#endregion
 
 ## 获取自定义数据。
 func get_custom() -> Variant:

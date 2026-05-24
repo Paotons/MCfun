@@ -56,17 +56,21 @@ func _get_column_code_completion_data(column : int, _rule : ElementRule, _comman
 			if element.command_type & CommandElementManager.CommandType.REPLACE != 0:
 				return _get_process().get_head_completion_data() if element.is_faild else element.get_column_code_completion_data(column, exe, self)
 		_:
-			var result : StringElement = get_element(idx)
+			var result : BaseStringElement = get_element(idx)
 			return result.get_column_code_completion_data(column, exe, self)
 	return null
 static func get_precast_code_completion_data(_column : int, _rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
 	return EditManager.get_grammar_native_process().get_head_completion_data()
 
 func is_column_at_head(column : int) -> bool:
-	if column <= string_offset: return false
-	
 	if is_empty(): return true
-	return column <= get_valid_start() + head_string.length() + 1
+	return get_valid_start() <= column - 1 and column <= get_valid_start() + head_string.length() + 1
 
-
-
+## 返回解析后的数据。
+func parse(values_data : NativeCommandElementParserValues) -> String:
+	var parser := NativeCommandElementParser.new()
+	
+	parser.value_datas = values_data
+	parser.commamd = self
+	
+	return parser.parse()

@@ -1,5 +1,5 @@
 class_name AnnotationCommandExporter
-extends Exporter
+extends BaseCommandExporter
 ## 普通指令的导出。
 
 

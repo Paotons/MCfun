@@ -54,7 +54,7 @@ func _run_from_column_normal(text : String, process : CommandElementCreaterProce
 	var nearest_element := get_command()._elements[index]
 	var offset := process.offset
 	get_command().remove_error_from_range(0, offset)
-	if nearest_element is StringElement:
+	if nearest_element is BaseStringElement:
 		offset = nearest_element.string_offset
 		process.offset = offset
 	
@@ -104,27 +104,28 @@ func _do_function(element : ExeElementRule, text : String, process : CommandElem
 # 处理空值，占位。
 func _do_nil(_text : String, process : CommandElementCreaterProcess) -> bool:
 	var items := process.exe_element.get_items()
-	if items.is_empty(): return false
+	_add_history(process.exe_index)
+	if items.is_empty():
+		return false
 	for item in items:
 		match item:
 			"cmp":
 				_get_failds().clear()
-	_add_history(process.exe_index)
 	return false
 
 # 默认处理。
 func _do_default(text : String, process : CommandElementCreaterProcess) -> bool:
-	var element : StringElement
+	var element : BaseStringElement
 	var exe_element := process.exe_element
 	match process.exe_element.get_type():
 		GrammarValue.Type.BOOL : element = BoolElement.create(text, process.offset)
 		GrammarValue.Type.INT : element = IntElement.create(text, process.offset)
 		GrammarValue.Type.FLOAT : element = FloatElement.create(text, process.offset)
-		GrammarValue.Type.STRING: element = StringElement.create(text, process.offset)
+		GrammarValue.Type.STRING: element = StringElement.create(text, process.offset, exe_element)
 		GrammarValue.Type.WORD : element = WordElement.create(text, process.offset)
-		GrammarValue.Type.RICH_STRING : element = RichStringElement.create(text, process.offset)
-		GrammarValue.Type.POINT_PATH : element = PointPathElement.create(text, process.offset, process.exe_element)
-		GrammarValue.Type.FILE_PATH : element = FilePathElement.create(text, process.offset, process.exe_element)
+		GrammarValue.Type.RICH_STRING : element = RichStringElement.create(text, process.offset, exe_element)
+		GrammarValue.Type.POINT_PATH : element = PointPathElement.create(text, process.offset, exe_element)
+		GrammarValue.Type.FILE_PATH : element = FilePathElement.create(text, process.offset, exe_element)
 		GrammarValue.Type.SCOPE : element = ScopeElement.create(text, process.offset)
 		_: assert("Can do the type \"%s\"." % [process.exe_element.get_type()])
 	
@@ -151,10 +152,12 @@ func _do_option(text : String, process : CommandElementCreaterProcess) -> bool:
 	var exe := process.exe_element
 	var result := OptionElement.create(text, process.offset, exe)
 	
-	for err in result.errors: create_error(err.column, err.string)
+	if not (result.is_faild and process.has_end):
+		for err in result.errors: create_error(err.column, err.string)
 	if result.is_faild:
 		_get_failds().append(process.exe_index)
 		return true
+	
 	
 	_get_hl_data().merge(result.get_highlight(process.edit))
 	
@@ -280,6 +283,9 @@ func _do_subcommand(text : String, process : CommandElementCreaterProcess) -> bo
 		create_error(process.offset, "Not find command.")
 		return true
 	
+	var offset := StrT.find_unempty(text, process.offset)
+	process.offset = offset if offset != -1 else process.offset
+	
 	var result := BaseCommandElement.create(text, process.offset, process.line)
 	
 	if result.is_empty():
@@ -293,6 +299,8 @@ func _do_subcommand(text : String, process : CommandElementCreaterProcess) -> bo
 	process.offset = text.length()
 	get_command()._has_child_element = true
 	
+	if result.command_type & process.exe_element.get_command_types() == 0:
+		create_error(process.offset, "Command should be %s, but is %s." % [CommandElementManager.command_type_to_string(process.exe_element.get_command_types()), CommandElementManager.command_type_to_string(result.command_type)])
 	if not result.is_faild:
 		_get_hl_data().merge(result.get_highlight(process.edit))
 	_add_history(process.exe_index, result)

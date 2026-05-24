@@ -1,7 +1,9 @@
 class_name WordElement
-extends StringElement
+extends BaseStringElement
 ## 不包括任何符号的元素。
 
+func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
+	return {get_valid_start() : {"color" : edit.color_string}, get_valid_end() : {"color" : edit.color_default}}
 func _get_column_code_completion_data(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
 	var data : FunctionCompletionData = ElementRuleCMD.execute_completion(column, rule, command) if rule.has_cmd() else FunctionCompletionData.new()
 	data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
@@ -14,12 +16,12 @@ static func get_precast_code_completion_data(column : int, rule : ElementRule, c
 	return data
 
 # 搜索的正则表达式。
-static var _search_word_regex := RegEx.create_from_string(r"^\p{Z}*(?<word>[\p{L}\p{Pc}]+)")
+static var _search_word_regex := RegEx.create_from_string(r"^\p{Z}*(?<word>[\p{L}\p{Pc}0-9]+)")
 static func create(text : String, offset : int) -> WordElement:
 	return _create_word_element(WordElement.new(), text, offset)
 
 ## 这个函数应该是 Protected，在一个模板上创建。
-static func _create_word_element(element : StringElement, text : String, offset : int) -> StringElement:
+static func _create_word_element(element : BaseStringElement, text : String, offset : int) -> BaseStringElement:
 	element.string_offset = offset
 	
 	var result := _search_word_regex.search(text.substr(offset))

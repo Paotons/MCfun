@@ -1,5 +1,5 @@
 class_name OptionElement
-extends StringElement
+extends BaseStringElement
 ## 选项元素。
 
 ## 选项序列。
@@ -7,8 +7,12 @@ var option_index := -1
 ## 指令物品。
 var element_rule : ElementRule
 
+## 返回选项序列。
+func get_option_index() -> int:
+	return option_index
+
 static func create(text : String, offset : int, rule : ElementRule = null) -> OptionElement:
-	var element : OptionElement = _create_string_element(OptionElement.new(), text, offset)
+	var element : OptionElement = StringElement._create_string_element(OptionElement.new(), text, offset)
 	element.element_rule = rule
 	
 	if element.is_faild:

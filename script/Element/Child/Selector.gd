@@ -1,5 +1,5 @@
 class_name SelectorElement
-extends StringElement
+extends BaseStringElement
 ## 目标选择器。
 
 # 如果是 [code]true[/code]，则采用的玩家名称。
@@ -122,3 +122,4 @@ static func is_selector(text : String) -> bool:
 	if text.length() > 1:
 		return true
 	return false
+

@@ -1,0 +1,25 @@
+{
+	"description" : "生成一个实体",
+	"data" : [
+		{"id" : 0, "extends" : -1, "goto" : 1, "type" : "spaceitem", "detail" : {"chapter" : "entity_name"}, "is_end" : true, "description" : "实体类型"},
+		{"goto" : 999},
+		{"id" : 1, "extends" : 0, "goto" : 5, "type" : "coords", "description" : "位置"},
+		{"id" : 2, "extends" : 0, "type" : "rich_string", "description" : "名称"},
+		{"id" : 3, "extends" : 2, "goto" : 4, "items" : ["cmp"]},
+		{"goto" : 999},
+		{"id" : 4, "extends" : 3, "type" : "coords"},
+		{"goto" : 999},
+		{"id" : 5, "extends" : 1, "goto" : 8, "type" : "coord", "is_end" : false, "description" : "水平方向"},
+		{"id" : 6, "extends" : 1, "type" : "option", "items" : ["facing"], "is_end" : false},
+		{"id" : 7, "extends" : 6, "goto" : 9, "items" : ["cmp"]},
+		{"goto" : 999},
+		{"id" : 8, "extends" : 5, "goto" : 12, "type" : "coord", "is_end" : true, "description" : "垂直方向"},
+		{"goto" : 999},
+		{"id" : 9, "extends" : 7, "goto" : 12, "type" : "coords", "is_end" : true},
+		{"id" : 10, "extends" : 7, "type" : "selector", "is_end" : true},
+		{"id" : 11, "extends" : 10, "goto" : 12, "items" : ["cmp"]},
+		{"goto" : 999},
+		{"id" : 12, "type" : "spaceitem", "detail" : {"chapter" : "entity_event_name"}, "description" : "事件"},
+		{"id" : 999}
+	]
+}

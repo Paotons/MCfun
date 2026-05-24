@@ -1,5 +1,5 @@
 class_name RichStringElement
-extends StringElement
+extends BaseStringElement
 ## 富文本字符串。
 
 ## 符号类别。
@@ -95,11 +95,11 @@ static func get_precast_code_completion_data(_column : int, rule : ElementRule, 
 	data.hint_string = "<%s : rich_string>" % [rule.get_description()]
 	return data
 
-static func create(text : String, offset : int) -> RichStringElement:
+static func create(text : String, offset : int, rule : ElementRule = null) -> RichStringElement:
 	var element := RichStringElement.new()
 	element.string_offset = offset
 	
-	var result := StringElement.create(text, offset)
+	var result := StringElement.create(text, offset, rule)
 	if result.is_faild:
 		element.create_error(offset, "Not find any string.")
 		return element

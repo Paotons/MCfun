@@ -3,7 +3,7 @@ extends BacketElement
 ## 一个括号包括的独立参数。
 
 ## 参数结果。
-var value_element : StringElement
+var value_element : BaseStringElement
 ## 规则。
 var grammar_rule : GrammarParamBacketRule
 ## 变量类型。
@@ -15,7 +15,7 @@ func _get_backet_type() -> int:
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	var result : Dictionary[int, Dictionary]
 	if value_element != null:
-		if value_element is StringElement:
+		if value_element is BaseStringElement:
 			result.merge(value_element.get_highlight(edit), true)
 	else:
 		super(edit)
@@ -26,7 +26,7 @@ func _get_column_code_completion_data(column : int, _rule : ElementRule, command
 	if value_element == null:
 		var result_type := ElementManager.value_type_to_type(value_type)
 		return ElementManager.get_precast_code_completion_data(result_type, column, result_rule, command)
-	elif value_element is StringElement:
+	elif value_element is BaseStringElement:
 		return value_element.get_column_code_completion_data(column, result_rule, command)
 	return data
 

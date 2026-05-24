@@ -112,6 +112,23 @@ layout_mode = 2
 size_flags_horizontal = 3
 script = SubResource("GDScript_y64do")
 
+[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=683178299]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer5" unique_id=787745318]
+layout_mode = 2
+text = "错误处理："
+
+[node name="DoErrorOptionButton" type="OptionButton" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer5" unique_id=357609420]
+layout_mode = 2
+size_flags_horizontal = 10
+selected = 0
+item_count = 2
+popup/item_0/text = "忽略"
+popup/item_0/id = 0
+popup/item_1/text = "直接导出"
+popup/item_1/id = 1
+
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1241569118]
 layout_mode = 2
 

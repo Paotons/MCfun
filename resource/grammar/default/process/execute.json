@@ -65,7 +65,7 @@
 		{"id" : 33, "extends" : 32, "goto" : 0, "type" : "word", "description" : "计分版2", "cmd" : ["completion list scoreboard"]},
 	
 		{"id" : 998, "goto" : 999},
-		{"id" : 950, "extends" : 0, "type" : "command", "description" : "子指令"},
+		{"id" : 950, "extends" : 0, "type" : "command", "detail" : {"types" : "normal|help"}, "description" : "子指令"},
 		{"id" : 999, "extends" : 900}
 	]
 }

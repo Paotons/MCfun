@@ -1,5 +1,5 @@
 class_name IntElement
-extends StringElement
+extends BaseStringElement
 ## 整数。
 
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
@@ -32,3 +32,7 @@ func get_column_code_completion_data(_column : int, rule : ElementRule, _command
 	var data := FunctionCompletionData.new()
 	data.hint_string = "<%s : int>" % [rule.get_description()]
 	return data
+
+## 获取值。
+func get_value() -> int:
+	return get_valid_string().to_int()

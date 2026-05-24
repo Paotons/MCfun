@@ -1,5 +1,5 @@
 class_name FilePathElement
-extends StringElement
+extends BaseStringElement
 
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return super._get_highlight(edit)

@@ -28,6 +28,13 @@ func get_head_string() -> String:
 func is_valid_head() -> bool:
 	return _get_process().has_head(head_string)
 
+## 返回历史 ID。
+func get_history_ids() -> PackedInt32Array:
+	var command := _get_process().get_command_rule(head_string)
+	var res : PackedInt32Array
+	for idx in exe_element_histories:
+		res.append(command.get_element(idx).get_id())
+	return res
 ## 返回指定元素序列在进程中的序列。
 func get_history(idx : int) -> int:
 	return exe_element_histories[idx]
@@ -53,10 +60,8 @@ func is_column_outside_valid(column : int) -> bool:
 	return column <= valid_start
 ## 如果序列处于头部位置，返回 [code]true[/code]。
 func is_column_at_head(column : int) -> bool:
-	if column <= string_offset: return false
-	
 	if is_empty(): return true
-	return column <= get_valid_start() + head_string.length()
+	return get_valid_start() <= column - 1 and column <= get_valid_start() + head_string.length()
 ## 如果处于序列处于尾部位置，返回 [code]true[/code]。
 func is_column_at_end(column : int) -> bool:
 	if _elements.is_empty():
@@ -65,7 +70,7 @@ func is_column_at_end(column : int) -> bool:
 	for i in range(1, _elements.size() + 1):
 		element = _elements[_elements.size() - i]
 		if element != null: break
-	return not element is BaseCommandElement and column > element.get_valid_end()
+	return element == null or (not element is BaseCommandElement and column > element.get_valid_end())
 ## 返回某个位置在所处的元素序列，返回 [code]-1[/code] 表示非语法上的位置。
 func get_column_map_index(column : int) -> int:
 	for i in _elements.size():
@@ -74,7 +79,7 @@ func get_column_map_index(column : int) -> int:
 			if element.command_type & CommandElementManager.CommandType.REPLACE != 0:
 				if column > element.string_offset:
 					return i
-		elif element is StringElement:
+		elif element is BaseStringElement:
 			if element.get_valid_start() < column and column <= element.get_valid_end():
 				return i
 	return -1

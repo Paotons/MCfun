@@ -30,6 +30,7 @@ func get_window_config() -> ConfigFile:
 	config.set_value(UI, "export_name", _get_export_name_line_edit().text)
 	config.set_value(UI, "export_include_annotation", _get_include_annotation_check().button_pressed)
 	config.set_value(UI, "export_include_empty", _get_include_empty_check().button_pressed)
+	config.set_value(UI, "export_do_error_mode", _get_do_error_option_button().selected)
 	return config
 ## 通过配置文件，配置窗口。
 func config_winodw(config : ConfigFile) -> void:
@@ -44,6 +45,7 @@ func config_winodw(config : ConfigFile) -> void:
 		_get_export_name_line_edit().text = config.get_value(UI, "export_name")
 	_get_include_annotation_check().button_pressed = config.get_value(UI, "export_include_annotation", false)
 	_get_include_empty_check().button_pressed = config.get_value(UI, "export_include_empty", false)
+	_get_do_error_option_button().select(config.get_value(UI, "export_do_error_mode", 0))
 
 # 获取导出路径编辑框。
 func _get_export_path_line_edit() -> LineEdit:
@@ -60,6 +62,9 @@ func _get_include_annotation_check() -> CheckBox:
 # 获取保留空行的勾选框。
 func _get_include_empty_check() -> CheckBox:
 	return $MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer4/IncludeEmptyCheck
+# 获取错误处理选项按钮。
+func _get_do_error_option_button() -> OptionButton:
+	return $MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer5/DoErrorOptionButton
 
 # 正在导出 Panel。
 func _get_exporting_panel() -> Panel:
@@ -142,15 +147,16 @@ func export_project() -> void:
 func _process(_delta: float) -> void:
 	if export_thread.is_started() and not export_thread.is_alive():
 		export_thread.wait_to_finish()
-		_get_exporting_label().text = "导出成功\n只需把文件解压到地图目录behavior_packs并激活行为包即可"
+		_get_exporting_label().text = "导出成功\n只需把文件解压到地图目录behavior_packs并激活行为包即可\n%s" % "\n".join(export_setting.errors)
 		set_process(false)
 		set_block_signals(false)
 		return
 	
 	export_setting.mutex.lock()
-	_get_exporting_label().text = "正在导出(%d/%d)\n%s(%d/%d)" %[
+	_get_exporting_label().text = "正在导出(%d/%d)\n%s(%d/%d)\n%s" %[
 		export_setting.main_process, ProjectExportSetting.MainProcess.MAX,
-		export_setting.current_process, export_setting.sub_process.x, export_setting.sub_process.y
+		export_setting.current_process, export_setting.sub_process.x, export_setting.sub_process.y,
+		"\n".join(export_setting.errors)
 		]
 	export_setting.mutex.unlock()
 
@@ -162,6 +168,8 @@ func create_setting() -> ProjectExportSetting:
 	setting.path = _get_export_path().path_join(_get_export_name())
 	setting.include_annotation = _get_include_annotation_check().button_pressed
 	setting.include_empty = _get_include_empty_check().button_pressed
+	@warning_ignore("int_as_enum_without_cast")
+	setting.do_error_mode = _get_do_error_option_button().selected
 	return setting
 
 func _on_path_text_changed(_new_text: String) -> void:

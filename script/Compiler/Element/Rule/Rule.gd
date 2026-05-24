@@ -134,6 +134,8 @@ class _Detail extends _Element:
 	# dict, arr, quot : [""] --- [rule]
 	# spa_item, poi_path : [""] -- [chapter]
 	# fil_path : [["", true]] --- [extensions, using_extension]
+	# string, rich_string : [false] --- [long]
+	# command : [0xFFFFFFFF] ---- [types]
 	
 	func _get_name() -> String:
 		return "%s[items]" % element
@@ -156,6 +158,8 @@ class _Detail extends _Element:
 				compiled_result = [from]
 			GrammarValue.Type.FILE_PATH:
 				compiled_result = [[from], true]
+			GrammarValue.Type.STRING, GrammarValue.Type.RICH_STRING:
+				compiled_result = [true] if from == "long" else [false]
 			_:
 				compiled_result = from
 		_set_is_valid(true)
@@ -185,6 +189,14 @@ class _Detail extends _Element:
 				if not _test_array_types(arr, 1 << TYPE_STRING, "%s[extensions]" % _get_name()):
 					return
 				compiled_result = [arr, from.get("using_extension", true)]
+			GrammarValue.Type.STRING, GrammarValue.Type.RICH_STRING:
+				if from.has("long") and not _test_value_type(from["long"], 1 << TYPE_BOOL, "%s[long]" % _get_name()):
+					return
+				compiled_result = [from.get("long", false)]
+			GrammarValue.Type.COMMAND:
+				if from.has("types") and not _test_value_type(from["types"], 1 << TYPE_STRING, "%s[types]" % _get_name()):
+					return
+				compiled_result = [CommandElementManager.string_to_command_type(from.get("types", ""))]
 			_:
 				compiled_result = from
 		_set_is_valid(true)

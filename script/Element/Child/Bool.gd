@@ -1,5 +1,5 @@
 class_name BoolElement
-extends StringElement
+extends BaseStringElement
 ## 选项元素。
 
 # 布尔选项。
@@ -9,7 +9,7 @@ const _BOOL_OPTION : PackedStringArray = ["false", "true"]
 var bool_value := -1
 
 static func create(text : String, offset : int) -> BoolElement:
-	var element : BoolElement = _create_string_element(BoolElement.new(), text, offset)
+	var element : BoolElement = StringElement._create_string_element(BoolElement.new(), text, offset)
 	
 	if element.is_faild:
 		return element
