@@ -70,11 +70,8 @@ func _parse_tp_score_do(target : String, scorer : String, board : String, coords
 	var tag_target := "@e[tag=%s]" % target_tag
 	res.append("tag %s add %s" % [target, target_tag])
 	
-	var scorer_tag := "_temp_" + StrT.rand_base63(16) if scorer.begins_with("@") else ""
-	var tag_scorer := scorer
-	if not scorer_tag.is_empty():
-		tag_scorer = "@e[tag=%s]" % scorer_tag
-		res.append("tag %s add %s" % [scorer, scorer_tag])
+	var tag_scorer := "_temp_" + StrT.rand_base63(16)
+	res.append("scoreboard players operation %s %s = %s %s" % [tag_scorer, board, scorer, board])
 	
 	if is_to:
 		res.append("tp %s %s %s %s" % [tag_target, "0" if coords[0] else "~", "0" if coords[1] else "~", "0" if coords[2] else "~"])
@@ -82,13 +79,12 @@ func _parse_tp_score_do(target : String, scorer : String, board : String, coords
 	res.append_array(_parse_tp_score_tp(tag_target, tag_scorer, board, coords, scale, iter))
 	
 	res.append("tag %s remove %s" % [tag_target, target_tag])
-	if not scorer_tag.is_empty():
-		res.append("tag %s remove %s" % [tag_scorer, scorer_tag])
+	res.append("scoreboard players reset %s %s" % [tag_scorer, board])
 	
 	return "\n".join(res)
 
 func _parse_tp_score_tp(target : String, scorer : String, board : String, coords : Array[bool], scale : float, iter : int) -> PackedStringArray:
-	const MODEL := "execute if score %s %s matches %s..%s as %s at @s tp @s %s\nscoreboard players add %s %s %d"
+	const MODEL := "execute if score %s %s matches %s..%s as %s at @s run tp @s %s\nexecute if score %s %s matches %s..%s run scoreboard players add %s %s %d"
 	
 	var res : PackedStringArray
 	var coords_model := " ".join(PackedStringArray(["~%f" if coords[0] else "~", "~%f" if coords[1] else "~", "~%f" if coords[2] else "~"]))
@@ -99,12 +95,12 @@ func _parse_tp_score_tp(target : String, scorer : String, board : String, coords
 		var offset := 1 << i
 		values.fill(offset * scale)
 		var coords_string := coords_model % values
-		res.append(MODEL % [board, scorer, offset, "", target, coords_string, scorer, board, -offset])
+		res.append(MODEL % [scorer, board, offset, "", target, coords_string, scorer, board, offset, "", scorer, board, -offset])
 	
 	for i in range(iter - 1, -1, -1):
 		var offset := -(1 << i)
 		values.fill(offset * scale)
 		var coords_string := coords_model % values
-		res.append(MODEL % [board, scorer, "", offset, target, coords_string, scorer, board, -offset])
+		res.append(MODEL % [scorer, board, "", offset, target, coords_string, scorer, board, "", offset, scorer, board, -offset])
 	return res
 #endregion
