@@ -132,6 +132,7 @@ static func try_get_type(text : String, offset : int) -> Array[GrammarValue.Type
 		"+", "-" : return [GrammarValue.Type.SCOPE, GrammarValue.Type.FLOAT, GrammarValue.Type.INT, GrammarValue.Type.COORDS, GrammarValue.Type.COORD]
 		"{" : return [GrammarValue.Type.DICTIONARY]
 		"[" : return [GrammarValue.Type.ARRAY]
+		"*" : return [GrammarValue.Type.SELECTOR]
 		"\"" : return[GrammarValue.Type.QUOTATION]
 	
 	if valid_str.begins_with(".."):
@@ -161,7 +162,7 @@ static func create_from_rule(text : String, offset : int, rule : ElementRule) ->
 	var params : Array
 	
 	match value_type:
-		GrammarValue.Type.OPTION, GrammarValue.Type.POINT_PATH, GrammarValue.Type.FILE_PATH, GrammarValue.Type.STRING, GrammarValue.Type.RICH_STRING:
+		GrammarValue.Type.OPTION, GrammarValue.Type.SELECTOR, GrammarValue.Type.POINT_PATH, GrammarValue.Type.FILE_PATH, GrammarValue.Type.STRING, GrammarValue.Type.RICH_STRING:
 			params = [rule]
 		_:
 			if GrammarValue.is_type_backet(value_type):
@@ -213,7 +214,7 @@ static func _create_from_params(type : int, text : String, offset : int, params 
 			return ColonParamBacketElement.create(text, offset, params[0], params[1], params[2])
 		
 		Type.SELECTOR:
-			return SelectorElement.create(text, offset)
+			return SelectorElement.create(text, offset, params[0])
 		Type.COORDS:
 			return CoordsElement.create(text, offset, params[0])
 		Type.PARAM_BACKET:

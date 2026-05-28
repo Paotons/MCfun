@@ -2,7 +2,8 @@ class_name CustomCodeEdit
 extends CodeEdit
 ## 自定义编辑器。
 ##
-## 加入了行 ID，双击输入。
+## 加入了行 ID，双击输入。[br]
+## [b]注意：[/b] 进行字符串操作时，应该调用 [method custom_*]，否则行 ID 无法更新。
 
 ## 新的一行被加入。
 signal line_added(line : int, line_id : int)
@@ -10,6 +11,12 @@ signal line_added(line : int, line_id : int)
 signal line_removed(line : int, line_id : int)
 ## 行 ID 被重置时发出。
 signal line_id_reseted(old_ids : PackedInt32Array, new_ids : PackedInt32Array)
+## 复制时发出。
+signal copyed(caret_index : int)
+## 粘贴时发出。
+signal pasted(caret_index : int)
+## 剪切时发出。
+signal cuted(caret_index : int)
 
 ## 退格。
 const UNICODE_BACKSPACE := 8
@@ -103,6 +110,45 @@ func _backspace(caret_index: int) -> void:
 		add_code_hint()
 	else:
 		clear_hint()
+# 粘贴
+func _paste(caret_index: int) -> void:
+	var txt := DisplayServer.clipboard_get()
+	if caret_index == -1:
+		for i in get_caret_count():
+			var line := get_caret_line(i)
+			var column := get_caret_column(i)
+			custom_insert_text(txt, line, column)
+	else:
+		var line := get_caret_line(caret_index)
+		var column := get_caret_column(caret_index)
+		custom_insert_text(txt, line, column)
+	pasted.emit(caret_index)
+# 剪切。
+func _cut(caret_index: int) -> void:
+	if caret_index == -1:
+		for i in get_caret_count():
+			if not has_selection(i):
+				continue
+			DisplayServer.clipboard_set(get_selected_text(i))
+			custom_remove_text(get_selection_from_line(i), get_selection_from_column(i), get_selection_line(i), get_selection_column(i))
+	else:
+		if not has_selection(caret_index):
+			return
+		DisplayServer.clipboard_set(get_selected_text(caret_index))
+		custom_remove_text(get_selection_from_line(caret_index), get_selection_from_column(caret_index), get_selection_line(caret_index), get_selection_column(caret_index))
+	cuted.emit(caret_index)
+# 复制。
+func _copy(caret_index: int) -> void:
+	if caret_index == -1:
+		for i in get_caret_count():
+			if not has_selection(i):
+				return
+			DisplayServer.clipboard_set(get_selected_text(i))
+	else:
+		if not has_selection(caret_index):
+			return
+		DisplayServer.clipboard_set(get_selected_text(caret_index))
+	copyed.emit(caret_index)
 # 光标处退格。
 func _caret_backspace(caret_index := 0) -> void:
 	_nearest_input_time[caret_index] = Time.get_ticks_msec()
@@ -175,10 +221,10 @@ func caret_unicode_input(unicode_char : int, caret_index : int) -> void:
 		if _double_input(unicode_char, caret_index):
 			return
 	caret_insert_text(String.chr(unicode_char), caret_index)
-## 对光标处进行退格。
+## 对光标处进行退格，会使 [method get_caret_nearest_input_unicode] 返回 [constant UNICODE_BACKSPACE]。
 func caret_backspace(caret_index : int) -> void:
 	if has_selection(caret_index):
-		remove_area(get_selection_from_line(caret_index), get_selection_from_column(caret_index),
+		custom_remove_text(get_selection_from_line(caret_index), get_selection_from_column(caret_index),
 			get_selection_to_line(caret_index), get_selection_to_column(caret_index))
 		return
 	var to_line := get_caret_line(caret_index)
@@ -192,16 +238,19 @@ func caret_backspace(caret_index : int) -> void:
 		if from_line == -1:
 			return
 	remove_text(from_line, from_column, to_line, to_column)
-## 在光标处进行插入字符。
-func caret_insert_text(txt : String, caret_index := 0) -> void:
+## 在光标处进行插入字符，如果 [param text] 长度大于 1，那么 [method get_caret_nearest_input_unicode] 会返回 -1。
+@warning_ignore("shadowed_variable_base_class")
+func caret_insert_text(text : String, caret_index := 0) -> void:
+	if text.is_empty():
+		return
 	_nearest_input_position[caret_index] = Vector2i(get_caret_column(), get_caret_line())
-	insert_text_at_caret(txt, caret_index)
-	_nearest_input_unicode[caret_index] = ord(txt.right(1))
+	insert_text_at_caret(text, caret_index)
+	_nearest_input_unicode[caret_index] = ord(text[0]) if text.length() == 1 else -1
 	_nearest_input_time[caret_index] = Time.get_ticks_msec()
 ## 获取关标最近一次输入的时间差，单位ms。
 func get_caret_nearest_input_time_delta(index := 0) -> int:
 	return Time.get_ticks_msec() - _nearest_input_time[index] if _nearest_input_time.has(index) else -1
-## 获取光标最近一次输入的字符码。
+## 获取光标最近一次输入的字符码，返回 [code]-1[/code]。
 func get_caret_nearest_input_unicode(index := 0) -> int:
 	return _nearest_input_unicode.get(index, 0)
 ## 获取光标最近一次输入的位置。
@@ -212,11 +261,25 @@ func get_caret_nearest_input_position(index := 0) -> Vector2i:
 #region 文本。
 ## 移除一块区域的文本。[br]
 ## [b]注意：[/b]如果使用传统的 [method remove_text]，不会发射 [signal line_removed]。
-func remove_area(from_line : int, from_column : int, to_line : int, to_column : int) -> void:
+func custom_remove_text(from_line : int, from_column : int, to_line : int, to_column : int) -> void:
 	for i in range(to_line, from_line, -1):
 		_remove_edit_line(i)
 	remove_text(from_line, from_column, to_line, to_column)
-## 重置每行的 ID 使他的数量为 [param count]。
+## 插入新的一行。
+func custom_insert_line_at(at : int, line : String) -> void:
+	_add_edit_line(at)
+	insert_line_at(at, line)
+## 插入字符串。
+@warning_ignore("shadowed_variable_base_class")
+func custom_insert_text(text : String, line : int, column : int) -> void:
+	if text.is_empty():
+		return
+	var line_count := text.count("\n") + 1
+	for i in range(1, line_count):
+		_add_edit_line(line + i)
+	insert_text(text, line, column)
+
+## 重置每行的 ID 使行的数量为 [param count]。
 func reset_line_ids(count : int) -> void:
 	_line_ids.clear()
 	_next_line_id = count
@@ -238,7 +301,10 @@ func get_line_index(id : int) -> int:
 
 # 新的行被加入。
 func _add_edit_line(line : int) -> void:
-	_line_ids.insert(line, _next_line_id)
+	if line == _line_ids.size():
+		_line_ids.insert(line, _next_line_id)
+	else:
+		_line_ids.append(_next_line_id)
 	_next_line_id += 1
 	line_added.emit(line, _next_line_id - 1)
 # 移除某个行。

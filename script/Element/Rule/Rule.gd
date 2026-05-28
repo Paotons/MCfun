@@ -35,6 +35,7 @@ const _DETAIL_POINT_PATH_CHAPTER := 0
 const _DETAIL_STRING_IS_LONG := 0
 const _DETAIL_RICH_STRING_IS_LONG := 0
 const _DETAIL_COMMAND_TYPES := 0
+const _DETAIL_SELECTOR_ASTERISK := 0
 
 const _DETAIL_FILE_PATH_EXTENSIONS := 0
 const _DETAIL_FILE_PATH_USING_EXTENSION := 1
@@ -74,6 +75,11 @@ func has_detail() -> bool:
 ## 如果是指令，返回它的类型。
 func get_command_types() -> int:
 	return _get_detail()[_DETAIL_COMMAND_TYPES] if data_main.has(META_DETAIL) else 0xFFFFFFFF
+
+#region 目标选择器。
+func has_selector_asterisk() -> bool:
+	return _get_detail()[_DETAIL_SELECTOR_ASTERISK] if data_main.has(META_DETAIL) else false
+#endregion
 
 #region 选项。
 ## 如果是选项，并且使用条目，则返回 [code]true[/code]。

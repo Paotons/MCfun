@@ -199,10 +199,12 @@ func _do_coords(text : String, process : CommandElementCreaterProcess) -> bool:
 	return result.get_valid_size() != 3
 # 处理目标选择器。
 func _do_selector(text : String, process : CommandElementCreaterProcess) -> bool:
-	var result := SelectorElement.create(text, process.offset)
+	var result := SelectorElement.create(text, process.offset, process.exe_element)
 	
-	for err in result.errors: create_error(err.column, err.string)
-	if result.is_faild: return true
+	for err in result.errors:
+		create_error(err.column, err.string)
+	if result.is_faild:
+		return true
 	
 	_get_hl_data().merge(result.get_highlight(process.edit))
 	

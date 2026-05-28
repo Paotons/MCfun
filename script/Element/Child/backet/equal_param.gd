@@ -11,8 +11,11 @@ func _get_backet_type() -> int:
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return super(edit)
 func _get_column_code_completion_data(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
+	if grammer_rule == null:
+		return
 	var data := FunctionCompletionData.new()
-	if not has_backet_column(column): return null
+	if not has_backet_column(column):
+		return null
 	
 	var param_idx := get_param_index_from_column(column)
 	
@@ -31,7 +34,8 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 			return data
 	
 	var param := get_param(param_idx)
-	if param == null: return data
+	if param == null:
+		return data
 	
 	data = param.get_column_code_completion_data(column, rule, command)
 	data = FunctionCompletionData.new() if data == null else data
@@ -41,9 +45,10 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 
 static func create(text : String, offset : int, start := "{", end := "}", rule : GrammarEqualParamBacktedRule = null) -> EqualParamBacketElement:
 	var element := _create_backet_element(EqualParamBacketElement.new(), text, offset, start, end)
-	element.grammer_rule = rule
-	if element.is_faild:
+	if element.is_faild or rule == null:
 		return element
+	
+	element.grammer_rule = rule
 	
 	var length := element.get_backet_string_end()
 	var index := element.get_backet_string_start()

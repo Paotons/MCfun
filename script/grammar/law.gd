@@ -34,9 +34,8 @@ func get_rule(name : String) -> GrammarRule:
 				rule = GrammarColonParamBacketRule.new()
 			GrammarRule.RuleType.ARRAY_BACKET:
 				rule = GrammarArrayBacketRule.new()
-		if rule == null:
-			push_error("Not find rule.")
-			return null
+			_:
+				breakpoint # 正常情况，不可能到这里来
 		rule.set_data(rule_data)
 		return rule
 	return null

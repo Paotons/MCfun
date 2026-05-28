@@ -153,7 +153,7 @@ func _do_confirm_code_completion() -> bool:
 	var to_column := FunctionCompletionData.get_insert_end(line_text, column, data)
 	
 	set_caret_column(to_column)
-	remove_area(line, from_column, line, to_column)
+	custom_remove_text(line, from_column, line, to_column)
 	caret_insert_text(insert)
 	
 	if value and value.inserted_column_offset != 0:

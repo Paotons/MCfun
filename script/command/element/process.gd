@@ -49,11 +49,13 @@ func is_column_near_selector_head(column : int) -> bool:
 	for i in size:
 		var element := _elements[i]
 		if element is SelectorElement:
-			if element.has_body(): continue
-			if i + 1 >= size: return true
+			if element.has_body():
+				continue
+			if i + 1 >= size:
+				return element.is_selector()
 			var element2 := _elements[i + 1]
 			if element2 is SelectorElement:
-				return column >= element2.get_head_end() and column < element2.get_valid_start()
+				return column >= element2.get_head_end() and column < element2.get_valid_start() and element2.is_selector()
 	return false
 ## 如果序列处于有效开头，返回 [code]true[/code]。
 func is_column_outside_valid(column : int) -> bool:

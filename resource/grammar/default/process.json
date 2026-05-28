@@ -252,11 +252,9 @@
 			{"id" : 0, "extends" : -1, "type" : "coords", "description" : "起始位置"},
 			{"id" : 1, "extends" : 0, "type" : "coords", "description" : "终点位置"},
 			{"id" : 2, "extends" : 1, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "description" : "方块名称"},
-			{"id" : 3, "extends" : 2, "type" : "int", "is_end" : true, "description" : "方块数据组"},
-			{"id" : 4, "extends" : 3, "goto" : [999, 999, 999, 999, 5], "type" : "option", "items" : [{"destroy" : "破坏"}, {"hollow" : ""}, {"keep" : "保持"}, {"outline" : "轮廓"}, {"replace" : "替换"}]},
+			{"id" : 3, "extends" : 2, "goto" : [999, 999, 999, 999, 4], "type" : "option", "items" : [{"destroy" : "破坏"}, {"hollow" : "空心"}, {"keep" : "保持"}, {"outline" : "轮廓"}, {"replace" : "替换"}]},
 			
-			{"id" : 5, "extends" : 1, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "description" : "替换的方块名称"},
-			{"id" : 6, "extends" : 2, "type" : "int", "is_end" : true, "description" : "替换的方块数据组"},
+			{"id" : 4, "extends" : 3, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "description" : "替换的方块名称"},
 			
 			{"id" : 999}
 		]

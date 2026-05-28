@@ -28,20 +28,36 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 		data.hint_string = "<%s : selector>" % [rule.get_description()]
 	# 身体
 	elif not has_body():
-		return FunctionCompletionData.create_backet_data(GrammarValue.Type.ARRAY)
+		if is_selector():
+			return FunctionCompletionData.create_backet_data(GrammarValue.Type.ARRAY)
 	else:
 		if _body_backet.has_column(column):
 			return _body_backet.get_column_code_completion_data(column, rule, command)
 	return data
 
 static var _selector_search_regex := RegEx.create_from_string((r"^(?<start>\p{Z}*)(?<begin>@)(?<head>\p{L}+)?( *(?<body_begin>\[))?"))
-static func create(text : String, offset : int) -> SelectorElement:
+static func create(text : String, offset : int, rule : ElementRule = null) -> SelectorElement:
 	var element := WordElement._create_word_element(SelectorElement.new(), text, offset) as SelectorElement
-	if element.is_faild:
-		return _create_selector_from_art(text, offset)
-	else:
+	if not element.is_faild:
 		element._is_player_name = true
 		return element
+	
+	element = _create_selector_from_art(text, offset)
+	if not element.is_faild:
+		return element
+	
+	if rule.has_selector_asterisk():
+		element = StringElement._create_string_element(SelectorElement.new(), text, offset)
+		if element.is_faild:
+			return element
+		if not element.is_asterisk():
+			element.create_error(offset, "Unvaild selector.")
+			element.is_faild = true
+			return element
+		element.head_end = element.get_valid_end()
+		return element
+	return element
+
 static func _create_selector_from_art(text : String, offset : int) -> SelectorElement:
 	var element := SelectorElement.new()
 	element.string_offset = offset
@@ -112,9 +128,13 @@ func has_body() -> bool:
 ## 如果是玩家名称，返回 [code]true[/code]。
 func is_player_name() -> bool:
 	return _is_player_name
+## 如果是星号，返回 [code]true[/code]。
+func is_asterisk() -> bool:
+	return get_valid_string() == "*"
 
-## 判断是否为目标选择器。
-static func is_selector(text : String) -> bool:
+## 如果是目标选择器，返回 true。
+func is_selector() -> bool:
+	var text := get_valid_string()
 	if text.is_empty():
 		return false
 	if not text.begins_with("@"):

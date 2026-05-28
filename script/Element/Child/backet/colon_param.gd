@@ -32,8 +32,8 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 	return data
 
 static func create(text : String, offset : int, start := "{", end := "}", rule : GrammarColonParamBacketRule = null) -> ColonParamBacketElement:
-	var element := _create_backet_element(ColonParamBacketElement.new(), text, offset, start, end) as ColonParamBacketElement
-	if element.is_faild:
+	var element := BacketElement._create_backet_element(ColonParamBacketElement.new(), text, offset, start, end) as ColonParamBacketElement
+	if element.is_faild or rule == null:
 		return element
 	
 	var length := element.get_backet_string_end()
@@ -59,7 +59,6 @@ static func create(text : String, offset : int, start := "{", end := "}", rule :
 			index = split + 1
 	element.grammer_rule = rule
 	return element
-
 
 ## 获取参数的键值。
 func get_key_strings() -> PackedStringArray:

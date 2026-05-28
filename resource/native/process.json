@@ -23,5 +23,43 @@
 			
 			{"id": 999}
 		]
+	},
+	
+	"scoreboard" : {
+		"description" : "管理计分版/分数",
+		"data" : [
+			{"id" : 0, "extends" : -1, "goto" : [1], "type" : "option", "items" : [{"players" : "分数"}]},
+			
+			{"goto" : 999},
+			{"id" : 1, "extends" : 0, "goto" : [2], "type" : "option", "items" : [{"position" : "位置"}]},
+			
+			{"goto" : 999},
+			{"id" : 2, "extends" : 1, "type" : "selector", "description" : "参照实体"},
+			{"id" : 3, "extends" : 2, "type" : "option", "items" : ["x", "y", "z"]},
+			{"id" : 4, "extends" : 3, "type" : "selector", "description" : "分数对象"},
+			{"id" : 5, "extends" : 4, "type" : "word", "is_end" : true, "description" : "计分版", "cmd" : ["completion list scoreboard"]},
+			{"id" : 6, "extends" : 5, "type" : "option", "items" : [{"set" : "设置"}, {"offset" : "偏移"}]},
+			{"id" : 7, "extends" : 6, "type" : "int", "description" : "iter"},
+			
+			{"goto" : 999},
+			
+			{"id" : 999}
+		]
+	},
+	
+	"fill" : {
+		"description" : "填充方块",
+		"data" : [
+			{"id" : 0, "extends" : -1, "type" : "coords", "description" : "起始位置"},
+			{"id" : 1, "extends" : 0, "type" : "coords", "description" : "终点位置"},
+			{"id" : 2, "extends" : 1, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "is_end" : true, "description" : "方块名称"},
+			{"id" : 3, "extends" : 2, "goto" : [998, 998, 998, 998, 4], "type" : "option", "items" : [{"destroy" : "破坏"}, {"hollow" : "空心"}, {"keep" : "保持"}, {"outline" : "轮廓"}, {"replace" : "替换"}]},
+			
+			{"id" : 4, "extends" : 3, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "description" : "替换的方块名称"},
+			
+			{"id" : 998, "goto" : 999},
+			
+			{"id" : 999}
+		]
 	}
 }

@@ -74,7 +74,29 @@ static func is_coord(text : String) -> bool:
 func get_coord_mode() -> int:
 	is_faild_assert()
 	var vaild := get_valid_string()
-	return -1 if not is_coord(vaild) else _get_coord_mode(vaild)
+	return _get_coord_mode(vaild)
+
+## 获取偏移量。
+func get_offset_value() -> float:
+	var text := get_valid_string()
+	if text.begins_with("~") or text.begins_with("^"):
+		var t := text.substr(1)
+		return 0.0 if t.is_empty() else t.to_float()
+	else:
+		return text.to_float()
+
+## 根据偏移量和模式，构建字符串，并返回。
+static func create_coord_string(offset : float, mode := CoordMode.CONST) -> String:
+	if mode == CoordMode.CONST:
+		return str(offset)
+	else:
+		return "%s%s" % ["~" if mode == CoordMode.LOCAL else "^" if mode == CoordMode.RELATIVE else "", "" if is_zero_approx(offset) else str(offset)]
+## 根据偏移量和模式，构建图块字符串，并返回。
+static func create_tile_coord_string(offset : int, mode := CoordMode.CONST) -> String:
+	if mode == CoordMode.CONST:
+		return str(offset)
+	else:
+		return "%s%s" % ["~" if mode == CoordMode.LOCAL else "^" if mode == CoordMode.RELATIVE else "", "" if offset == 0 else str(offset)]
 
 # 仅根据头判断类型。
 static func _get_coord_mode(text : String) -> CoordMode:

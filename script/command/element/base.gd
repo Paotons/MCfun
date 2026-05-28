@@ -91,5 +91,8 @@ func get_cmd_list(id : int, column := -1) -> PackedStringArray:
 	for key : int in list:
 		if key < column: result.append(list[key])
 	return result
-
+## 设置行数。
+func set_line(line : int) -> void:
+	var edit := EditManager.get_edit()
+	_line_id = edit.get_line_id(line)
 

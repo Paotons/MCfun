@@ -1,6 +1,8 @@
 class_name CoordsElement
 extends MultiParamElement
-## 坐标。
+## 多个轴。
+##
+## 一般用于表示坐标。
 
 ## 轴的标签。
 const COORD_TAG : PackedStringArray = ["x", "y", "z", "w"]
@@ -47,7 +49,7 @@ static func create(text : String, offset : int, size := 3) -> CoordsElement:
 		start = sult.get_valid_end()
 		last_coord = sult
 	
-	if element.params[0] == null:
+	if element.params.is_empty():
 		element.is_faild = true
 		return element
 	
@@ -57,6 +59,9 @@ static func create(text : String, offset : int, size := 3) -> CoordsElement:
 	element.is_faild = false
 	return element
 
+## 返回轴。
+func get_coord(idx : int) -> CoordElement:
+	return get_param(idx)
 ## 获取大小。
 func get_size() -> int:
 	return coord_size
@@ -64,3 +69,46 @@ func get_size() -> int:
 func get_valid_size() -> int:
 	is_faild_assert()
 	return params.size()
+
+## 获取矩形，失败返回空矩形。
+func get_aabb(a : CoordsElement) -> AABB:
+	if get_valid_size() != 3 or not get_valid_size() != a.get_valid_size():
+		return AABB()
+	var aabb : AABB
+	
+	for i in 3:
+		var x := get_coord(i)
+		var y := get_coord(i)
+		
+		if x.get_coord_mode() != y.get_coord_mode():
+			return AABB()
+		
+		aabb.position[i] = x.get_offset_value()
+		aabb.end[i] = y.get_offset_value()
+	aabb.abs()
+	return aabb
+## 获取图块矩形。
+func get_tile_aabb(a : CoordsElement) -> AABB:
+	if get_valid_size() != 3 or get_valid_size() != a.get_valid_size():
+		return AABB()
+	var aabb : AABB
+	
+	for i in 3:
+		var x := get_coord(i)
+		var y := a.get_coord(i)
+		
+		if x.get_coord_mode() != y.get_coord_mode():
+			return AABB()
+		
+		aabb.position[i] = floori(x.get_offset_value())
+		aabb.end[i] = roundi(y.get_offset_value() + 1.0)
+	aabb.abs()
+	return aabb
+
+## 根据偏移和模式构建坐标。
+static func create_coords_string(offset : Vector3, x := CoordElement.CoordMode.CONST, y := CoordElement.CoordMode.CONST, z := CoordElement.CoordMode.CONST) -> String:
+	return "%s %s %s" % [CoordElement.create_coord_string(offset.x, x), CoordElement.create_coord_string(offset.y, y), CoordElement.create_coord_string(offset.z, z)]
+## 根据偏移和模式构建图块坐标。
+static func create_tile_coords_string(offset : Vector3i, x := CoordElement.CoordMode.CONST, y := CoordElement.CoordMode.CONST, z := CoordElement.CoordMode.CONST) -> String:
+	return "%s %s %s" % [CoordElement.create_tile_coord_string(offset.x, x), CoordElement.create_tile_coord_string(offset.y, y), CoordElement.create_tile_coord_string(offset.z, z)]
+
