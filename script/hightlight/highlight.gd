@@ -2,9 +2,6 @@ class_name FunctionSyntaxHighlight
 extends SyntaxHighlighter
 ## 语法高亮。
 
-## 语法。
-var grammar_process : GrammarProcess
-
 # 入口。
 func _get_line_syntax_highlighting(line: int) -> Dictionary:
 	var result := _compute(line)
@@ -19,7 +16,7 @@ func _compute(line : int) -> CommandElement:
 	var unicode := edit.get_caret_nearest_input_unicode()
 	var command := edit.get_command_element(line)
 	var text := edit.get_line(line)
-	if command == null or unicode == -1:
+	if command == null or unicode == -1 or unicode == CustomCodeEdit.UNICODE_ENTER:
 		return _create_command(text, line)
 	else:
 		var position := edit.get_caret_nearest_input_position()
