@@ -278,7 +278,15 @@ func compile(data : Variant) -> void:
 			return
 		compiled_result[META_DETAIL] = det.get_result()
 	
-	ElementRuleCMD.compile(from, compiled_result)
+	if from.has("cmd"):
+		var cmd := ElementCMDCompiler.new()
+		cmd.element_name = element_name
+		cmd.compile(from["cmd"])
+		
+		_add_error_from_object(cmd)
+		if not cmd.is_valid():
+			return
+		compiled_result[META_CMD] = cmd.get_result()
 	
 	_set_is_valid(true)
 

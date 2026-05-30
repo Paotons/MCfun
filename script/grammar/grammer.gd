@@ -7,10 +7,12 @@ extends Resource
 ## {"files" : {"main_process" : false, "law" : false, "entry" : false}, "main" : false}
 ## [/codeblock]
 enum ProcessType {
-	# 普通。
+	## 普通。
 	NORMAL = 0,
-	# 本地。
+	## 本地。
 	NATIVE = 1,
+	## 注解。
+	COMMENT = 2,
 }
 
 class _Files extends Resource:
@@ -72,6 +74,8 @@ var directory_path : String
 var main_process : GrammarProcess
 ## 本地进程。
 var native_process := GrammarProcess.new()
+## 注解进程。
+var comment_process := GrammarProcess.new()
 ## 账目。
 var entry : GrammarEntry
 ## 规则。
@@ -82,6 +86,7 @@ func get_process(idx := 0) -> GrammarProcess:
 	match idx:
 		ProcessType.NORMAL : return main_process
 		ProcessType.NATIVE : return native_process
+		ProcessType.COMMENT : return comment_process
 		_ : return null
 ## 返回账目。
 func get_entry(idx := 0) -> GrammarEntry:
@@ -141,7 +146,10 @@ func open(path : String) -> PackedStringArray:
 	if not errors.is_empty():
 		return errors
 	
-	return _set_native_process()
+	errors = _set_native_process()
+	if not errors.is_empty():
+		return errors
+	return _set_comment_process()
 
 @warning_ignore("unused_parameter")
 func _open_v1(path : String) -> PackedStringArray:
@@ -211,6 +219,7 @@ func compile(path : String, to_path : String) -> PackedStringArray:
 	
 	_save_grammar(to_path)
 	_set_native_process()
+	_set_comment_process()
 	return []
 
 func _set_native_process() -> PackedStringArray:
@@ -223,6 +232,17 @@ func _set_native_process() -> PackedStringArray:
 	file.close()
 	
 	native_process.set_data(data)
+	return []
+func _set_comment_process() -> PackedStringArray:
+	const COMPILED := "res://resource/comment/compiled/process"
+	
+	assert(FileAccess.file_exists(COMPILED), "Not compiled process.")
+	
+	var file := FileAccess.open(COMPILED, FileAccess.READ)
+	var data : Dictionary = file.get_var()
+	file.close()
+	
+	comment_process.set_data(data)
 	return []
 
 #region 保存。

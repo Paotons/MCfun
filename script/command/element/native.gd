@@ -36,7 +36,7 @@ func _get_column_code_completion_data(column : int, _rule : ElementRule, _comman
 	if is_column_outside_valid(column): # 不在范围。
 		return null
 	elif is_column_at_head(column): # 在头部。
-		return EditManager.get_grammar_native_process().get_head_completion_data()
+		return _get_process().get_head_completion_data()
 	
 	# 在最后结尾
 	if is_column_at_end(column):

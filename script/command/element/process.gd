@@ -5,7 +5,7 @@ extends BaseCommandElement
 ##
 ## 依赖进程完成的指令。抽象类，你不应该实例化。
 
-## 失败的元素序列，可用于预测下一个参数。
+## 失败的元素序列，即期望列表。
 var faild_element_idxs : PackedInt32Array
 ## 经过的执行元素序列。
 var exe_element_histories : PackedInt32Array

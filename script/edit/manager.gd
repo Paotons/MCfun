@@ -31,19 +31,22 @@ var function_edit : FunctionEdit
 ## 如果有编辑器，返回 [code]true[/code]。
 func has_edit() -> bool:
 	return function_edit != null
-## 获取当前编辑器。
+## 返回当前编辑器。
 func get_edit() -> FunctionEdit:
 	return function_edit
 
-## 获取编辑器补全设置。
+## 返回编辑器补全设置。
 func get_completion_setting() -> FunctionCompletionSetting:
 	return function_edit.completion_setting
-## 获取语法流程。
+## 返回语法流程。
 func get_grammar_process() -> GrammarProcess:
 	return function_edit.grammar.get_process(Grammar.ProcessType.NORMAL)
-## 获取本地语法流程。
+## 返回本地语法流程。
 func get_grammar_native_process() -> GrammarProcess:
 	return function_edit.grammar.get_process(Grammar.ProcessType.NATIVE)
+## 返回注解进程。
+func get_grammar_comment_process() -> GrammarProcess:
+	return function_edit.grammar.get_process(Grammar.ProcessType.COMMENT)
 ## 获取规则。
 func get_grammar_law() -> GrammarLaw:
 	return function_edit.grammar.get_law()

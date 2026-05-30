@@ -36,6 +36,8 @@ static func create(text : String, offset : int, line := -1) -> BaseCommandElemen
 			return AnnotationCommandElement.create(text, offset, line)
 		"&":
 			return NativeCommandElement.create(text, offset, line)
+		"@":
+			return CommentCommandElement.create(text, offset, line)
 		_:
 			return CommandElement.create(text, offset, line)
 ## 虚函数，从 [param column] 处更新。

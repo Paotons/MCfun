@@ -44,6 +44,8 @@ func _start(text : String) -> void:
 				exporter.start(line)
 				to_splited.append(exporter.get_result())
 			continue
+		elif command.command_type & CommandElementManager.CommandType.COMMENT != 0:
+			continue
 		elif command.command_type & CommandElementManager.CommandType.NORMAL != 0:
 			exporter = _command_exporter
 		elif command.command_type & CommandElementManager.CommandType.HELP != 0:

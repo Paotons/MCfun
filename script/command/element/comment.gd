@@ -3,22 +3,22 @@ extends ProcessCommandElement
 ## 本地指令。
 
 func _get_process() -> GrammarProcess:
-	return EditManager.get_grammar_native_process()
+	return EditManager.get_grammar_comment_process()
 
 static func create(text : String, offset : int, line := -1) -> CommentCommandElement:
 	var element := CommentCommandElement.new()
 	
 	# 初始化。
-	element.command_type = CommandElementManager.CommandType.NATIVE
+	element.command_type = CommandElementManager.CommandType.COMMENT
 	element.string_offset = offset
 	element.string = text.substr(offset)
 	element._highlight_data = HightLightData.new()
 	
 	# 进程。
-	var process :=CommandElementCreaterProcess.new()
+	var process := CommandElementCreaterProcess.new()
 	
 	process.edit = EditManager.get_edit()
-	process.grammar = EditManager.get_grammar_native_process()
+	process.grammar = EditManager.get_grammar_comment_process()
 	process.law = EditManager.get_grammar_law()
 	process.entry = EditManager.get_grammar_entry()
 	process.line = line
@@ -36,7 +36,7 @@ func _get_column_code_completion_data(column : int, _rule : ElementRule, _comman
 	if is_column_outside_valid(column): # 不在范围。
 		return null
 	elif is_column_at_head(column): # 在头部。
-		return EditManager.get_grammar_native_process().get_head_completion_data()
+		return _get_process().get_head_completion_data()
 	
 	# 在最后结尾
 	if is_column_at_end(column):
@@ -60,7 +60,7 @@ func _get_column_code_completion_data(column : int, _rule : ElementRule, _comman
 			return result.get_column_code_completion_data(column, exe, self)
 	return null
 static func get_precast_code_completion_data(_column : int, _rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
-	return EditManager.get_grammar_native_process().get_head_completion_data()
+	return EditManager.get_grammar_comment_process().get_head_completion_data()
 
 func is_column_at_head(column : int) -> bool:
 	if is_empty(): return true
