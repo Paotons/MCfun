@@ -29,27 +29,27 @@ func has_key() -> bool:
 func has_value() -> bool:
 	is_faild_assert()
 	return value_start != -1
-## 获取键的字符串。
+## 返回键的字符串，失败返回空字符串。
 func get_key_string() -> String:
 	is_faild_assert()
 	return "" if key_start == -1 else string.substr(key_start, -1 if key_end == -1 else key_end - key_start)
-## 获取键的字符串。
+## 返回值的字符串，失败返回空字符串。
 func get_value_string() -> String:
 	is_faild_assert()
 	return "" if value_start == -1 else string.substr(value_start, -1 if value_end == -1 else value_end - value_start)
-## 获取键的开头。
+## 返回键的开头。
 func get_key_start() -> int:
 	is_faild_assert()
 	return -1 if key_start == -1 else string_offset + key_start
-## 获取键的结尾。
+## 返回键的结尾。
 func get_key_end() -> int:
 	is_faild_assert()
 	return string_offset + string.length() if key_end == -1 else string_offset + key_end
-## 获取值的开头。
+## 返回值的开头。
 func get_value_start() -> int:
 	is_faild_assert()
 	return -1 if value_start == -1 else string_offset + value_start
-## 获取值的结尾。
+## 返回值的结尾。
 func get_value_end() -> int:
 	is_faild_assert()
 	return string_offset + string.length() if value_end == -1 else string_offset + value_end

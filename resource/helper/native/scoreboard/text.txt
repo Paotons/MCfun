@@ -1,0 +1,20 @@
+[title]描述[/title]
+
+管理计分版/分数。
+
+[title]坐标[/title]
+
+[code]&scoreboard players position <目标> <轴> <分数对象> <计分版> <模式> <迭代次数>[/code]
+将分数对象，在计分版中的分数，设置/偏移，指定目标指定轴上的位置。
+
+[b]目标：[/b] 目标选择器，指定目标。
+[b]轴：[/b] 选定轴，可以为 [code]x,y,z[/code]
+[b]分数对象：[/b] 目标选择器，要操控的分数对象。
+[b]计分版：[/b] 单词，操控的计分版。
+[b]模式：[/b] [code]set[/code] 直接设置为分数；[code]offset[/code] 在原来的基础上进行偏移。默认：[code]set[/code]
+[b]迭代次数：整数，由于所有二分法，最大执行距离依然有限制，迭代次数越大，范围越广，最大范围为 [code]2 ^ 迭代次数 - 1[/code] 默认可以覆盖6600万，默认：[code]25[/code]
+
+[code]&scoreboard players position @s x @s origin[/code] 将命名执行者origin计分版上的分数设置为它自己x轴上的位置。
+
+[b]不足：[/b] 由于目标选择器的 [code]distance[/code] 仅支持整数，所以没有加入缩放，精度只能为：1.0。
+[b]注意：[/b] 该二分法会导致分数偏小。

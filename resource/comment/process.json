@@ -1,0 +1,17 @@
+{
+	"list" : {
+		"description" : "列表控制",
+		"data" : [
+			{"id" : 0, "extends" : -1, "type" : "word", "description" : "列表名"},
+			{"id" : 1, "extends" : 0, "goto" : [2], "type" : "option", "items" : [{"add" : "添加"}]},
+			
+			{"goto" : 999},
+			{"id" : 2, "extends" : 1, "type" : "word", "is_end" : true, "description" : "名称"},
+			
+			{"goto" : 999},
+			
+			{"id" : 999}
+		]
+	}
+
+}

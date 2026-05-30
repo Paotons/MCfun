@@ -5,8 +5,8 @@ extends BaseStringElement
 ## 指令类型。
 var command_type : int = CommandElementManager.CommandType.EMPTY
 
-## [b]frient [CommandElementCreater], [ElementRuleCMD]:[/b] 储存运行时变量的列表。
-var _cmd_list : Dictionary[int, Dictionary]
+## [b]frient [CommandElementCreater]:[/b] 指令列表。
+var _cmd_list : CMDList
 ## [b]frient [CommandElementCreater]:[/b] 指令中的各种元素。
 var _elements : Array[Element]
 ## [b]frient [CommandElementCreater]:[/b] 高亮数据。
@@ -79,18 +79,40 @@ func get_element_count() -> int:
 #endregion
 
 ## 获取这条指令的命名列表。
-func get_cmd_list(id : int, column := -1) -> PackedStringArray:
+func get_cmd_list(type : String, column := -1) -> PackedStringArray:
 	var result : PackedStringArray
 	if _has_child_element:
 		for child in get_child_commands(true):
-			result.append_array(child.get_cmd_list(id, column))
+			result.append_array(child.get_cmd_list(type, column))
 	
-	if not _cmd_list.has(id): return result
-	column = 0xFFFFFFFF if column == -1 else column
-	var list : Dictionary = _cmd_list[id]
-	for key : int in list:
-		if key < column: result.append(list[key])
+	if _cmd_list == null:
+		return result
+	
+	result.append_array(_cmd_list.get_list(type, column))
 	return result
+## 添加指令列表。
+func add_cmd_list(type : String, value : String, column := 0) -> void:
+	if _cmd_list == null:
+		_cmd_list = CMDList.new()
+	_cmd_list.add_mumber(type, value, column)
+## 返回可用的元素数量。
+func get_valid_element_count() -> int:
+	var res := 0
+	for element in _elements:
+		res += 1 if element != null and not element.is_faild else 0
+	return res
+## 返回可用元素的序列。
+func get_valid_element_index(idx : int) -> int:
+	var j := 0
+	for i in _elements.size():
+		var element := _elements[i]
+		if element == null or element.is_faild:
+			continue
+		j += 1
+		if j == idx:
+			return i
+	return -1
+
 ## 设置行数。
 func set_line(line : int) -> void:
 	var edit := EditManager.get_edit()

@@ -1,8 +1,9 @@
 [title]描述[/title]
 本地指令就是非 Minecraft 原生指令，存储于软件内部，为软件扩展内容。导出时能够转化为 Minecraft 指令。
 
-需要用 [code]&[/code] 引出本地指令。如 [code]&tag[/code]
+需要用 [code]&[/code] 引出本地指令。如 [code]&tp[/code]
 
 [title]分类[/title]
 
-[file native/tag] 管理标签 tag[/file]
+[file native/tp]传送 tp[/file]
+[file native/scoreboard]分数/计分版 scoreboard[/file]

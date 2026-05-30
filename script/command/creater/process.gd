@@ -13,7 +13,7 @@ func get_command() -> ProcessCommandElement:
 
 ## 从指定位置开始处理指令，可用于更新指令。
 func run_from_column(text : String, process : CommandElementCreaterProcess, column := 0) -> CommandElement:
-	var index : int = get_command().get_column_map_index(column) if not get_command().is_column_at_end(column) else get_command().exe_element_histories.size() - 1
+	var index : int = get_command().get_column_map_index(column) if not get_command().is_column_at_end(column) else get_command().get_valid_element_count() - 1
 	
 	if index < 1: # 相当于重新生成。
 		var element := BaseCommandElement.create(text, process.offset, get_command().get_line_index())
@@ -36,7 +36,8 @@ func _run_from_column_suncommand(text : String, column := 0, index := 0) -> Comm
 	var offset := element.string_offset
 	
 	DictionaryIntKeyT.slice(_get_hl_data().data, 0, offset + 1)
-	DictionaryIntKeyT.slice(get_command()._cmd_list, 0, column)
+	if get_command()._cmd_list != null:
+		get_command()._cmd_list = get_command()._cmd_list.slice(0, index)
 	
 	var new_element := element.update(text, column)
 	get_command()._elements[index] = new_element
@@ -61,7 +62,8 @@ func _run_from_column_normal(text : String, process : CommandElementCreaterProce
 	DictionaryIntKeyT.slice(_get_hl_data().data, 0, offset + 1)
 	get_command()._elements = get_command()._elements.slice(0, index)
 	get_command().exe_element_histories = get_command().exe_element_histories.slice(0, index)
-	DictionaryIntKeyT.slice(get_command()._cmd_list, 0, column)
+	if get_command()._cmd_list != null:
+		get_command()._cmd_list = get_command()._cmd_list.slice(0, column)
 	
 	process.has_end = process.rule.is_indexs_has_end(get_command().exe_element_histories)
 	_do_command_process(text, process)
@@ -119,10 +121,11 @@ func _do_default(text : String, process : CommandElementCreaterProcess) -> bool:
 	var exe_element := process.exe_element
 	match process.exe_element.get_type():
 		GrammarValue.Type.BOOL : element = BoolElement.create(text, process.offset)
-		GrammarValue.Type.INT : element = IntElement.create(text, process.offset)
+		GrammarValue.Type.INT : element = IntElement.create(text, process.offset, exe_element)
 		GrammarValue.Type.FLOAT : element = FloatElement.create(text, process.offset)
 		GrammarValue.Type.STRING: element = StringElement.create(text, process.offset, exe_element)
-		GrammarValue.Type.WORD : element = WordElement.create(text, process.offset)
+		GrammarValue.Type.WORD :
+			element = WordElement.create(text, process.offset)
 		GrammarValue.Type.RICH_STRING : element = RichStringElement.create(text, process.offset, exe_element)
 		GrammarValue.Type.POINT_PATH : element = PointPathElement.create(text, process.offset, exe_element)
 		GrammarValue.Type.FILE_PATH : element = FilePathElement.create(text, process.offset, exe_element)

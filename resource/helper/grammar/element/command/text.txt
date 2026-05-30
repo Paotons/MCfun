@@ -1,0 +1,15 @@
+[title]描述[/title]
+
+一整条指令。
+
+[title]分类[/title]
+
+一条指令指令可以有多个类型。列如 [code]root|normal[/code]
+
+[b]empty:[/b] 空指令，什么也没有。
+[b]root:[/b] 根指令，就是指令的开头。
+[b]replace:[/b] 替代指令，一般都是execute run后面的指令。
+[b]normal:[/b] 常规指令， Minecraft 中直接存在的指令。
+[b]help:[/b] 帮助指令， Minecraft 中就是问号开头的指令。
+[b]annotation:[/b] 注释，井号开头。
+[b]native:[/b] 本地指令，和号开头。

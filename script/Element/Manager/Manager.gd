@@ -133,6 +133,8 @@ static func try_get_type(text : String, offset : int) -> Array[GrammarValue.Type
 		"{" : return [GrammarValue.Type.DICTIONARY]
 		"[" : return [GrammarValue.Type.ARRAY]
 		"*" : return [GrammarValue.Type.SELECTOR]
+		"0", "1", "2", "3", "4", "5", "6", "7", "8", "9":
+			return [GrammarValue.Type.INT, GrammarValue.Type.FLOAT, GrammarValue.Type.COORD, GrammarValue.Type.COORDS, GrammarValue.Type.SCOPE]
 		"\"" : return[GrammarValue.Type.QUOTATION]
 	
 	if valid_str.begins_with(".."):
@@ -144,11 +146,6 @@ static func try_get_type(text : String, offset : int) -> Array[GrammarValue.Type
 	
 	if valid_str.find(":") != -1:
 		return [GrammarValue.Type.SPACEITEM]
-	
-	if valid_str.is_valid_int():
-		return [GrammarValue.Type.INT, GrammarValue.Type.FLOAT, GrammarValue.Type.COORD, GrammarValue.Type.COORDS, GrammarValue.Type.SCOPE]
-	if valid_str.is_valid_float():
-		return [GrammarValue.Type.FLOAT, GrammarValue.Type.COORD, GrammarValue.Type.COORDS, GrammarValue.Type.SCOPE]
 	
 	if StrT.is_letter_char_ord(valid_str.unicode_at(0)):
 		return [GrammarValue.Type.WORD, GrammarValue.Type.POINT_PATH, GrammarValue.Type.SELECTOR,GrammarValue.Type.SPACEITEM, GrammarValue.Type.BOOL]
@@ -162,7 +159,7 @@ static func create_from_rule(text : String, offset : int, rule : ElementRule) ->
 	var params : Array
 	
 	match value_type:
-		GrammarValue.Type.OPTION, GrammarValue.Type.SELECTOR, GrammarValue.Type.POINT_PATH, GrammarValue.Type.FILE_PATH, GrammarValue.Type.STRING, GrammarValue.Type.RICH_STRING:
+		GrammarValue.Type.INT, GrammarValue.Type.OPTION, GrammarValue.Type.SELECTOR, GrammarValue.Type.POINT_PATH, GrammarValue.Type.FILE_PATH, GrammarValue.Type.STRING, GrammarValue.Type.RICH_STRING:
 			params = [rule]
 		_:
 			if GrammarValue.is_type_backet(value_type):
@@ -181,7 +178,7 @@ static func _create_from_params(type : int, text : String, offset : int, params 
 		Type.NIL, Type.PARAM, Type.COMMAND:
 			return null
 		Type.INT:
-			return IntElement.create(text, offset)
+			return IntElement.create(text, offset, params[0])
 		Type.FLOAT:
 			return FloatElement.create(text, offset)
 		Type.STRING:

@@ -37,6 +37,10 @@ const _DETAIL_RICH_STRING_IS_LONG := 0
 const _DETAIL_COMMAND_TYPES := 0
 const _DETAIL_SELECTOR_ASTERISK := 0
 
+const _DETAIL_INT_MIN := 0
+const _DETAIL_INT_MAX := 1
+const _DETAIL_INT_SUFFIXS := 2
+
 const _DETAIL_FILE_PATH_EXTENSIONS := 0
 const _DETAIL_FILE_PATH_USING_EXTENSION := 1
 #region
@@ -75,6 +79,18 @@ func has_detail() -> bool:
 ## 如果是指令，返回它的类型。
 func get_command_types() -> int:
 	return _get_detail()[_DETAIL_COMMAND_TYPES] if data_main.has(META_DETAIL) else 0xFFFFFFFF
+
+#region 整数。
+## 获取整数最小值。
+func get_int_min() -> int:
+	return _get_detail()[_DETAIL_INT_MIN] if data_main.has(META_DETAIL) else -0x7FFFFFFF
+## 获取整数最大值。
+func get_int_max() -> int:
+	return _get_detail()[_DETAIL_INT_MAX] if data_main.has(META_DETAIL) else 0x7FFFFFFF
+## 获取后缀。
+func get_suffixs() -> PackedStringArray:
+	return _get_detail()[_DETAIL_INT_SUFFIXS] if data_main.has(META_DETAIL) else PackedStringArray()
+#endregion
 
 #region 目标选择器。
 func has_selector_asterisk() -> bool:

@@ -1,0 +1,15 @@
+[title]描述[/title]
+
+元素的高级用法，为字符串数组存在于元素。目前并没有完全开发，部分功能还有一定问题。
+
+[title]列表[/title]
+
+每条指令都有个列表。可以使用 [code]list[/code] 控制这个列表。
+
+[code]list <列表名> add self[/code] 可将当前元素的字符串加入列表。
+
+[title]补全[/title]
+
+控制补全。可以使用 [code]completion[/code] 控制补全。
+
+[code]completion list <列表名>[/code] 显示列表补全单。

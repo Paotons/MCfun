@@ -87,27 +87,34 @@ func _init_grammar_directory() -> void:
 	
 	if OS.has_feature("editor"):
 		_init_grammar_native_process()
-# 初始化本地流程目录。
-func _init_grammar_native_process() -> void:
-	const PATH := "res://resource/native/process.json"
-	const COMPILED := "res://resource/native/compiled/process"
-	
-	if FileAccess.file_exists(COMPILED):
+		_init_grammar_comment_process()
+# 初始化进程。
+func _init_grammar_process(path : String, to_path : String) -> void:
+	if FileAccess.file_exists(to_path):
 		return
-	var data : Dictionary = JSON.parse_string(FileAccess.get_file_as_string(PATH))
+	var data : Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
 	
 	var process := GrammarProcessCompiler.new()
 	process.compile(data)
 	
 	assert(process.is_valid(), "Native is unvaild.")
 	
-	if not DirAccess.dir_exists_absolute(COMPILED.get_base_dir()):
-		DirAccess.make_dir_recursive_absolute(COMPILED.get_base_dir())
+	if not DirAccess.dir_exists_absolute(to_path.get_base_dir()):
+		DirAccess.make_dir_recursive_absolute(to_path.get_base_dir())
 	
-	var file := FileAccess.open(COMPILED, FileAccess.WRITE)
+	var file := FileAccess.open(to_path, FileAccess.WRITE)
 	file.store_var(process.get_result())
 	file.close()
-
+# 初始化本地流程目录。
+func _init_grammar_native_process() -> void:
+	const PATH := "res://resource/native/process.json"
+	const COMPILED := "res://resource/native/compiled/process"
+	_init_grammar_process(PATH, COMPILED)
+# 初始化注解流程目录。
+func _init_grammar_comment_process() -> void:
+	const PATH := "res://resource/comment/process.json"
+	const COMPILED := "res://resource/comment/compiled/process"
+	_init_grammar_process(PATH, COMPILED)
 #endregion
 
 ## 选择数据目录。

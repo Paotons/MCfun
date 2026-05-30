@@ -776,7 +776,7 @@ func _errors_list_changed() -> void:
 		if err.column < err_column:
 			head_err = err
 			err_column = head_err.column
-	_error_hint_label.set_text(\"错误 (%d, %d) %s\" % [line, head_err.column, head_err.string])
+	_error_hint_label.set_text(\"错误 (%d, %d) %s\" % [line + 1, head_err.column, head_err.string])
 
 func _ready() -> void:
 	super()
@@ -803,7 +803,7 @@ func _update() -> void:
 
 ## 显示位置。
 func show_position(pos : Vector2i) -> void:
-	text = \"%d : %d\" % [pos.x, pos.y]
+	text = \"%d : %d\" % [pos.x, pos.y + 1]
 
 "
 
@@ -946,7 +946,7 @@ popup/item_11/text = "系统"
 popup/item_11/id = 11
 script = SubResource("GDScript_w0n44")
 
-[node name="edit" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=856299228]
+[node name="Edit" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=856299228]
 layout_mode = 2
 text = "编辑"
 item_count = 12

@@ -240,7 +240,7 @@ func find_has_error_command(from_line := 0, to_line := -1) -> int:
 			i += 1
 	return -1
 ## 返回从 [param line] 行， [param column] 列向前 [param lenght] 的指令列表中 [param id] 所有的字符串。
-func get_command_cmd_list(id : int, line : int, column : int, length := 501) -> PackedStringArray:
+func get_command_cmd_list(id : String, line : int, column : int, length := 501) -> PackedStringArray:
 	var init_ele := get_command_element(line)
 	var result := init_ele.get_cmd_list(id, column) if init_ele != null else PackedStringArray()
 	var hash_map : Dictionary[int, bool]
@@ -258,12 +258,12 @@ func get_command_cmd_list(id : int, line : int, column : int, length := 501) -> 
 #endregion
 
 func set_function_text(value : String) -> void:
-	clear_undo_history()
 	command_elements.clear()
 	var count = value.count("\n") + 1
 	reset_line_ids(count)
 	clear_hint()
 	set_text(value)
+	clear_undo_history()
 
 ## 虚函数，错误列表发生改变。
 func _errors_list_changed() -> void:

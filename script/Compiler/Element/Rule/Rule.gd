@@ -137,6 +137,7 @@ class _Detail extends _Element:
 	# string, rich_string : [false] --- [long]
 	# selector : [false] --- [asterisk]
 	# command : [0xFFFFFFFF] ---- [types]
+	# int : [-0x7FFFFFFF, 0x7FFFFFFF, [""]] --- [min, max, "suffix"]
 	
 	func _get_name() -> String:
 		return "%s[items]" % element
@@ -171,6 +172,19 @@ class _Detail extends _Element:
 			return
 		
 		match value_type:
+			GrammarValue.Type.INT:
+				var value : Array
+				value.resize(3)
+				if from.has("min") and not _test_value_type(from["min"], 1 << TYPE_FLOAT, "%s[min]" % _get_name()):
+					return
+				if from.has("max") and not _test_value_type(from["max"], 1 << TYPE_FLOAT, "%s[max]" % _get_name()):
+					return
+				if from.has("suffixs") and not _test_value_type(from["suffixs"], 1 << TYPE_ARRAY, "%s[suffixs]" % _get_name()):
+					return
+				var arr : Array = from.get("suffixs", [""])
+				if not _test_array_types(arr, 1 << TYPE_STRING, "%s[suffixs]" % _get_name()):
+					return
+				compiled_result = [int(from.get("min", -0x7FFFFFFF)), int(from.get("max", 0x7FFFFFFF)), arr]
 			GrammarValue.Type.OPTION:
 				if from.has("using_entry") and not _test_value_type(from["using_entry"], 1 << TYPE_BOOL, "%s[using_entry]" % _get_name()):
 					return

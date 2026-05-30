@@ -45,11 +45,10 @@ static func execute(element : Element, rule : ElementRule, command : BaseCommand
 			_Head.LIST: _execute_list(cmd, element, command)
 static func _execute_list(cmd : Array, element : BaseStringElement, command : BaseCommandElement) -> void:
 	if element == null or element.is_faild: return
-	var list_id : int = cmd[2]
+	var type : String = cmd[2]
 	var mode : int = cmd[1]
 	if mode == _ItemListMode.ADD: # 添加
-		if not command._cmd_list.has(list_id): command._cmd_list[list_id] = {}
-		command._cmd_list[list_id][element.get_valid_start()] = element.get_valid_string()
+		command.add_cmd_list(type, element.get_valid_string(), element.get_valid_start())
 ## 执行补全，并把补全的数据返回。
 static func execute_completion(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
 	var data := FunctionCompletionData.new()
@@ -59,7 +58,7 @@ static func execute_completion(column : int, rule : ElementRule, command : BaseC
 		var mode : int = cmd[1]
 		var edit := EditManager.get_edit()
 		if mode == _ItemCompletionMode.LIST:
-			var list_id : int = cmd[2]
+			var list_id : String = cmd[2]
 			data.insert_texts.append_array(edit.get_command_cmd_list(list_id, command.get_line_index(), column - 1))
 	return data
 #endregion
@@ -103,7 +102,7 @@ static func _compile_item_list_add_self(result : RegExMatch, to : Array) -> bool
 	to.resize(3)
 	to[0] = _Head.LIST
 	to[1] = _ItemListMode.ADD
-	to[2] = result.get_string("list_name").hash()
+	to[2] = result.get_string("list_name")
 	return false
 #endregion
 #region 解析，completion。
@@ -113,7 +112,7 @@ static func _compile_item_completion(result : RegExMatch, to : Array) -> bool:
 	to.resize(3)
 	to[0] = _Head.COMPLETION
 	to[1] = _ItemCompletionMode.LIST
-	to[2] = result.get_string("list_name").hash()
+	to[2] = result.get_string("list_name")
 	return false
 #endregion
 #endregion

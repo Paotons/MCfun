@@ -50,8 +50,6 @@ var _nearest_input_position : Dictionary[int, Vector2i]
 @export var unmanned_input_max_delta := 5
 ## 连续退格最大忽略时间差。就是快速退格时不在尝试补全的灵敏度。
 @export var backspace_ignore_completion_max_delta := 200
-## 设置光标位置时，垂直滚动栏行数偏移量。
-@export var set_caret_position_scroll_vertical_offset := -3.0
 
 # 行的 id。
 var _line_ids : PackedInt32Array = [0]
@@ -207,7 +205,7 @@ func set_caret_position(pos := Vector2i(), index := 0) -> void:
 	set_caret_line(line, index)
 	var l := get_line(line).length()
 	set_caret_column(maxi(0, mini(l, pos.x)), index)
-	scroll_vertical = float(line) + set_caret_position_scroll_vertical_offset
+	adjust_viewport_to_caret(index)
 ## 对光标处进行输入。
 func caret_unicode_input(unicode_char : int, caret_index : int) -> void:
 	var interval : int = Time.get_ticks_msec() - _nearest_input_time.get(caret_index, 0)

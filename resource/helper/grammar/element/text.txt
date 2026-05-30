@@ -20,10 +20,28 @@
 [b]int:[/b] 整数类型，可以表示 [code]64[/code] 各种数字。
 [b]float:[/b] 浮点类型，可以表示 [code]0.5[/code] 带小数点的数字。
 [b]option:[/b] 选项，一般都是几个固定选项。
-[b]rich_string:[/b] 彩色字体，支持 [code]§[/code] 显示。
+[b]rich_string:[/b] 高级字体，支持 [code]§[/code] 显示。
 [b]word:[/b] 单词，仅支持各国语言的字符和连字符号和数组组成，一般表示玩家名。
 [b]string:[/b] 字符串，只要不是空格缩进都能支持。
-[b]coords:[/b] 坐标，可以表示 [code]~~~[code] 或者 [code]^^^3[/code] 各种坐标。
+[b]spaceitem:[/b] 空间物品，有时候写成 [code]space_item[/code] 可以表示 [code]apple[/code] 或 [code]minecraft:apple[/code]
+[b]point_path:[/b] 点号路径，可以用来表示 [code]mob.cat[/code]
+[b]file_path:[/b] 文件路径，可以用来表示 [code]main/myfun.mcfunction[/code]
+[b]coord:[/b] 轴，有 [code]5, ~5, ^5[/code] 三种写法，支持浮点。
+[b]coords:[/b] 多个轴，常用于表示坐标，可以表示 [code]~~~[code] 或者 [code]^^^3[/code] 各种坐标。
 [b]selector:[/b] 目标选择器，可以表示 [code]@e\[type=player\][code]，甚至是更复杂的选择，也可以支持玩家名称。
-[b]array:[/b] 类似数组一样，中括号包起来的那样。
+[b]array:[/b] 类似数组一样，中括号包起来的那样，目标选择器身体部分。
 [b]dictionary:[/b] 类似字典一样，大括号包起来的一样。
+[b]command:[/b] 指令，一整条指令。
+
+[title]数据结构[/title]
+
+数据就是表示每个元素的数据组。有 [code]type, detail, items, description, cmd, custom[/code]
+例如：[code]{"type" : "int", "description" : "分数"}[/code]
+这就是 int 类型的元素数据，可以识别 [code]1, 0, 100, -1[/code]
+
+[b]type:[/b] 类型，表示元素的类型，默认 [code]null[/code]
+[b]detail:[/b] 细节，用于约束元素或者表示元素范围，不同类型有不同的条件。
+[b]items:[/b] 附加物，一般是元素的分数据，常用于 [code]option[/code] 的选项。
+[b]description:[/b] 描述，用于提示，默认 Unknow
+[b]cmd:[/b] 指令，用于高级用法，可用于操控编辑器。见 [file grammar/element/cmd]指令[/file]
+[b]custom:[/b] 自定义数据，目前没有任何用处。
