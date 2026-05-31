@@ -36,7 +36,7 @@ func _compile(data : Variant) -> void:
 func _compile_rule(from : Dictionary, name : String, law : Dictionary) -> bool:
 	if not _compile_type(from, name):
 		return false
-	var to := compiled_result[name] as Dictionary
+	var to := compiled_result[LawMeta.DATA][name] as Dictionary
 	var type := to[GrammarRule.RuleMeta.TYPE] as int
 	
 	var obj : GrammarRuleCompiler
@@ -71,8 +71,8 @@ func _compile_type(from : Dictionary, name : String) -> bool:
 		if type == -1:
 			errors.append("Law[%s][type] is %s, but can not used." % [name, string])
 			return false
-		compiled_result[name] = {}
-		compiled_result[name][GrammarRuleCompiler.RuleMeta.TYPE] = type
+		compiled_result[LawMeta.DATA][name] = {}
+		compiled_result[LawMeta.DATA][name][GrammarRuleCompiler.RuleMeta.TYPE] = type
 		return true
 	else:
 		errors.append("Law[%s] not has type." % name)

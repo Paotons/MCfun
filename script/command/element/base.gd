@@ -80,7 +80,7 @@ func get_element_count() -> int:
 	return _elements.size()
 #endregion
 
-## 获取这条指令的命名列表。
+## 返回这条指令的命名列表指定类型。
 func get_cmd_list(type : String, column := -1) -> PackedStringArray:
 	var result : PackedStringArray
 	if _has_child_element:
@@ -97,6 +97,10 @@ func add_cmd_list(type : String, value : String, column := 0) -> void:
 	if _cmd_list == null:
 		_cmd_list = CMDList.new()
 	_cmd_list.add_mumber(type, value, column)
+## 清空指令列表。
+func clear_cmd_list() -> void:
+	_cmd_list = null
+
 ## 返回可用的元素数量。
 func get_valid_element_count() -> int:
 	var res := 0

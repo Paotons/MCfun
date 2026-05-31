@@ -27,7 +27,7 @@ func run_from_column(text : String, process : CommandElementCreaterProcess, colu
 			var element := get_command()._elements[index] as CommandElement
 			if element.is_valid_head() and element.string_offset + 2 < column:
 				return _run_from_column_suncommand(text, column, index)
-		return _run_from_column_normal(text, process, column, index - 1)
+		return _run_from_column_normal(text, process, index - 1)
 
 # 从附属指令开始。
 func _run_from_column_suncommand(text : String, column := 0, index := 0) -> CommandElement:
@@ -45,7 +45,7 @@ func _run_from_column_suncommand(text : String, column := 0, index := 0) -> Comm
 	get_command().errors.append_array(new_element.errors)
 	return get_command()
 # 正常开始。
-func _run_from_column_normal(text : String, process : CommandElementCreaterProcess, column := 0, index := 0) -> CommandElement:
+func _run_from_column_normal(text : String, process : CommandElementCreaterProcess, index := 0) -> CommandElement:
 	# 模拟最初环境
 	process.rule = process.grammar.get_command_rule(get_command().head_element.get_valid_head())
 	process.exe_index = get_command().exe_element_histories[index]
@@ -63,7 +63,7 @@ func _run_from_column_normal(text : String, process : CommandElementCreaterProce
 	get_command()._elements = get_command()._elements.slice(0, index)
 	get_command().exe_element_histories = get_command().exe_element_histories.slice(0, index)
 	if get_command()._cmd_list != null:
-		get_command()._cmd_list = get_command()._cmd_list.slice(0, column)
+		get_command()._cmd_list = get_command()._cmd_list.slice(0, offset + 1)
 	
 	process.has_end = process.rule.is_indexs_has_end(get_command().exe_element_histories)
 	_do_command_process(text, process)
