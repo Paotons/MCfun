@@ -57,11 +57,35 @@ func _get_column_code_completion_data(column : int, _rule : ElementRule, _comman
 				return _get_process().get_head_completion_data() if element.is_faild else element.get_column_code_completion_data(column, exe, self)
 		_:
 			var result : BaseStringElement = get_element(idx)
-			return result.get_column_code_completion_data(column, exe, self)
+			var data := result.get_column_code_completion_data(column, exe, self)
+			data.supple()
+			data.add_data(_comment_code_completion(idx))
+			return data
 	return null
 static func get_precast_code_completion_data(_column : int, _rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
 	return EditManager.get_grammar_comment_process().get_head_completion_data()
+func _get_code_completion_next(column : int) -> FunctionCompletionData:
+	var data := super(column)
+	for i in get_faild_element_count():
+		data.supple()
+		var index := get_failld_element_index(i)
+		data.add_data(_comment_code_completion(index))
+	return data
 
 func is_column_at_head(column : int) -> bool:
 	if is_empty(): return true
 	return get_valid_start() <= column - 1 and column <= get_valid_start() + head_string.length() + 1
+
+#region 特殊补全。
+func _comment_code_completion(idx : int) -> FunctionCompletionData:
+	match head_string:
+		"list":  return _code_completion_list(idx)
+	return
+func _code_completion_list(idx : int) -> FunctionCompletionData:
+	if idx == 0:
+		var data := FunctionCompletionData.new()
+		data.insert_texts.append_array(EditManager.get_grammar().get_cmd_list_types())
+		data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
+		return data
+	return
+#endregion

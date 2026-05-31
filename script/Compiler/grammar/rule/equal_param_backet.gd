@@ -23,7 +23,7 @@ func _compile_data(from : Dictionary) -> bool:
 	
 	var data := from["data"] as Dictionary
 	var out : Dictionary
-	if not _compile_dictionary_rules(data, "%s[data]" % rule_name, out):
+	if not _compile_dictionary_rules(data, "%s[data]" % rule_name, out, cmd_list_types):
 		return false
 	compiled_result[RuleMeta.DATA] = out
 	return true

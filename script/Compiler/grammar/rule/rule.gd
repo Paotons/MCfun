@@ -19,4 +19,6 @@ enum RuleMeta {
 var law : Dictionary
 ## 规则名称。
 var rule_name : String
+## 指令列表。
+var cmd_list_types : PackedStringArray
 

@@ -405,6 +405,7 @@ theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
 [node name="Normal" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=1499206299]
+visible = false
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal" unique_id=1298992374]
@@ -454,22 +455,79 @@ layout_mode = 2
 text = "CAG"
 
 [node name="HighlightColor" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=1759531872]
-visible = false
 layout_mode = 2
+
+[node name="HBoxContainer19" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=574396445]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer19" unique_id=1736607442]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer19" unique_id=62178147]
+layout_mode = 2
+text = "指令头"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer19" unique_id=1511441671]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=1993347641]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer" unique_id=2008784836]
 layout_mode = 2
-text = "关键字颜色"
+text = "普通指令头颜色"
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer" unique_id=1600668614]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 script = SubResource("GDScript_h0p1a")
-color_name = "key_word"
+color_name = "normal_command_head"
+
+[node name="HBoxContainer17" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=1448067385]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer17" unique_id=864315287]
+layout_mode = 2
+text = "本地指令头颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer17" unique_id=1929026706]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "native_command_head"
+
+[node name="HBoxContainer18" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=7409956]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer18" unique_id=629187761]
+layout_mode = 2
+text = "注解指令头颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer18" unique_id=209070167]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "comment_command_head"
+
+[node name="HBoxContainer20" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=26288780]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer20" unique_id=1876089438]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer20" unique_id=363157135]
+layout_mode = 2
+text = "元素"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer20" unique_id=472346172]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=1032005415]
 layout_mode = 2
@@ -611,6 +669,49 @@ size_flags_horizontal = 10
 script = SubResource("GDScript_h0p1a")
 color_name = "string"
 
+[node name="HBoxContainer15" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=242675599]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer15" unique_id=25910598]
+layout_mode = 2
+text = "特殊字符颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer15" unique_id=1185353521]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "special"
+
+[node name="HBoxContainer16" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=774816932]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer16" unique_id=1059191997]
+layout_mode = 2
+text = "注释颜色"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer16" unique_id=689176319]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_h0p1a")
+color_name = "annotation"
+
+[node name="HBoxContainer21" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=285611358]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer21" unique_id=588936528]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer21" unique_id=1699718466]
+layout_mode = 2
+text = "坐标轴"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer21" unique_id=1173403956]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="HBoxContainer12" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=1958874038]
 layout_mode = 2
 
@@ -652,34 +753,6 @@ layout_mode = 2
 size_flags_horizontal = 10
 script = SubResource("GDScript_h0p1a")
 color_name = "coord_z"
-
-[node name="HBoxContainer15" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=242675599]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer15" unique_id=25910598]
-layout_mode = 2
-text = "特殊字符颜色"
-
-[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer15" unique_id=1185353521]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 10
-script = SubResource("GDScript_h0p1a")
-color_name = "special"
-
-[node name="HBoxContainer16" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=774816932]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer16" unique_id=1059191997]
-layout_mode = 2
-text = "注释颜色"
-
-[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor/HBoxContainer16" unique_id=689176319]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 10
-script = SubResource("GDScript_h0p1a")
-color_name = "annotation"
 
 [node name="Completion" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=741482542]
 visible = false

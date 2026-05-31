@@ -11,7 +11,7 @@ func _compile(data : Variant) -> void:
 		return
 	
 	var out : Array
-	if not _compile_array_rules(from["data"], "%s[data]" % rule_name, out, 1, 1):
+	if not _compile_array_rules(from["data"], "%s[data]" % rule_name, out, cmd_list_types, 1, 1):
 		return
 	compiled_result[RuleMeta.DATA] = out
 	_set_is_valid(true)

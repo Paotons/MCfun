@@ -7,18 +7,38 @@ extends Resource
 const _COMMAND_DESCRIPTION := 0
 const _COMMAND_DATA := 1
 
+enum ProcessMeta {
+	# HACK 并无用处。
+	## 描述。
+	DESCRIPTION,
+	## 数据。
+	DATA,
+	## 元列表类型。
+	CMD_LIST_TYPES,
+}
+
 ## 解析后的语法规则，给机器看的。
 var main_data : Dictionary
+## 元素列表类型。
+var _cmd_list_types : PackedStringArray
 
 #region 缓存。
 # 指令的队列。
 var _queue_heads : PackedStringArray
 var _head_completion_data : FunctionCompletionData
+#endregion
 
 ## 设置数据。
 func set_data(data : Dictionary) -> void:
-	main_data = data
-	_queue_heads = PackedStringArray(data.keys())
+	main_data = data[ProcessMeta.DATA]
+	_cmd_list_types = data[ProcessMeta.CMD_LIST_TYPES]
+	_queue_heads = PackedStringArray(main_data.keys())
+## 获取数据。
+func get_data() -> Dictionary:
+	return {
+		ProcessMeta.DATA : main_data,
+		ProcessMeta.CMD_LIST_TYPES : _cmd_list_types,
+	}
 ## 返回指令头的补全数据。
 func get_head_completion_data() -> FunctionCompletionData:
 	if _head_completion_data != null:
@@ -131,6 +151,9 @@ func get_descriptions() -> PackedStringArray:
 	for head in _queue_heads:
 		res.append(_get_command_description(head))
 	return res
+## 返回元素列表类型。
+func get_cmd_list_tyes() -> PackedStringArray:
+	return _cmd_list_types
 
 # 返回指令的数据。
 func _get_command_data(head : String) -> Array:

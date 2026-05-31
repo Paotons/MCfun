@@ -4,6 +4,8 @@ extends GrammarCompiler
 
 ## 元素名称。
 var element_name : String
+## 列表类型。
+var list_types : PackedStringArray
 
 class CMD extends GrammarCompiler:
 	enum Head {
@@ -17,6 +19,8 @@ class CMD extends GrammarCompiler:
 
 class _List extends CMD:
 	static var list_regex := RegEx.create_from_string(r"^ *list +(?<list_name>\w+) +add +self *$")
+	## 列表类型。
+	var list_type : String
 	
 	enum ListMode {
 		# 添加
@@ -28,8 +32,9 @@ class _List extends CMD:
 		var result := list_regex.search(from)
 		if result == null:
 			return
+		list_type = result.get_string("list_name")
 		
-		compiled_result = [Head.LIST, ListMode.ADD, result.get_string("list_name")]
+		compiled_result = [Head.LIST, ListMode.ADD, list_type]
 		_set_is_valid(true)
 
 class _Completion extends CMD:
@@ -49,6 +54,8 @@ class _Completion extends CMD:
 		compiled_result = [Head.COMPLETION, CompletionMode.LIST, result.get_string("list_name")]
 		_set_is_valid(true)
 
+## 进程数据。
+var process_data : Dictionary
 ## 解析。
 func _compile(data : Variant) -> void:
 	if not _test_value_type(data, 1 << TYPE_ARRAY, "%s[cmd]" % element_name):
@@ -76,6 +83,9 @@ func _compile_string(string : String) -> bool:
 		if not obj.is_valid():
 			continue
 		(compiled_result as Array).append(obj.get_result())
+		if obj is _List:
+			if not obj.list_type.is_empty():
+				list_types.append(obj.list_type)
 		return true
 	errors.append("%s not has cmd \"%s\"." % [element_name, string])
 	return false

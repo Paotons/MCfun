@@ -5,7 +5,8 @@ extends GrammarRuleCompiler
 ##
 ## 抽象类，你不应该实例化。
 
-func _compile_array_rules(data : Array, name : String, out : Array, min_size := 0, max_size := -1) -> bool:
+## [b]Protected:[/b] 解析规则，返回结果到 [param out], [param out_cmd_list_types]。
+func _compile_array_rules(data : Array, name : String, out : Array, out_cmd_list_types := PackedStringArray(), min_size := 0, max_size := -1) -> bool:
 	max_size = 0xFFFFFFFF if max_size == -1 else max_size
 	
 	if not (min_size <= data.size() and data.size() <= max_size):
@@ -25,4 +26,5 @@ func _compile_array_rules(data : Array, name : String, out : Array, min_size := 
 		if not obj.is_valid():
 			return false
 		out[i] = obj.get_result()
+		out_cmd_list_types.append_array(obj.cmd_list_types)
 	return true

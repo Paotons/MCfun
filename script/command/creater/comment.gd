@@ -10,7 +10,7 @@ func run_from_empty(text : String, process : CommandElementCreaterProcess) -> vo
 	
 	get_command().is_faild = false
 	get_command().valid_start = 0
-	_get_hl_data().merge({process.offset : {"color" : process.edit.color_key_word}, process.offset + 1 : {"color" : process.edit.color_default}})
+	_get_hl_data().merge({process.offset : {"color" : process.edit.color_comment_command_head}, process.offset + 1 : {"color" : process.edit.color_default}})
 	process.offset += 1
 	
 	if not _do_head(text, process):
@@ -25,7 +25,7 @@ func run_from_empty(text : String, process : CommandElementCreaterProcess) -> vo
 
 # 处理开头。
 func _do_head(text : String, process : CommandElementCreaterProcess) -> bool:
-	var result := HeadElement.create(text, process.offset) as HeadElement
+	var result := HeadElement.create(text, process.offset, CommandElementManager.CommandType.COMMENT) as HeadElement
 	
 	for err in result.errors: create_error(err.column, err.string)
 	if result.is_faild: return false

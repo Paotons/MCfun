@@ -16,13 +16,18 @@ enum BeginMode {
 	ERROR,
 }
 
+## 指令类型。
+var command_type : int
+
 ## 获取高亮数据。
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
-	return {get_valid_start() : {"color" : edit.color_key_word}, get_valid_end() : {"color" : edit.color_default}}
+	return {get_valid_start() : {"color" : _get_highlight_color(edit)}, get_valid_end() : {"color" : edit.color_default}}
 
 ## 创建一个。
-static func create(text : String, offset : int) -> HeadElement:
-	return WordElement._create_word_element(HeadElement.new(), text, offset)
+static func create(text : String, offset : int, type := 0) -> HeadElement:
+	var element := WordElement._create_word_element(HeadElement.new(), text, offset) as WordElement
+	element.command_type = type
+	return element
 
 ## 获取开头模式。
 func get_begin_mode() -> BeginMode:
@@ -49,3 +54,14 @@ func get_valid_head() -> String:
 			return get_valid_string().substr(1)
 		_:
 			return get_valid_string()
+
+# 返回高亮颜色。
+func _get_highlight_color(edit : FunctionEdit) -> Color:
+	if command_type & CommandElementManager.CommandType.NORMAL != 0:
+		return edit.color_normal_command_head
+	elif command_type & CommandElementManager.CommandType.NATIVE != 0:
+		return edit.color_native_command_head
+	elif command_type & CommandElementManager.CommandType.COMMENT != 0:
+		return edit.color_comment_command_head
+	else:
+		return edit.color_default

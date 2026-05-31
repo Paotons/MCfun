@@ -11,7 +11,7 @@ func _compile(data : Variant) -> void:
 		return
 	
 	var out : Dictionary
-	if not _compile_dictionary_rules(data["data"], "%s[data]" % rule_name, out):
+	if not _compile_dictionary_rules(data["data"], "%s[data]" % rule_name, out, cmd_list_types):
 		return
 	compiled_result[GrammarRule.RuleMeta.DATA] = out
 	_set_is_valid(true)

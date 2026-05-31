@@ -5,8 +5,8 @@ extends GrammarRuleCompiler
 ##
 ## 抽象类，你不应该实例化。
 
-## [b]Protected:[/b]解析字典规则，存入 [param out] 中。
-func _compile_dictionary_rules(from : Dictionary, name : String, out : Dictionary) -> bool:
+## [b]Protected:[/b]解析字典规则，返回结果到 [param out], [param out_cmd_list_types]。
+func _compile_dictionary_rules(from : Dictionary, name : String, out : Dictionary, out_cmd_list_types := PackedStringArray()) -> bool:
 	if not _test_dictionary_key_types(from, 1 << TYPE_STRING, name):
 		return false
 	if not _test_dictionary_value_types(from, 1 << TYPE_DICTIONARY, name):
@@ -22,5 +22,6 @@ func _compile_dictionary_rules(from : Dictionary, name : String, out : Dictionar
 		if not obj.is_valid():
 			return false
 		out[property] = obj.get_result()
+		out_cmd_list_types.append_array(obj.cmd_list_types)
 	return true
 

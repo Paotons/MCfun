@@ -2,6 +2,9 @@ class_name ExeElementRuleCompiler
 extends Compiler
 ## 解析可执行元素规则的解析器。
 
+## 列表类型。
+var cmd_list_types : PackedStringArray
+
 class _Element extends Compiler:
 	#region 元素。
 	## ID，对应 id。
@@ -13,7 +16,6 @@ class _Element extends Compiler:
 	## 跳转。
 	const META_GOTO := 13
 	#endregion
-
 	
 	var element : String
 	var command : Array
@@ -148,6 +150,7 @@ func _compile(data : Variant) -> void:
 	_add_error_from_object(ele)
 	if not ele.is_valid():
 		return
+	cmd_list_types = ele.cmd_list_types
 	compiled_result = ele.get_result()
 	var type := compiled_result[META_TYPE] as int
 	

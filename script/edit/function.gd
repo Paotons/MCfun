@@ -35,8 +35,12 @@ var grammar : Grammar
 @export var color_default := Color("ffffffbf")
 ## 注释颜色。
 @export var color_annotation := Color("829098c6")
-## 关键字颜色。
-@export var color_key_word := Color("ff7085")
+## 普通指令头颜色。
+@export var color_normal_command_head := Color("ff4f8b")
+## 本地指令头颜色。
+@export var color_native_command_head := Color("ff51e5")
+## 注解指令头。
+@export var color_comment_command_head := Color("ff765c")
 ## 数字颜色。
 @export var color_number := Color("a1ffe0")
 ## 成员颜色，包含目标选择器里的各种参数或者是 JS 和 NBT 里的参数。
@@ -174,7 +178,9 @@ func get_highlight_color(color_name : StringName) -> Color:
 	match color_name:
 		&"default" : return color_default
 		&"annotation" : return color_annotation
-		&"key_word" : return color_key_word
+		&"normal_command_head" : return color_normal_command_head
+		&"native_command_head" : return color_native_command_head
+		&"comment_command_head" : return color_comment_command_head
 		&"number" : return color_number
 		&"member" : return color_member
 		&"point_path_mumber" : return color_point_path_mumber
@@ -197,7 +203,9 @@ func set_highlight_color(color_name : StringName, color : Color) -> void:
 	match color_name :
 		&"default" : color_default = color
 		&"annotation" : color_annotation = color
-		&"key_word" : color_key_word = color
+		&"normal_command_head" : color_normal_command_head = color
+		&"native_command_head" : color_native_command_head = color
+		&"comment_command_head" : color_comment_command_head = color
 		&"number" : color_number = color
 		&"member" : color_member = color
 		&"point_path_mumber" : color_point_path_mumber = color

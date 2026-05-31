@@ -81,6 +81,11 @@ var entry : GrammarEntry
 ## 规则。
 var law : GrammarLaw
 
+#region 缓存。
+# 指令列表类型。
+var _cmd_list_types : PackedStringArray
+#endregion
+
 ## 返回进程。
 func get_process(idx := 0) -> GrammarProcess:
 	match idx:
@@ -101,7 +106,35 @@ func _clear() -> void:
 	entry = null
 	_data = null
 
+## 返回指令列表类型。
+func get_cmd_list_types() -> PackedStringArray:
+	return _cmd_list_types
+
+# 返回指令列表类型。
+func _get_cmd_list_types() -> PackedStringArray:
+	var res : Dictionary[String, bool]
+	var all : PackedStringArray
+	all.append_array(main_process.get_cmd_list_tyes())
+	all.append_array(native_process.get_cmd_list_tyes())
+	all.append_array(comment_process.get_cmd_list_tyes())
+	all.append_array(law.get_cmd_list_types())
+	for i in all:
+		res[i] = false
+	return PackedStringArray(res.keys())
+
+#region
 #region 打开。
+# 最后计算。
+func _open_ending() -> PackedStringArray:
+	var errors := _set_native_process()
+	if not errors.is_empty():
+		return errors
+	errors = _set_comment_process()
+	if not errors.is_empty():
+		return errors
+	_cmd_list_types = _get_cmd_list_types()
+	return []
+
 ## 尝试打开，如果指定目录没有 [code].compiled[/code] 会解析该目录，再生成。
 func try_open(path : String) -> PackedStringArray:
 	var to_path := path.path_join(".compiled")
@@ -146,10 +179,7 @@ func open(path : String) -> PackedStringArray:
 	if not errors.is_empty():
 		return errors
 	
-	errors = _set_native_process()
-	if not errors.is_empty():
-		return errors
-	return _set_comment_process()
+	return _open_ending()
 
 @warning_ignore("unused_parameter")
 func _open_v1(path : String) -> PackedStringArray:
@@ -218,9 +248,7 @@ func compile(path : String, to_path : String) -> PackedStringArray:
 		return ["Process is null."]
 	
 	_save_grammar(to_path)
-	_set_native_process()
-	_set_comment_process()
-	return []
+	return _open_ending()
 
 func _set_native_process() -> PackedStringArray:
 	const COMPILED := "res://resource/native/compiled/process"
@@ -268,11 +296,11 @@ func _save_grammar_v1(path : String) -> void:
 	file.close()
 	
 	file = FileAccess.open(files_dir.path_join("law"), FileAccess.WRITE)
-	file.store_var(law.main_data)
+	file.store_var(law.get_data())
 	file.close()
 	
 	file = FileAccess.open(files_dir.path_join("main_process"), FileAccess.WRITE)
-	file.store_var(main_process.main_data)
+	file.store_var(main_process.get_data())
 	file.close()
 #endregion
 
@@ -411,4 +439,4 @@ func _set_grammar_doer(index : int, files : _Files, compiler_data : GrammarCompi
 			entry.set_data(obj.get_result())
 	return []
 #endregion
-
+#endregion

@@ -96,6 +96,9 @@ func get_exe_element(idx : int) -> ExeElementRule:
 		return null
 	return grammar.get_item(head_string, idx)
 
+## 返回失败的元素序列。
+func get_failld_element_index(idx : int) -> int:
+	return faild_element_idxs[idx]
 ## 返回失败的执行元素。
 func get_faild_element(idx : int) -> ExeElementRule:
 	return _get_process().get_item(head_string, faild_element_idxs[idx])

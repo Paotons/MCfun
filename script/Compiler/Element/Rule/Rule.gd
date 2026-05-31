@@ -224,6 +224,8 @@ class _Detail extends _Element:
 
 ## 元素名称。
 var element_name : String
+## 列表类型。
+var cmd_list_types : PackedStringArray
 
 #region 元素。
 ## 元素类型。
@@ -286,6 +288,7 @@ func compile(data : Variant) -> void:
 		_add_error_from_object(cmd)
 		if not cmd.is_valid():
 			return
+		cmd_list_types = cmd.list_types
 		compiled_result[META_CMD] = cmd.get_result()
 	
 	_set_is_valid(true)

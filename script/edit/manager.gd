@@ -7,7 +7,9 @@ extends Node
 const _EDIT_DEFAULT_HIGHTLIGHT_COLOR : Dictionary[StringName, Color] = {
 	&"default" : Color("ffffffbf"),
 	&"annotation" : Color("829098c6"),
-	&"key_word" : Color("ff7085"),
+	&"normal_command_head" : Color("ff4f8b"),
+	&"native_command_head" : Color("ff51e5"),
+	&"comment_command_head" : Color("ff765c"),
 	&"number" : Color("a1ffe0"),
 	&"member" : Color("bce0ff"),
 	&"point_path_mumber" : Color("92ceffff"),
@@ -38,6 +40,9 @@ func get_edit() -> FunctionEdit:
 ## 返回编辑器补全设置。
 func get_completion_setting() -> FunctionCompletionSetting:
 	return function_edit.completion_setting
+## 返回语法。
+func get_grammar() -> Grammar:
+	return function_edit.grammar
 ## 返回语法流程。
 func get_grammar_process() -> GrammarProcess:
 	return function_edit.grammar.get_process(Grammar.ProcessType.NORMAL)

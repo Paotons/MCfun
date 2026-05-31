@@ -2,6 +2,16 @@ class_name GrammarLawCompiler
 extends GrammarCompiler
 ## 语法规则解析器。
 
+enum LawMeta {
+	# HACK 并无用处。
+	## 描述。
+	DESCRIPTION,
+	## 数据。
+	DATA,
+	## 元列表类型。
+	CMD_LIST_TYPES,
+}
+
 func _compile(data : Variant) -> void:
 	if not data is Dictionary:
 		errors.append("Law_data should be dictionary, but is %s." % type_string(typeof(data)))
@@ -9,6 +19,8 @@ func _compile(data : Variant) -> void:
 	
 	var from : Dictionary = data
 	compiled_result = {}
+	compiled_result[LawMeta.DATA] = {}
+	compiled_result[LawMeta.CMD_LIST_TYPES] = PackedStringArray()
 	
 	if not _test_dictionary_key_types(from, 1 << TYPE_STRING, "Law"):
 		return
@@ -47,6 +59,7 @@ func _compile_rule(from : Dictionary, name : String, law : Dictionary) -> bool:
 	if not obj.is_valid():
 		return false
 	to.merge(obj.get_result())
+	_append_cmd_list_types(obj.cmd_list_types)
 	return true
 
 func _compile_type(from : Dictionary, name : String) -> bool:
@@ -65,3 +78,7 @@ func _compile_type(from : Dictionary, name : String) -> bool:
 		errors.append("Law[%s] not has type." % name)
 		return false
 
+# 加入指令列表。
+func _append_cmd_list_types(types : PackedStringArray) -> void:
+	var cmd_list_types : PackedStringArray = compiled_result[LawMeta.CMD_LIST_TYPES]
+	cmd_list_types.append_array(types)

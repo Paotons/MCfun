@@ -64,13 +64,15 @@ func _load_grammar(process : ProjectOpendProcess) -> void:
 	var project := ProjectManager.get_current_project()
 	var grammar := _get_cache_directory().path_join("grammar")
 	
-	if _test_grammar_name():
+	if _is_grammar_taged_faild() or _test_grammar_name():
+		_tag_grammar_faild_state(true)
 		var to_path := grammar.path_join("compiled")
 		if DirAccess.dir_exists_absolute(to_path):
 			FileSystem.remove_directory(to_path)
 		DirAccess.make_dir_absolute(to_path)
 		var errors := Grammar.new().compile(project.get_project_config().get_edit_grammar_path(), to_path)
 		process.errors.append_array(errors)
+		_tag_grammar_faild_state(false)
 
 # 如果语法改变，返回 true，并重新更新。
 func _test_grammar_name() -> bool:
@@ -90,6 +92,18 @@ func _test_grammar_name() -> bool:
 		file.close()
 		return true
 	return false
+# 标记语法失败状态。
+func _tag_grammar_faild_state(enabled : bool) -> void:
+	var path := _get_cache_directory().path_join("grammar/.faild")
+	if enabled:
+		var faild_file := FileAccess.open(path, FileAccess.WRITE)
+		faild_file. close()
+	else:
+		if FileAccess.file_exists(path):
+			DirAccess.remove_absolute(path)
+# 如果语法为失败，返回 true。
+func _is_grammar_taged_faild() -> bool:
+	return FileAccess.file_exists(_get_cache_directory().path_join("grammar/.faild"))
 
 ## [b]friend [Project]:[/b]初始化项目缓存。
 static func _init_chache(path : String) -> void:

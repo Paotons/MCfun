@@ -18,7 +18,7 @@ func run_from_empty(text : String, process : CommandElementCreaterProcess) -> vo
 
 # 处理开头。
 func _do_head(text : String, process : CommandElementCreaterProcess) -> bool:
-	var result := HeadElement.create(text, process.offset) as HeadElement
+	var result := HeadElement.create(text, process.offset, CommandElementManager.CommandType.NORMAL) as HeadElement
 	
 	for err in result.errors: create_error(err.column, err.string)
 	if result.is_faild: return false
