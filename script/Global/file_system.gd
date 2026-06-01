@@ -20,7 +20,7 @@ var cache_path : String
 ## 配置文件目录。
 var config_path : String
 ## 配置文件。
-var config : ConfigFile
+var config := ConfigFile.new()
 
 func _ready() -> void:
 	_init_main_root()
@@ -72,7 +72,6 @@ func _init_config_file() -> void:
 	config_path = user_root.path_join("config.cfg")
 	if FileAccess.file_exists(config_path):
 		DirAccess.copy_absolute(config_path, cache_path.path_join("config.cfg"))
-		config = ConfigFile.new()
 		config.load(cache_path.path_join("config.cfg"))
 		
 		get_window().content_scale_factor = config.get_value("UINormal", "window_scale_factor", 1.0)
@@ -249,3 +248,10 @@ func clear_cache() -> void:
 		empty_dirs.append(dir)
 	for dir in empty_dirs: DirAccess.remove_absolute(dir)
 
+## 重新加载配置文件。
+func reload_config() -> void:
+	config_path = user_root.path_join("config.cfg")
+	if FileAccess.file_exists(config_path):
+		DirAccess.copy_absolute(config_path, cache_path.path_join("config.cfg"))
+		config = ConfigFile.new()
+		config.load(cache_path.path_join("config.cfg"))

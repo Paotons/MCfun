@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://1ic2wkh6sbt8" path="res://scene/edit_window/setting.gd" id="1_h0p1a"]
 [ext_resource type="PackedScene" uid="uid://cj6k3ve1jedrn" path="res://scene/selected_data_root_window.tscn" id="2_igemm"]
+[ext_resource type="Script" uid="uid://bbkoxrhtyqh7f" path="res://scene/edit_window/config_check_box.gd" id="2_tfdl6"]
 
 [sub_resource type="GDScript" id="GDScript_2n6rp"]
 resource_name = "SettingTree"
@@ -30,7 +31,7 @@ enum ItemIndex {
 	## 编辑器补全。
 	EDIT_COMPLETION,
 	## 编辑器光标。
-	EDIT_CARET,
+	EDIT_APPEARACE,
 	## 编辑器行为。
 	EDIT_BEHAVIOR,
 	## 语法。
@@ -80,8 +81,8 @@ func update_tree_item() -> void:
 	edit_heightlight.set_text(0, \"高亮\")
 	var edit_completion := edit.create_child()
 	edit_completion.set_text(0, \"补全\")
-	var edit_caret := edit.create_child()
-	edit_caret.set_text(0, \"光标\")
+	var EDIT_APPEARACE := edit.create_child()
+	EDIT_APPEARACE.set_text(0, \"外观\")
 	var edit_behavior := edit.create_child()
 	edit_behavior.set_text(0, \"行为\")
 	var edit_grammer := edit.create_child()
@@ -94,7 +95,7 @@ func update_tree_item() -> void:
 			edit,
 				edit_heightlight,
 				edit_completion,
-				edit_caret,
+				EDIT_APPEARACE,
 				edit_behavior,
 				edit_grammer,
 	]
@@ -166,93 +167,31 @@ func _on_visibility_changed() -> void:
 "
 
 [sub_resource type="GDScript" id="GDScript_62tx0"]
-script/source = "extends CheckBox
+script/source = "extends EditSettingConfigCheckBox
 
-func _on_visibility_changed() -> void:
-	if not is_visible_in_tree():
-		return
-	var config := ConfigFile.new()
-	if FileAccess.file_exists(FileSystem.config_path):
-		config.load(FileSystem.config_path)
-	button_pressed = config.get_value(\"EditCompletion\", \"showing_hint_word\", true)
-
-func _pressed() -> void:
-	var config := ConfigFile.new()
-	if FileAccess.file_exists(FileSystem.config_path):
-		config.load(FileSystem.config_path)
-	config.set_value(\"EditCompletion\", \"showing_hint_word\", button_pressed)
-	config.save(FileSystem.config_path)
-	
-	if EditManager.has_edit():
-		EditManager.get_edit().completion_setting.showing_hint_word = button_pressed
-
-
+func _update_edit(enabled : bool) -> void:
+	EditManager.get_edit().completion_setting.showing_hint_word = enabled
 "
 
 [sub_resource type="GDScript" id="GDScript_5m1da"]
-script/source = "extends CheckBox
+script/source = "extends EditSettingConfigCheckBox
 
-func _on_visibility_changed() -> void:
-	if not is_visible_in_tree():
-		return
-	var config := ConfigFile.new()
-	if FileAccess.file_exists(FileSystem.config_path):
-		config.load(FileSystem.config_path)
-	button_pressed = config.get_value(\"EditCompletion\", \"using_hint_word_weight\", false)
-
-func _pressed() -> void:
-	var config := ConfigFile.new()
-	if FileAccess.file_exists(FileSystem.config_path):
-		config.load(FileSystem.config_path)
-	config.set_value(\"EditCompletion\", \"using_hint_word_weight\", button_pressed)
-	config.save(FileSystem.config_path)
-	
-	if EditManager.has_edit():
-		EditManager.get_edit().completion_setting.using_hint_word_weight = button_pressed
+func _update_edit(enabled : bool) -> void:
+	EditManager.get_edit().completion_setting.using_hint_word_weight = enabled
 "
 
 [sub_resource type="GDScript" id="GDScript_pb5su"]
-script/source = "extends CheckBox
+script/source = "extends EditSettingConfigCheckBox
 
-func _on_visibility_changed() -> void:
-	if not is_visible_in_tree():
-		return
-	var config := ConfigFile.new()
-	if FileAccess.file_exists(FileSystem.config_path):
-		config.load(FileSystem.config_path)
-	button_pressed = config.get_value(\"EditCompletion\", \"using_space_name\", true)
-
-func _pressed() -> void:
-	var config := ConfigFile.new()
-	if FileAccess.file_exists(FileSystem.config_path):
-		config.load(FileSystem.config_path)
-	config.set_value(\"EditCompletion\", \"using_space_name\", button_pressed)
-	config.save(FileSystem.config_path)
-	
-	if EditManager.has_edit():
-		EditManager.get_edit().completion_setting.spaceitem_included_space = button_pressed
-
+func _update_edit(enabled : bool) -> void:
+	EditManager.get_edit().completion_setting.spaceitem_included_space = enabled
 "
 
 [sub_resource type="GDScript" id="GDScript_w14fy"]
-script/source = "extends CheckBox
+script/source = "extends EditSettingConfigCheckBox
 
-func _on_visibility_changed() -> void:
-	if not is_visible_in_tree():
-		return
-	var config := ConfigFile.new()
-	if FileAccess.file_exists(FileSystem.config_path):
-		config.load(FileSystem.config_path)
-	button_pressed = config.get_value(\"EditBehavior\", \"double_input_enabled\", true)
-
-func _pressed() -> void:
-	var config := ConfigFile.new()
-	if FileAccess.file_exists(FileSystem.config_path):
-		config.load(FileSystem.config_path)
-	config.set_value(\"EditBehavior\", \"double_input_enabled\", button_pressed)
-	config.save(FileSystem.config_path)
-	if EditManager.has_edit():
-		EditManager.get_edit().double_input_disabled = not button_pressed
+func _update_edit(enabled : bool) -> void:
+	EditManager.get_edit().double_input_disabled = not enabled
 "
 
 [sub_resource type="GDScript" id="GDScript_y36tn"]
@@ -276,6 +215,7 @@ func _on_focus_exited() -> void:
 	
 	config.set_value(\"EditBehavior\", \"double_input_map\", val)
 	config.save(FileSystem.config_path)
+	FileSystem.reload_config()
 	
 	if EditManager.has_edit():
 		EditManager.get_edit().set_double_input_map(val)
@@ -298,27 +238,20 @@ func get_value_from_text() -> Dictionary[String, String]:
 "
 
 [sub_resource type="GDScript" id="GDScript_a8c72"]
-script/source = "extends CheckBox
+script/source = "extends EditSettingConfigCheckBox
 
-func _on_visibility_changed() -> void:
-	if not is_visible_in_tree():
-		return
-	var config := ConfigFile.new()
-	if FileAccess.file_exists(FileSystem.config_path):
-		config.load(FileSystem.config_path)
-	button_pressed = config.get_value(\"EditBehavior\", \"wrap_mode\", TextEdit.LINE_WRAPPING_NONE) == TextEdit.LINE_WRAPPING_BOUNDARY
+func _get_config_value(config : ConfigFile) -> bool:
+	return config.get_value(config_selector, config_key, TextEdit.LINE_WRAPPING_NONE) == TextEdit.LINE_WRAPPING_BOUNDARY
 
-func _pressed() -> void:
-	var config := ConfigFile.new()
-	if FileAccess.file_exists(FileSystem.config_path):
-		config.load(FileSystem.config_path)
-	var index := TextEdit.LINE_WRAPPING_BOUNDARY if button_pressed else TextEdit.LINE_WRAPPING_NONE
-	config.set_value(\"EditBehavior\", \"wrap_mode\", index)
-	config.save(FileSystem.config_path)
-	
-	if EditManager.has_edit():
-		EditManager.get_edit().wrap_mode = index
+func _set_config_value(config : ConfigFile, value : bool) -> void:
+	config.set_value(config_selector, config_key, get_wrap_mode(value))
 
+func _update_edit(enabled : bool) -> void:
+	EditManager.get_edit().wrap_mode = get_wrap_mode(enabled)
+
+## 返回折叠模式。
+func get_wrap_mode(enabled : bool) -> TextEdit.LineWrappingMode:
+	return TextEdit.LINE_WRAPPING_BOUNDARY if enabled else TextEdit.LINE_WRAPPING_NONE
 "
 
 [sub_resource type="GDScript" id="GDScript_182ur"]
@@ -455,6 +388,7 @@ layout_mode = 2
 text = "CAG"
 
 [node name="HighlightColor" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=1759531872]
+visible = false
 layout_mode = 2
 
 [node name="HBoxContainer19" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/HighlightColor" unique_id=574396445]
@@ -770,6 +704,9 @@ layout_mode = 2
 size_flags_horizontal = 10
 button_pressed = true
 script = SubResource("GDScript_62tx0")
+config_selector = "EditCompletion"
+config_key = "showing_hint_word"
+default_value = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Completion" unique_id=997053856]
 layout_mode = 2
@@ -782,6 +719,8 @@ text = "提示词加权（注意：勾选该项会带来卡顿）"
 layout_mode = 2
 size_flags_horizontal = 10
 script = SubResource("GDScript_5m1da")
+config_selector = "EditCompletion"
+config_key = "using_hint_word_weight"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Completion" unique_id=1977703427]
 layout_mode = 2
@@ -795,13 +734,27 @@ layout_mode = 2
 size_flags_horizontal = 10
 button_pressed = true
 script = SubResource("GDScript_pb5su")
+config_selector = "EditCompletion"
+config_key = "using_space_name"
+default_value = true
 
-[node name="Caret" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=60601203]
+[node name="Appearace" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=60601203]
 visible = false
 layout_mode = 2
 
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Appearace" unique_id=1636110039]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Appearace/HBoxContainer" unique_id=1355755799]
+layout_mode = 2
+text = "光标闪烁"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Appearace/HBoxContainer" unique_id=1929440516]
+layout_mode = 2
+size_flags_horizontal = 10
+script = ExtResource("2_tfdl6")
+
 [node name="EditBehavior" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=2124741430]
-visible = false
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior" unique_id=2024200627]
@@ -815,6 +768,9 @@ text = "双击映射"
 layout_mode = 2
 size_flags_horizontal = 10
 script = SubResource("GDScript_w14fy")
+config_selector = "EditBehavior"
+config_key = "double_input_enabled"
+default_value = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior" unique_id=2018506517]
 layout_mode = 2
@@ -842,6 +798,8 @@ text = "边界换行"
 layout_mode = 2
 size_flags_horizontal = 10
 script = SubResource("GDScript_a8c72")
+config_selector = "EditBehavior"
+config_key = "wrap_mode"
 
 [node name="Grammer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=1120137195]
 visible = false
@@ -920,9 +878,7 @@ script = SubResource("GDScript_iw8q2")
 [connection signal="item_selected" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" method="_on_item_selected"]
 [connection signal="visibility_changed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" method="_on_visibility_changed"]
 [connection signal="pressed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer2/Button" to="SelectedDataRootWindow" method="popup_centered_clamped"]
-[connection signal="visibility_changed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer/CheckBox" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer/CheckBox" method="_on_visibility_changed"]
 [connection signal="focus_exited" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/VBoxContainer/DoubleInputMap" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/VBoxContainer/DoubleInputMap" method="_on_focus_exited"]
-[connection signal="visibility_changed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer2/WrapMode" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/HBoxContainer2/WrapMode" method="_on_visibility_changed"]
 [connection signal="pressed" from="VBoxContainer/SaveReopen/MarginContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="hide"]
 [connection signal="close_requested" from="SelectedDataRootWindow" to="SelectedDataRootWindow" method="hide"]
