@@ -36,6 +36,11 @@ enum ItemIndex {
 	EDIT_BEHAVIOR,
 	## 语法。
 	EDIT_GRAMMER,
+	
+	## 运行。
+	RUNNING,
+	## 运行自动保存。
+	RUNNING_AUTO_SAVING,
 }
 ## 对应的选项。
 @export var option_nodes : Array[Control]
@@ -88,6 +93,10 @@ func update_tree_item() -> void:
 	var edit_grammer := edit.create_child()
 	edit_grammer.set_text(0, \"语法\")
 	
+	var running := root.create_child()
+	running.set_text(0, \"运行\")
+	var running_auto_saving := running.create_child()
+	running_auto_saving.set_text(0, \"自动保存\")
 	items = [
 		root,
 			ui,
@@ -98,6 +107,8 @@ func update_tree_item() -> void:
 				EDIT_APPEARACE,
 				edit_behavior,
 				edit_grammer,
+			running,
+				running_auto_saving,
 	]
 
 
@@ -164,6 +175,13 @@ func _on_visibility_changed() -> void:
 	if visible:
 		var default := EditManager.get_edit().get_highlight_color(color_name) if EditManager.has_edit() else EditManager.get_edit_default_hightlight_color(color_name)
 		color = default if config == null else config.get_value(SELECT_NAME, color_name, default)
+"
+
+[sub_resource type="GDScript" id="GDScript_mk8f0"]
+script/source = "extends EditSettingConfigSpinBox
+
+func _update_edit(number : float) -> void:
+	EditManager.get_edit().max_code_expleation = floori(number)
 "
 
 [sub_resource type="GDScript" id="GDScript_62tx0"]
@@ -279,6 +297,66 @@ func _pressed() -> void:
 		FileSystem.copy_directory(res.path_join(dir), to_path.path_join(dir))
 "
 
+[sub_resource type="GDScript" id="GDScript_a6rln"]
+script/source = "extends EditSettingConfigCheckBox
+
+func _get_spin_box() -> EditSettingConfigSpinBox:
+	return $\"../../HBoxContainer2/RunningAutoSavingDelta\"
+func _get_spin_box_delta() -> float:
+	return _get_spin_box().value
+
+func _get_config_value(config : ConfigFile) -> bool:
+	return config.get_value(config_selector, config_key, default_value) as float > 0.0
+
+func _set_config_value(config : ConfigFile, value : bool) -> void:
+	if value:
+		var delta := _get_spin_box_delta()
+		config.set_value(config_selector, config_key, delta)
+	else:
+		config.set_value(config_selector, config_key, -1.0)
+
+func _update_edit(enabled : bool) -> void:
+	if enabled:
+		_get_spin_box().update()
+	else:
+		var timer := EditBaseControl.get_base_control().get_auto_saving_timer()
+		timer.stop()
+
+@warning_ignore(\"unused_parameter\")
+func _toggled(toggled_on: bool) -> void:
+	_get_spin_box().get_parent_control().visible = button_pressed
+"
+
+[sub_resource type="GDScript" id="GDScript_hkdyp"]
+script/source = "extends EditSettingConfigSpinBox
+
+const _LABEL_MODEL := \"保存间隔（%s）\"
+
+func _get_label() -> Label:
+	return $\"../Label\"
+
+func _ready() -> void:
+	super()
+	value_changed.connect(update_label)
+
+## 更新标签。
+func update_label(new_value: float) -> void:
+	var t := ceili(new_value)
+	@warning_ignore(\"integer_division\")
+	var m := t / 60
+	var s := t % 60
+	_get_label().text = _LABEL_MODEL % (\"%d分%d秒\" % [m, s] if m != 0 else \"%d秒\" % s)
+
+func _get_config_value(config : ConfigFile) -> float:
+	var val : float = config.get_value(config_selector, config_key, default_value)
+	return default_value if val < 0.0 else val
+
+func _update_edit(number : float) -> void:
+	var timer := EditBaseControl.get_base_control().get_auto_saving_timer()
+	timer.wait_time = number
+	timer.start()
+"
+
 [sub_resource type="GDScript" id="GDScript_iw8q2"]
 script/source = "extends AcceptDialog
 
@@ -316,7 +394,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 hide_root = true
 script = SubResource("GDScript_2n6rp")
-option_nodes = [null, null, NodePath("../scene_parent/ScrollContainer/MarginContainer/Normal"), null, NodePath("../scene_parent/ScrollContainer/MarginContainer/HighlightColor"), NodePath("../scene_parent/ScrollContainer/MarginContainer/Completion"), null, NodePath("../scene_parent/ScrollContainer/MarginContainer/EditBehavior"), NodePath("../scene_parent/ScrollContainer/MarginContainer/Grammer")]
+option_nodes = [null, null, NodePath("../scene_parent/ScrollContainer/MarginContainer/Normal"), null, NodePath("../scene_parent/ScrollContainer/MarginContainer/HighlightColor"), NodePath("../scene_parent/ScrollContainer/MarginContainer/Completion"), NodePath("../scene_parent/ScrollContainer/MarginContainer/Appearace"), NodePath("../scene_parent/ScrollContainer/MarginContainer/EditBehavior"), NodePath("../scene_parent/ScrollContainer/MarginContainer/Grammer"), null, NodePath("../scene_parent/ScrollContainer/MarginContainer/RunningAutoSaving")]
 
 [node name="scene_parent" type="MarginContainer" parent="VBoxContainer/HSplitContainer" unique_id=2037927546]
 layout_mode = 2
@@ -338,7 +416,6 @@ theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
 [node name="Normal" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=1499206299]
-visible = false
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal" unique_id=1298992374]
@@ -692,6 +769,22 @@ color_name = "coord_z"
 visible = false
 layout_mode = 2
 
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Completion" unique_id=1834694827]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Completion/HBoxContainer4" unique_id=611278710]
+layout_mode = 2
+text = "最大补全数量"
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Completion/HBoxContainer4" unique_id=724661005]
+layout_mode = 2
+size_flags_horizontal = 10
+script = SubResource("GDScript_mk8f0")
+config_selector = "EditCompletion"
+config_key = "max_expletion_count"
+default_value = 64.0
+saved_int = true
+
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Completion" unique_id=848949753]
 layout_mode = 2
 
@@ -713,7 +806,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Completion/HBoxContainer2" unique_id=211103662]
 layout_mode = 2
-text = "提示词加权（注意：勾选该项会带来卡顿）"
+text = "提示词加权（注意：该功能可能会带来卡顿）"
 
 [node name="CheckBox" type="CheckBox" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Completion/HBoxContainer2" unique_id=2054640031]
 layout_mode = 2
@@ -755,6 +848,7 @@ size_flags_horizontal = 10
 script = ExtResource("2_tfdl6")
 
 [node name="EditBehavior" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=2124741430]
+visible = false
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior" unique_id=2024200627]
@@ -831,6 +925,45 @@ layout_mode = 2
 size_flags_horizontal = 10
 text = "提取"
 script = SubResource("GDScript_tfdl6")
+
+[node name="RunningAutoSaving" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=1177390769]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/RunningAutoSaving" unique_id=1972815754]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/RunningAutoSaving/HBoxContainer" unique_id=1747364477]
+layout_mode = 2
+text = "自动保存"
+
+[node name="EditSettingConfigCheckBox" type="CheckBox" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/RunningAutoSaving/HBoxContainer" unique_id=1775572932]
+layout_mode = 2
+size_flags_horizontal = 10
+button_pressed = true
+script = SubResource("GDScript_a6rln")
+config_selector = "RunningAutoSaving"
+config_key = "delta"
+default_value = true
+metadata/_custom_type_script = "uid://bbkoxrhtyqh7f"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/RunningAutoSaving" unique_id=2144667628]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/RunningAutoSaving/HBoxContainer2" unique_id=378436325]
+layout_mode = 2
+text = "保存间隔（30秒）"
+
+[node name="RunningAutoSavingDelta" type="SpinBox" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/RunningAutoSaving/HBoxContainer2" unique_id=345219761]
+layout_mode = 2
+size_flags_horizontal = 10
+min_value = 5.0
+max_value = inf
+value = 30.0
+script = SubResource("GDScript_hkdyp")
+config_selector = "RunningAutoSaving"
+config_key = "delta"
+default_value = 30.0
+metadata/_custom_type_script = "uid://dews0ctrwq0ww"
 
 [node name="SaveReopen" type="MarginContainer" parent="VBoxContainer" unique_id=642298975]
 visible = false

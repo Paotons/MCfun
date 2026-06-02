@@ -34,7 +34,7 @@ func _pressed() -> void:
 	config.save(FileSystem.config_path)
 	FileSystem.reload_config()
 	
-	if EditManager.has_edit():
+	if EditBaseControl.is_editing():
 		_update_edit(button_pressed)
 		update_edit.emit(button_pressed)
 

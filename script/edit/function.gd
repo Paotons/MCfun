@@ -265,6 +265,7 @@ func get_command_cmd_list(id : String, line : int, column : int, length := 501) 
 	return result
 #endregion
 
+## 设置整个数据，如果直接用 [method set_text] 会导致行 ID 最终失败。
 func set_function_text(value : String) -> void:
 	command_elements.clear()
 	var count = value.count("\n") + 1
@@ -272,8 +273,9 @@ func set_function_text(value : String) -> void:
 	clear_hint()
 	set_text(value)
 	clear_undo_history()
+## 返回
 
-## 虚函数，错误列表发生改变。
+## 虚函数，错误列表发生改变调用。
 func _errors_list_changed() -> void:
 	return
 

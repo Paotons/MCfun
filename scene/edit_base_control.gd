@@ -5,10 +5,31 @@ extends Control
 ## 保存场景。
 signal save_scene
 
-func _get_function_edit() -> FunctionEdit:
+static var _base_control : EditBaseControl
+
+func _ready() -> void:
+	_base_control = self
+
+func _exit_tree() -> void:
+	_base_control = null
+
+## 返回当前编辑器控件。
+static func get_base_control() -> EditBaseControl:
+	return _base_control
+## 如果真正处于编辑模式，返回 [code]true[/code]。
+static func is_editing() -> bool:
+	return _base_control != null
+
+## 返回函数的文本编辑器。
+func get_function_edit() -> FunctionEdit:
 	return $Base/HSplitContainer/VBoxContainer2/FunctionEdit
-func _get_file_list_container() -> FileListContainer:
+## 返回文件列表容器。
+func get_file_list_container() -> FileListContainer:
 	return $Base/HSplitContainer/FileList/MarginContainer/FileListContainer
+## 返回自动保存的计时器。
+func get_auto_saving_timer() -> Timer:
+	return $AutoSaveingTimer
+
 func _get_loading_title_label() -> Label:
 	return $Loading/VBoxContainer/Title
 func _get_loading_process_label() -> Label:
@@ -35,6 +56,9 @@ func reload_scene(saving := true) -> void:
 	
 	get_tree().reload_current_scene.call_deferred()
 
+## 保存场景。
+func save_tree() -> void:
+	save_scene.emit()
 ## 显示正在加载。
 func show_loading() -> void:
 	_get_loading_panel().show()
@@ -60,3 +84,7 @@ func _on_edit_setting_reload_scene() -> void:
 
 func _on_error_window_confirmed() -> void:
 	exit_to_project_list(false)
+
+func _on_auto_saveing_timer_timeout() -> void:
+	save_tree()
+	get_file_list_container().save_all_file()

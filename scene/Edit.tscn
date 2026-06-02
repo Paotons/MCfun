@@ -24,7 +24,7 @@ enum LoadingType {
 	## 最大值。
 	MAX,
 }
-const _UI_LOADING_PROCESS_COUNT := 3
+const _UI_LOADING_PROCESS_COUNT := 4
 
 var _thread := Thread.new()
 var _base_control : EditBaseControl
@@ -72,7 +72,6 @@ func start() -> void:
 
 func _on_thread() -> void:
 	const PATH_UI_CFG := \"ui.cfg\"
-	const PATH_EXPORT_UI_CFG := \"export_ui.cfg\"
 	
 	_mutex.lock()
 	main_process.y = LoadingType.MAX
@@ -106,15 +105,26 @@ func _on_thread() -> void:
 	
 	if not _thread_edit_grammar(config):
 		return
+	_thread_load_tree(config)
+	_thread_load_setting()
+
+func _thread_load_tree(config : ConfigFile) -> void:
+	const PATH_EXPORT_UI_CFG := \"export_ui.cfg\"
+	
 	_thread_edit_split(config)
 	_thread_edit_file_list(config)
 	
-	config = ConfigFile.new()
+	var path := ProjectManager.get_current_project().get_project_cache().get_cache_path(ProjectChache.DirectoryType.EDIT)
+	var exporter_config = ConfigFile.new()
 	if FileAccess.file_exists(path.path_join(PATH_EXPORT_UI_CFG)):
-		config.load(path.path_join(PATH_EXPORT_UI_CFG))
+		exporter_config.load(path.path_join(PATH_EXPORT_UI_CFG))
 	(func() -> void:
-		_get_export_setting_window().config_winodw(config)
+		_get_export_setting_window().config_winodw(exporter_config)
 	).call_deferred()
+
+func _thread_load_setting() -> void:
+	var config := FileSystem.config
+	_thread_running_auto_saving(config)
 
 func _process(_delta: float) -> void:
 	if _thread.is_started() and not _thread.is_alive():
@@ -148,10 +158,11 @@ func _thread_edit_grammar(_config : ConfigFile) -> bool:
 		return false
 	
 	(func() -> void:
-		var edit := _base_control._get_function_edit()
+		var edit := _base_control.get_function_edit()
 		edit.grammar = grammar
 	).call_deferred()
 	return true
+
 func _thread_edit_split(config : ConfigFile) -> void:
 	var offset_1 : int = config.get_value(\"Split\", \"1\", 50)
 	
@@ -159,14 +170,16 @@ func _thread_edit_split(config : ConfigFile) -> void:
 		_get_split_container().split_offset = offset_1
 	).call_deferred()
 func _thread_edit_file_list(config : ConfigFile) -> void:
+	const SELECTOR := \"FileList\"
+	
 	_mutex.lock()
 	_control_sub_process.x += 1
 	_mutex.unlock()
 	
-	var files : PackedStringArray = config.get_value(\"FileList\", \"file_paths\", [])
-	var selected : int = config.get_value(\"FileList\", \"selected\", 0)
-	var visible : bool = config.get_value(\"FileList\", \"visible\", true)
-	var caret_positions : Array = config.get_value(\"FileList\", \"file_caret_positions\", [])
+	var files : PackedStringArray = config.get_value(SELECTOR, \"file_paths\", [])
+	var selected : int = config.get_value(SELECTOR, \"selected\", 0)
+	var visible : bool = config.get_value(SELECTOR, \"visible\", true)
+	var caret_positions : Array = config.get_value(SELECTOR, \"file_caret_positions\", [])
 	(func() -> void:
 		var list := _get_file_list_container()
 		for path in files:
@@ -179,6 +192,22 @@ func _thread_edit_file_list(config : ConfigFile) -> void:
 		
 		if selected < caret_positions.size():
 			_get_function_edit().set_caret_position(caret_positions[selected])
+	).call_deferred()
+
+func _thread_running_auto_saving(config : ConfigFile) -> void:
+	const SELECTOR := \"RunningAutoSaving\"
+	_mutex.lock()
+	_control_sub_process.x += 1
+	_mutex.unlock()
+	
+	var delta := config.get_value(SELECTOR, \"delta\", 30.0) as float
+	(func() -> void:
+		var timer := _base_control.get_auto_saving_timer()
+		if delta < 0.0:
+			timer.stop()
+		else:
+			timer.wait_time = delta
+			timer.start()
 	).call_deferred()
 
 func _on_base_control_ready() -> void:
@@ -221,7 +250,6 @@ func save_scene() -> void:
 	
 	_save_split(config)
 	_save_file_list(config)
-	
 	
 	config.save(path.path_join(PATH_UI_CFG))
 	
@@ -684,6 +712,7 @@ func _on_file_list_container_saved(path: String) -> void:
 	var file := FileAccess.open(path, FileAccess.WRITE)
 	
 	if current_file_path == path:
+		is_current_file_changed = false
 		file.store_string(_get_text())
 	else:
 		var cache_path := get_path_at_chache(path)
@@ -718,7 +747,7 @@ func _init_config() -> void:
 	if config.has_section(CONFIG_HIGHLIGHT_COLOR_SELECT):
 		_init_config_highlight_color()
 	if config.has_section(CONFIG_COMPLETION):
-		_init_congig_completion()
+		_init_config_completion()
 # 初始化配置文件行为。
 func _init_config_behavior() -> void:
 	var config := FileSystem.config
@@ -739,9 +768,10 @@ func _init_config_highlight_color() -> void:
 			continue
 		var color := value as Color
 		_edit.set_highlight_color(key, color)
-func _init_congig_completion() -> void:
+func _init_config_completion() -> void:
 	var config := FileSystem.config
 	var setting := _edit.completion_setting
+	_edit.max_code_expleation = floori(config.get_value(CONFIG_COMPLETION, \"max_expletion_count\", 64.0))
 	setting.spaceitem_included_space = config.get_value(CONFIG_COMPLETION, \"using_space_name\", true)
 	setting.showing_hint_word = config.get_value(CONFIG_COMPLETION, \"showing_hint_word\", true)
 	setting.using_hint_word_weight = config.get_value(CONFIG_COMPLETION, \"using_hint_word_weight\", false)
@@ -1121,6 +1151,9 @@ layout_mode = 2
 text = "0/-1"
 horizontal_alignment = 1
 
+[node name="AutoSaveingTimer" type="Timer" parent="." unique_id=1593355909]
+wait_time = 30.0
+
 [node name="EditSetting" parent="." unique_id=1229169659 instance=ExtResource("5_pdkdi")]
 visible = false
 
@@ -1191,6 +1224,7 @@ dialog_close_on_escape = false
 [connection signal="text_changed" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_function_edit_text_changed"]
 [connection signal="pressed" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/HBoxContainer/MarginContainer/ShowHideFileListButton" to="Base/HSplitContainer/FileList" method="_on_show_hide_file_list_button_pressed"]
 [connection signal="ready" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/HBoxContainer/error_hint" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/HBoxContainer/error_hint" method="set_text" binds= [""]]
+[connection signal="timeout" from="AutoSaveingTimer" to="." method="_on_auto_saveing_timer_timeout"]
 [connection signal="reload_scene" from="EditSetting" to="." method="_on_edit_setting_reload_scene"]
 [connection signal="reload_project" from="ProjectSetting" to="." method="_on_project_setting_reload_project"]
 [connection signal="close_requested" from="FileListWindow" to="FileListWindow" method="hide"]
