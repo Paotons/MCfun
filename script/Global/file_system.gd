@@ -141,8 +141,12 @@ func set_data_root_path(path : String) -> void:
 func _exit_tree() -> void:
 	clear_cache()
 
-## 递归删除目录。
+## 递归删除文件/目录。
 func remove_directory(path : String) -> void:
+	if FileAccess.file_exists(path):
+		DirAccess.remove_absolute(path)
+		return
+	
 	if not DirAccess.dir_exists_absolute(path):
 		push_error("Not find directory.")
 		return
@@ -165,7 +169,7 @@ func remove_directory(path : String) -> void:
 		var parent := queue_parents.pop_back() as DirAccess
 		parent.remove(directory.get_current_dir().get_file())
 		queue_directories.remove_at(queue_directories.size() - 1)
-## 递归复制目录。
+## 递归复制文件/目录。
 func copy_directory(from : String, to : String, chmod_flags := -1) -> void:
 	if FileAccess.file_exists(from):
 		DirAccess.copy_absolute(from, to, chmod_flags)

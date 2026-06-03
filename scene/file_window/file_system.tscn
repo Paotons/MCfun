@@ -117,41 +117,129 @@ func _on_item_subfile() -> void:
 	window.close_requested.emit()
 "
 
-[sub_resource type="GDScript" id="GDScript_xsui5"]
+[sub_resource type="GDScript" id="GDScript_q0rmr"]
 script/source = "extends MenuButton
+
+const _DELETE_DIALOG_TEXT_MODEL := \"是否删除文件\\\"%s\\\"\"
+
+enum ItemIndex {
+	## 重命名。
+	RENAME,
+	## 移动。
+	MOVE,
+	## 复制。
+	COPY,
+	## 删除。
+	DELETE,
+}
+
+enum _Handle {
+	# 重命名/移动。
+	RENAME,
+	# 复制。
+	COPY,
+}
+
+# 缓存操作。
+var _cache_handle : _Handle
+# 缓存路径。
+var _cache_path : String
+
+func _get_file_tree() -> FileTree:
+	return $\"../../../FileTree\"
+func _get_rename_window() -> CreateFileWindow:
+	return $\"../../../../RenameFileWindow\"
+func _get_move_window() -> FileDialog:
+	return $\"../../../../MoveFileWindow\"
+func _get_copy_window() -> FileDialog:
+	return $\"../../../../CopyFileWindow\"
+func _get_delete_window() -> ConfirmationDialog:
+	return $\"../../../../DeleteFileWindow\"
+func _get_cover_window() -> ConfirmationDialog:
+	return $\"../../../../CoverFileWindow\"
+func _get_file_system() -> FileSystemWindow:
+	return get_window() as FileSystemWindow
 
 func _ready() -> void:
 	get_popup().index_pressed.connect(_on_popup_index_pressed)
 
-func _get_file_tree() -> FileTree:
-	return $\"../../../FileTree\"
+func _on_popup_index_pressed(index : int) -> void:
+	match index:
+		ItemIndex.RENAME: _on_rename()
+		ItemIndex.MOVE: _on_move()
+		ItemIndex.COPY: _on_copy()
+		ItemIndex.DELETE: _on_delete()
+		_: push_error(\"Unvaild index %d.\" % index)
 
-func _on_popup_index_pressed(_index : int) -> void:
-	var file_tree := _get_file_tree()
-	var path := file_tree.get_current_selected_path()
-	var is_directory := DirAccess.dir_exists_absolute(path)
-	
-	if is_directory:
-		var queue_directory : Array[DirAccess] = [DirAccess.open(path)]
-		while not queue_directory.is_empty():
-			var directory := queue_directory.back() as DirAccess
-			
-			var directories := directory.get_directories()
-			if not directories.is_empty():
-				for child in directories:
-					queue_directory.append(DirAccess.open(directory.get_current_dir().path_join(child)))
-				continue
-			
-			for child in directory.get_files():
-				directory.remove(child)
-			
-			DirAccess.remove_absolute(directory.get_current_dir())
-			queue_directory.remove_at(queue_directory.size() - 1)
-	else:
-		DirAccess.remove_absolute(path)
-	
-	file_tree.update_tree_item()
-	
+func _on_rename() -> void:
+	var window := _get_rename_window()
+	var path := _get_file_tree().get_current_selected_path()
+	window.directory = path.get_base_dir()
+	window.file_extension = path.get_extension()
+	window.popup_centered_clamped()
+func _on_move() -> void:
+	var window := _get_move_window()
+	window.popup_file_dialog()
+func _on_copy() -> void:
+	var window := _get_copy_window()
+	window.popup_file_dialog()
+func _on_delete() -> void:
+	var window := _get_delete_window()
+	window.dialog_text = _DELETE_DIALOG_TEXT_MODEL % _get_file_tree().get_current_selected_path()
+	window.popup_centered_clamped()
+
+## 复制。
+func copy(path : String, to_path : String) -> void:
+	FileSystem.copy_directory(path, to_path)
+	_get_file_tree().update_tree_item()
+	_get_file_system().copyed_file.emit(path, to_path)
+## 重命名/移动。
+func rename(path : String, to_path : String) -> void:
+	DirAccess.rename_absolute(path, to_path)
+	_get_file_tree().update_tree_item()
+	_get_file_system().renamed_file.emit(path, to_path)
+## 删除。
+func delete(path : String) -> void:
+	FileSystem.remove_directory(path)
+	_get_file_tree().update_tree_item()
+	_get_file_system().removed_directory.emit(path)
+
+func _on_delete_file_window_confirmed() -> void:
+	delete(_get_file_tree().get_current_selected_path())
+
+func _on_rename_file_window_create_file(path: String) -> void:
+	var from := _get_file_tree().get_current_selected_path()
+	rename(from, path)
+
+func _on_move_file_window_dir_selected(dir: String) -> void:
+	var from := _get_file_tree().get_current_selected_path()
+	var to := dir.path_join(from.get_file())
+	if DirAccess.dir_exists_absolute(to) or FileAccess.file_exists(to):
+		_cache_handle = _Handle.RENAME
+		_cache_path = to
+		_get_cover_window().popup_centered_clamped()
+		return
+	rename(from, to)
+
+func _on_copy_file_window_dir_selected(dir: String) -> void:
+	var from := _get_file_tree().get_current_selected_path()
+	var to := dir.path_join(from.get_file())
+	if DirAccess.dir_exists_absolute(to) or FileAccess.file_exists(to):
+		_cache_handle = _Handle.COPY
+		_cache_path = to
+		_get_cover_window().popup_centered_clamped()
+		return
+	copy(from, to)
+
+func _on_cover_file_window_confirmed() -> void:
+	var selected := _get_file_tree().get_current_selected_path()
+	match _cache_handle:
+		_Handle.RENAME:
+			rename(selected, _cache_path)
+		_Handle.COPY:
+			FileSystem.remove_directory(_cache_path)
+			copy(selected, _cache_path)
+	_cache_path = \"\"
 "
 
 [sub_resource type="GDScript" id="GDScript_xngp6"]
@@ -161,6 +249,20 @@ func _ready() -> void:
 	root_name = \"res://\"
 	root_path = ProjectManager.get_current_project().get_project_config().get_project_path()
 	update_tree_item()
+"
+
+[sub_resource type="GDScript" id="GDScript_l16b6"]
+script/source = "extends FileDialog
+
+func _ready() -> void:
+	current_dir = ProjectManager.get_current_project().get_project_config().get_project_path()
+"
+
+[sub_resource type="GDScript" id="GDScript_kdn8y"]
+script/source = "extends FileDialog
+
+func _ready() -> void:
+	current_dir = ProjectManager.get_current_project().get_project_config().get_project_path()
 "
 
 [node name="FileSystem" type="Window" unique_id=816334499]
@@ -206,24 +308,69 @@ popup/item_1/text = "子文件"
 popup/item_1/id = 1
 script = SubResource("GDScript_laydq")
 
-[node name="Remove" type="MenuButton" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=127445264]
+[node name="File" type="MenuButton" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=2059539899]
 layout_mode = 2
-text = "删除"
-item_count = 2
-popup/item_0/text = "危险"
+text = "文件"
+item_count = 4
+popup/item_0/text = "重命名"
 popup/item_0/id = 0
-popup/item_0/separator = true
-popup/item_1/text = "确认"
+popup/item_1/text = "移动"
 popup/item_1/id = 1
-script = SubResource("GDScript_xsui5")
+popup/item_2/text = "复制"
+popup/item_2/id = 2
+popup/item_3/text = "删除"
+popup/item_3/id = 3
+script = SubResource("GDScript_q0rmr")
 
 [node name="FileTree" type="Tree" parent="VBoxContainer" unique_id=1291828756]
 layout_mode = 2
 size_flags_vertical = 3
 script = SubResource("GDScript_xngp6")
 
-[node name="CreateFileWindow" parent="." unique_id=1026520078 instance=ExtResource("2_xngp6")]
+[node name="CreateFileWindow" parent="." unique_id=1375815653 instance=ExtResource("2_xngp6")]
 visible = false
+
+[node name="RenameFileWindow" parent="." unique_id=571617450 instance=ExtResource("2_xngp6")]
+title = "重命名文件"
+visible = false
+ok_button_text = "重命名"
+allow_covered = true
+
+[node name="MoveFileWindow" type="FileDialog" parent="." unique_id=916317885]
+oversampling_override = 1.0
+title = "Open a Directory"
+position = Vector2i(0, 36)
+ok_button_text = "移动"
+cancel_button_text = "取消"
+file_mode = 2
+access = 2
+script = SubResource("GDScript_l16b6")
+
+[node name="CopyFileWindow" type="FileDialog" parent="." unique_id=533337381]
+title = "Open a Directory"
+ok_button_text = "复制"
+file_mode = 2
+access = 2
+script = SubResource("GDScript_kdn8y")
+
+[node name="DeleteFileWindow" type="ConfirmationDialog" parent="." unique_id=29349439]
+oversampling_override = 1.0
+title = "删除文件"
+ok_button_text = "删除"
+cancel_button_text = "取消"
+
+[node name="CoverFileWindow" type="ConfirmationDialog" parent="." unique_id=290101633]
+title = "覆盖文件/目录"
+ok_button_text = "覆盖"
+dialog_text = "存在同名文件/目录，是否覆盖。"
+cancel_button_text = "取消"
 
 [connection signal="close_requested" from="." to="." method="hide"]
 [connection signal="create_file" from="CreateFileWindow" to="VBoxContainer/MarginContainer/HBoxContainer/Add" method="_on_create_file_window_create_file"]
+[connection signal="create_file" from="RenameFileWindow" to="VBoxContainer/MarginContainer/HBoxContainer/File" method="_on_rename_file_window_create_file"]
+[connection signal="dir_selected" from="MoveFileWindow" to="VBoxContainer/MarginContainer/HBoxContainer/File" method="_on_move_file_window_dir_selected"]
+[connection signal="dir_selected" from="CopyFileWindow" to="VBoxContainer/MarginContainer/HBoxContainer/File" method="_on_copy_file_window_dir_selected"]
+[connection signal="canceled" from="DeleteFileWindow" to="DeleteFileWindow" method="hide"]
+[connection signal="confirmed" from="DeleteFileWindow" to="VBoxContainer/MarginContainer/HBoxContainer/File" method="_on_delete_file_window_confirmed"]
+[connection signal="canceled" from="CoverFileWindow" to="CoverFileWindow" method="hide"]
+[connection signal="confirmed" from="CoverFileWindow" to="VBoxContainer/MarginContainer/HBoxContainer/File" method="_on_cover_file_window_confirmed"]

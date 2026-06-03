@@ -1,5 +1,5 @@
 class_name CreateFileWindow
-extends AcceptDialog
+extends ConfirmationDialog
 ## 创建新文件窗口。
 
 ## 创建文件。
@@ -9,17 +9,16 @@ signal create_file(path : String)
 const _PACKED_SCENE := preload("uid://bwfbp4n5l0afb") as PackedScene
 
 ## 目录。
-var directory : String
+@export var directory : String
 ## 文件扩展名。
-var file_extension : String
+@export var file_extension : String
 ## 如果为 [code]true[/code]，则允许覆盖。
-var allow_covered := false
+@export var allow_covered := false
 
 static func instantiate() -> void:
 	return _PACKED_SCENE.instantiate()
 
 func _ready() -> void:
-	add_cancel_button("取消")
 	canceled.connect(hide)
 	confirmed.connect(_on_confirmed)
 	close_requested.connect(hide)

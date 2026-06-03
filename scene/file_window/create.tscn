@@ -2,14 +2,17 @@
 
 [ext_resource type="Script" uid="uid://uxd5havsq74n" path="res://scene/file_window/create.gd" id="1_n7ert"]
 
-[node name="CreateFileWindow" type="AcceptDialog" unique_id=1026520078]
+[node name="CreateFileWindow" type="ConfirmationDialog" unique_id=204876785]
 oversampling_override = 1.0
 title = "创建文件"
 position = Vector2i(0, 36)
 size = Vector2i(1152, 648)
 visible = true
+min_size = Vector2i(0, 0)
 ok_button_text = "创建"
+cancel_button_text = "取消"
 script = ExtResource("1_n7ert")
+metadata/_custom_type_script = "uid://uxd5havsq74n"
 
 [node name="Panel" type="Panel" parent="." unique_id=902274021]
 anchors_preset = 15

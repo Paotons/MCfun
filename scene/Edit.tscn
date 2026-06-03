@@ -1231,6 +1231,8 @@ dialog_close_on_escape = false
 [connection signal="file_selected" from="FileListWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/FileMenuButton" method="_on_file_list_window_file_selected"]
 [connection signal="file_open" from="FileSystem" to="Base/MarginContainer/MarginContainer/HBoxContainer/FileMenuButton" method="_on_file_system_file_open"]
 [connection signal="multifile_open" from="FileSystem" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" method="open_multifile"]
+[connection signal="removed_directory" from="FileSystem" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" method="_on_file_system_removed_directory"]
+[connection signal="renamed_file" from="FileSystem" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" method="_on_file_system_renamed_file"]
 [connection signal="close" from="FileSaveOptionWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/FileMenuButton" method="_on_file_save_option_window_close"]
 [connection signal="close_requested" from="FileSaveOptionWindow" to="FileSaveOptionWindow" method="hide"]
 [connection signal="confirmed" from="FileSaveOptionWindow" to="FileSaveOptionWindow" method="_on_confirmed"]

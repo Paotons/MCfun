@@ -927,6 +927,7 @@ text = "提取"
 script = SubResource("GDScript_tfdl6")
 
 [node name="RunningAutoSaving" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer" unique_id=1177390769]
+visible = false
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/RunningAutoSaving" unique_id=1972815754]

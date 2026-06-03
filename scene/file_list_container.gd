@@ -60,7 +60,8 @@ func get_file_caret_position(index : int) -> Vector2i:
 	return _files[index].caret_position
 ## 设置文件光标位置。
 func set_file_caret_position(index : int, pos : Vector2) -> void:
-	_files[index].caret_position = pos
+	if 0 <= index and index < _files.size():
+		_files[index].caret_position = pos
 ## 返回文件路径。
 func get_file_path(index : int) -> String:
 	return _files[index].path
@@ -70,6 +71,10 @@ func get_file_count() -> int:
 
 ## 打开文件。
 func open_file(path : String) -> void:
+	if not FileAccess.file_exists(path):
+		push_error("Not find path at \"\".")
+		return
+	
 	if is_file_opend(path):
 		var index := get_file_index(path)
 		_select_file(index)
@@ -190,7 +195,10 @@ func _close_file(path : String) -> void:
 func _close_multifile(paths : PackedStringArray) -> void:
 	for path in paths:
 		var index := get_file_index(path)
-		remove_file(index)
+		if index != -1:
+			remove_file(index)
+			# HACK 懒得做缓存节点系统，等待一帧释放节点。
+			await get_tree().process_frame
 # 选中路径。
 func _select_file(index : int) -> bool:
 	if index == -1:
@@ -239,3 +247,21 @@ func _update_file_button(index : int) -> void:
 	button.text = _files[index].get_display_text()
 #endregion
 
+# HACK 一律关闭。
+func _on_file_system_removed_directory(path: String) -> void:
+	var res : PackedStringArray
+	for i in _files.size():
+		var file := _files[i]
+		if StrT.is_child_path(path, file.path):
+			res.append(file.path)
+	_close_multifile(res)
+
+# HACK 一律关闭。
+@warning_ignore("unused_parameter")
+func _on_file_system_renamed_file(path: String, to_path: String) -> void:
+	var res : PackedStringArray
+	for i in _files.size():
+		var file := _files[i]
+		if StrT.is_child_path(path, file.path):
+			res.append(file.path)
+	_close_multifile(res)
