@@ -1,0 +1,9 @@
+[title]描述[/title]
+
+注解由@开头，导出时忽视，用于改变编辑器行为。例如：[code]@list tag add my_tag[/code] 这样后续补全 Tag 时有 my_tag 选项。
+
+[b]注意：[/b]目前该功能并没有完善。
+
+[title]分类[/title]
+
+[file comment/list]控制补全数据 list[/file]

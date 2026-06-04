@@ -791,35 +791,46 @@ metadata/_custom_type_script = "uid://dbsguqbxsn3im"
 resource_name = "Edit"
 script/source = "extends FunctionEdit
 
-@export var _error_hint_label : Label
+## 错误背景颜色。
+@export var error_bgcolor := Color(\"e9330040\")
 
-func _errors_list_changed() -> void:
-	var line := find_has_error_command()
+func _on_error_list_changed() -> void:
+	clear_bgcolor()
+	for line in get_has_error_lines():
+		custom_set_line_bgcolor(line, error_bgcolor)
+
+func _ready() -> void:
+	super()
+
+
+"
+
+[sub_resource type="GDScript" id="GDScript_fwq2t"]
+script/source = "extends Button
+
+func _on_function_edit_error_list_changed() -> void:
+	var edit := EditManager.get_edit()
+	
+	var line := edit.find_has_error_command()
 	if line == -1:
-		_error_hint_label.set_text(\"\")
+		set_text(\"\")
 		return
 	
-	var command := get_command_element(line)
+	var command := edit.get_command_element(line)
 	var head_err : ElementError
 	var err_column := 0xFFFF_FFFF
 	for err in command.errors:
 		if err.column < err_column:
 			head_err = err
 			err_column = head_err.column
-	_error_hint_label.set_text(\"错误 (%d, %d) %s\" % [line + 1, head_err.column, head_err.string])
-
-func _ready() -> void:
-	super()
+	set_text(\"错误 (%d, %d) %s\" % [line + 1, head_err.column, head_err.string])
 "
-
-[sub_resource type="LabelSettings" id="LabelSettings_r0du0"]
-font_color = Color(1, 0, 0, 1)
 
 [sub_resource type="GDScript" id="GDScript_pusrq"]
 script/source = "extends Label
 
 func _get_function_edit() -> FunctionEdit:
-	return $\"../../../../FunctionEdit\"
+	return $\"../../../../../FunctionEdit\"
 
 func _ready() -> void:
 	await get_tree().process_frame
@@ -835,6 +846,38 @@ func _update() -> void:
 func show_position(pos : Vector2i) -> void:
 	text = \"%d : %d\" % [pos.x, pos.y + 1]
 
+"
+
+[sub_resource type="GDScript" id="GDScript_3tyvy"]
+script/source = "extends ErrorListContainer
+
+@onready var _base_control := get_parent() as Control
+
+func _on_error_hint_pressed() -> void:
+	_base_control.visible = not has_visible()
+	if has_visible():
+		update()
+
+## 更新一次。
+func update() -> void:
+	clear()
+	var edit := EditManager.get_edit()
+	for line in edit.get_has_error_lines():
+		var command := edit.get_command_element(line)
+		for error in command.errors:
+			add_error(line, error)
+
+func _on_goto(line: int, column: int) -> void:
+	var edit := EditManager.get_edit()
+	edit.set_caret_position(Vector2i(column, line))
+
+func _on_function_edit_error_list_changed() -> void:
+	if has_visible():
+		update()
+
+## 如果可见，返回 [code]true[/code]。
+func has_visible() -> bool:
+	return _base_control.visible
 "
 
 [sub_resource type="GDScript" id="GDScript_qyh5x"]
@@ -1044,9 +1087,10 @@ theme_override_constants/margin_right = 4
 layout_mode = 2
 script = ExtResource("1_w0n44")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Base/HSplitContainer" unique_id=557072463]
+[node name="VBoxContainer2" type="VSplitContainer" parent="Base/HSplitContainer" unique_id=1636243781]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 8
 
 [node name="FunctionEditFiler" type="Node" parent="Base/HSplitContainer/VBoxContainer2" unique_id=703145549]
 script = SubResource("GDScript_y67ap")
@@ -1054,7 +1098,7 @@ script = SubResource("GDScript_y67ap")
 [node name="FunctionEditConfiger" type="Node" parent="Base/HSplitContainer/VBoxContainer2" unique_id=85726311]
 script = SubResource("GDScript_4o8ox")
 
-[node name="FunctionEdit" type="CodeEdit" parent="Base/HSplitContainer/VBoxContainer2" unique_id=12574861 node_paths=PackedStringArray("_error_hint_label")]
+[node name="FunctionEdit" type="CodeEdit" parent="Base/HSplitContainer/VBoxContainer2" unique_id=12574861]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
@@ -1075,7 +1119,6 @@ indent_size = 8
 auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
 script = SubResource("GDScript_r0du0")
-_error_hint_label = NodePath("../MarginContainer2/MarginContainer/HBoxContainer/error_hint")
 metadata/_custom_type_script = "uid://qbixiwedac0a"
 
 [node name="MarginContainer2" type="MarginContainer" parent="Base/HSplitContainer/VBoxContainer2" unique_id=519901684]
@@ -1089,31 +1132,51 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/margin_right = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer" unique_id=475979752]
+[node name="VBoxContainer" type="VBoxContainer" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer" unique_id=1542517735]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/HBoxContainer" unique_id=87090644]
+[node name="HBoxContainer" type="HBoxContainer" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer" unique_id=475979752]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=87090644]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="ShowHideFileListButton" type="Button" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/HBoxContainer/MarginContainer" unique_id=1014233598]
+[node name="ShowHideFileListButton" type="Button" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=1014233598]
 layout_mode = 2
 text = " < "
 
-[node name="error_hint" type="Label" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/HBoxContainer" unique_id=1979650555]
+[node name="ErrorHint" type="Button" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1268823298]
 layout_mode = 2
-size_flags_horizontal = 0
-label_settings = SubResource("LabelSettings_r0du0")
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0, 0, 1)
+flat = true
+alignment = 0
+text_overrun_behavior = 5
+script = SubResource("GDScript_fwq2t")
 
-[node name="CaretPositionShower" type="Label" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/HBoxContainer" unique_id=1159462055]
+[node name="CaretPositionShower" type="Label" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1159462055]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 8
 theme_override_colors/font_color = Color(0.70848674, 0.70848674, 0.7084867, 1)
 text = "-1 : -1"
 script = SubResource("GDScript_pusrq")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer" unique_id=1460255201]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ErrorList" type="VBoxContainer" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer" unique_id=128172235]
+layout_mode = 2
+script = SubResource("GDScript_3tyvy")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=983930926]
 visible = false
@@ -1218,12 +1281,16 @@ dialog_close_on_escape = false
 [connection signal="closed" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_file_list_container_closed"]
 [connection signal="saved" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_file_list_container_saved"]
 [connection signal="selected_changed" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_file_list_container_selected_changed"]
-[connection signal="caret_changed" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/HBoxContainer/CaretPositionShower" method="_on_function_edit_caret_changed"]
+[connection signal="caret_changed" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/CaretPositionShower" method="_on_function_edit_caret_changed"]
+[connection signal="error_list_changed" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/FunctionEdit" method="_on_error_list_changed"]
+[connection signal="error_list_changed" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/ErrorHint" method="_on_function_edit_error_list_changed"]
+[connection signal="error_list_changed" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer/ErrorList" method="_on_function_edit_error_list_changed"]
 [connection signal="ready" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_function_edit_ready"]
 [connection signal="ready" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/FunctionEditConfiger" method="_on_function_edit_ready"]
 [connection signal="text_changed" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_function_edit_text_changed"]
-[connection signal="pressed" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/HBoxContainer/MarginContainer/ShowHideFileListButton" to="Base/HSplitContainer/FileList" method="_on_show_hide_file_list_button_pressed"]
-[connection signal="ready" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/HBoxContainer/error_hint" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/HBoxContainer/error_hint" method="set_text" binds= [""]]
+[connection signal="pressed" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ShowHideFileListButton" to="Base/HSplitContainer/FileList" method="_on_show_hide_file_list_button_pressed"]
+[connection signal="pressed" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/ErrorHint" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer/ErrorList" method="_on_error_hint_pressed"]
+[connection signal="goto" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer/ErrorList" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer/ErrorList" method="_on_goto"]
 [connection signal="timeout" from="AutoSaveingTimer" to="." method="_on_auto_saveing_timer_timeout"]
 [connection signal="reload_scene" from="EditSetting" to="." method="_on_edit_setting_reload_scene"]
 [connection signal="reload_project" from="ProjectSetting" to="." method="_on_project_setting_reload_project"]

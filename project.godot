@@ -12,7 +12,7 @@ config_version=5
 
 config/name="MCfun"
 config/description="MCfun 是一个为 Minecraft 玩家设计的智能指令编辑工具。它不仅是一个编辑器，更是一个完整的语法解析引擎——能够理解 Minecraft 指令的语法结构，实时提供补全建议，并高亮显示每条指令的各个部分。"
-config/version="0.9.3-alpha.0"
+config/version="0.9.4-alpha.0"
 run/main_scene="uid://cbhgotylj3fjg"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="uid://sv55didabwke"

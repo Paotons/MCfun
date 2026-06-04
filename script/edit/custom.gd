@@ -51,6 +51,8 @@ var _nearest_input_position : Dictionary[int, Vector2i]
 ## 连续退格最大忽略时间差。就是快速退格时不在尝试补全的灵敏度。
 @export var backspace_ignore_completion_max_delta := 200
 
+# 有背景色的行。
+var _has_bgcolor_line_ids : PackedInt32Array
 # 行的 id。
 var _line_ids : PackedInt32Array = [0]
 # 下一行的 id。
@@ -310,4 +312,44 @@ func _remove_edit_line(line : int) -> void:
 	var id := get_line_id(line)
 	_line_ids.remove_at(line)
 	line_removed.emit(line, id)
+	_has_bgcolor_line_ids.erase(id)
+#endregion
+
+#region 背景色。
+## 设置背景色。[br]
+## [b]注意：[/b] 如果使用 [method TextEdit.set_lin_background_color] 不会有记录。
+func custom_set_line_bgcolor(line : int, color := Color()) -> void:
+	var id := get_line_id(line)
+	var default := get_default_bgcolor()
+	set_line_background_color(line, color)
+	if color == default:
+		var index := _has_bgcolor_line_ids.find(id)
+		if index != -1:
+			_has_bgcolor_line_ids.remove_at(index)
+	else:
+		if not _has_bgcolor_line_ids.has(id):
+			_has_bgcolor_line_ids.append(id)
+## 返回背景色。等价 [method TextEdit.get_line_background_color]。
+func custom_get_line_bgcolor(line : int) -> Color:
+	return get_line_background_color(line)
+## 清空所有背景色。
+func clear_bgcolor() -> void:
+	var default := get_default_bgcolor()
+	for id in _has_bgcolor_line_ids:
+		var line := get_line_index(id)
+		set_line_background_color(line, default)
+	_has_bgcolor_line_ids.clear()
+## 如果指定行有背景色返回 [code]true[/code]。
+func has_line_bgcolor(line : int) -> bool:
+	return get_line_background_color(line) != Color()
+## 返回所有有背景色的行。
+func get_has_bgcolor_lines() -> PackedInt32Array:
+	var res : PackedInt32Array
+	res.resize(_has_bgcolor_line_ids.size())
+	for i in _has_bgcolor_line_ids.size():
+		res[i] = get_line_index(_has_bgcolor_line_ids[i])
+	return res
+## 返回默认编辑色。
+func get_default_bgcolor() -> Color:
+	return (get_theme_stylebox(&"normal") as StyleBoxFlat).bg_color
 #endregion

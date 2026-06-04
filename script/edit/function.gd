@@ -4,6 +4,9 @@ extends CustomCodeEdit
 ##
 ## 补全的插入有改动，如果 [code]display_text[/code] 为空，则显示 [code]insert_text[/code]。
 
+##错误列表发生改变。
+signal error_list_changed
+
 ## 默认双击映射。
 const DEFAULT_DOUBLE_INPUT_MAP : Dictionary[String, String] = {
 	" " : "\t", # 空格像缩进
@@ -19,7 +22,7 @@ const DEFAULT_DOUBLE_INPUT_MAP : Dictionary[String, String] = {
 }
 
 ## 指令数据。
-var command_elements : Dictionary[int, BaseCommandElement]
+var _command_elements : Dictionary[int, BaseCommandElement]
 ## 语法。
 var grammar : Grammar
 
@@ -227,11 +230,12 @@ func set_highlight_color(color_name : StringName, color : Color) -> void:
 ## 返回指定行数的指令的数据。
 func set_command_element(line : int, element : BaseCommandElement) -> void:
 	var id := get_line_id(line)
-	command_elements[id] = element
-	_errors_list_changed()
+	_command_elements[id] = element
+	# HACK 懒，并没有做错误变化检测。
+	error_list_changed.emit()
 ## 返回指定行行数的指令的数据。
 func get_command_element(line : int) -> BaseCommandElement:
-	return command_elements.get(get_line_id(line))
+	return _command_elements.get(get_line_id(line))
 ## 返回从 [param from_line] 到 [param to_line] 中最近有错误的指令。
 func find_has_error_command(from_line := 0, to_line := -1) -> int:
 	if to_line == -1:
@@ -247,6 +251,15 @@ func find_has_error_command(from_line := 0, to_line := -1) -> int:
 		else:
 			i += 1
 	return -1
+## 返回指定范围指令有错误的行。
+func get_has_error_lines(from := 0, to := -1) -> PackedInt32Array:
+	var res : PackedInt32Array
+	to = _command_elements.size() if to == -1 else to
+	for i in range(from, to):
+		var commamd := get_command_element(i)
+		if commamd != null and commamd.has_error():
+			res.append(i)
+	return res
 ## 返回从 [param line] 行， [param column] 列向前 [param lenght] 的指令列表中 [param id] 所有的字符串。
 func get_command_cmd_list(id : String, line : int, column : int, length := 501) -> PackedStringArray:
 	var init_ele := get_command_element(line)
@@ -267,20 +280,15 @@ func get_command_cmd_list(id : String, line : int, column : int, length := 501) 
 
 ## 设置整个数据，如果直接用 [method set_text] 会导致行 ID 最终失败。
 func set_function_text(value : String) -> void:
-	command_elements.clear()
+	_command_elements.clear()
 	var count = value.count("\n") + 1
 	reset_line_ids(count)
 	clear_hint()
 	set_text(value)
 	clear_undo_history()
-## 返回
-
-## 虚函数，错误列表发生改变调用。
-func _errors_list_changed() -> void:
-	return
 
 # HACK 目前还不知道有没有用。
 func _on_line_added(_line : int, _line_id : int) -> void:
 	pass
 func _on_line_removed(_line : int, line_id : int) -> void:
-	command_elements.erase(line_id)
+	_command_elements.erase(line_id)
