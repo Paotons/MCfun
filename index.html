@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>MCfun — 移动端Minecraft指令IDE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background: #0a0e1a;
+            color: #e4e6f0;
+            line-height: 1.5;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 880px;
+            margin: 0 auto;
+        }
+
+        /* 头部区域 */
+        .hero {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            border-bottom: 1px solid #1f2538;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #10b981;
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, #6c8eff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #8d99c9;
+            margin-top: 0.5rem;
+        }
+
+        /* 统计卡片 */
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: #111827;
+            padding: 1rem 1.8rem;
+            border-radius: 24px;
+            text-align: center;
+            border: 1px solid #1f2a44;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #6c8eff;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #8d99c9;
+        }
+
+        /* 章节 */
+        section {
+            margin: 3rem 0;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.3rem;
+            border-bottom: 2px solid #1f2a44;
+            display: inline-block;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature {
+            background: #0f1422;
+            padding: 1rem 1.2rem;
+            border-radius: 16px;
+            border-left: 3px solid #6c8eff;
+        }
+
+        .feature strong {
+            color: #6c8eff;
+        }
+
+        .code-block {
+            background: #0c0f18;
+            padding: 1rem;
+            border-radius: 14px;
+            overflow-x: auto;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.8rem;
+            border: 1px solid #1f2a44;
+            margin: 1rem 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #6c8eff;
+            color: #fff;
+            font-weight: 600;
+            padding: 0.8rem 1.6rem;
+            border-radius: 40px;
+            text-decoration: none;
+            margin-top: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: #5a78e0;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #6c8eff;
+            color: #6c8eff;
+        }
+
+        .footer {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid #1f2538;
+            font-size: 0.8rem;
+            color: #6c6f8a;
+        }
+
+        a {
+            color: #8d99ff;
+            text-decoration: none;
+        }
+
+        @media (max-width: 540px) {
+            h1 { font-size: 2.2rem; }
+            .stats { gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <div class="badge">✨ 专为移动端设计</div>
+        <h1>MCfun</h1>
+        <div class="tagline">Minecraft 指令 IDE — 在手机上编写、管理、导出行为包</div>
+        <div class="stats">
+            <div class="stat-card"><div class="stat-number">131</div><div class="stat-label">脚本文件</div></div>
+            <div class="stat-card"><div class="stat-number">~11k</div><div class="stat-label">代码行数</div></div>
+            <div class="stat-card"><div class="stat-number">25+</div><div class="stat-label">Element类</div></div>
+            <div class="stat-card"><div class="stat-number">beta 1.21</div><div class="stat-label">全指令支持</div></div>
+        </div>
+    </div>
+
+    <section>
+        <h2>📦 项目概览</h2>
+        <p style="margin: 0.8rem 0 1rem;">MCfun 是一个运行在移动端的完整 Minecraft 指令开发环境。从项目创建到智能编辑、语法解析、行为包导出，全流程闭环。</p>
+        <div class="code-block">
+            📁 脚本文件: 131 个<br>
+            📝 代码总量: ~11000 行<br>
+            🧩 场景文件: 14 个<br>
+            🔧 全局单例: 3 个
+        </div>
+    </section>
+
+    <section>
+        <h2>⚙️ 指令类型体系</h2>
+        <div class="feature-grid">
+            <div class="feature"><strong>NORMAL</strong><br>普通 Minecraft 指令</div>
+            <div class="feature"><strong>NATIVE (&)</strong><br>本地宏指令，编译时展开<br><code style="font-size:0.7rem;">&tp · &fill · &scoreboard</code></div>
+            <div class="feature"><strong>COMMENT (@)</strong><br>注解指令，元编程支持<br><code style="font-size:0.7rem;">@list</code></div>
+            <div class="feature"><strong>HELP (?)</strong><br>帮助指令</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>🧩 Element 继承树（25+ 类）</h2>
+        <div class="code-block" style="font-size:0.7rem;">
+            Element<br>
+            ├─ BoolElement · IntElement · FloatElement · StringElement · WordElement<br>
+            ├─ CoordElement · SelectorElement · SpaceItemElement<br>
+            ├─ BacketElement → ParamBacket · EqualParamBacket · ArrayBacket<br>
+            └─ MultiParamElement → CoordsElement · PointPathElement
+        </div>
+    </section>
+
+    <section>
+        <h2>🎯 核心亮点</h2>
+        <div class="feature-grid">
+            <div class="feature"><strong>🔥 语法热加载</strong><br>JSON 定义指令规则，编译后缓存，支持版本切换</div>
+            <div class="feature"><strong>🧠 智能补全</strong><br>7 种插入模式 + 权重排序算法</div>
+            <div class="feature"><strong>📱 移动端优化</strong><br>双击映射（空格→Tab, s→§, .→~），告别繁琐输入</div>
+            <div class="feature"><strong>📦 行为包导出</strong><br>一键打包 ZIP，直接导入 Minecraft</div>
+            <div class="feature"><strong>🔁 行ID系统</strong><br>撤销/重做时，光标位置可追溯</div>
+            <div class="feature"><strong>🧵 多线程加载</strong><br>Grammar 在子线程编译，主线程流畅显示进度</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>📐 整体架构（六层）</h2>
+        <div class="code-block" style="font-size:0.7rem;">
+            ┌─ 应用入口层 ─────────────────┐<br>
+            │  project.tscn ↔ edit.tscn      │<br>
+            ├─ 全局单例层 ─────────────────┤<br>
+            │  ProjectManager · FileSystem · EditManager<br>
+            ├─ 编辑器核心层 ─────────────────┤<br>
+            │  CustomCodeEdit · FunctionEdit · 语法高亮<br>
+            ├─ 指令解析引擎层 ─────────────────┤<br>
+            │  BaseCommandElement · CommandElementCreater<br>
+            ├─ 语法定义层（可热加载）─────────────┤<br>
+            │  Grammar · GrammarCompiler · JSON → .compiled<br>
+            └─ 项目与导出层 ─────────────────┘<br>
+               Project · ProjectExport → ZIP → 行为包
+        </div>
+    </section>
+
+    <section>
+        <h2>🛠️ 技术栈</h2>
+        <div class="feature-grid">
+            <div class="feature"><strong>引擎</strong><br>Godot 4.x</div>
+            <div class="feature"><strong>语言</strong><br>GDScript</div>
+            <div class="feature"><strong>数据存储</strong><br>ConfigFile / JSON</div>
+            <div class="feature"><strong>压缩导出</strong><br>ZIPPacker</div>
+            <div class="feature"><strong>多线程</strong><br>Thread + Mutex</div>
+        </div>
+    </section>
+
+    <section style="text-align: center;">
+        <h2>🚀 立即开始</h2>
+        <p style="margin: 1rem 0;">项目已开源，欢迎体验、使用、贡献。</p>
+        <a href="https://github.com/Paotons/MCfun" class="btn">GitHub 仓库</a>
+        <a href="#" class="btn btn-outline" style="margin-left: 0.8rem;">下载行为包</a>
+        <div style="margin-top: 2rem;">
+            <p style="font-size:0.85rem;">MCfun 完整支持 Minecraft beta 1.21 所有指令<br>从贪吃蛇到完整 IDE — 一部手机，一个人，一个项目。</p>
+        </div>
+    </section>
+
+    <div class="footer">
+        <p>© 2026 Paotons · MCfun 是一个非官方 Minecraft 开发工具，不属于 Mojang 或微软。</p>
+        <p>📧 <a href="mailto:paotons@gmail.com">paotons@gmail.com</a> · 🧩 <a href="https://github.com/Paotons">GitHub @Paotons</a></p>
+    </div>
+</div>
+</body>
+</html>
