@@ -4,8 +4,8 @@ extends BaseStringElement
 
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return {get_valid_start() : {"color" : edit.color_string}, get_valid_end() : {"color" : edit.color_default}}
-func _get_column_code_completion_data(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
-	var data : FunctionCompletionData = ElementRuleCMD.execute_completion(column, rule, command) if rule.has_cmd() else FunctionCompletionData.new()
+func _get_column_code_completion_data(_column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
+	var data : FunctionCompletionData = ElementRuleCMD.execute_completion(string_offset, rule, command) if rule.has_cmd() else FunctionCompletionData.new()
 	data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
 	data.hint_string = "<%s : word>" % [rule.get_description()]
 	return data

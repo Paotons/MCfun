@@ -14,6 +14,15 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	if has_value():
 		result.merge({get_value_start() : {"color" : edit.color_number}, get_value_end() : {"color" : edit.color_default}})
 	return result
+static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
+	data.hint_string = "<%s : scope>" % rule.get_description()
+	return data
+func _get_column_code_completion_data(_column : int, rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
+	data.hint_string = "<%s : scope>" % rule.get_description()
+	return data
+
 
 static var _scope_searched_regex := RegEx.create_from_string(r"^(?<start> *)(?=\d|.*\d)(?<min>[+\-]?\d+)?(?<flag>\.+)?(?<max>[+\-]?\d+)?")
 static func create(text : String, offset : int) -> ScopeElement:

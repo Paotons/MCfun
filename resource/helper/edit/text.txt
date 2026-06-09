@@ -1,1 +1,3 @@
+[file edit/setting]编辑器界面[/file]
 [file edit/setting]编辑器设置[/file]
+[file edit/error]编辑器错误提示[/file]

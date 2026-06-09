@@ -1,0 +1,6 @@
+{
+	"description" : "撤销一名玩家的操作员状态",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true, "description" : "玩家"},
+	]
+}

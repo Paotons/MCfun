@@ -7,3 +7,5 @@
 
 [file native/tp]传送 tp[/file]
 [file native/scoreboard]分数/计分版 scoreboard[/file]
+[file native/fill]填充 fill[/file]
+[file native/string]字符串 string[/file]

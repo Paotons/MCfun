@@ -1,0 +1,7 @@
+{
+	"type" : "string",
+	"data" : {
+		"lock_in_slot" : "固定槽位",
+		"lock_in_inventory" : "固定背包"
+	}
+}

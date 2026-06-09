@@ -1,0 +1,7 @@
+{
+	"description" : "触发脚本事件",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "string", "is_end" : true, "cmd" : ["completion list script_event", "list script_event add self"], "description" : "事件名称"},
+		{"id" : 1, "extends" : 0, "type" : "string", "detail" : {"long" : true}, "description" : "参数"},
+	]
+}

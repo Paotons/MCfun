@@ -1,0 +1,10 @@
+{
+	"type" : "string",
+	"data" : {
+		"day" : "正午",
+		"sunset" : "日出",
+		"noon" : "下午",
+		"night" : "晚上",
+		"midnight" : "深夜"
+	},
+}

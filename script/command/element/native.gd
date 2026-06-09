@@ -71,6 +71,6 @@ func parse(values_data : NativeCommandElementParserValues) -> String:
 	var parser := NativeCommandElementParser.new()
 	
 	parser.value_datas = values_data
-	parser.commamd = self
+	parser.command = self
 	
 	return parser.parse()

@@ -1,0 +1,7 @@
+{
+	"type" : "array_backet",
+	"detail" : "is_same",
+	"data" : [
+		{"type" : "dictionary", "detail" : {"rule" : "t_show"}}
+	]
+}

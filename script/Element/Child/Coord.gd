@@ -14,6 +14,16 @@ enum CoordMode {
 
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return {get_valid_start() : {"color" : edit.color_number}, get_valid_end() : {"color" : edit.color_default}}
+static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
+	data.insert_texts.append_array(["~", "^"])
+	data.hint_string = "<%s : coord>" % rule.get_description()
+	return data
+func _get_column_code_completion_data(_column : int, rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
+	data.insert_texts.append_array(["~", "^"])
+	data.hint_string = "<%s : coord>" % rule.get_description()
+	return data
 
 static func create(text : String, offset : int) -> CoordElement:
 	var element := StringElement._create_string_element(CoordElement.new(), text, offset) as CoordElement

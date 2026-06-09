@@ -1,0 +1,7 @@
+{
+	"description" : "停止播放声音",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true, "description" : "目标"},
+		{"id" : 1, "extends" : 0, "type" : "point_path", "detail" : {"chapter" : "sound"}, "description" : "声音名称"}
+	]
+}

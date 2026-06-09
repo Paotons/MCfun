@@ -1,0 +1,14 @@
+{
+	"description" : "对指定实体实行伤害",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标实体"},
+		{"id" : 1, "extends" : 0, "type" : "int", "detail" : {"min" : 0}, "is_end" : true, "description" : "伤害数值"},
+		{"id" : 2, "extends" : 1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["damage_case"], "description" : "伤害类型"},
+		{"id" : 3, "extends" : 2, "goto" : [4], "type" : "option", "detail" : {"is_probing" : true}, "items" : [{"entity" : "攻击实体"}], "is_end" : false, "description" : "有攻击实体"},
+		{"goto" : 999},
+		{"id" : 4, "extends" : 3, "type" : "spaceitem", "detail" : {"chapter" : "entity"}, "is_end" : true, "description" : "攻击实体"},
+		{"goto" : 999},
+		
+		{"id" : 999},
+	]
+}

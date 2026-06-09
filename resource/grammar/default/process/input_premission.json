@@ -1,0 +1,18 @@
+{
+	"description" : "设置玩家输入权限",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标对象"},
+		{"id" : 1, "extends" : 0, "goto" : [2, 4], "type" : "option", "items" : [{"set" : "设置"}, {"query" : "查询"}], "description" : "操作名称"},
+		{"goto" : 999},
+		
+		{"id" : 2, "extends" : 1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["input_premission"], "description" : "权限名称"},
+		{"id" : 3, "extends" : 2, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["input_premission_state"], "is_end" : true, "description" : "权限状态"},
+		{"goto" : 999},
+		
+		{"id" : 4, "extends" : 1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["input_premission"], "is_end" : true, "description" : "权限名称"},
+		{"id" : 5, "extends" : 4, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["input_premission_state"], "description" : "权限状态"},
+		{"goto" : 999},
+		
+		{"id" : 999},
+	]
+}

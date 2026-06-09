@@ -1,0 +1,16 @@
+{
+	"type" : "string",
+	"data" : {
+		"movement": "移动，整体",
+		"camera": "视角转动",
+		"jump": "跳跃/向上飞",
+		"sneak": "潜行/向下飞",
+		"lateral_movement": "前后左右移动",
+		"move_forward": "前进",
+		"move_backward": "后退",
+		"move_left": "左移",
+		"move_right": "右移",
+		"mount": "骑乘",
+		"dismount": "脱离骑乘"
+	}
+}

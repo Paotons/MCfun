@@ -1,0 +1,10 @@
+{
+	"type": "string",
+	"data": {
+		"commandModificationBlockLimit": "命令修改方块限制",
+		"maxCommandChainLength": "命令链最大长度",
+		"maxEntityCramming": "最大实体挤压数",
+		"randomTickSpeed": "随机刻速度",
+		"spawnRadius": "重生半径"
+	}
+}

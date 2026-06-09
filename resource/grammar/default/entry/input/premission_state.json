@@ -1,0 +1,7 @@
+{
+	"type" : "string",
+	"data" : {
+		"enabled" : "启用",
+		"disabled" : "禁用"
+	}
+}

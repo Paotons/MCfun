@@ -1,0 +1,7 @@
+{
+	"description" : "显示一条关于自己的消息",
+	"data" : [
+		{"id" : 0, "is_end" : true},
+		{"id" : 1, "type" : "string", "detail" : {"long" : true}, "description" : "消息"},
+	]
+}

@@ -13,6 +13,8 @@ class CMD extends GrammarCompiler:
 		LIST,
 		## 补全
 		COMPLETION,
+		## 期望。
+		EXPECTATION,
 		## 最大。
 		MAX,
 	}
@@ -54,6 +56,22 @@ class _Completion extends CMD:
 		compiled_result = [Head.COMPLETION, CompletionMode.LIST, result.get_string("list_name")]
 		_set_is_valid(true)
 
+class _Expectation extends CMD:
+	static var compiler_regex := RegEx.create_from_string(r"^ *expectation clear *$")
+	
+	enum ExpectationMode {
+		# 清空。
+		CLEAR,
+	}
+	
+	func _compile(data : Variant) -> void:
+		var from : String = data
+		var result := compiler_regex.search(from)
+		if result == null:
+			return
+		
+		compiled_result = [Head.EXPECTATION, ExpectationMode.CLEAR]
+		_set_is_valid(true)
 ## 进程数据。
 var process_data : Dictionary
 ## 解析。
@@ -78,6 +96,7 @@ func _compile_string(string : String) -> bool:
 		match i:
 			CMD.Head.LIST: obj = _List.new()
 			CMD.Head.COMPLETION: obj = _Completion.new()
+			CMD.Head.EXPECTATION: obj = _Expectation.new()
 		
 		obj.compile(string)
 		if not obj.is_valid():

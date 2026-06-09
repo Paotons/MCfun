@@ -40,7 +40,7 @@ static func create(text : String, offset : int, rule : ElementRule = null) -> In
 		element.key_end = element.value_start
 		
 		var value := int_str.to_int()
-		if rule != null and not (rule.get_int_min() <= value and value < rule.get_int_max()):
+		if rule != null and not (rule.get_int_min() <= value and value <= rule.get_int_max()):
 			element.create_error(element.key_start + offset, "Range is %d~%d, but is %d." % [rule.get_int_min(), rule.get_int_max(), value])
 		
 		element.is_faild = false
@@ -56,6 +56,11 @@ static func get_precast_code_completion_data(_column : int, rule : ElementRule, 
 func get_column_code_completion_data(_column : int, rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
 	var data := FunctionCompletionData.new()
 	data.hint_string = "<%s : int>" % [rule.get_description()]
+	if rule.has_detail():
+		var suffixs := rule.get_suffixs()
+		if suffixs.has(""):
+			suffixs.erase("")
+		data.insert_texts.append_array(suffixs)
 	return data
 
 ## 如果有后缀，返回 [code]true[/code]。

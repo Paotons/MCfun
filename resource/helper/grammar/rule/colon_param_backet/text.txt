@@ -1,0 +1,11 @@
+[title]描述[/title]
+
+冒号参数括号，类似JSON。
+
+[title]数据[/title]
+
+[code] "data" : {
+	"a" : {...},
+	...
+}[/code]
+为参数的头和其对应的元素。

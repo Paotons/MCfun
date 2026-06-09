@@ -2,6 +2,8 @@
 
 用于列表 [file grammar/entry]语法>>列表[/file] 表示路径的分类。
 
+并允许行使用 [code]{"type" : "file", "file" : "path"}[/code] 加载其他文件都内容，作为数据。例如：[code]"cat" : {"type" : "file", "file" : "entry/mob/cat.json"}[/code]
+
 [title]V1[/title]
 
 表示 [code]playsound[/code] 可以表示为：
@@ -19,4 +21,23 @@
 }[/code]
 这样就可以表示为 [code]mob.cat mob.cat.hit mob.cat.deat[/code] 了。
 
-[b]data:[/b] 表示无限嵌套，可以一直嵌套下去。其中 [code]false[/code] 用于占位，可能后续会加入其他功能。
+[b]data:[/b] 表示无限嵌套，可以一直嵌套下去。其中 [code]false[/code] 用于占位。
+
+[title]V1[/title]
+
+表示 [code]playsound[/code] 可以表示为：
+[code]{
+	"type" : "path",
+	"data" : {
+		"mob" : {
+			"cat" : {
+				"" : "猫",
+				"hit" : "猫受伤",
+				"dead" : "猫死亡"
+			}
+		}
+	}
+}[/code]
+这样就可以表示为 [code]mob.cat mob.cat.hit mob.cat.deat[/code] 了，并且伴随着相应的提示词。
+
+[b]data:[/b] 表示无限嵌套，可以一直嵌套下去。

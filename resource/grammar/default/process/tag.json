@@ -1,0 +1,17 @@
+{
+	"description" : "管理储存在实体的标签",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标对象"},
+		{"id" : 1, "extends" : 0, "goto" : [2, 3, 4], "type" : "option", "items" : ["add", "remove", "list"], "description" : "操作模式"},
+		{"goto" : 999},
+		
+		{"id" : 2, "extends" : 1, "type" : "string", "is_end" : true, "cmd" : ["list tag add self"], "description" : "标签"},
+		{"goto" : 999},
+		{"id" : 3, "extends" : 1, "type" : "word", "is_end" : true, "cmd" : ["completion list tag"], "description" : "标签"},
+		{"goto" : 999},
+		{"id" : 4, "extends" : 1, "is_end" : true},
+		{"goto" : 999},
+		
+		{"id" : 999}
+	]
+}

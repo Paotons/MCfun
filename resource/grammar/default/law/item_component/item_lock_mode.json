@@ -1,0 +1,6 @@
+{
+	"type" : "param_backet",
+	"data" : [
+		{"type" : "option", "detail" : {"using_entry" : true}, "items" : ["item_lock_mode"]}
+	]
+}

@@ -1,0 +1,19 @@
+{
+	"description" : "解锁玩家配方书中的配方",
+	"data" : [
+		{"id" : 0, "extends" : -1, "goto" : [1, 4], "type" : "option", "items" : [{"give" : "解锁"}, {"take" : "上锁"}], "description" : "操作模式"},
+		{"goto" : 999},
+		
+		{"id" : 1, "extends" : 0, "type" : "selector", "description" : "目标对象"},
+		{"id" : 2, "extends" : 1, "goto" : [999], "type" : "option", "items" : [{"*" : "使用全部"}], "is_end" : true, "description" : "使用全部"},
+		{"id" : 3, "extends" : 1, "type" : "spaceitem", "detail" : {"chapter" : "item"}, "is_end" : true, "description" : "配方名称"},
+		{"goto" : 999},
+		
+		{"id" : 4, "extends" : 0, "type" : "selector", "description" : "目标对象"},
+		{"id" : 5, "extends" : 4, "goto" : [999], "type" : "option", "items" : [{"*" : "使用全部"}], "is_end" : true, "description" : "使用全部"},
+		{"id" : 6, "extends" : 4, "type" : "spaceitem", "detail" : {"chapter" : "item"}, "is_end" : true, "description" : "配方名称"},
+		{"goto" : 999},
+		
+		{"id" : 999},
+	]
+}

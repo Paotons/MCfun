@@ -58,7 +58,7 @@ static func create(text : String, offset : int, rule : ElementRule = null) -> Po
 		element.create_error(element.get_valid_end(), "Cant end with \".\".")
 	
 	var chapter := rule.get_chapter() as GrammarPathChapter
-	if not chapter.has_path(path):
+	if chapter != null and not chapter.has_path(path):
 		element.create_error(offset, "Not has the path.")
 	return element
 

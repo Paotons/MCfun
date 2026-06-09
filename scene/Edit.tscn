@@ -43,6 +43,8 @@ func _get_file_list_container_base_control() -> MarginContainer:
 	return $\"../Base/HSplitContainer/FileList\"
 func _get_split_container() -> HSplitContainer:
 	return $\"../Base/HSplitContainer\"
+func _get_split_container2() -> HSplitContainer:
+		return $\"../Base/HSplitContainer/VBoxContainer2\"
 func _get_export_setting_window() -> ProjectExportSettingWindow:
 	return $\"../ProjectExportSetting\"
 func _get_error_option_window() -> AcceptDialog:
@@ -165,9 +167,11 @@ func _thread_edit_grammar(_config : ConfigFile) -> bool:
 
 func _thread_edit_split(config : ConfigFile) -> void:
 	var offset_1 : int = config.get_value(\"Split\", \"1\", 50)
+	var offset_2 : int = config.get_value(\"Split\", \"2\", 30)
 	
 	(func() -> void:
 		_get_split_container().split_offset = offset_1
+		_get_split_container2().split_offset = offset_2
 	).call_deferred()
 func _thread_edit_file_list(config : ConfigFile) -> void:
 	const SELECTOR := \"FileList\"
@@ -237,6 +241,8 @@ func _get_file_list_container_base_control() -> MarginContainer:
 	return $\"../Base/HSplitContainer/FileList\"
 func _get_split_container() -> HSplitContainer:
 	return $\"../Base/HSplitContainer\"
+func _get_split_container2() -> HSplitContainer:
+		return $\"../Base/HSplitContainer/VBoxContainer2\"
 func _get_export_setting_window() -> ProjectExportSettingWindow:
 	return $\"../ProjectExportSetting\"
 
@@ -258,6 +264,7 @@ func save_scene() -> void:
 
 func _save_split(config : ConfigFile) -> void:
 	config.set_value(\"Split\", \"1\", _get_split_container().split_offset)
+	config.set_value(\"Split\", \"2\", _get_split_container2().split_offset)
 func _save_file_list(config : ConfigFile) -> void:
 	var list := _get_file_list_container()
 	config.set_value(\"FileList\", \"file_paths\", list.get_files())
@@ -1171,6 +1178,7 @@ script = SubResource("GDScript_pusrq")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer" unique_id=1460255201]
 visible = false
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 3
 

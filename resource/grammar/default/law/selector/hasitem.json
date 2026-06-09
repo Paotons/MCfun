@@ -1,0 +1,10 @@
+{
+	"type" : "equal_param_backet",
+	"data" : {
+		"item" : {"type" : "spaceitem", "detail" : {"chapter" : "item"}, "description" : "物品"},
+		"quantity" : {"type" : "int", "description" : "数量"},
+		"location" : {"type" : "point_path", "detail" : "slot_entity", "description" : "槽位名称"},
+		"slot" : {"type" : "int", "description" : "槽位序列"},
+		"data" : {"type" : "int", "description" : "数据组"},
+	}
+}

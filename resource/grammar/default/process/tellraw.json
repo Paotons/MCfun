@@ -1,0 +1,7 @@
+{
+	"description" : "向其他玩家发送JSON消息",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标"},
+		{"id" : 1, "extends" : 0, "type" : "dictionary", "is_end" : true, "detail" : {"rule" : "t_show"}}
+	]
+}

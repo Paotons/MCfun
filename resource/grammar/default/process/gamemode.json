@@ -1,0 +1,14 @@
+{
+	"description" : "设置玩家的游戏模式",
+	"data" : [
+		{"id" : 0, "extends" : -1, "goto" : 2, "type" : "int", "is_end" : true, "description" : "模式ID"},
+		{"id" : 1, "extends" : -1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["gamemode"], "is_end" : true, "description" : "模式名称"},
+		{"extends" : 1, "goto" : 2, "cmd" : ["expectation clear"]},
+		{"goto" : 999},
+		
+		{"id" : 2, "type" : "selector", "description" : "目标对象"},
+		{"goto" : 999},
+		
+		{"id" : 999},
+	]
+}

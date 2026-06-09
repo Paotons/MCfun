@@ -8,17 +8,16 @@
 	"tp": {
 		"description": "传送实体",
 		"data": [
-			{"id": 0, "extends": -1, "type": "selector", "dscription": "目标"},
-			{"id": 1, "extends": 0, "goto": [2], "type": "option", "items": [{"score": "通过分数"}]},
-			
+			{"id": 0, "extends": -1, "type": "selector", "dscription": "目标对象"},
+			{"id": 1, "extends": 0, "goto": [2], "type": "option", "items": [{"score": "通过分数"}], "description" : "操作模式"},
 			{"goto": 999},
-			{"id": 2, "extends": 1, "type": "option", "items": ["x", "y", "z", "xy", "xz", "yz", "xyz"]},
-			{"id": 3, "extends": 2, "type": "selector", "description": "计分版实体"},
-			{"id": 4, "extends": 3, "type": "word", "is_end": true, "description": "计分版", "cmd": ["completion list scoreboard"]},
-			{"id": 5, "extends": 4, "type": "option", "items": [{"to": "到位置"}, {"offset": "偏移"}]},
-			{"id" : 6, "extends" : 5, "type" : "float", "description" : "缩放"},
-			{"id" : 7, "extends" : 6, "type" : "int", "description" : "迭代次数"},
 			
+			{"id": 2, "extends": 1, "type": "option", "items": ["x", "y", "z", "xy", "xz", "yz", "xyz"], "description" : "轴"},
+			{"id": 3, "extends": 2, "type": "selector", "cmd" : ["completion list scoreboard_player"], "description": "计分版实体"},
+			{"id": 4, "extends": 3, "type": "word", "is_end": true, "cmd": ["completion list scoreboard_objective"], "description": "计分版"},
+			{"id": 5, "extends": 4, "type": "option", "items": [{"to": "到位置"}, {"offset": "偏移"}], "description" : "传送模式"},
+			{"id" : 6, "extends" : 5, "type" : "float", "description" : "缩放"},
+			{"id" : 7, "extends" : 6, "type" : "int", "detail" : {"min" : 0}, "description" : "迭代次数"},
 			{"goto" : 999},
 			
 			{"id": 999}
@@ -28,19 +27,18 @@
 	"scoreboard" : {
 		"description" : "管理计分版/分数",
 		"data" : [
-			{"id" : 0, "extends" : -1, "goto" : [1], "type" : "option", "items" : [{"players" : "分数"}]},
-			
+			{"id" : 0, "extends" : -1, "goto" : [1], "type" : "option", "items" : [{"players" : "分数"}], "description" : "操作类型"},
 			{"goto" : 999},
-			{"id" : 1, "extends" : 0, "goto" : [2], "type" : "option", "items" : [{"position" : "位置"}]},
 			
+			{"id" : 1, "extends" : 0, "goto" : [2], "type" : "option", "items" : [{"position" : "位置"}], "description" : "操作模式"},
 			{"goto" : 999},
+			
 			{"id" : 2, "extends" : 1, "type" : "selector", "description" : "参照实体"},
-			{"id" : 3, "extends" : 2, "type" : "option", "items" : ["x", "y", "z"]},
-			{"id" : 4, "extends" : 3, "type" : "selector", "description" : "分数对象"},
-			{"id" : 5, "extends" : 4, "type" : "word", "is_end" : true, "description" : "计分版", "cmd" : ["completion list scoreboard"]},
-			{"id" : 6, "extends" : 5, "type" : "option", "items" : [{"set" : "设置"}, {"offset" : "偏移"}]},
-			{"id" : 7, "extends" : 6, "type" : "int", "description" : "iter"},
-			
+			{"id" : 3, "extends" : 2, "type" : "option", "items" : ["x", "y", "z"], "description" : "轴"},
+			{"id" : 4, "extends" : 3, "type" : "selector", "cmd" : ["completion list scoreboard_player"], "description" : "分数对象"},
+			{"id" : 5, "extends" : 4, "type" : "word", "is_end" : true,  "cmd" : ["completion list scoreboard_objective"], "description" : "计分版"},
+			{"id" : 6, "extends" : 5, "type" : "option", "items" : [{"set" : "设置"}, {"offset" : "偏移"}], "description" : "加入模式"},
+			{"id" : 7, "extends" : 6, "type" : "int", "detail" : {"min" : 0}, "description" : "迭代次数"},
 			{"goto" : 999},
 			
 			{"id" : 999}
@@ -50,12 +48,15 @@
 	"fill" : {
 		"description" : "填充方块",
 		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "coords", "description" : "起始位置"},
-			{"id" : 1, "extends" : 0, "type" : "coords", "description" : "终点位置"},
-			{"id" : 2, "extends" : 1, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "is_end" : true, "description" : "方块名称"},
-			{"id" : 3, "extends" : 2, "goto" : [998, 998, 998, 998, 4], "type" : "option", "items" : [{"destroy" : "破坏"}, {"hollow" : "空心"}, {"keep" : "保持"}, {"outline" : "轮廓"}, {"replace" : "替换"}]},
+			{"id" : 0, "extends" : -1, "goto" : [1], "type" : "option", "items" : [{"default" : "默认"}]},
+			{"goto" : 999},
 			
-			{"id" : 4, "extends" : 3, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "description" : "替换的方块名称"},
+			{"id" : 1, "extends" : 0, "type" : "coords", "description" : "起始位置"},
+			{"id" : 2, "extends" : 1, "type" : "coords", "description" : "终点位置"},
+			{"id" : 3, "extends" : 2, "type" : "spaceitem", "detail" : {"chapter" : "block"}, "is_end" : true, "description" : "方块名称"},
+			{"id" : 4, "extends" : 3, "goto" : [998, 998, 998, 998, 4], "type" : "option", "items" : [{"destroy" : "破坏"}, {"hollow" : "空心"}, {"keep" : "保持"}, {"outline" : "轮廓"}, {"replace" : "替换"}]},
+			
+			{"id" : 5, "extends" : 4, "type" : "spaceitem", "detail" : {"chapter" : "block"}, "description" : "替换的方块名称"},
 			
 			{"id" : 998, "goto" : 999},
 			

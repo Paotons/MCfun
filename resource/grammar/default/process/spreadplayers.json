@@ -1,0 +1,10 @@
+{
+	"description" : "将实体传送到随机位置",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "coord", "description" : "X轴"},
+		{"id" : 1, "extends" : 0, "type" : "coord", "description" : "Z轴"},
+		{"id" : 2, "extends" : 1, "type" : "float", "detail" : {"min" : 0.0}, "description" : "分散距离"},
+		{"id" : 3, "extends" : 2, "type" : "float", "detail" : {"min" : 0.0}, "description" : "范围"},
+		{"id" : 4, "extends" : 3, "type" : "selector", "is_end" : true, "description" : "目标对象"},
+	]
+}

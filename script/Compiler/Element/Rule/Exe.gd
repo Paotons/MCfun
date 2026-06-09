@@ -94,18 +94,28 @@ class _Option extends _Element:
 		
 		var size := (compiled_result[META_ITEMS][_ITEMS_ITEMS] as Array).size()
 		if form.has("goto"):
-			if not _test_value_array_types(form["goto"], 1 << TYPE_INT | 1 << TYPE_FLOAT, "%s[goto]" % element, size):
+			var goto = form["goto"]
+			if not _test_value_type(goto, 1 << TYPE_INT | 1 << TYPE_FLOAT | 1 << TYPE_ARRAY):
 				return
 			
-			var result : PackedInt32Array
-			for i in form["goto"].size():
-				var goto := form["goto"][i] as int
-				var goto_i := id_to_index(goto)
-				if goto_i == -1:
-					errors.append("%s[goto][%d] is %d, but not has the id." % [element, i, goto])
+			if goto is Array:
+				if not _test_array_types(goto, 1 << TYPE_INT | 1 << TYPE_FLOAT, "%s[goto]" % element, size):
 					return
-				result.append(goto_i)
-			compiled_result[META_GOTO] = result
+				
+				var result : PackedInt32Array
+				for i in goto.size():
+					var goto_d := goto[i] as int
+					var goto_i := id_to_index(goto_d)
+					if goto_i == -1:
+						errors.append("%s[goto][%d] is %d, but not has the id." % [element, i, goto_d])
+						return
+					result.append(goto_i)
+				compiled_result[META_GOTO] = result
+			elif goto is int or goto is float:
+				var result : PackedInt32Array
+				result.resize(size)
+				result.fill(goto)
+				compiled_result[META_GOTO] = result
 		_set_is_valid(true)
 
 class _Nil extends _Element:

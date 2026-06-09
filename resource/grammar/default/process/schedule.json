@@ -1,0 +1,22 @@
+{
+	"description" : "安排一个执行动作",
+	"data" : [
+		{"id" : 0, "extends" : -1, "goto" : [1], "type" : "option", "items" : [{"on_area_loaded" : "区域加载结束"}], "description" : "运行事件"},
+		{"goto" : 999},
+		
+		{"id" : 1, "extends" : 0, "goto" : [4, 6], "type" : "option", "detail" : {"is_probing" : true}, "items" : [{"circle" : "圆"}, {"tickingarea" : "常加载区域"}], "description" : "样式"},
+		{"id" : 2, "extends" : 0, "type" : "coords", "description" : "起始位置"},
+		{"id" : 3, "extends" : 2, "goto" : 998, "type" : "coords", "description" : "结束位置"},
+		{"goto" : 999},
+		{"id" : 4, "extends" : 1, "type" : "coords", "description" : "圆心"},
+		{"id" : 5, "extends" : 4, "goto" : 998, "type" : "int", "detail" : {"min" : 0}, "description" : "半径"},
+		{"goto" : 999},
+		{"id" : 6, "extends" : 1, "goto" : 998, "type" : "word", "cmd" : ["completion list tickingarea"], "description" : "常加载区域名称"},
+		{"goto" : 999},
+		
+		{"id" : 998, "type" : "file_path", "detail" : {"extensions" : ["mcfun"], "using_extension" : false}, "is_end" : true, "description" : "函数名称"},
+		{"goto" : 999},
+		
+		{"id" : 999},
+	]
+}

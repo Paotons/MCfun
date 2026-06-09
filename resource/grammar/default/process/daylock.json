@@ -1,0 +1,7 @@
+{
+	"description" : "锁定和解锁昼夜更替",
+	"data" : [
+		{"id" : 0, "is_end" : true},
+		{"id" : 1, "type" : "bool", "description" : "开关"},
+	]
+}

@@ -159,13 +159,13 @@ static func create_from_rule(text : String, offset : int, rule : ElementRule) ->
 	var params : Array
 	
 	match value_type:
-		GrammarValue.Type.INT, GrammarValue.Type.OPTION, GrammarValue.Type.SELECTOR, GrammarValue.Type.POINT_PATH, GrammarValue.Type.FILE_PATH, GrammarValue.Type.STRING, GrammarValue.Type.RICH_STRING:
+		GrammarValue.Type.INT, GrammarValue.Type.FLOAT, GrammarValue.Type.OPTION, GrammarValue.Type.SELECTOR, GrammarValue.Type.POINT_PATH, GrammarValue.Type.FILE_PATH, GrammarValue.Type.STRING, GrammarValue.Type.RICH_STRING:
 			params = [rule]
 		_:
 			if GrammarValue.is_type_backet(value_type):
 				if rule.has_detail():
 					var result_rule := rule.get_rule()
-					element_type = BacketElementManager.type_to_element_type(result_rule.get_backet_type())
+					element_type = BacketElementManager.type_to_element_type(result_rule.get_backet_type()) if rule != null else Type.NIL
 					params = [GrammarValue.get_type_backet_start(value_type), GrammarValue.get_type_backet_end(value_type), result_rule]
 				else:
 					params = [GrammarValue.get_type_backet_start(value_type), GrammarValue.get_type_backet_end(value_type)]
@@ -180,7 +180,7 @@ static func _create_from_params(type : int, text : String, offset : int, params 
 		Type.INT:
 			return IntElement.create(text, offset, params[0])
 		Type.FLOAT:
-			return FloatElement.create(text, offset)
+			return FloatElement.create(text, offset, params[0])
 		Type.STRING:
 			return StringElement.create(text, offset, params[0])
 		
@@ -193,7 +193,7 @@ static func _create_from_params(type : int, text : String, offset : int, params 
 		Type.SPACEITEM:
 			return SpaceItemElement.create(text, offset)
 		Type.RICH_STRING:
-			return RichStringElement.create(text, offset)
+			return RichStringElement.create(text, offset, params[0])
 		Type.POINT_PATH:
 			return PointPathElement.create(text, offset, params[0])
 		Type.FILE_PATH:

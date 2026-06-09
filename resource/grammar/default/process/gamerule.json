@@ -1,0 +1,14 @@
+{
+	"description" : "设置或查询游戏规则",
+	"data" : [
+		{"id" : 0, "extends" : -1, "goto" : [1, 2], "type" : "option", "detail" : {"using_entry" : true}, "items" : ["gamerule_int", "gamerule_bool"], "is_end" : true, "description" : "规则名称"},
+		{"goto" : 999},
+		
+		{"id" : 1, "extends" : 0, "type" : "int", "description" : "数值"},
+		{"goto" : 999},
+		{"id" : 2, "extends" : 0, "type" : "bool", "description" : "开关"},
+		{"goto" : 999},
+		
+		{"id" : 999}
+	]
+}

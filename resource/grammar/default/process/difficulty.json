@@ -1,0 +1,8 @@
+{
+	"description" : "设置游戏难度",
+	"data" : [
+		{"ID" : 0, "extends" : -1, "type" : "int", "is_end" : true, "description" : "难度"},
+		{"id" : 1, "extends" : -1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["difficulty"], "is_end" : true, "description" : "难度"}
+	]
+}
+

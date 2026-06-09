@@ -1,0 +1,7 @@
+{
+	"type" : "string",
+	"data" : {
+		"positional" : "位置",
+		"rotational" : "方向"
+	}
+}

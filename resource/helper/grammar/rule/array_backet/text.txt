@@ -1,0 +1,14 @@
+[title]描述[/title]
+
+数组括号。
+
+[title]细节[/title]
+
+[code]"detail" : "is_same"[/code] 使用键，这个时候，数据只有一个值。
+
+以后可能会进行更改。
+
+[title]数据[/title]
+
+[code] "data" : [{...}][/code]
+其对应的元素。

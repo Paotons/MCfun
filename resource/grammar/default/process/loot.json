@@ -1,0 +1,43 @@
+{
+	"description" : "战利品管理",
+	"data" : [
+		{"id" : 0, "extends" : -1, "goto" : [1, 2, 3, 12], "type" : "option", "items" : [{"give" : "给予实体"}, {"insert" : "放入容器"}, {"replace" : "替换"}, {"spawn" : "生成掉落物"}], "description" : "操作模式"},
+		{"goto" : 999},
+		
+		{"id" : 1, "extends" : 0, "goto" : 13, "type" : "selector", "description" : "对象实体"},
+		{"goto" : 999},
+		{"id" : 2, "extends" : 0, "goto" : 13, "type" : "coords", "description" : "容器位置"},
+		{"goto" : 999},
+		{"id" : 3, "extends" : 0, "goto" : [4, 8], "type" : "option", "items" : [{"entity" : "实体"}, {"block" : "方块"}], "description" : "对象类型"},
+		{"goto" : 999},
+		{"id" : 4, "extends" : 3, "type" : "selector", "description" : "对象实体"},
+		{"id" : 5, "extends" : 4, "type" : "point_path", "detail" : {"chapter" : "slot_entity"}, "description" : "槽位名称"},
+		{"id" : 6, "extends" : 5, "type" : "int", "description" : "槽位序列"},
+		{"id" : 7, "extends" : 6, "goto" : 13, "type" : "int", "description" : "数量"},
+		{"extends" : 6, "goto" : 13, "cmd" : ["expectation clear"]},
+		{"goto" : 999},
+		{"id" : 8, "extends" : 3, "type" : "coords", "description" : "容器位置"},
+		{"id" : 9, "extends" : 8, "type" : "point_path", "detail" : {"chapter" : "slot_block"}, "description" : "槽位名称"},
+		{"id" : 10, "extends" : 9, "type" : "int", "description" : "槽位序列"},
+		{"id" : 11, "extends" : 10, "goto" : 13, "type" : "int", "description" : "数量"},
+		{"extends" : 10, "goto" : 13, "cmd" : ["expectation clear"]},
+		{"goto" : 999},
+		{"id" : 12, "extends" : 0, "goto" : 13, "type" : "coords", "description" : "生成位置"},
+		{"goto" : 999},
+		
+		{"id" : 13, "goto" : [14, 15], "type" : "option", "items" : [{"kill" : "杀死实体"}, {"loot" : "宝箱战利品"}], "description" : "战利品类型"},
+		{"goto" : 999},
+		{"id" : 14, "extends" : 13, "goto" : 16, "type" : "selector", "is_end" : true, "description" : "战利品实体"},
+		{"goto" : 999},
+		{"id" : 15, "extends" : 13, "goto" : 16, "type" : "spaceitem", "detail" : {"chapter" : "loot"}, "is_end" : true, "description" : "战利品名称"},
+		{"goto" : 999},
+		
+		{"id" : 16},
+		{"id" : 17, "extends" : 16, "type" : "option", "detail" : {"is_probing" : true}, "items" : [{"mainhand" : "主手"}, {"offhand" : "副手"}], "description" : "触发的手"},
+		{"extends" : 17, "goto" : 999},
+		{"id" : 18, "extends" : 16, "type" : "spaceitem", "detail" : {"chapter" : "item"}, "description" : "触发物品"},
+		{"goto" : 999},
+		
+		{"id" : 999},
+	]
+}

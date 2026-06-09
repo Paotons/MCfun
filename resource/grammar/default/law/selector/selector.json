@@ -3,14 +3,14 @@
 	"data" : {
 		"name" : {"type" : "rich_string"},
 		"tag" : {"type" : "word", "cmd" : ["completion list tag"]},
-		"type" : {"type" : "spaceitem", "detail" : "entity_name"},
+		"type" : {"type" : "spaceitem", "detail" : {"chapter" : "entity"}},
 		"hasitem" : {"type" : "dictionary", "detail" : "selector_hasitem"},
 		"score" : {"type" : "dictionary", "detail" : "selector_score"},
 		
-		"m" : {"type" : "option", "detial" : "using_entry", "items" : ["game_mode_name"]},
+		"m" : {"type" : "option", "detial" : "using_entry", "items" : ["gamemode"]},
 		
-		"r" : {"type" : "float"},
-		"rm" : {"type" : "float"},
+		"r" : {"type" : "float", "detail" : {"min" : 0.0}},
+		"rm" : {"type" : "float", "detail" : {"min" : 0.0}},
 		"c" : {"type" : "int"},
 		"l" : {"type" : "int"},
 		"lm" : {"type" : "int"},

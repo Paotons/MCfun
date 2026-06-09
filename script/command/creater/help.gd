@@ -25,6 +25,6 @@ func run_from_empty(text : String, process : CommandElementCreaterProcess) -> vo
 		command.create_error(offset, "Unvaild beginning.")
 	
 	var highlight := get_command()._highlight_data
-	highlight.merge({result.get_start("head") + offset : {"color" : process.edit.color_key_word}, result.get_end("head") + offset : {"color" : process.edit.color_default}})
+	highlight.merge({result.get_start("head") + offset : {"color" : process.edit.color_normal_command_head}, result.get_end("head") + offset : {"color" : process.edit.color_default}})
 	if result.get_start("child") != -1:
 		highlight.merge({result.get_start("child") + offset : {"color" : process.edit.color_option}, result.get_end("child") + offset : {"color" : process.edit.color_default}})

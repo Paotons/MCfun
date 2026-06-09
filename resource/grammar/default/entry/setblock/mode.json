@@ -1,0 +1,8 @@
+{
+	"type" : "string",
+	"data" : {
+		"destroy" : "破坏",
+		"replace" : "替换",
+		"keep" : "保持"
+	}
+}

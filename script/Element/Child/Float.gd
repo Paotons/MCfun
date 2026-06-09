@@ -4,7 +4,7 @@ extends BaseStringElement
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return {get_valid_start() : {"color" : edit.color_number}, get_valid_end() : {"color" : edit.color_default}}
 
-static func create(text : String, offset : int) -> FloatElement:
+static func create(text : String, offset : int, rule : ElementRule = null) -> FloatElement:
 	var element := FloatElement.new()
 	element.string_offset = offset
 	
@@ -15,12 +15,17 @@ static func create(text : String, offset : int) -> FloatElement:
 	
 	var valiad_str := result.get_valid_string()
 	if valiad_str.is_valid_float():
+		if rule != null:
+			var value := valiad_str.to_float()
+			if not (rule.get_float_min() <= value and value <= rule.get_float_max()):
+				element.create_error(element.valid_start + offset, "Range is %f~%f, but is %f." % [rule.get_float_min(), rule.get_float_max(), value])
+		
 		element.valid_start = result.valid_start
 		element.string = result.string
 		element.is_faild = false
 		return element
 	else:
-		element.create_error(offset, "String \"%element\" not is valid float." % [valiad_str])
+		element.create_error(offset, "String \"%s\" not is valid float." % [valiad_str])
 		return element
 
 static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:

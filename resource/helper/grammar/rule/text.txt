@@ -1,0 +1,22 @@
+[title]描述[/title]
+
+[file grammar/law]法规[/file] 的子元素，定义各种规则。
+
+[title]分类[/title]
+
+[file grammar/rule/equal_param_backet]等号参数 equal_param_backet[/file]
+[file grammar/rule/colon_param_backet]冒号参数 colon_param_backet[/file]
+[file grammar/rule/param_backet]参数括号 param_backet[/file]
+[file grammar/rule/array_backet]数组括号 array_backet[/file]
+
+[title]V1[/title]
+
+[code]"selsctor_body" : {
+	"type" : "equal_param_backet",
+	"detail" : ....
+	"data" : ...	
+}[/code]
+
+[b]type:[/b]定义类型。
+[b]detail:[/b]定义其细节。
+[b]data:[/b]定义其数据。

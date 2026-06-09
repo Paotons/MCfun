@@ -49,7 +49,7 @@ class _Option extends _Element:
 			return
 		
 		if not _try_dictionary_key(from, "%s[description]" % element, "description", META_DESCRIPTION, false,
-			_test_value_array_types.bind(1 << TYPE_STRING, "%s[description]" % element),
+			_test_value_type.bind(1 << TYPE_STRING, "%s[description]" % element),
 		):
 			return
 		_set_is_valid(true)
@@ -130,14 +130,16 @@ class _Detail extends _Element:
 	var value_type : int
 	
 	# 类型 : 默认值 --- 值
-	# Option : [false] --- [using_entry]
+	# option : [false, false] --- [using_entry, is_probing]
+	# coords : [false] --- [is_probing]
 	# dict, arr, quot : [""] --- [rule]
 	# spa_item, poi_path : [""] -- [chapter]
 	# fil_path : [["", true]] --- [extensions, using_extension]
 	# string, rich_string : [false] --- [long]
 	# selector : [false] --- [asterisk]
 	# command : [0xFFFFFFFF] ---- [types]
-	# int : [-0x7FFFFFFF, 0x7FFFFFFF, [""]] --- [min, max, "suffix"]
+	# int : [-0x7FFFFFFF, 0x7FFFFFFF, [""]] --- [min, max, suffix]
+	# float : [-inf, inf] --- [min, max]
 	
 	func _get_name() -> String:
 		return "%s[items]" % element
@@ -153,7 +155,7 @@ class _Detail extends _Element:
 	func _compile_v1(from : String) -> void:
 		match value_type:
 			GrammarValue.Type.OPTION:
-				compiled_result = [true] if from == "using_entry" else [false]
+				compiled_result = [from.find("using_entry") != -1, from.find("is_probing") != -1]
 			GrammarValue.Type.DICTIONARY, GrammarValue.Type.ARRAY, GrammarValue.Type.QUOTATION:
 				compiled_result = [from]
 			GrammarValue.Type.SPACEITEM, GrammarValue.Type.POINT_PATH:
@@ -185,10 +187,24 @@ class _Detail extends _Element:
 				if not _test_array_types(arr, 1 << TYPE_STRING, "%s[suffixs]" % _get_name()):
 					return
 				compiled_result = [int(from.get("min", -0x7FFFFFFF)), int(from.get("max", 0x7FFFFFFF)), arr]
+			GrammarValue.Type.FLOAT:
+				var value : Array
+				value.resize(3)
+				if from.has("min") and not _test_value_type(from["min"], 1 << TYPE_FLOAT, "%s[min]" % _get_name()):
+					return
+				if from.has("max") and not _test_value_type(from["max"], 1 << TYPE_FLOAT, "%s[max]" % _get_name()):
+					return
+				compiled_result = [int(from.get("min", -INF)), int(from.get("max", INF)),]
 			GrammarValue.Type.OPTION:
 				if from.has("using_entry") and not _test_value_type(from["using_entry"], 1 << TYPE_BOOL, "%s[using_entry]" % _get_name()):
 					return
-				compiled_result = [from.get("using_entry", false)]
+				if from.has("is_probing") and not _test_value_type(from["is_probing"], 1 << TYPE_BOOL, "%s[is_probing]" % _get_name()):
+					return
+				compiled_result = [from.get("using_entry", false), from.get("is_probing", false)]
+			GrammarValue.Type.COORDS:
+				if from.has("is_probing") and not _test_value_type(from["is_probing"], 1 << TYPE_BOOL, "%s[is_probing]" % _get_name()):
+					return
+				compiled_result = [from.get("is_probing", false)]
 			GrammarValue.Type.DICTIONARY, GrammarValue.Type.ARRAY, GrammarValue.Type.QUOTATION:
 				if from.has("rule") and not _test_value_type(from["rule"], 1 << TYPE_STRING, "%s[rule]" % _get_name()):
 					return
@@ -211,9 +227,9 @@ class _Detail extends _Element:
 					return
 				compiled_result = [from.get("long", false)]
 			GrammarValue.Type.SELECTOR:
-				if from.has("asterisk") and not _test_value_type(from["asterisk"], 1 << TYPE_BOOL, "%s[asterisk]" % _get_name()):
+				if from.has("using_asterisk") and not _test_value_type(from["using_asterisk"], 1 << TYPE_BOOL, "%s[using_asterisk]" % _get_name()):
 					return
-				compiled_result = [from.get("asterisk", false)]
+				compiled_result = [from.get("using_asterisk", false)]
 			GrammarValue.Type.COMMAND:
 				if from.has("types") and not _test_value_type(from["types"], 1 << TYPE_STRING, "%s[types]" % _get_name()):
 					return

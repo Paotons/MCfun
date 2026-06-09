@@ -1,0 +1,8 @@
+{
+	"type" : "string",
+	"data" : {
+		"belowname" : "昵称下",
+		"list" : "列表",
+		"sidebar" : "侧边栏"
+	}
+}

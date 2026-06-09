@@ -15,17 +15,27 @@ func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	if has_body():
 		result.merge(_body_backet.get_highlight(edit), true)
 	return result
-static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:
-	var data := EditManager.get_grammar_entry().get_selector_head_completion_data()
-	data.hint_string = "<%s : selector>" % [rule.get_description()]
+static func get_precast_code_completion_data(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
+	var data := FunctionCompletionData.new()
+	
+	var head := EditManager.get_grammar_entry().get_selector_head_completion_data()
+	head.hint_string = "<%s : selector>" % rule.get_description() if rule.has_description() else ""
+	data.add_data(head)
+	
+	if rule.has_cmd():
+		data.supple()
+		var sub := ElementRuleCMD.execute_completion(column, rule, command)
+		sub.fill_insert_mode(FunctionCompletionData.InsertMode.SELECTOR)
+		data.add_data(sub)
 	return data
 func _get_column_code_completion_data(column : int, rule : ElementRule, command : BaseCommandElement) -> FunctionCompletionData:
-	var data : FunctionCompletionData
+	var data := FunctionCompletionData.new()
 	
 	# 头部
 	if not is_valid_head():
-		data = EditManager.get_grammar_entry().get_selector_head_completion_data()
-		data.hint_string = "<%s : selector>" % [rule.get_description()]
+		var head := EditManager.get_grammar_entry().get_selector_head_completion_data()
+		head.hint_string = "<%s : selector>" % rule.get_description() if rule.has_description() else ""
+		data.add_data(head)
 	# 身体
 	elif not has_body():
 		if is_selector():
@@ -33,6 +43,12 @@ func _get_column_code_completion_data(column : int, rule : ElementRule, command 
 	else:
 		if _body_backet.has_column(column):
 			return _body_backet.get_column_code_completion_data(column, rule, command)
+	
+	if rule.has_cmd():
+		data.supple()
+		var sub := ElementRuleCMD.execute_completion(string_offset, rule, command)
+		sub.fill_insert_mode(FunctionCompletionData.InsertMode.SELECTOR)
+		data.add_data(sub)
 	return data
 
 static var _selector_search_regex := RegEx.create_from_string((r"^(?<start>\p{Z}*)(?<begin>@)(?<head>\p{L}+)?( *(?<body_begin>\[))?"))

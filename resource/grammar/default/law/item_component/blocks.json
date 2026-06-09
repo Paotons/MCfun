@@ -1,0 +1,6 @@
+{
+	"type" : "colon_param_backet",
+	"data" : {
+		"\"blocks\"" : {"type" : "array", "detail" : "blocks_quotation"},
+	}
+}

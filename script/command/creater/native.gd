@@ -37,7 +37,7 @@ func _do_head(text : String, process : CommandElementCreaterProcess) -> bool:
 	get_command().head_string = head
 	
 	if not process.grammar.has_head(head):
-		create_error(result.get_valid_start(), "Unfind get_command() \"%s\"." % [head])
+		create_error(result.get_valid_start(), "Not has head \"%s\"." % [head])
 		return false
 	
 	process.offset = result.get_valid_end()

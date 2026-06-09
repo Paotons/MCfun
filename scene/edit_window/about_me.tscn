@@ -9,6 +9,30 @@ func _ready() -> void:
 	texture = load(ProjectSettings.get_setting(\"application/config/icon\")) as Texture2D
 "
 
+[sub_resource type="GDScript" id="GDScript_7yhjt"]
+script/source = "extends Label
+
+var count := 0
+
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			count += 1
+			if 5 <= count and count < 10:
+				var v := remap(count, 5.0, 10.0, 1.0, 0.0)
+				add_theme_color_override(\"font_color\", Color(1.0, v, v))
+			
+			if count == 10:
+				text = \"知道了\"
+				await get_tree().create_timer(3.0).timeout
+				add_theme_color_override.call_deferred(\"font_color\", Color.WHITE)
+				set_text.call_deferred(\"F\")
+
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_j8lag"]
+font_size = 32
+
 [sub_resource type="GDScript" id="GDScript_e344j"]
 script/source = "@tool
 extends Label
@@ -57,10 +81,27 @@ texture = ExtResource("1_g0glm")
 expand_mode = 2
 script = SubResource("GDScript_lv77k")
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=795752185]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=1612783926]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=795752185]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "MCfun"
+text = "MC"
+
+[node name="Label2" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=961866406]
+layout_mode = 2
+mouse_filter = 0
+theme_override_font_sizes/font_size = 32
+text = "f"
+script = SubResource("GDScript_7yhjt")
+
+[node name="Label3" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1188857032]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "un"
+label_settings = SubResource("LabelSettings_j8lag")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=52784765]
 layout_mode = 2
@@ -68,7 +109,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=515419801]
 layout_mode = 2
-text = "v0.8.4-alpha.0"
+text = "v0.9.4-alpha.0"
 script = SubResource("GDScript_e344j")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1031317699]

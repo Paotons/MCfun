@@ -1,0 +1,10 @@
+{
+	"description" : "设置天气",
+	"data" : [
+		{"id" : 0, "extends" : -1, "goto" : [999], "type" : "option", "detail" : {"is_probing" : true}, "items" : [{"query" : "查询"}], "is_end" : true, "description" : "操作模式"},
+		{"id" : 1, "extends" : -1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["weather"], "is_end" : true, "description" : "天气"},
+		{"id" : 2, "extends" : 1, "type" : "int", "detail" : {"min" : 0}, "description" : "持续时间"},
+		
+		{"id" : 999},
+	]
+}

@@ -1,0 +1,6 @@
+{
+	"description" : "重新加载所有函数和脚本",
+	"data" : [
+		{"id" : 0, "extends" : -1, "is_end" : true}
+	]
+}

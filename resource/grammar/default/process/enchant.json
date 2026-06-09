@@ -1,0 +1,14 @@
+{
+	"description" : "为玩家手持物品附魔",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标"},
+		{"id" : 1, "extends" : 0, "goto" : 3, "type" : "int", "is_end" : true, "description" : "附魔ID"},
+		{"id" : 2, "extends" : 0, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["enchant"], "is_end" : true, "description" : "附魔名称"},
+		{"extends" : 2, "goto" : 3, "cmd" : ["expectation clear"]},
+		{"goto" : 999},
+		{"id" : 3, "type" : "int", "description" : "等级"},
+		{"goto" : 999},
+		
+		{"id" : 999},
+	]
+}

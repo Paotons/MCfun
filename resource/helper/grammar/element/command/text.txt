@@ -13,3 +13,4 @@
 [b]help:[/b] 帮助指令， Minecraft 中就是问号开头的指令。
 [b]annotation:[/b] 注释，井号开头。
 [b]native:[/b] 本地指令，和号开头。
+[b]comment:[/b] 注解指令，艾特开头。

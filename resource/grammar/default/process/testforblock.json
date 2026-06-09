@@ -1,0 +1,8 @@
+{
+	"description" : "检测方块是否在指定位置",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "coords", "description" : "位置"},
+		{"id" : 1, "extends" : 0, "type" : "spaceitem", "detail" : {"chapter" : "block"}, "is_end" : true, "description" : "方块名称"},
+		{"id" : 2, "extends" : 1, "type" : "array", "description" : "方块数据组"}
+	]
+}

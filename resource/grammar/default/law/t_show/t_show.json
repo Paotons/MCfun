@@ -1,0 +1,11 @@
+{
+	"type" : "colon_param_backet",
+	"data" : {
+		"\"rawtext\"" : {"type" : "array", "detail" : {"rule" : "t_show_rawtext"}},
+		"\"selector\"" : {"type" : "quotation", "detail" : {"rule" : "selector_quotation"}},
+		"\"score\"" : {"type" : "dictionary", "detail" : {"rule" : "t_show_score"}},
+		"\"text\"" : {"type" : "quotation", "detail" : {"rule" : "rich_string_quotation"}},
+		"\"translate\"" : {"type" : "quotation", "detail" : {"rule" : "rich_string_quotation"}},
+		"\"with\"" : {"type" : "dictionary", "detail" : {"rule" : "t_show"}},
+	}
+}

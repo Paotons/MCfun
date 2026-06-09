@@ -2,6 +2,7 @@
 
 用于存储各种列表的文件。
 
+并允许行使用 [code]{"type" : "file", "file" : "path"}[/code] 加载其他文件都内容，作为数据。例如：[code]"item" : {"type" : "file", "file" : "entry/item.json"}[/code]
 
 [title]V1[/title]
 

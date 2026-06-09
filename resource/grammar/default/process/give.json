@@ -1,0 +1,10 @@
+{
+	"description" : "将物品给予玩家",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标对象"},
+		{"id" : 1, "extends" : 0, "type" : "spaceitem", "detail" : {"chapter" : "item"}, "is_end" : true, "description" : "物品名称"},
+		{"id" : 2, "extends" : 1, "type" : "int", "description" : "数量"},
+		{"id" : 3, "extends" : 2, "type" : "int", "description" : "数据组"},
+		{"id" : 4, "extends" : 3, "type" : "dictionary", "detail" : {"rule" : "item_component"}, "description" : "物品组件"}
+	]
+}

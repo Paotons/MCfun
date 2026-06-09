@@ -18,4 +18,18 @@
 
 [b]data:[/b] 第一层表示空间名，空间名后面才是物品。
 
-[b]注意：[/b] 由于无法表示物品名称，后续可能会进行更改。
+[title]V2[/title]
+
+表示物品名称 [code]item[/code] 就可以表示为。
+[code]{
+	"type" : "spaceitem",
+	"data" : {
+		"minecraft" : {
+			"apple" : "苹果",
+			"stone" : "石头"
+		}
+	}
+}[/code]
+这样物品就可以知道有 [code]minecraft:apple[/code] 和 [code]minecraft:stone[/code] 了，并且伴随着对应的提示词。
+
+[b]data:[/b] 第一层表示空间名，空间名后面才是物品。

@@ -1,0 +1,7 @@
+{
+	"type" : "colon_param_backet",
+	"data" : {
+		"\"objective\"" : {"type" : "quotation", "detail" : {"rule" : "scoreboard_objective_quotation"}},
+		"\"name\"" : {"type" : "quotation", "detail" : "scoreboard_player_quotation"},
+	}
+}

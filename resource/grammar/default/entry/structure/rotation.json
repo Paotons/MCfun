@@ -1,0 +1,9 @@
+{
+	"type" : "string",
+	"data" : {
+		"0_degrees" : "不旋转",
+		"90_degrees" : "旋转90度",
+		"180_degrees" : "旋转180度",
+		"270_degrees" : "旋转270度"
+	}
+}

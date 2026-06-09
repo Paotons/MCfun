@@ -1,0 +1,29 @@
+{
+	"description" : "在世界保存或加载一个结构",
+	"data" : [
+		{"id" : 0, "extends" : -1, "goto" : [1, 2, 8], "type" : "option", "items" : [{"delete" : "删除结构"}, {"save" : "保存结构"}, {"load" : "加载结构"}], "description" : "操作类型"},
+		{"goto" : 999},
+		
+		{"id" : 1, "extends" : 0, "type" : "word", "is_end" : true, "cmd" : ["completion list structure"], "description" : "结构名称"},
+		{"goto" : 999},
+		
+		{"id" : 2, "extends" : 0, "type" : "word", "cmd" : ["list structure add self"], "description" : "结构名称"},
+		{"id" : 3, "extends" : 2, "type" : "coords", "description" : "起始位置"},
+		{"id" : 4, "extends" : 3, "type" : "coords", "is_end" : true, "description" : "终点位置"},
+		{"id" : 5, "extends" : 4, "goto" : [999], "type" : "option", "detail" : {"using_entry" : true, "is_probing" : true}, "items" : ["structure_save_mode"], "description" : "保存模式"},
+		{"id" : 6, "extends" : 4, "type" : "bool", "description" : "保存实体"},
+		{"id" : 7, "extends" : 6, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["structure_save_mode"], "description" : "保存模式"},
+		{"goto" : 999},
+		
+		{"id" : 8, "extends" : 0, "type" : "word", "cmd" : ["completion list structure"], "description" : "结构名称"},
+		{"id" : 9, "extends" : 8, "type" : "coords", "is_end" : true, "description" : "加载位置"},
+		{"id" : 10, "extends" : 9, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["structure_rotation"], "description" : "旋转"},
+		{"id" : 11, "extends" : 10, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["structure_mirror"], "description" : "镜像"},
+		{"id" : 12, "extends" : 11, "goto" : [999], "type" : "option", "detail" : {"using_entry" : true, "is_probing" : true}, "items" : ["structure_animation"], "description" : "加载动画"},
+		{"id" : 13, "extends" : 11, "type" : "bool", "description" : "加载实体"},
+		{"id" : 14, "extends" : 13, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["structure_animation"], "description" : "加载动画"},
+		{"goto" : 999},
+		
+		{"id" : 999},
+	]
+}

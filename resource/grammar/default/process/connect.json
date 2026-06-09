@@ -1,0 +1,6 @@
+{
+	"description" : "尝试连接WebSocket上的服务器",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "string", "detail" : {"long" : true}, "is_end" : true, "description" : "URL"},
+	]
+}

@@ -1,0 +1,8 @@
+[title]描述[/title]
+
+文件路径。
+
+[title]细节[/title]
+
+[b]extensions:[/b] 字符串数组。扩展名。
+[b]using_extendsion:[/b] 布尔。如果为 [code]false[/code] 不会使用扩展名。

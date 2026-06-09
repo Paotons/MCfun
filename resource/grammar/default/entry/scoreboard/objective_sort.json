@@ -1,0 +1,7 @@
+{
+	"type" : "string",
+	"data" : {
+		"ascending" : "升序",
+		"descending" : "降序"
+	}
+}

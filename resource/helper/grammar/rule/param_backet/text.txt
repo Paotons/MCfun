@@ -1,0 +1,8 @@
+[title]描述[/title]
+
+参数括号，只有一个参数。
+
+[title]数据[/title]
+
+[code] "data" : [{...}][/code]
+其对应的元素。

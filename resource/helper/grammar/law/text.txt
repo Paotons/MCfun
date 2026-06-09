@@ -2,6 +2,6 @@
 
 用于告诉编辑器，有些元素的具体要求。例如 [code]array[/code] 和 [code]dictionary[/code] 元素见 [file grammar/element]语法>>元素[/file]
 
-[title]V1[/title]
+并允许行使用 [code]{"type" : "file", "file" : "path"}[/code] 加载其他文件都内容，作为数据。例如：[code]"item" : {"type" : "file", "file" : "law/item.json"}[/code]
 
 必须包含 [code]selector_body[/code] 目标选择器的身体，用来告诉 [code]selector[/code] 要怎么规范。

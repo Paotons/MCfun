@@ -1,0 +1,7 @@
+{
+	"type" : "string",
+	"data" : {
+		"all" : "全部一致",
+		"masked" : "忽略空气"
+	}
+}

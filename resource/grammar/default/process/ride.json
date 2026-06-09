@@ -1,0 +1,31 @@
+{
+	"description" : "实体骑乘管理",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标对象"},
+		{"id" : 1, "extends" : 0, "goto" : [2, 5, 6, 9, 10], "type" : "option", "items" : [{"start_riding" : "开始骑乘"}, {"stop_riding" : "停止骑乘"}, {"summon_ride" : "生成坐骑"}, {"evict_riders" : "驱赶骑手"}, {"summon_rider" : "生成骑手"}], "description" : "控制模式"},
+		{"goto" : 999},
+		
+		{"id" : 2, "extends" : 1, "type" : "selector", "is_end" : true, "description" : "被骑乘实体"},
+		{"id" : 3, "extends" : 2, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["ride_rule"], "description" : "骑乘规则"},
+		{"id" : 4, "extends" : 3, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["ride_mode"], "description" : "骑乘模式"},
+		{"goto" : 999},
+		
+		{"id" : 5, "extends" : 1, "is_end" : true},
+		{"goto" : 999},
+		
+		{"id" : 6, "extends" : 1, "type" : "spaceitem", "detail" : {"chapter" : "entity"}, "is_end" : true, "description" : "实体类型"},
+		{"id" : 7, "extends" : 6, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["ride_rule"], "description" : "骑乘规则"},
+		{"id" : 8, "extends" : 7, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["ride_mode"], "description" : "骑乘模式"},
+		{"goto" : 999},
+		
+		{"id" : 9, "extends" : 1, "is_end" : true},
+		{"goto" : 999},
+		
+		{"id" : 10, "extends" : 1, "type" : "spaceitem", "detail" : {"chapter" : "entity"}, "is_end" : true, "description" : "实体类型"},
+		{"id" : 11, "extends" : 10, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["ride_rule"], "description" : "骑乘规则"},
+		{"id" : 12, "extends" : 11, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["ride_mode"], "description" : "骑乘模式"},
+		{"goto" : 999},
+		
+		{"id" : 999},
+	]
+}

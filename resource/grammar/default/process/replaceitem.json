@@ -1,0 +1,24 @@
+{
+	"description" : "替换物品栏中的物品",
+	"data" : [
+		{"id" : 0, "extends" : -1, "goto" : [1, 3], "type" : "option", "items" : ["entity", "block"], "description" : "对象类型"},
+		{"goto" : 999},
+		
+		{"id" : 1, "extends" : 0, "type" : "selector", "description" : "目标对象"},
+		{"id" : 2, "extends" : 1, "goto" : 5, "type" : "point_path", "detail" : {"chapter" : "slot_entity"}, "description" : "替换位置"},
+		{"goto" : 999},
+		
+		{"id" : 3, "entends" : 0, "type" : "coords", "description" : "对象位置"},
+		{"id" : 4, "extends" : 3, "goto" : 5, "type" : "point_path", "detail" : {"chapter" : "slot_block"}, "description" : "替换位置"},
+		{"goto" : 999},
+		
+		{"id" : 5, "type" : "int", "description" : "替换位置序列"},
+		{"id" : 6, "extends" : 5, "type" : "spaceitem", "detail" : {"chapter" : "item"}, "is_end" : true, "description" : "物品名称"},
+		{"id" : 7, "extends" : 6, "type" : "int", "description" : "数量"},
+		{"id" : 8, "extends" : 7, "type" : "int", "description" : "数据组"},
+		{"id" : 9, "extends" : 8, "type" : "dictionary", "detail" : {"rule" : "item_component"}, "description" : "物品组件"},
+		{"goto" : 999},
+		
+		{"id" : 999}
+	]
+}

@@ -1,0 +1,8 @@
+{
+	"type" : "string",
+	"data" : {
+		"clear" : "晴天",
+		"rain" : "雨天",
+		"thunder" : "雷爆天"
+	}
+}

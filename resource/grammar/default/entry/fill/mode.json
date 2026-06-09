@@ -1,0 +1,9 @@
+{
+	"type" : "string",
+	"data" : {
+		"destroy" : "破坏",
+		"hollow" : "空心",
+		"keep" : "保持",
+		"outline" : "轮廓"
+	}
+}

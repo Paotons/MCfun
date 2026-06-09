@@ -1,0 +1,7 @@
+{
+	"description" : "显示命令帮助",
+	"data" : [
+		{"id" : 0, "extends" : -1, "is_end" : true},
+		{"id" : 1, "extends" : 0, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["command"], "description" : "指令名称"}
+	]
+}

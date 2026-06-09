@@ -26,7 +26,6 @@ const _ITEMS_OPTION_DISPLAYS := 1
 #endregion
 
 #region 细节。
-const _DETAIL_OPTION_USING_ENTRY := 0
 const _DETAIL_ARRAY_RULE := 0
 const _DETAIL_DICTIONARY_RULE := 0
 const _DETAIL_QUOTATION_RULE := 0
@@ -36,10 +35,17 @@ const _DETAIL_STRING_IS_LONG := 0
 const _DETAIL_RICH_STRING_IS_LONG := 0
 const _DETAIL_COMMAND_TYPES := 0
 const _DETAIL_SELECTOR_ASTERISK := 0
+const _DETAIL_COORDS_IS_PROBING := 0
+
+const _DETAIL_OPTION_USING_ENTRY := 0
+const _DETAIL_OPTION_IS_PROBING := 1
 
 const _DETAIL_INT_MIN := 0
 const _DETAIL_INT_MAX := 1
 const _DETAIL_INT_SUFFIXS := 2
+
+const _DETAIL_FLOAT_MIN := 0
+const _DETAIL_FLOAT_MAX := 1
 
 const _DETAIL_FILE_PATH_EXTENSIONS := 0
 const _DETAIL_FILE_PATH_USING_EXTENSION := 1
@@ -80,6 +86,19 @@ func has_detail() -> bool:
 func get_command_types() -> int:
 	return _get_detail()[_DETAIL_COMMAND_TYPES] if data_main.has(META_DETAIL) else 0xFFFFFFFF
 
+#region 试探。
+## 如果是试探状态，返回 [code]true[/code]。
+func is_probing() -> bool:
+	match get_type():
+		GrammarValue.Type.OPTION: return _is_option_probing()
+		GrammarValue.Type.COORDS: return _is_coords_probing()
+		_: return false
+func _is_option_probing() -> bool:
+	return _get_detail()[_DETAIL_OPTION_IS_PROBING] if data_main.has(META_DETAIL) else false
+func _is_coords_probing() -> bool:
+	return _get_detail()[_DETAIL_COORDS_IS_PROBING] if data_main.has(META_DETAIL) else false
+#endregion
+
 #region 整数。
 ## 获取整数最小值。
 func get_int_min() -> int:
@@ -90,6 +109,15 @@ func get_int_max() -> int:
 ## 获取后缀。
 func get_suffixs() -> PackedStringArray:
 	return _get_detail()[_DETAIL_INT_SUFFIXS] if data_main.has(META_DETAIL) else PackedStringArray()
+#endregion
+
+#region 浮点。
+## 获取整数最小值。
+func get_float_min() -> int:
+	return _get_detail()[_DETAIL_FLOAT_MIN] if data_main.has(META_DETAIL) else -INF
+## 获取整数最大值。
+func get_float_max() -> int:
+	return _get_detail()[_DETAIL_FLOAT_MAX] if data_main.has(META_DETAIL) else INF
 #endregion
 
 #region 目标选择器。

@@ -17,6 +17,7 @@ var flag_types : Array[FlagType]
 ## 对于风格符补全数据。
 static var STYLE_FLAG_CODE_COMPLETION_DATA : FunctionCompletionData
 
+#region 风格符
 # 这些映射表由 DeepSeek 生成，有问题怪它。
 # 风格符后面的字符对应的颜色。
 const _STYLE_FLAG_COLOR_MAP : Dictionary[int, Color] = {
@@ -40,16 +41,38 @@ const _STYLE_FLAG_COLOR_MAP : Dictionary[int, Color] = {
 	0x65: Color(1, 1, 0.353),    # 'e' yellow
 	0x66: Color(1, 1, 1),        # 'f' white
 }
+const _STYLE_FLAG_COLOR_NAME_MAP : Dictionary[int, String] = {
+	# 数字
+	0x30: "黑色",
+	0x31: "深蓝色",
+	0x32: "深绿色",
+	0x33: "深青色",
+	0x34: "深红色",
+	0x35: "深粉色",
+	0x36: "棕色",
+	0x37: "灰色",
+	0x38: "深灰色",
+	0x39: "蓝色",
+	
+	# 小写字母
+	0x61: "绿色",
+	0x62: "青色",
+	0x63: "红色",
+	0x64: "粉色",
+	0x65: "黄色",
+	0x66: "白色"
+}
 # 特殊符号标签。
-const _STYLE_FLAG_SPECAIL : PackedInt32Array = [
+const _STYLE_FLAG_SPECAIL : Dictionary[int, String] = {
 	# 格式化
-	0x6b, # 'k' 随机
-	0x6c, # 'l' 加粗
-	0x6d, # 'm' 删除线
-	0x6e, # 'n' 下划线
-	0x6f, # 'o' 斜体
-	0x72, # 'r' 重置
-]
+	0x6b : "随机", # 'k' 随机
+	0x6c : "加粗", # 'l' 加粗
+	0x6d : "删除线", # 'm' 删除线
+	0x6e : "下划线", # 'n' 下划线
+	0x6f : "斜体", # 'o' 斜体
+	0x72 : "重置", # 'r' 重置
+}
+#endregion
 
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	var length := get_valid_end()
@@ -137,8 +160,11 @@ static func _style_code_completion_data_initial() -> void:
 	for chr in _STYLE_FLAG_COLOR_MAP:
 		var color := _STYLE_FLAG_COLOR_MAP[chr]
 		data.insert_texts.append(char(chr))
+		data.display_texts.append(_STYLE_FLAG_COLOR_NAME_MAP[chr])
 		data.text_colors.append(color)
+	data.supple()
 	for chr in _STYLE_FLAG_SPECAIL:
 		data.insert_texts.append(char(chr))
+		data.display_texts.append(_STYLE_FLAG_SPECAIL[chr])
 	data.supple()
 	STYLE_FLAG_CODE_COMPLETION_DATA = data

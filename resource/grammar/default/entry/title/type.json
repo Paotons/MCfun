@@ -1,0 +1,8 @@
+{
+	"type" : "string",
+	"data" : {
+		"title" : "大标题",
+		"subtitle" : "副标题",
+		"actionbar" : "活动面版"
+	}
+}

@@ -1,0 +1,7 @@
+{
+	"description" : "创建一个粒子发射器",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["particle_effect"], "is_end" : true, "description" : "粒子名称"},
+		{"id" : 1, "extends" : 0, "type" : "coords", "description" : "位置"},
+	]
+}

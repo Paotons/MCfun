@@ -1,0 +1,8 @@
+{
+	"type" : "equal_param_backet",
+	"detail" : "using_key",
+	"data" : {
+		"key" : {"type" : "word", "description" : "scoreboard", "cmd" : ["completion list scoreboard"]},
+		"value" : {"type" : "scope", "description" : "score"},
+	},
+}

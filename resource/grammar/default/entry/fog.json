@@ -1,0 +1,26 @@
+{
+	"type" : "string",
+	"data" : {
+		"indexfog_hell": "地狱红雾（天空变红，视野拉近）",
+		"indexfog_the_end": "末地黑雾（天空变黑，水变紫）",
+		"indexfog_desert": "沙漠黄绿水雾",
+		"indexfog_swampland": "沼泽暗绿水雾",
+		"indexfog_warm_ocean": "暖洋蓝水雾",
+		"indexfog_crimson_forest": "绯红森林红雾（天空和水变红）",
+		"indexfog_basalt_deltas": "玄武岩三角洲暗粉雾",
+		"indexfog_soul_sand_valley": "灵魂沙峡谷蓝绿雾",
+		"indexfog_nether_wastes": "下界荒地红棕雾",
+		"indexfog_warped_forest": "诡异森林蓝绿雾",
+		"indexfog_river": "河流淡蓝水雾",
+		"indexfog_beach": "海滩水雾",
+		"indexfog_ocean": "海洋水雾",
+		"indexfog_deep_ocean": "深海深蓝水雾",
+		"indexfog_frozen_ocean": "冻洋冰蓝水雾",
+		"indexfog_cold_ocean": "冷水洋蓝灰水雾",
+		"indexfog_lukewarm_ocean": "温海洋淡蓝水雾",
+		"indexfog_dripstone_caves": "滴水石洞雾气",
+		"indexfog_deep_dark": "深暗之域黑暗雾",
+		"indexfog_lush_caves": "繁茂洞穴绿色雾",
+		"indexfog_mushroom_fields": "蘑菇岛棕红雾"
+	}
+}

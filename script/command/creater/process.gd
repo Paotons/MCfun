@@ -14,8 +14,9 @@ func get_command() -> ProcessCommandElement:
 ## 从指定位置开始处理指令，可用于更新指令。
 func run_from_column(text : String, process : CommandElementCreaterProcess, column := 0) -> CommandElement:
 	var index : int = get_command().get_column_map_index(column) if not get_command().is_column_at_end(column) else get_command().get_valid_element_count() - 1
+	var last_index := get_command().get_idx_from_valid_history(index - 1) if index >= 0 else -1
 	
-	if index < 1: # 相当于重新生成。
+	if last_index == -1: # 相当于重新生成。
 		var element := BaseCommandElement.create(text, process.offset, get_command().get_line_index())
 		element.command_type = command.command_type
 		return element
@@ -27,7 +28,7 @@ func run_from_column(text : String, process : CommandElementCreaterProcess, colu
 			var element := get_command()._elements[index] as CommandElement
 			if element.is_valid_head() and element.string_offset + 2 < column:
 				return _run_from_column_suncommand(text, column, index)
-		return _run_from_column_normal(text, process, index - 1)
+		return _run_from_column_normal(text, process, last_index)
 
 # 从附属指令开始。
 func _run_from_column_suncommand(text : String, column := 0, index := 0) -> CommandElement:
@@ -70,10 +71,13 @@ func _run_from_column_normal(text : String, process : CommandElementCreaterProce
 	_do_command_tail(text, process)
 	return get_command()
 
-## 为元素加入历史。
+## [b]Protected:[/b] 为元素加入历史。
 func _add_history(idx : int, element : Element = null) -> void:
 	get_command().exe_element_histories.append(idx)
 	get_command()._elements.append(element)
+## [b]Protected:[/b] 返回历史记录。
+func _get_histories() -> PackedInt32Array:
+	return get_command().exe_element_histories
 ## [b]Protected:[/b] 返回失败的列表。
 func _get_failds() -> PackedInt32Array:
 	return get_command().faild_element_idxs
@@ -88,7 +92,7 @@ func create_error(column : int, string : String, type := ElementError.Type.NOTFI
 func _do_function(element : ExeElementRule, text : String, process : CommandElementCreaterProcess) -> bool:
 	match element.get_type():
 		GrammarValue.Type.NIL : return _do_nil(text, process)
-		GrammarValue.Type.BOOL, GrammarValue.Type.INT, GrammarValue.Type.FLOAT, GrammarValue.Type.STRING, GrammarValue.Type.WORD, GrammarValue.Type.RICH_STRING, GrammarValue.Type.POINT_PATH, GrammarValue.Type.FILE_PATH, GrammarValue.Type.SCOPE : 
+		GrammarValue.Type.BOOL, GrammarValue.Type.INT, GrammarValue.Type.FLOAT, GrammarValue.Type.STRING, GrammarValue.Type.COORD, GrammarValue.Type.WORD, GrammarValue.Type.RICH_STRING, GrammarValue.Type.POINT_PATH, GrammarValue.Type.FILE_PATH, GrammarValue.Type.SCOPE : 
 			return _do_default(text, process)
 		
 		GrammarValue.Type.OPTION : return _do_option(text, process)
@@ -105,14 +109,10 @@ func _do_function(element : ExeElementRule, text : String, process : CommandElem
 #region 处理。
 # 处理空值，占位。
 func _do_nil(_text : String, process : CommandElementCreaterProcess) -> bool:
-	var items := process.exe_element.get_items()
+	var exe := process.exe_element
 	_add_history(process.exe_index)
-	if items.is_empty():
-		return false
-	for item in items:
-		match item:
-			"cmp":
-				_get_failds().clear()
+	if exe.has_cmd():
+		ElementRuleCMD.execute(null, exe, get_command())
 	return false
 
 # 默认处理。
@@ -122,10 +122,10 @@ func _do_default(text : String, process : CommandElementCreaterProcess) -> bool:
 	match process.exe_element.get_type():
 		GrammarValue.Type.BOOL : element = BoolElement.create(text, process.offset)
 		GrammarValue.Type.INT : element = IntElement.create(text, process.offset, exe_element)
-		GrammarValue.Type.FLOAT : element = FloatElement.create(text, process.offset)
+		GrammarValue.Type.FLOAT : element = FloatElement.create(text, process.offset, exe_element)
 		GrammarValue.Type.STRING: element = StringElement.create(text, process.offset, exe_element)
-		GrammarValue.Type.WORD :
-			element = WordElement.create(text, process.offset)
+		GrammarValue.Type.WORD: element = WordElement.create(text, process.offset)
+		GrammarValue.Type.COORD: element = CoordElement.create(text, process.offset)
 		GrammarValue.Type.RICH_STRING : element = RichStringElement.create(text, process.offset, exe_element)
 		GrammarValue.Type.POINT_PATH : element = PointPathElement.create(text, process.offset, exe_element)
 		GrammarValue.Type.FILE_PATH : element = FilePathElement.create(text, process.offset, exe_element)
@@ -133,16 +133,24 @@ func _do_default(text : String, process : CommandElementCreaterProcess) -> bool:
 		_: assert("Can do the type \"%s\"." % [process.exe_element.get_type()])
 	
 	if element.is_faild:
+		if exe_element.is_probing():
+			var histories := _get_histories()
+			process.exe_element = null if histories.is_empty() else process.rule.get_element(histories[histories.size() - 1])
+			process.exe_index += 1
+			process.continue_flag = true
+			return false
+		
 		_get_failds().append(process.exe_index)
 		# Err
 		if not process.has_end:
 			for err in element.errors: create_error(err.column, err.string)
 		return true
-	for err in element.errors: create_error(err.column, err.string)
+	for err in element.errors:
+		create_error(err.column, err.string)
 	
 	# CMD
 	if exe_element.has_cmd():
-		ElementRuleCMD.execute(element, exe_element, get_command(), ElementRuleCMD.ModeFilter.LIST)
+		ElementRuleCMD.execute(element, exe_element, get_command())
 	
 	_get_hl_data().merge(element.get_highlight(process.edit))
 	
@@ -156,15 +164,15 @@ func _do_option(text : String, process : CommandElementCreaterProcess) -> bool:
 	var result := OptionElement.create(text, process.offset, exe)
 	
 	if not (result.is_faild and process.has_end):
-		for err in result.errors: create_error(err.column, err.string)
+		for err in result.errors:
+			create_error(err.column, err.string)
 	if result.is_faild:
 		_get_failds().append(process.exe_index)
-		return true
-	
-	
-	_get_hl_data().merge(result.get_highlight(process.edit))
+		if not exe.is_probing():
+			return true
 	
 	if result.has_option():
+		_get_hl_data().merge(result.get_highlight(process.edit))
 		process.offset = result.get_valid_end()
 		
 		_add_history(process.exe_index, result)
@@ -180,7 +188,14 @@ func _do_option(text : String, process : CommandElementCreaterProcess) -> bool:
 		process.exe_index += 1
 		process.continue_flag = true
 		return false
+	elif exe.is_probing():
+		var histories := _get_histories()
+		process.exe_element = null if histories.is_empty() else process.rule.get_element(histories[histories.size() - 1])
+		process.exe_index += 1
+		process.continue_flag = true
+		return false
 	else:
+		_get_hl_data().merge(result.get_highlight(process.edit))
 		_get_failds().append(process.exe_index)
 	
 		process.exe_index += 1
@@ -191,8 +206,18 @@ func _do_option(text : String, process : CommandElementCreaterProcess) -> bool:
 # 处理坐标。
 func _do_coords(text : String, process : CommandElementCreaterProcess) -> bool:
 	var result := CoordsElement.create(text, process.offset)
-	for err in result.errors: create_error(err.column, err.string)
-	if result.is_faild: return true
+	
+	if process.exe_element.is_probing() and result.is_faild:
+		var histories := _get_histories()
+		process.exe_element = null if histories.is_empty() else process.rule.get_element(histories[histories.size() - 1])
+		process.exe_index += 1
+		process.continue_flag = true
+		return false
+	
+	for err in result.errors:
+		create_error(err.column, err.string)
+	if result.is_faild:
+		return true
 	
 	_get_hl_data().merge(result.get_highlight(process.edit))
 	
@@ -202,7 +227,8 @@ func _do_coords(text : String, process : CommandElementCreaterProcess) -> bool:
 	return result.get_valid_size() != 3
 # 处理目标选择器。
 func _do_selector(text : String, process : CommandElementCreaterProcess) -> bool:
-	var result := SelectorElement.create(text, process.offset, process.exe_element)
+	var exe := process.exe_element
+	var result := SelectorElement.create(text, process.offset, exe)
 	
 	for err in result.errors:
 		create_error(err.column, err.string)
@@ -215,6 +241,9 @@ func _do_selector(text : String, process : CommandElementCreaterProcess) -> bool
 		var backet := result.get_body_element()
 		for err in backet.errors:
 			create_error(err.column, "Body has error \"%s\"." % [err.string])
+	
+	if exe.has_cmd():
+		ElementRuleCMD.execute(result, exe, get_command())
 	
 	process.offset = result.get_valid_end()
 	_add_history(process.exe_index, result)
@@ -325,14 +354,15 @@ func _do_command_process(text : String, process : CommandElementCreaterProcess) 
 		# 检查是否属于类型。
 		var exe_type := exe_element.get_type()
 		if not ElementManager.is_inherent_type(exe_type):
-			if not ElementManager.try_get_type(text, process.offset).has(exe_type):
+			if not exe_element.is_probing() and not ElementManager.try_get_type(text, process.offset).has(exe_type):
 				_get_failds().append(process.exe_index)
 				process.exe_index += 1
 				continue
 		
 		# 成功执行
 		process.exe_element = exe_element
-		if _do_function(exe_element, text, process): return
+		if _do_function(exe_element, text, process):
+			return
 		
 		if process.continue_flag:
 			process.continue_flag = false
@@ -341,7 +371,8 @@ func _do_command_process(text : String, process : CommandElementCreaterProcess) 
 			break
 		
 		# 处理结束。
-		if exe_element.has_end(): process.has_end = exe_element.has_end()
+		if exe_element.has_end():
+			process.has_end = exe_element.has_end()
 		
 		# 处理跳转。
 		if exe_element.has_goto():

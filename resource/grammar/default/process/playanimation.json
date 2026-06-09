@@ -1,0 +1,11 @@
+{
+	"description" : "锁定和解锁昼夜更替",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标对象"},
+		{"id" : 1, "extends" : 0, "type" : "point_path", "detail" : {"chapter" : "animation"}, "is_end" : true, "description" : "动画名称"},
+		{"id" : 2, "extends" : 1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["animation_next_state"], "description" : "下一个状态"},
+		{"id" : 3, "extends" : 2, "type" : "float", "detail" : {"min" : 0.0}, "description" : "渐入时间"},
+		{"id" : 4, "extends" : 3, "type" : "quotation", "description" : "停止条件"},
+		{"id" : 5, "extends" : 4, "type" : "string", "description" : "动画控制器"},
+	]
+}

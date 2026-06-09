@@ -2,6 +2,8 @@
 
 用于定义指令怎么组合。
 
+[b]注意：[/b] 目前还不这么成熟，错误语法可能会引起崩溃。
+
 [title]构成[/title]
 
 [file grammar/process]流程[/file] 指定指令怎么走。

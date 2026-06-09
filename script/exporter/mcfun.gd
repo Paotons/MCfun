@@ -10,6 +10,7 @@ var _help_command_exporter := HelpCommandExporter.new()
 var _annotation_command_exporter := AnnotationCommandExporter.new()
 var _native_command_exporter := NativeCommandExporter.new()
 
+#region start
 func _start(text : String) -> void:
 	assert(setting != null, "Not has setting.")
 	var text_splited := text.split("\n", setting.include_empty)
@@ -22,46 +23,72 @@ func _start(text : String) -> void:
 			continue
 		
 		var command := BaseCommandElement.create(line, 0)
-		if command.has_error():
-			_add_command_errors(command)
-			match setting.do_error_mode:
-				ProjectExportSetting.DoErrorMode.IGNORE:
-					pass
-				ProjectExportSetting.DoErrorMode.DIRECTION:
-					to_splited.append(line)
-			continue
 		
-		var string : String
-		var exporter : BaseCommandExporter
-		
-		if command.command_type & CommandElementManager.CommandType.EMPTY != 0:
-			if setting.include_empty:
-				to_splited.append("")
-			continue
-		elif command.command_type & CommandElementManager.CommandType.ANNOTATION != 0:
-			if setting.include_annotation:
-				exporter = _annotation_command_exporter
-				exporter.start(line)
-				to_splited.append(exporter.get_result())
-			continue
-		elif command.command_type & CommandElementManager.CommandType.COMMENT != 0:
-			continue
-		elif command.command_type & CommandElementManager.CommandType.NORMAL != 0:
-			exporter = _command_exporter
-		elif command.command_type & CommandElementManager.CommandType.HELP != 0:
-			exporter = _help_command_exporter
-		elif command.command_type & CommandElementManager.CommandType.NATIVE != 0:
-			exporter = _native_command_exporter
-		exporter.set_command(command)
-		exporter.start(line)
-		string = exporter.get_result()
-		
-		if string.is_empty():
-			if setting.include_empty:
-				to_splited.append("")
-		else:
-			to_splited.append(string)
+		if command.command_type & CommandElementManager.CommandType.EMPTY != 0: _start_empty(to_splited)
+		elif command.command_type & CommandElementManager.CommandType.ANNOTATION != 0: _start_annotation(line, to_splited)
+		elif command.command_type & CommandElementManager.CommandType.COMMENT != 0: continue
+		elif command.command_type & CommandElementManager.CommandType.NORMAL != 0: _start_normal(line, command, to_splited)
+		elif command.command_type & CommandElementManager.CommandType.HELP != 0: _start_help(line, command, to_splited)
+		elif command.command_type & CommandElementManager.CommandType.NATIVE != 0: _start_native(line, command, to_splited)
+		else: push_error("Unvaild command_type %d." % command.command_type)
 	to = "\n".join(to_splited)
+
+func _start_empty(to_splited : PackedStringArray) -> void:
+	if setting.include_empty:
+		to_splited.append("")
+
+func _start_annotation(line : String, to_splited : PackedStringArray) -> void:
+	if setting.include_annotation:
+		var exporter := _annotation_command_exporter
+		exporter.start(line)
+		to_splited.append(exporter.get_result())
+
+func _start_normal(line : String, command : CommandElement, to_splited : PackedStringArray) -> void:
+	if command.has_error():
+		_add_command_errors(command)
+		match setting.do_error_mode:
+			ProjectExportSetting.DoErrorMode.IGNORE: pass
+			ProjectExportSetting.DoErrorMode.DIRECTION: to_splited.append(line)
+		return
+	var exporter := _command_exporter
+	exporter.set_command(command)
+	exporter.start(line)
+	_append_string(exporter.get_result(), to_splited)
+
+func _start_help(line : String, command : HelpCommandElement, to_splited : PackedStringArray) -> void:
+	if command.has_error():
+		_add_command_errors(command)
+		match setting.do_error_mode:
+			ProjectExportSetting.DoErrorMode.IGNORE: pass
+			ProjectExportSetting.DoErrorMode.DIRECTION: to_splited.append(line)
+		return
+	var exporter := _help_command_exporter
+	exporter.set_command(command)
+	exporter.start(line)
+	_append_string(exporter.get_result(), to_splited)
+
+func _start_native(line : String, command : NativeCommandElement, to_splited : PackedStringArray) -> void:
+	var exporter := _native_command_exporter
+	exporter.set_command(command)
+	exporter.start(line)
+	var string := exporter.get_result()
+	
+	if string.is_empty() and command.has_error():
+		_add_command_errors(command)
+		match setting.do_error_mode:
+			ProjectExportSetting.DoErrorMode.IGNORE: pass
+			ProjectExportSetting.DoErrorMode.DIRECTION: to_splited.append(line)
+		return
+	
+	_append_string(string, to_splited)
+#endregion
+
+func _append_string(string : String, splited : PackedStringArray) -> void:
+	if string.is_empty():
+		if setting.include_empty:
+			splited.append("")
+	else:
+		splited.append(string)
 
 func _add_command_errors(command : BaseCommandElement) -> void:
 	var text := command.get_valid_string()

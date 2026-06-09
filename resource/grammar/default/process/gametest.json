@@ -1,0 +1,46 @@
+{
+	"description" : "与游戏测试交互",
+	"data" : [
+		{"id" : 0, "extends" : -1, "goto" : [1, 2, 6, 7, 12, 15, 18, 19], "type" : "option", "items" : [{"clearall" : "清空所有测试痕迹"}, {"create" : "创建测试项目"}, {"pos" : "查找最近测试结构位置"}, {"run" : "运行具体测试项目"}, {"runset" : "运行测试项目"}, {"runsetuntilfail" : "运行测试集"}, {"runthese" : "就在当前运行，更大范围"}, {"runthis" : "就在当前运行"}], "description" : "测试内容"},
+		{"goto" : 999},
+		
+		{"id" : 1, "extends" : 0, "is_end" : true},
+		{"goto" : 999},
+		
+		{"id" : 2, "extends" : 0, "type" : "word", "is_end" : true, "description" : "测试项目名称", "cmd" : ["list gametest add self"]},
+		{"id" : 3, "extends" : 2, "type" : "int", "description" : "宽"},
+		{"id" : 4, "extends" : 3, "type" : "int", "description" : "高"},
+		{"id" : 5, "extends" : 4, "type" : "int", "description" : "长"},
+		{"goto" : 999},
+		
+		{"id" : 6, "extends" : 0, "is_end" : true},
+		{"goto" : 999},
+		
+		{"id" : 7, "extends" : 0, "type" : "word", "is_end" : true, "description" : "测试项目名称", "cmd" : ["completion list gametest"]},
+		{"id" : 8, "extends" : 7, "goto" : 999, "type" : "int", "description" : "旋转角度"},
+		{"id" : 9, "extends" : 7, "type" : "bool", "description" : "失败不停止"},
+		{"extends" : 9, "goto" : 10, "cmd" : ["expectation clear"]},
+		{"goto" : 999},
+		{"id" : 10, "type" : "int", "detail" : {"min" : 1}, "description" : "循环次数"},
+		{"id" : 11, "extends" : 10, "type" : "int", "description" : "旋转角度"},
+		{"goto" : 999},
+		
+		{"id" : 12, "extends" : 0, "is_end" : true},
+		{"id" : 13, "extends" : 12, "type" : "word", "description" : "测试项目名称", "cmd" : ["completion list gametest_tag", "list gametest_tag add self"]},
+		{"id" : 14, "extends" : 13, "type" : "int", "description" : "旋转角度"},
+		{"goto" : 999},
+		
+		{"id" : 15, "extends" : 0, "is_end" : true},
+		{"id" : 16, "extends" : 15, "type" : "word", "description" : "测试项目名称", "cmd" : ["completion list gametest_tag", "list gametest_tag add self"]},
+		{"id" : 17, "extends" : 16, "type" : "int", "description" : "旋转角度"},
+		{"goto" : 999},
+		
+		{"id" : 18, "extends" : 0, "is_end" : true},
+		{"goto" : 999},
+		
+		{"id" : 19, "extends" : 0, "is_end" : true},
+		{"goto" : 999},
+		
+		{"id" : 999},
+	]
+}

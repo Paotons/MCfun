@@ -1,0 +1,19 @@
+{
+	"description" : "为用户开启非用户角色对话",
+	"data" : [
+		{"id" : 0, "extends" : -1, "goto" : [1,4], "type" : "option", "items" : [{"open" : "打开"}, {"change" : "改变"}], "description" : "操作"},
+		{"goto" : 999},
+		
+		{"id" : 1, "extends" : 0, "type" : "selector", "is_end" : true, "description" : "NPC"},
+		{"id" : 2, "extends" : 1, "type" : "selector", "description" : "玩家"},
+		{"id" : 3, "extends" : 2, "type" : "word", "cmd" : ["completion list dialogue_scene", "list dialogue_scene add self"], "description" : "场景名称"},
+		{"goto" : 999},
+		
+		{"id" : 4, "extends" : 0, "type" : "selector", "description" : "NPC"},
+		{"id" : 5, "extends" : 4, "type" : "word", "is_end" : true, "cmd" : ["completion list dialogue_scene", "list dialogue_scene add self"], "description" : "场景名称"},
+		{"id" : 6, "extends" : 5, "type" : "selector", "is_end" : true, "description" : "玩家"},
+		{"goto" : 999},
+		
+		{"id" : 999},
+	]
+}

@@ -13,7 +13,7 @@ func get_result() -> Dictionary:
 ## 编译。
 func _compile(data : Variant) -> void:
 	if not data is Dictionary:
-		errors.append("Entry_data should be dictionary, but is %s." % type_string(typeof(data)))
+		errors.append("%s should be dictionary, but is %s." % [entry_name, type_string(typeof(data))])
 		return
 	
 	var from : Dictionary = data
@@ -28,7 +28,7 @@ func _compile(data : Variant) -> void:
 			return
 	_set_is_valid(true)
 
-## 解析章节。
+# 解析章节。
 func _compiled_chapter(from : Dictionary, key : String, name : String) -> bool:
 	var to : Dictionary
 	if not _compile_chapter_type(from, to, name):
@@ -36,7 +36,7 @@ func _compiled_chapter(from : Dictionary, key : String, name : String) -> bool:
 	
 	var type := to[GrammarChapter.ChapterMeta.TYPE] as int
 	
-	var obj : GrammarCompiler
+	var obj : GrammarChapterCompiler
 	match type:
 		GrammarChapter.ChapterType.SPACEITEM:
 			obj = GrammarSpaceItemChapterCompiler.new()
@@ -45,6 +45,7 @@ func _compiled_chapter(from : Dictionary, key : String, name : String) -> bool:
 		GrammarChapter.ChapterType.PATH:
 			obj = GrammarPathChapterCompiler.new()
 	obj.compiler_data = compiler_data
+	obj.chapter_name = name
 	obj.compile(from)
 	
 	if not obj.is_valid():

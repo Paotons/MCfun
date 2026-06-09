@@ -1,413 +1,70 @@
 {
-	"execute" : {
-		"type" : "file",
-		"file" : "process/execute.json"
-	},
-	"scoreboard" : {
-		"type" : "file",
-		"file" : "process/scoreboard.json"
-	},
-	"tp" : {
-		"type" : "file",
-		"file" : "process/tp.json"
-	},
-	"summon" : {
-		"type" : "file",
-		"file" : "process/summon.json"
-	},
-	
-	"reload" : {
-		"description" : "重新加载所有行为包和资源包",
-		"data" : [
-			{"id" : 0, "extends" : -1, "is_end" : true}
-		]
-	},
-	"seed" : {
-		"description" : "显示世界种子",
-		"data" : [
-			{"id" : 0, "extends" : -1, "is_end" : true}
-		]
-	},
-	"list" : {
-		"description" : "列出服务器中的玩家",
-		"data" : [
-			{"id" : 0, "extends" : -1, "is_end" : true}
-		]
-	},
-	"me" : {
-		"description" : "发送一条关于自己的消息",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "rich_string", "is_end" : true, "description" : "消息"}
-		]
-	},
-	"say" : {
-		"description" : "向所有玩家广播消息",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "rich_string", "detail" : {"long" : true}, "is_end" : true, "description" : "消息"}
-		]
-	},
-	"setworldspawn" : {
-		"description" : "设置世界出生点",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "coords", "is_end" : true, "description" : "位置"},
-			{"id" : 1, "extends" : -1, "is_end" : true}
-		]
-	},
-	"alwaysday" : {
-		"description" : "锁定昼夜交替",
-		"data" : [
-			{"id" : 0, "extends" : -1, "is_end" : true},
-			{"id" : 1, "extends" : 0, "type" : "bool"}
-		]
-	},
-	"deop" : {
-		"description" : "撤销玩家的管理员权限",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true}
-		]
-	},
-	"op" : {
-		"description" : "授予玩家管理员权限",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true}
-		]
-	},
-	"kick" : {
-		"description" : "将玩家踢出服务器",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true}
-		]
-	},
-	"defaultgamemode" : {
-		"description" : "设置新玩家加入时的默认游戏模式",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["game_mode_name"], "is_end" : true}
-		]
-	},
-	"gamerule" : {
-		"description" : "设置或查询游戏规则",
-		"data" : [
-			{"id" : 0, "extends" : -1, "goto" : [1, 2], "type" : "option", "detail" : {"using_entry" : true}, "items" : ["game_rule_name_to_int", "game_rule_name_to_bool"], "is_end" : true},
-			{"goto" : 999},
-			{"id" : 1, "extends" : 0, "type" : "int", "description" : "数值"},
-			{"goto" : 999},
-			{"id" : 2, "extends" : 0, "type" : "bool", "description" : "开关"},
-			{"id" : 999}
-		]
-	},
-	"time" : {
-		"description" : "设置或查询世界时间",
-		"data" : [
-			{"id" : 0, "extends" : -1, "goto" : [1, 1, 2], "type" : "option", "items" : ["set", "add", "query"]},
-			{"goto" : 999},
-			{"id" : 1, "extends" : 0, "goto" : 999, "type" : "int", "is_end" : true, "description" : "时间"},
-			{"id" : 2, "extends" : 0, "type" : "option", "items" : ["day", "sunset", "noon", "night", "midnight"]},
-			{"id" : 3, "extends" : 2, "goto" : 999, "is_end" : true},
-			{"goto" : 999},
-			{"id" : 4, "extends" : 0, "type" : "option", "items" : ["daytime", "gametime", "day"]},
-			{"id" : 5, "extends" : 4, "goto" : 999, "is_end" : true},
-			{"id" : 999}
-		]
-	},
-	"weather" : {
-		"description" : "设置或查询天气",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "option", "items" : ["clear", "rain", "thunder"], "is_end" : true},
-			{"id" : 1, "extends" : 0, "type" : "int", "description" : "持续时间"}
-		]
-	},
-	"kill" : {
-		"description" : "立即杀死指定实体",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true}
-		]
-	},
-	"gamemode" : {
-		"description" : "设置玩家的游戏模式",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["game_mode_name"], "is_end" : true},
-			{"id" : 1, "extends" : 0, "type" : "selector", "description" : "目标"}
-		]
-	},
-	"give" : {
-		"description" : "给予玩家物品",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标"},
-			{"id" : 1, "extends" : 0, "type" : "spaceitem", "detail" : {"chapter" : "item_name"}, "is_end" : true, "description" : "物品名称"},
-			{"id" : 2, "extends" : 1, "type" : "int", "description" : "数量"},
-			{"id" : 3, "extends" : 2, "type" : "int", "description" : "数据组"},
-			{"id" : 4, "extends" : 3, "type" : "dictionary", "detail" : {"rule" : "item_component"}, "description" : "物品组件"}
-		]
-	},
-	"clear" : {
-		"description" : "清除玩家物品栏",
-		"data" : [
-			{"id" : 0, "extends" : -1, "is_end" : true},
-			{"id" : 1, "extends" : -1, "type" : "selector"},
-			{"id" : 2, "extends" : 1, "type" : "spaceitem", "detail" : {"chapter" : "item_name"}, "description" : "物品名称"},
-			{"id" : 3, "extends" : 2, "type" : "int", "description" : "最大数量"}
-		]
-	},
-	"effect" : {
-		"description" : "管理状态效果",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "selector"},
-			{"id" : 1, "extends" : 0, "goto" : [2, 3], "type" : "option", "detail" : {"using_entry" : true}, "items" : ["effect_clear", "effective_name"]},
-			{"goto" : 999},
-			{"id" : 2, "extends" : 1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["effective_name"], "is_end" : true},
-			{"goto" : 999},
-			{"id" : 3, "extends" : 1, "type" : "int", "description" : "强度"},
-			{"id" : 4, "extends" : 3, "type" : "int", "description" : "时间", "is_end" : true},
-			{"id" : 5, "extends" : 4, "type" : "bool", "description" : "粒子效果"},
-			{"id" : 999}
-		]
-	},
-	"tag" : {
-		"description" : "管理实体标签",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "selector"},
-			{"id" : 1, "extends" : 0, "goto" : [2, 3, 4], "type" : "option", "items" : ["add", "remove", "list"]},
-			{"goto" : 999},
-			{"id" : 2, "extends" : 1, "type" : "string", "is_end" : true, "description" : "标签", "cmd" : ["list tag add self"]},
-			{"goto" : 999},
-			{"id" : 3, "extends" : 1, "type" : "word", "is_end" : true, "description" : "标签", "cmd" : ["completion list tag"]},
-			{"goto" : 999},
-			{"id" : 4, "extends" : 1, "is_end" : true},
-			{"id" : 999}
-		]
-	},
-	"replaceitem" : {
-		"description" : "替换物品栏中的物品",
-		"data" : [
-			{"id" : 0, "extends" : -1, "goto" : [1, 3], "type" : "option", "items" : ["entity", "block"]},
-			{"goto" : 999},
-			{"id" : 1, "extends" : 0, "type" : "selector", "description" : "target"},
-			{"id" : 2, "extends" : 1, "goto" : 5, "type" : "point_path", "detail" : {"chapter" : "slot_entity_name"}, "description" : "位置"},
-			{"goto" : 999},
-			{"id" : 3, "entends" : 0, "type" : "coords", "description" : "position"},
-			{"id" : 4, "extends" : 3, "goto" : 5, "type" : "point_path", "detail" : {"chapter" : "slot_block_name"}, "description" : "位置"},
-			{"goto" : 999},
-			{"id" : 5, "type" : "int", "description" : "slot_index"},
-			{"id" : 6, "extends" : 5, "type" : "spaceitem", "detail" : {"chapter" : "item_name"}, "is_end" : true, "description" : "物品名称"},
-			{"id" : 7, "extends" : 6, "type" : "int", "description" : "数量"},
-			{"id" : 8, "extends" : 7, "type" : "int", "description" : "数据组"},
-			{"id" : 9, "extends" : 8, "type" : "dictionary", "detail" : {"rule" : "item_component"}, "description" : "物品组件"},
-			{"id" : 999}
-		]
-	},
-	"tellraw" : {
-		"description" : "发送JSON格式的消息",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标"},
-			{"id" : 1, "extends" : 0, "type" : "dictionary", "detail" : {"rule" : "t_show"}, "is_end" : true}
-		]
-	},
-	"help" : {
-		"description" : "显示命令帮助",
-		"data" : [
-			{"id" : 0, "extends" : -1, "is_end" : true},
-			{"id" : 1, "extends" : 0, "type" : "string", "description" : "指令名称"}
-		]
-	},
-	"tell" : {
-		"description" : "向指定玩家发送私聊消息",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标"},
-			{"id" : 1, "extends" : 0, "type" : "rich_string", "detail" : {"long" : true}, "description" : "消息", "is_end" : true}
-		]
-	},
-	"msg" : {
-		"description" : "向指定玩家发送私聊消息",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标"},
-			{"id" : 1, "extends" : 0, "type" : "rich_string", "detail" : {"long" : true}, "description" : "消息", "is_end" : true}
-		]
-	},
-	"w" : {
-		"description" : "向指定玩家发送私聊消息",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标"},
-			{"id" : 1, "extends" : 0, "type" : "rich_string", "detail" : {"long" : true}, "description" : "消息", "is_end" : true}
-		]
-	},
-	"spawnpoint" : {
-		"description" : "设置玩家的个人出生点",
-		"data" : [
-			{"id" : 0, "extends" : -1, "is_end" : true},
-			{"id" : 1, "extends" : 0, "type" : "selector", "description" : "目标"},
-			{"id" : 2, "extends" : 1, "type" : "coords", "description" : "位置", "is_end" : true}
-		]
-	},
-	"setblock" : {
-		"description" : "将一个方块替换为另一个方块",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "coords", "description" : "位置"},
-			{"id" : 1, "extends" : 0, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "is_end" : true, "description" : "方块类型"},
-			{"id" : 2, "extends" : 1, "type" : "option", "items" : [{"destroy" : "破坏"}, {"keep" : "保持"}, {"replace" : "替换"}]}
-		]
-	},
-	"fill" : {
-		"description" : "填充区域内的方块",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "coords", "description" : "起始位置"},
-			{"id" : 1, "extends" : 0, "type" : "coords", "description" : "终点位置"},
-			{"id" : 2, "extends" : 1, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "description" : "方块名称"},
-			{"id" : 3, "extends" : 2, "goto" : [999, 999, 999, 999, 4], "type" : "option", "items" : [{"destroy" : "破坏"}, {"hollow" : "空心"}, {"keep" : "保持"}, {"outline" : "轮廓"}, {"replace" : "替换"}]},
-			
-			{"id" : 4, "extends" : 3, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "description" : "替换的方块名称"},
-			
-			{"id" : 999}
-		]
-	},
-	"title" : {
-		"description" : "管理屏幕标题显示",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标"},
-			{"id" : 1, "extends" : 0, "type" : "option", "items" : ["clear", "reset", "title", "subtitle", "actionbar"]},
-			{"id" : 2, "extends" : 1, "type" : "rich_string", "detail" : {"long" : true}, "description" : "内容", "is_end" : true}
-		]
-	},
-	"xp" : {
-		"description" : "管理玩家经验",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "int", "description" : "数量"},
-			{"id" : 1, "extends" : 0, "type" : "option", "items" : ["L"], "is_end" : true},
-			{"id" : 2, "extends" : 1, "type" : "selector", "description" : "目标"}
-		]
-	},
-	"enchant" : {
-		"description" : "为玩家手持物品附魔",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标"},
-			{"id" : 1, "extends" : 0, "type" : "string", "is_end" : true, "description" : "附魔名称"},
-			{"id" : 2, "extends" : 1, "type" : "int", "description" : "等级"}
-		]
-	},
-	"playsound" : {
-		"description" : "播放音效",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "point_path", "detail" : {"chapter" : "sound_name"}, "description" : "声音名称"},
-			{"id" : 1, "extends" : 0, "type" : "selector", "is_end" : true, "description" : "目标"},
-			{"id" : 2, "extends" : 1, "type" : "coords", "description" : "位置"},
-			{"id" : 3, "extends" : 2, "type" : "float", "description" : "音量"},
-			{"id" : 4, "extends" : 3, "type" : "float", "description" : "音频"},
-			{"id" : 5, "extends" : 4, "type" : "float", "description" : "最小音量"}
-		]
-	},
-	"stopsound" : {
-		"description" : "停止播放音效",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true, "description" : "目标"},
-			{"id" : 1, "extends" : 0, "type" : "point_path", "detail" : {"chapter" : "sound_name"}, "description" : "声音名称"}
-		]
-	},
-	"particle" : {
-		"description" : "生成粒子效果",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "string", "is_end" : true, "description" : "粒子名称"},
-			{"id" : 1, "extends" : 0, "type" : "coords", "description" : "位置"},
-			{"id" : 2, "extends" : 1, "type" : "float", "description" : "xd"},
-			{"id" : 3, "extends" : 2, "type" : "float", "description" : "yd"},
-			{"id" : 4, "extends" : 3, "type" : "float", "description" : "zd"},
-			{"id" : 5, "extends" : 4, "type" : "float", "description" : "速度"},
-			{"id" : 6, "extends" : 5, "type" : "int", "description" : "数量"},
-			{"id" : 7, "extends" : 6, "type" : "string", "description" : "模式"}
-		]
-	},
-	"locate" : {
-		"description" : "定位最近的建筑结构",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "string", "description" : "结构名称", "is_end" : true}
-		]
-	},
-	"difficulty" : {
-		"description" : "设置游戏难度",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "option", "items" : ["peaceful", "easy", "normal", "hard", "p", "e", "n", "h"], "is_end" : true}
-		]
-	},
-	"toggledownfall" : {
-		"description" : "设置天气更替",
-		"data" : [
-			{"id" : 0, "extends" : -1, "is_end" : true}
-		]
-	},
-	"spreadplayers" : {
-		"description" : "将玩家随机分散到指定区域",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "coord", "description" : "X轴中心"},
-			{"id" : 1, "extends" : 0, "type" : "coord", "description" : "Z轴中心"},
-			{"id" : 2, "extends" : 1, "type" : "float", "description" : "距离"},
-			{"id" : 3, "extends" : 2, "type" : "float", "is_end" : true, "description" : "最大范围"},
-			{"id" : 4, "extends" : 3, "type" : "bool", "description" : "respect_teams"},
-			{"id" : 5, "extends" : 4, "type" : "selector", "description" : "目标"}
-		]
-	},
-	"testfor" : {
-		"description" : "检测是否存在符合条件的实体",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标", "is_end" : true}
-		]
-	},
-	"testforblock" : {
-		"description" : "检测指定位置的方块类型",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "coords", "description" : "位置"},
-			{"id" : 1, "extends" : 0, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "is_end" : true, "description" : "方块名称"},
-			{"id" : 2, "extends" : 1, "type" : "int", "description" : "方块数据组"}
-		]
-	},
-	"function" : {
-		"description" : "运行函数",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "file_path", "detail" : {"extensions" : ["mcfun"], "using_extension" : false}, "description" : "函数名称", "is_end" : true}
-		]
-	},
-	"clone" : {
-		"description" : "复制区域内的方块",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "coords", "description" : "起始位置"},
-			{"id" : 1, "extends" : 0, "type" : "coords", "description" : "终点位置"},
-			{"id" : 2, "extends" : 1, "type" : "coords", "description" : "复制到的位置"},
-			{"id" : 3, "extends" : 2, "type" : "option", "items" : ["replace", "masked", "filtered"], "is_end" : true}
-		]
-	},
-	"save" : {
-		"description" : "管理世界保存",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "option", "items" : ["hold", "query", "resume"], "is_end" : true}
-		]
-	},
-	"setmaxplayers" : {
-		"description" : "设置服务器最大玩家数",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "int", "description" : "数量", "is_end" : true}
-		]
-	},
-	"ability" : {
-		"description" : "管理玩家能力",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标"},
-			{"id" : 1, "extends" : 0, "type" : "option", "items" : ["mayfly", "flyspeed", "instabuild", "invulnerable", "mute", "worldbuilder"]},
-			{"id" : 2, "extends" : 1, "type" : "bool", "description" : "值", "is_end" : true}
-		]
-	},
-	"tickingarea" : {
-		"description" : "管理常加载区域",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "option", "items" : ["add", "remove", "remove_all", "list"]},
-			{"id" : 1, "extends" : 0, "type" : "coords", "description" : "起始位置"},
-			{"id" : 2, "extends" : 1, "type" : "coords", "description" : "终点位置"},
-			{"id" : 3, "extends" : 2, "type" : "string", "description" : "名称", "is_end" : true}
-		]
-	},
-	"camerashake" : {
-		"description" : "控制镜头抖动效果",
-		"data" : [
-			{"id" : 0, "extends" : -1, "type" : "option", "items" : ["add", "stop"]},
-			{"id" : 1, "extends" : 0, "type" : "float", "description" : "intensity"},
-			{"id" : 2, "extends" : 1, "type" : "float", "description" : "duration"},
-			{"id" : 3, "extends" : 2, "type" : "option", "items" : ["positional", "rotational"], "is_end" : true}
-		]
-	}
+	"alwaysday" : {"type" : "file", "file" : "process/alwaysday.json"},
+	"camera" : {"type" : "file", "file" : "process/camera.json"},
+	"camerashake" : {"type" : "file", "file" : "process/camerashake.json"},
+	"clear" : {"type" : "file", "file" : "process/clear.json"},
+	"clearspawnpoint" : {"type" : "file", "file" : "process/clear_spawnpoint.json"},
+	"clone" : {"type" : "file", "file" : "process/clone.json"},
+	"connect" : {"type" : "file", "file" : "process/connect.json"},
+	"damage" : {"type" : "file", "file" : "process/damage.json"},
+	"daylock" : {"type" : "file", "file" : "process/daylock.json"},
+	"deop" : {"type" : "file", "file" : "process/deop.json"},
+	"dialogue" : {"type" : "file", "file" : "process/dialogue.json"},
+	"difficulty" : {"type" : "file", "file" : "process/difficulty.json"},
+	"effect" : {"type" : "file", "file" : "process/effect.json"},
+	"enchant" : {"type" : "file", "file" : "process/enchant.json"},
+	"event" : {"type" : "file", "file" : "process/event.json"},
+	"execute" : {"type" : "file", "file" : "process/execute.json"},
+	"fill" : {"type" : "file", "file" : "process/fill.json"},
+	"fog" : {"type" : "file", "file" : "process/fog.json"},
+	"function" : {"type" : "file", "file" : "process/function.json"},
+	"gamemode" : {"type" : "file", "file" : "process/gamemode.json"},
+	"gamerule" : {"type" : "file", "file" : "process/gamerule.json"},
+	"gametest" : {"type" : "file", "file" : "process/gametest.json"},
+	"give" : {"type" : "file", "file" : "process/give.json"},
+	"help" : {"type" : "file", "file" : "process/help.json"},
+	"hud" : {"type" : "file", "file" : "process/hud.json"},
+	"inputpremission" : {"type" : "file", "file" : "process/input_premission.json"},
+	"kick" : {"type" : "file", "file" : "process/kick.json"},
+	"kill" : {"type" : "file", "file" : "process/kill.json"},
+	"list" : {"type" : "file", "file" : "process/list.json"},
+	"locate" : {"type" : "file", "file" : "process/locate.json"},
+	"loot" : {"type" : "file", "file" : "process/loot.json"},
+	"me" : {"type" : "file", "file" : "process/me.json"},
+	"particle" : {"type" : "file", "file" : "process/particle.json"},
+	"playanimation" : {"type" : "file", "file" : "process/playanimation.json"},
+	"playsound" : {"type" : "file", "file" : "process/playsound.json"},
+	"reload" : {"type" : "file", "file" : "process/reload.json"},
+	"replaceitem" : {"type" : "file", "file" : "process/replaceitem.json"},
+	"ride" : {"type" : "file", "file" : "process/ride.json"},
+	"say" : {"type" : "file", "file" : "process/say.json"},
+	"schedule" : {"type" : "file", "file" : "process/schedule.json"},
+	"script" : {"type" : "file", "file" : "process/script.json"},
+	"scriptevent" : {"type" : "file", "file" : "process/scriptevent.json"},
+	"scoreboard" : {"type" : "file", "file" : "process/scoreboard.json"},
+	"setblock" : {"type" : "file", "file" : "process/setblock.json"},
+	"setmaxplayers" : {"type" : "file", "file" : "process/setmaxplayers.json"},
+	"setworldspawn" : {"type" : "file", "file" : "process/setworldspawn.json"},
+	"spawnpoint" : {"type" : "file", "file" : "process/spawnpoint.json"},
+	"spreadplayers" : {"type" : "file", "file" : "process/spreadplayers.json"},
+	"stopsound" : {"type" : "file", "file" : "process/stopsound.json"},
+	"structure" : {"type" : "file", "file" : "process/structure.json"},
+	"summon" : {"type" : "file", "file" : "process/summon.json"},
+	"tag" : {"type" : "file", "file" : "process/tag.json"},
+	"teleport" : {"type" : "file", "file" : "process/teleport.json"},
+	"tell" : {"type" : "file", "file" : "process/tell.json"},
+	"tellraw" : {"type" : "file", "file" : "process/tellraw.json"},
+	"testfor" : {"type" : "file", "file" : "process/testfor.json"},
+	"testforblock" : {"type" : "file", "file" : "process/testforblock.json"},
+	"testforblocks" : {"type" : "file", "file" : "process/testforblocks.json"},
+	"tickingarea" : {"type" : "file", "file" : "process/tickingarea.json"},
+	"time" : {"type" : "file", "file" : "process/time.json"},
+	"title" : {"type" : "file", "file" : "process/title.json"},
+	"titleraw" : {"type" : "file", "file" : "process/titleraw.json"},
+	"toggledownfall" : {"type" : "file", "file" : "process/toggle_downfall.json"},
+	"tp" : {"type" : "file", "file" : "process/tp.json"},
+	"w" : {"type" : "file", "file" : "process/w.json"},
+	"weather" : {"type" : "file", "file" : "process/weather.json"},
+	"wsserver" : {"type" : "file", "file" : "process/wsserver.json"},
+	"xp" : {"type" : "file", "file" : "process/xp.json"},
 }

@@ -1,0 +1,10 @@
+{
+	"type" : "string",
+	"data" : {
+		"start_riding": "让骑手骑上坐骑",
+		"stop_riding": "让骑手停止骑乘",
+		"evict_riders": "将坐骑上的所有乘客赶走",
+		"summon_ride": "为骑手召唤一个坐骑",
+		"summon_rider": "为坐骑召唤一个骑手"
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"description" : "添加或删除药水效果",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "decsription" : "目标实体"},
+		{"id" : 1, "extends" : 0, "goto" : [6], "type" : "option", "detail" : {"is_probing" : true}, "items" : [{"clear" : "清除药水效果"}], "description" : "清除药水效果"},
+		{"id" : 2, "extends" : 0, "type" : "option", "detail" : {"using_entry" : true}, "is_end" : true, "items" : ["effect"], "description" : "效果名称"},
+		{"id" : 3, "extends" : 2, "type" : "int", "description" : "效果强度"},
+		{"id" : 4, "extends" : 3, "type" : "int", "description" : "效果时间"},
+		{"id" : 5, "extends" : 4, "type" : "bool", "description" : "显示粒子效果"},
+		{"goto" : 999},
+		
+		{"id" : 6, "is_end" : true},
+		{"goto" : 999},
+		
+		{"id" : 999}
+	]
+}

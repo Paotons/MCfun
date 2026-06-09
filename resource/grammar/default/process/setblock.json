@@ -1,0 +1,16 @@
+{
+	"description" : "更改方块",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "coords", "description" : "方块位置"},
+		{"id" : 1, "extends" : 0, "type" : "spaceitem", "detail" : {"chapter" : "block"}, "is_end" : true, "description" : "方块名称"},
+		{"id" : 2, "extends" : 1, "goto" : 3, "type" : "array", "description" : "方块数据组"},
+		{"extends" : 1, "goto" : 3},
+		{"goto" : 999},
+		
+		{"id" : 3},
+		{"id" : 4, "extends" : 3, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["setblock_mode"], "description" : "方块放置模式"},
+		{"goto" : 999},
+		
+		{"id" : 999},
+	]
+}

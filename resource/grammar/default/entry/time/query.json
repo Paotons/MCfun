@@ -1,0 +1,8 @@
+{
+	"type" : "string",
+	"data" : {
+		"daytime" : "一天中的时间",
+		"gametime" : "游戏时间",
+		"day" : "天数"
+	}
+}

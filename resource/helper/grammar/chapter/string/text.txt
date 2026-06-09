@@ -18,4 +18,16 @@
 
 [code]data:[/code] 用于定义各种字符串。
 
-[b]注意：[/b] 由于不能表示其意思，后续可能会进行更进。
+[title]V2[/title]
+
+例如 [code]gamemode[/code] 可表示为：
+[code]{
+	"type" : "string",
+	"data" : {
+		"a" : "冒险模式",
+		"c" : "创造模式",
+		"s" : "生存模式"
+	}
+}[/code]
+
+这样就可以表示 [code]gramemode[/code] 有 [code]a,c,s[/code] 三个模式了，并且伴随着对应的提示词。

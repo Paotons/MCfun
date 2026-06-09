@@ -7,6 +7,20 @@
 [ext_resource type="PackedScene" uid="uid://cxl3ruqkak64o" path="res://scene/file_window/mcfunction_coper.tscn" id="5_jsxg6"]
 [ext_resource type="PackedScene" uid="uid://bdehv7qu4feyt" path="res://scene/helper/window.tscn" id="6_ivmrw"]
 
+[sub_resource type="GDScript" id="GDScript_bkhvp"]
+script/source = "extends Button
+
+var count := 0
+
+func _pressed() -> void:
+	count += 1
+	if count == 10:
+		text = \"我也知道错了\"
+		add_theme_color_override(\"font_color\", Color.GREEN)
+		await get_tree().create_timer(3.0).timeout
+		set_text.call_deferred(\"MCFun\")
+"
+
 [sub_resource type="GDScript" id="GDScript_ivmrw"]
 script/source = "extends Button
 
@@ -150,6 +164,7 @@ layout_mode = 2
 layout_mode = 2
 text = "MCfun"
 flat = true
+script = SubResource("GDScript_bkhvp")
 
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=68951348]
 layout_mode = 2

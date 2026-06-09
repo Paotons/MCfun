@@ -1,0 +1,8 @@
+{
+	"description" : "更改HUD可见性",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标对象"},
+		{"id" : 1, "extends" : 0, "type" : "bool", "is_end" : true, "description" : "可见性"},
+		{"id" : 2, "extends" : 1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["hud_element"], "description" : "HUD类型"},
+	]
+}

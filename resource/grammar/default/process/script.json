@@ -1,0 +1,25 @@
+{
+	"description" : "安排一个执行动作",
+	"data" : [
+		{"id" : 0, "extends" : -1, "goto" : [1, 6, 7], "type" : "option", "items" : [{"debugger" : "查找错误"}, {"profiler" : "性能分析器"}, {"watchdog" : "看门狗"}], "description" : "操作类型"},
+		{"goto" : 999},
+		
+		{"id" : 1, "extends" : 0, "goto" : [2, 3, 5], "type" : "option", "items" : [{"close" : "关闭"}, {"connect" : "连接服务器"}, {"listen" : "等待连接"}], "description" : "操作模式"},
+		{"goto" : 999},
+		{"id" : 2, "extends" : 1, "is_end" : true},
+		{"goto" : 999},
+		{"id" : 3, "extends" : 1, "type" : "string", "description" : "地址"},
+		{"id" : 4, "extends" : 3, "type" : "int", "is_end" : true, "description" : "端口"},
+		{"goto" : 999},
+		{"id" : 5, "extends" : 1, "type" : "int", "is_end" : true, "description" : "端口"},
+		{"goto" : 999},
+		
+		{"id" : 6, "extends" : 0, "type" : "option", "items" : [{"start" : "开始"}, {"stop" : "结束"}], "is_end" : true, "description" : "操作模式"},
+		{"goto" : 999},
+		
+		{"id" : 7, "extends" : 0, "type" : "option", "items" : [{"exportstats" : "导出数据"}], "is_end" : true, "description" : "操作模式"},
+		{"goto" : 999},
+		
+		{"id" : 999},
+	]
+}

@@ -1,0 +1,9 @@
+{
+	"description" : "检测两个区域的方块是否匹配",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "coords", "description" : "起始位置"},
+		{"id" : 1, "extends" : 0, "type" : "coords", "description" : "终点位置"},
+		{"id" : 2, "extends" : 1, "type" : "coords", "is_end" : true, "description" : "目标位置"},
+		{"id" : 3, "extends" : 2, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["blocks_criteria"], "description" : "检测模式"},
+	]
+}

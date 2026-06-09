@@ -1,0 +1,9 @@
+{
+	"type" : "colon_param_backet",
+	"data" : {
+		"\"can_place_on\"" : {"type" : "dictionary", "detail" : "item_component_blocks"},
+		"\"can_destory\"" : {"type" : "dictionary", "detail" : "item_component_blocks"},
+		"\"keep_on_death\"" : {"type" : "dictionary", "detail" : "empty_colon_param_backet"},
+		"\"item_lock\"" : {"type" : "dictionary", "detail" : "item_component_item_lock"},
+	},
+}

@@ -1,0 +1,16 @@
+{
+	"description" : "定位群系或结构",
+	"data" : [
+		{"id" : 0, "extends" : -1, "goto" : [1, 2], "type" : "option", "items" : [{"biome" : "生物群系"}, {"structure" : "结构"}], "description" : "定位类型"},
+		{"goto" : 999},
+		
+		{"id" : 1, "extends" : 0, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["biome"], "is_end" : true, "description" : "群系名称"},
+		{"goto" : 999},
+		
+		{"id" : 2, "extends" : 0, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["structure"], "is_end" : true, "description" : "结构名称"},
+		{"id" : 3, "extends" : 2, "type" : "bool", "description" : "没有查找过"},
+		{"goto" : 999},
+		
+		{"id" : 999}
+	]
+}

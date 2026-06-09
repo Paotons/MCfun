@@ -1,0 +1,19 @@
+{
+	"type" : "string",
+	"data" : {
+		"air_bubbles": "氧气条",
+		"all": "全部元素",
+		"armor": "护甲值",
+		"crosshair": "准星",
+		"health": "生命值",
+		"horse_health": "坐骑生命值",
+		"hotbar": "快捷栏",
+		"hunger": "饥饿值",
+		"item_text": "物品名称文本",
+		"paperdoll": "纸娃娃（角色模型）",
+		"progress_bar": "经验条",
+		"status_effects": "状态效果图标",
+		"tooltips": "工具提示",
+		"touch_controls": "触控按键"
+	}
+}

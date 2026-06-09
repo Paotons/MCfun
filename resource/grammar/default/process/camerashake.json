@@ -1,0 +1,19 @@
+{
+	"description" : "对玩家摄像机引用摇晃效果",
+	"data" : [
+		{"id" : 0, "extends" : -1, "goto" : [1, 5], "type" : "option", "items" : [{"add" : "添加"}, {"stop" : "停止"}], "description" : "引用类型"},
+		{"goto" : 999},
+		
+		{"id" : 1, "extends" : 0, "type" : "selector", "is_end" : true, "description" : "引用玩家"},
+		{"id" : 2, "extends" : 1, "type" : "float", "detail" : {"min" : 0.0}, "description" : "引用强度"},
+		{"id" : 3, "extends" : 2, "type" : "float", "detail" : {"min" : 0.0}, "description" : "持续时间"},
+		{"id" : 4, "extends" : 3, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["camerashake_type"], "description" : "摇晃类型"},
+		{"goto" : 999},
+		
+		{"id" : 5, "extends" : 0, "is_end" : true},
+		{"id" : 6, "extends" : 5, "type" : "selector", "description" : "引用玩家"},
+		{"goto" : 999},
+		
+		{"id" : 999},
+	]
+}

@@ -1,0 +1,9 @@
+{
+	"description" : "清除玩家物品栏的物品",
+	"data" : [
+		{"id" : 0, "extends" : -1, "is_end" : true},
+		{"id" : 1, "extends" : 0, "type" : "selector", "description" : "清楚对象"},
+		{"id" : 2, "extends" : 1, "type" : "spaceitem", "detail" : {"chapter" : "item"}, "description" : "物品名称"},
+		{"id" : 3, "extends" : 2, "type" : "int", "detail" : {"min" : 1}, "description" : "最大数量"}
+	]
+}

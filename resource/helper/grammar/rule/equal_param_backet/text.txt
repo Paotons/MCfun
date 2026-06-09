@@ -1,0 +1,17 @@
+[title]描述[/title]
+
+等号参数括号，类似目标选择器。
+
+[title]细节[/title]
+
+[code]"detail" : "using_key"[/code] 使用键，这个时候，数据应该有 [code]"key"[/code] 和 [code]"value"[/code] 两个键。分别定义键和值的元素。
+
+以后可能会进行更改。
+
+[title]数据[/title]
+
+[code] "data" : {
+	"a" : {...},
+	...
+}[/code]
+为参数的头和其对应的元素。

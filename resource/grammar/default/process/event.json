@@ -1,0 +1,13 @@
+{
+	"description" : "触发指定对象事件",
+	"data" : [
+		{"id" : 0, "extends" : -1, "goto" : [1], "type" : "option", "items" : [{"entity" : "实体"}], "description" : "事件类型"},
+		{"goto" : 999},
+		
+		{"id" : 1, "extends" : 0, "type" : "selector", "description" : "对象实体"},
+		{"id" : 2, "extends" : 1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["entity_event"], "is_end" : true, "description" : "事件名称"},
+		{"goto" : 999},
+		
+		{"id" : 999},
+	]
+}

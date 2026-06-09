@@ -1,0 +1,6 @@
+{
+	"description" : "设置游戏回话最大玩家数量",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "int", "detail" : {"min" : 0}, "is_end" : true, "description" : "数量"}
+	]
+}

@@ -27,8 +27,8 @@
 [b]point_path:[/b] 点号路径，可以用来表示 [code]mob.cat[/code]
 [b]file_path:[/b] 文件路径，可以用来表示 [code]main/myfun.mcfunction[/code]
 [b]coord:[/b] 轴，有 [code]5, ~5, ^5[/code] 三种写法，支持浮点。
-[b]coords:[/b] 多个轴，常用于表示坐标，可以表示 [code]~~~[code] 或者 [code]^^^3[/code] 各种坐标。
-[b]selector:[/b] 目标选择器，可以表示 [code]@e\[type=player\][code]，甚至是更复杂的选择，也可以支持玩家名称。
+[b]coords:[/b] 多个轴，常用于表示坐标，可以表示 [code]~~~[/code] 或者 [code]^^^3[/code] 各种坐标。
+[b]selector:[/b] 目标选择器，可以表示 [code]@e\[type=player\][/code]，甚至是更复杂的选择，也可以支持玩家名称。
 [b]array:[/b] 类似数组一样，中括号包起来的那样，目标选择器身体部分。
 [b]dictionary:[/b] 类似字典一样，大括号包起来的一样。
 [b]command:[/b] 指令，一整条指令。

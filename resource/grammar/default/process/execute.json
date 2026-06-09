@@ -1,71 +1,71 @@
 {
-	"description" : "修饰子命名",
+	"description" : "代表一个或多个实体执行指令",
 	"data" : [
-		{"id" : 0, "goto" : [1, 1, 950, 11, 3, 3, 9, 15, 17, 19, 23], "type" : "option", "items" : [{"as": "以指定实体身份执行"}, {"at": "在指定实体位置执行"}, {"run": "执行后续指令"}, {"positioned": "改变执行位置"}, {"if": "条件判断"}, {"unless": "条件取反判断"}, {"in": "指定维度"}, {"align": "对齐坐标轴"}, {"anchored": "锚点位置"}, {"facing": "面向方向"}, {"rotated": "旋转朝向"}]},
-	
-		{"id" : 899, "goto" : 999},
-		{"id" : 1, "extends" : 0, "goto" : 0, "type" : "selector", "description" : "目标"},
-	
+		{"id" : 0, "goto" : [1, 2, 3, 4, 5, 9, 9, 25, 26, 29, 33], "type" : "option", "items" : [{"align" : "执行位置取整"}, {"anchored" : "修改执行部位"}, {"as" : "修改命名执行者"}, {"at" : "修改执行对象位置"}, {"facing" : "修改执行面向"}, {"if" : "进行判断"}, {"unless" : "进行判断（反选）"}, {"in" : "修改执行世界"}, {"positioned" : "修改执行位置"}, {"rotated" : "修改旋转角度"}, {"run" : "执行子指令"}], "description" : "修改模式"},
+		
 		{"goto" : 999},
-		{"id" : 2, "extends" : 3, "goto" : 0, "type" : "selector", "description" : "目标"},
-	
+		{"id" : 1, "extends" : 0, "goto" : 0, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["multicoords"], "description" : "取整坐标"},
+		
 		{"goto" : 999},
-		{"id" : 3, "extends" : 0, "goto" : [2, 4, 6, 28], "type" : "option", "items" : [{"entity" : "实体"}, {"block" : "方块"}, {"blocks" : "区域"}, {"score" : "分数"}]},
-	
+		{"id" : 2, "extends" : 0, "goto" : 0, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["entity_body_parts"], "description" : "部位"},
+		
 		{"goto" : 999},
-		{"id" : 4, "extends" : 3, "type" : "coords", "description" : "位置"},
-		{"id" : 5, "extends" : 4, "goto" : 0, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "description" : "方块"},
-	
+		{"id" : 3, "extends" : 0, "goto" : 0, "type" : "selector", "description" : "命名执行者"},
+		
 		{"goto" : 999},
-		{"id" : 6, "extends" : 3, "type" : "coords", "description" : "起始位置"},
-		{"id" : 7, "extends" : 6, "type" : "coords", "description" : "终点位置"},
-		{"id" : 8, "extends" : 7, "goto" : 0, "type" : "spaceitem", "detail" : {"chapter" : "block_name"}, "description" : "方块"},
-	
+		{"id" : 4, "extends" : 0, "goto" : 0, "type" : "selector", "description" : "执行对象位置"},
+		
 		{"goto" : 999},
-		{"id" : 9, "extends" : 0, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["world_name"]},
-		{"id" : 10, "extends" : 9, "goto" : 0},
-	
+		{"id" : 5, "extends" : 0, "goto" : [7], "type" : "option", "detail" : {"is_probing" : true}, "items" : [{"entity" : "指定面向对象"}], "description" : "模式"},
+		{"id" : 6, "extends" : 0, "goto" : 0, "type" : "coords", "description" : "面向位置"},
 		{"goto" : 999},
-		{"id" : 11, "extends" : 0, "goto" : 0, "type" : "coords", "description" : "目标"},
-		{"id" : 12, "extends" : 0, "type" : "option", "items" : ["as"]},
-		{"id" : 13, "extends" : 12, "items" : ["cmp"]},
-		{"id" : 14, "extends" : 13, "goto" : 0, "type" : "selector", "description" : "目标"},
-	
+		{"id" : 7, "extends" : 5, "type" : "selector", "description" : "面向对象"},
+		{"id" : 8, "extends" : 7, "goto" : 0, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["entity_body_parts"], "description" : "面向部位"},
+		
 		{"goto" : 999},
-		{"id" : 15, "extends" : 0, "type" : "option", "items" : ["x", "y", "z", "xy", "xz", "yz", "xyz"]},
-		{"id" : 16, "extends" : 15, "goto" : 0},
-	
+		{"id" : 9, "extends" : 0, "goto" : [10, 12, 16, 17], "type" : "option", "items" : [{"block" : "存在方块"}, {"blocks" : "区域一致"}, {"entity" : "存在实体"}, {"score" : "存在分数"}], "description" : "判断模式"},
 		{"goto" : 999},
-		{"id" : 17, "extends" : 0, "type" : "option", "items" : [{"feet" : "脚"}, {"eyes" : "眼睛"}]},
-		{"id" : 18, "extends" : 17, "goto" : 0},
-	
+		{"id" : 10, "extends" : 9, "type" : "coords", "description" : "方块位置"},
+		{"id" : 11, "extends" : 10, "goto" : 0, "type" : "spaceitem", "detail" : {"chapter" : "block"}, "description" : "方块类型"},
 		{"goto" : 999},
-		{"id" : 19, "extends" : 0, "goto" : 0, "type" : "coords"},
-		{"id" : 20, "extends" : 0, "type" : "option", "items" : ["entity"]},
-		{"id" : 21, "extends" : 20, "items" : ["cmp"]},
-		{"id" : 22, "extends" : 21, "goto" : 0, "type" : "selector", "description" : "目标"},
-	
+		{"id" : 12, "extends" : 9, "type" : "coords", "description" : "区域起点位置"},
+		{"id" : 13, "extends" : 12, "type" : "coords", "description" : "区域终点位置"},
+		{"id" : 14, "extends" : 13, "type" : "coords", "description" : "对象区域起点"},
+		{"id" : 15, "extends" : 14, "goto" : 0, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["blocks_criteria"], "description" : "判断标准"},
 		{"goto" : 999},
-		{"id" : 23, "extends" : 0, "type" : "float", "description" : "水平方向"},
-		{"id" : 24, "extends" : 23, "goto" : 0, "type" : "float", "description" : "垂直方向"},
-		{"id" : 25, "extends" : 0, "type" : "option", "items" : ["as"]},
-		{"id" : 26, "extends" : 25, "items" : ["cmp"]},
-		{"id" : 27, "extends" : 26, "goto" : 0, "type" : "selector", "description" : "目标"},
-	
+		{"id" : 16, "extends" : 9, "goto" : 0, "type" : "selector", "description" : "目标实体"},
 		{"goto" : 999},
-		{"id" : 28, "extends" : 3, "type" : "selector", "description" : "目标"},
-		{"id" : 29, "extends" : 28, "type" : "word", "description" : "计分版", "cmd" : ["completion list scoreboard"]},
-		{"id" : 30, "extends" : 29, "goto" : [31, 32, 32, 32, 32, 32], "type" : "option", "items" : ["matches", "=", ">=", "<=", "<", ">"]},
-	
+		{"id" : 17, "extends" : 9, "type" : "selector", "description" : "比较对象", "cmd" : ["completion list scoreboard_player"]},
+		{"id" : 18, "extends" : 17, "type" : "word", "description" : "比较对象计分版", "cmd" : ["completion list scoreboard_objective"]},
+		{"id" : 19, "extends" : 18, "goto" : [23], "type" : "option", "detail" : {"is_probing" : true}, "items" : [{"matches" : "范围"}], "description" : "指定模式"},
+		{"id" : 20, "extends" : 18, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["comparison_mode"], "description" : "比较模式"},
+		{"id" : 21, "extends" : 20, "type" : "selector", "description" : "比较对象", "cmd" : ["completion list scoreboard_player"]},
+		{"id" : 22, "extends" : 21, "goto" : 0, "type" : "word", "description" : "比较对象计分版", "cmd" : ["completion list scoreboard_objective"]},
 		{"goto" : 999},
-		{"id" : 31, "extends" : 30, "goto" : 0, "type" : "scope", "description" : "分数"},
-	
+		{"id" : 23, "extends" : 19, "type" : "option", "detail" : {"is_probing" : true}, "items" : [{"!" : "反选范围"}], "description" : "使用反选"},
+		{"id" : 24, "goto" : 0, "type" : "scope", "description" : "分数范围"},
+		
 		{"goto" : 999},
-		{"id" : 32, "extends" : 30, "type" : "selector", "description" : "目标2"},
-		{"id" : 33, "extends" : 32, "goto" : 0, "type" : "word", "description" : "计分版2", "cmd" : ["completion list scoreboard"]},
-	
-		{"id" : 998, "goto" : 999},
-		{"id" : 950, "extends" : 0, "type" : "command", "detail" : {"types" : "normal|help"}, "description" : "子指令"},
-		{"id" : 999, "extends" : 900}
+		{"id" : 25, "extends" : 0, "goto" : 0, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["world"], "description" : "世界名称"},
+		
+		{"goto" : 999},
+		{"id" : 26, "extends" : 0, "goto" : [28], "type" : "option", "detail" : {"is_probing" : true}, "items" : [{"as" : "选用实体"}], "description" : "选用实体"},
+		{"id" : 27, "extends" : 0, "goto" : 0, "type" : "coords", "description" : "执行位置"},
+		{"goto" : 999},
+		{"id" : 28, "extends" : 26, "goto" : 0, "type" : "selector", "description" : "选用位置实体"},
+		
+		{"goto" : 999},
+		{"id" : 29, "extends" : 0, "goto" : [32], "type" : "option", "detail" : {"is_probing" : true}, "items" : [{"as" : "选用实体"}], "description" : "选用实体"},
+		{"id" : 30, "extends" : 0, "type" : "coord", "description" : "水平方向"},
+		{"id" : 31, "extends" : 30, "goto" : 0, "type" : "coord", "description" : "垂直方向"},
+		{"goto" : 999},
+		{"id" : 32, "extends" : 29, "goto" : 0, "type" : "selector", "description" : "选择实体"},
+		
+		{"goto" : 999},
+		{"id" : 33, "extends" : 0, "goto" : 999, "type" : "command", "detail" : {"types" : "normal|help"}, "description" : "子指令"},
+		
+		{"goto" : 999},
+		
+		{"id" : 999}
 	]
 }

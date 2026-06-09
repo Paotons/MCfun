@@ -1,0 +1,47 @@
+{
+	"description" : "发出摄像机指令",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "作用实体"},
+		{"id" : 1, "extends" : 0, "goto" : [2, 3, 11], "type" : "option", "items" : [{"clear" : "清空所有效果"}, {"fade" : "渐变"}, {"set" : "设置预选"}], "description" : "控制模式"},
+		{"goto" : 999},
+		
+		{"id" : 2, "is_end" : true},
+		{"goto" : 999},
+		
+		{"id" : 3, "extends" : 1, "goto" : [4, 7], "type" : "option", "items" : [{"color" : "颜色"}, {"time" : "时间"}], "description" : "参数"},
+		{"goto" : 999},
+		{"id" : 4, "type" : "int", "detail" : {"min" : 0, "max" : 255}, "description" : "红"},
+		{"id" : 5, "extends" : 4, "type" : "int", "detail" : {"min" : 0, "max" : 255}, "description" : "绿"},
+		{"id" : 6, "extends" : 5, "type" : "int", "detail" : {"min" : 0, "max" : 255}, "is_end" : true, "description" : "蓝"},
+		{"goto" : 999},
+		{"id" : 7, "extends" : 3, "type" : "float", "detail" : {"min" : 0.0}, "description" : "渐入时间"},
+		{"id" : 8, "extends" : 7, "type" : "float", "detail" : {"min" : 0.0}, "description" : "持续时间"},
+		{"id" : 9, "extends" : 8, "type" : "float", "detail" : {"min" : 0.0}, "is_end" : true, "description" : "渐出时间"},
+		{"id" : 10, "extends" : 9, "goto" : [4], "type" : "option", "items" : [{"color" : "颜色"}], "is_end" : false, "description" : "参数"},
+		
+		{"goto" : 999},
+		{"id" : 11, "extends" : 1, "type" : "word", "is_end" : true, "cmd" : ["list camera_preset add self", "completion list camera_preset"], "description" : "预设"},
+		{"id" : 12, "extends" : 11, "goto" : [13, 14, 17, 20, 22], "type" : "option", "items" : [{"default" : "恢复默认"}, {"ease" : "设置时间"}, {"facing" : "面向目标"}, {"pos" : "位置"}, {"rot" : "方向"}], "is_end" : false, "description" : "参数"},
+		{"goto" : 999},
+		{"id" : 13, "is_end" : true},
+		{"goto" : 999},
+		{"id" : 14, "type" : "float", "detail" : {"min" : 0.0}, "description" : "时间"},
+		{"id" : 15, "extends" : 14, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["camera_ease"], "is_end" : true, "description" : "动画类型"},
+		{"id" : 16, "extends" : 15, "goto" : [13, 17, 20, 22], "type" : "option", "items" : [{"default" : "恢复默认"}, {"facing" : "面向目标"}, {"pos" : "位置"}, {"rot" : "方向"}], "is_end" : false, "description" : "参数"},
+		{"goto" : 999},
+		{"id" : 17},
+		{"id" : 18, "extends" : 17, "type" : "coords", "is_end" : true, "description" : "朝向位置"},
+		{"id" : 19, "extends" : 17, "type" : "selector", "is_end" : true, "description" : "朝向实体"},
+		{"extends" : 19, "cmd" : ["expectation clear"]},
+		{"goto" : 999},
+		{"id" : 20, "type" : "coords", "is_end" : true, "description" : "位置"},
+		{"id" : 21, "extends" : 20, "goto" : [17, 22], "type" : "option", "items" : [{"facing" : "面向目标"}, {"rot" : "方向"}], "is_end" : false, "description" : "参数"},
+		{"goto" : 999},
+		{"id" : 22, "type" : "coord", "description" : "横向坐标"},
+		{"id" : 23, "extends" : 22, "type" : "coord", "is_end" : true, "description" : "纵向坐标"},
+		
+		{"goto" : 999},
+		
+		{"id" : 999},
+	]
+}

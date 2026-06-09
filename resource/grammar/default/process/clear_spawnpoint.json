@@ -1,0 +1,7 @@
+{
+	"description" : "移除玩家的生成点",
+	"data" : [
+		{"id" : 0, "is_end" : true},
+		{"id" : 1, "type" : "selector", "description" : "玩家"},
+	]
+}

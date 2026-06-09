@@ -1,0 +1,7 @@
+{
+	"description" : "击杀实体",
+	"data" : [
+		{"id" : 0, "extends" : -1, "is_end" : true},
+		{"id" : 1, "extends" : 0, "type" : "selector", "description" : "目标对象"}
+	]
+}

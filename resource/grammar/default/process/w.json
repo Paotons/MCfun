@@ -1,0 +1,7 @@
+{
+	"description" : "向一名或多名玩家发送私密消息",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true, "description" : "目标对象"},
+		{"id" : 1, "extends" : 0, "type" : "rich_string", "detail" : {"long" : true}, "description" : "消息"}
+	]
+}

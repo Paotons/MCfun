@@ -1,0 +1,13 @@
+{
+	"type": "string",
+	"data": {
+		"survival": "生存模式",
+		"creative": "创造模式",
+		"adventure": "冒险模式",
+		"spectator": "旁观模式",
+		"s": "生存模式",
+		"c": "创造模式",
+		"a": "冒险模式",
+		"sp": "旁观模式",
+	}
+}

@@ -1,0 +1,7 @@
+{
+	"type" : "string",
+	"data" : {
+		"memory" : "内存临时",
+		"disk" : "硬盘永久"
+	}
+}

@@ -1,0 +1,6 @@
+{
+	"description" : "运行函数",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "file_path", "detail" : {"extensions" : ["mcfun"], "using_extension" : false}, "description" : "函数名称", "is_end" : true}
+	]
+}

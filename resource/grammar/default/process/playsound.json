@@ -1,0 +1,11 @@
+{
+	"description" : "播放声音",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "point_path", "detail" : {"chapter" : "sound"}, "is_end" : true, "description" : "声音名称"},
+		{"id" : 1, "extends" : 0, "type" : "selector", "description" : "目标"},
+		{"id" : 2, "extends" : 1, "type" : "coords", "description" : "位置"},
+		{"id" : 3, "extends" : 2, "type" : "float", "detail" : {"min" : 0.0}, "description" : "音量"},
+		{"id" : 4, "extends" : 3, "type" : "float", "detail" : {"min" : 0.0, "max" : 256.0}, "description" : "音频"},
+		{"id" : 5, "extends" : 4, "type" : "float", "detail" : {"min" : 0.0, "max" : 1.0}, "description" : "最小音量"}
+	]
+}

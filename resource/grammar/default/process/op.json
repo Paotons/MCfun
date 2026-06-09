@@ -1,0 +1,6 @@
+{
+	"description" : "给予玩家操作员状态",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true, "description" : "玩家"}
+	]
+}

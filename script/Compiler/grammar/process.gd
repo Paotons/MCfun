@@ -44,7 +44,6 @@ class _CommandData extends GrammarCompiler:
 			compiled_result[i] = obj.get_result()
 		_set_is_valid(true)
 
-
 func _compile(data : Variant) -> void:
 	if not data is Dictionary:
 		errors.append("%s_data should be dictionary, but is %s." % [process_name, type_string(typeof(data))])
@@ -77,7 +76,6 @@ func _compile_v1(key : String, from : Array) -> bool:
 	
 	var obj := _CommandData.new()
 	obj.command_name = "%s[%s]" % [process_name, key]
-	obj.process_data = compiled_result
 	
 	obj.compile(from)
 	

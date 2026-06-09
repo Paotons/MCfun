@@ -1,0 +1,6 @@
+{
+	"description" : "计数与匹配实体",
+	"data" : [
+		{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true, "description" : "目标对象"}
+	]
+}

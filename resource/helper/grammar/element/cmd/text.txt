@@ -13,3 +13,14 @@
 控制补全。可以使用 [code]completion[/code] 控制补全。
 
 [code]completion list <列表名>[/code] 显示列表补全单。
+
+[b]注意：[/b]该功能没有做全，目前仅支持 [code]string, word, selector[/code]
+
+[title]期望列表[/title]
+
+控制期望列表，期望列表也控制补全。可以使用 [code]expectation[/code] 控制补全。
+每次运行时如果元素发生错误，就会自动加入期望列表。
+
+[code]expectation clear[/code] 清空期望列表。
+
+b]注意：[/b]该功能没有做全，目前仅支持 [code]null[/code]

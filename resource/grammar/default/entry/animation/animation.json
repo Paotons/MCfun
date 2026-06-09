@@ -1,0 +1,57 @@
+{
+	"type" : "path",
+	"data" : {
+		"animation": {
+			"player" :{
+				"attack" : {
+					"rotations": "攻击旋转",
+					"spear": "三叉戟攻击",
+					"shield": "盾牌格挡"
+				},
+				"move" : {
+					"": "移动动作",
+					"legs" :{
+						"": "腿部移动",
+						"inverted": "腿部反转移动"
+					}
+				},
+				"riding" :{
+					"legs": "骑乘腿部动作"
+				},
+				"sleeping": "睡觉",
+				"swim": "游泳",
+				"using_item" : {
+					"": "使用物品",
+					"in_air": "空中使用物品"
+				},
+				"crossbow_hold": "手持弩",
+				"crossbow_charge": "弩上弦"
+			},
+			"wolf" : {
+				"angry": "狼愤怒",
+				"walk": "狼行走",
+				"baby_land": "小狼落地"
+			},
+			"fox" : {
+				"sleep": "狐狸睡觉",
+				"walk": "狐狸行走"
+			},
+			"cat" : {
+				"sleep": "猫睡觉"
+			},
+			"horse" : {
+				"gallop": "马飞奔",
+				"jump": "马跳跃"
+			},
+			"villager" : {
+				"celebrate": "村民庆祝",
+				"work": "村民工作",
+				"trade": "村民交易"
+			},
+			"armor_stand" : {
+				"riposte_pose": "盔甲架回刺",
+				"salute_pose": "盔甲架敬礼"
+			}
+		}
+	}
+}

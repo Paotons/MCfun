@@ -41,6 +41,15 @@ func get_history(idx : int) -> int:
 ## 返回进程中的序列在历史中的序列。
 func find_history(idx : int) -> int:
 	return exe_element_histories.find(idx)
+## 返回在有效元素列表中，指定序列处在历史中的位置。。
+func get_idx_from_valid_history(idx : int) -> int:
+	var j := 0
+	for i in _elements.size():
+		if _elements[i] != null:
+			if j == idx:
+				return i
+			j += 1
+	return -1
 
 #region 序列
 ## 如果序列前面一个数据是完整的目标选择器头，返回 [code]true[/code]。

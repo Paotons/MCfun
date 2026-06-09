@@ -1,0 +1,10 @@
+{
+	"type" : "string",
+	"data" : {
+		"teleport_rider": "将骑手传送到坐骑位置",
+		"teleport_ride": "将坐骑传送到骑手位置",
+		"crouch_ride": "骑手需要潜行才能脱离",
+		"no_teleport": "骑手走向坐骑，默认行为",
+		"assume_control": "骑手自动控制坐骑移动"
+	}
+}

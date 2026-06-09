@@ -1,0 +1,6 @@
+{
+	"type" : "colon_param_backet",
+	"data" : {
+		"\"mode\"" : {"type" : "quotation", "detail" : "item_component_item_lock_mode"}
+	}
+}
