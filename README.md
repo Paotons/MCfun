@@ -1,297 +1,169 @@
-MCfun
+# MCfun
 
-Minecraft 指令编辑器 —— 让每条指令都有趣
+**适用于移动设备的 Minecraft 基岩版命令 IDE**  
+一个功能完整、支持离线使用的 Minecraft 命令集成开发环境，完全基于 Godot 4 构建，专为移动设备（Android/iOS）设计。
 
-<div align="center">
-
-https://img.shields.io/badge/Godot-4.6.1-478CBF?logo=godot-engine&logoColor=white
-https://img.shields.io/badge/License-MIT-yellow.svg
-https://img.shields.io/badge/Status-Stable-brightgreen
-https://img.shields.io/badge/Platform-Android%20%7C%20Windows%20%7C%20Web-lightgrey
-
-一个功能完整的 Minecraft 指令编辑器，支持语法高亮、智能补全和实时错误检测
-
-</div>
+MCfun 提供了从项目创建、代码编辑、实时解析与错误检测，到行为包导出的完整工作流——全程无需电脑。其底层的语法引擎由可热加载的 JSON 定义语法系统驱动，支持最新的 Minecraft 命令（beta 1.21），且无需修改核心代码即可扩展。
 
 ---
 
-📖 项目简介
+## 🔧 核心能力
 
-MCfun 是一个为 Minecraft 玩家设计的智能指令编辑工具。它不仅是一个编辑器，更是一个完整的语法解析引擎——能够理解 Minecraft 指令的语法结构，实时提供补全建议，并高亮显示每条指令的各个部分。
-
-为什么叫 MCfun？
-
-Minecraft 是有趣的，指令也是有趣的。让编辑指令的过程也变得有趣。
-
----
-
-✨ 核心功能
-
-🎨 语法高亮
-
-· 指令名、参数、坐标、选择器分色显示
-· 支持 Minecraft 颜色码（§ 格式）
-· 实时高亮更新
-
-🔍 智能补全
-
-· 上下文感知的指令补全
-· 1500+ 物品名、100+ 实体名自动补全
-· 目标选择器参数补全（@p[name=...]）
-· 支持命名空间格式（minecraft:diamond）
-
-⚠️ 错误检测
-
-· 实时语法检查
-· 参数类型验证
-· 括号匹配与嵌套检查
-
-⌨️ 编辑器特性
-
-· 多光标支持
-· 智能缩进
-· 双击符号映射（如 .. → ~）
-· 补全项权重排序
+- **移动端优先的 IDE**：针对触摸输入优化，无需电脑。
+- **完整的命令覆盖**：支持所有 Minecraft 基岩版命令，包括 `execute`、`scoreboard`、`schedule`、`structure` 等。
+- **可热加载的语法系统**：命令语法、括号规则、补全词典均在 JSON 中定义，并编译为二进制缓存。无需重新构建应用即可更新语法。
+- **智能补全**：7 种插入模式（普通、单词、字符串、选择器、空间物品、引号、点分路径），配合加权排序算法（子串匹配、连续性加成、长度惩罚）。
+- **实时语法高亮**：区分命令头、数字、布尔值、选项、选择器、坐标、富文本标记等。
+- **实时错误检测**：行内错误下划线 + 专用错误面板，支持点击跳转。
+- **项目系统**：多项目支持、文件树浏览、最近文件列表、自动保存。
+- **内置辅助命令**：`&string`、`&tp`、`&scoreboard`、`&fill` 等，可编译为复杂的多命令序列（如基于记分板的精确传送、自动分块的大范围填充）。
+- **注解指令**：`@list` 用于动态管理命令列表（跨行补全）。
+- **行为包导出**：导出 `.mcfunction` 文件及 `manifest.json`，打包为 `.zip` 供 Minecraft 使用。
 
 ---
 
-🎮 支持的指令
+## 🏗️ 架构概览
 
-指令 参数 说明
-execute 30+ 条件执行，支持子命令递归
-scoreboard 20+ 计分板管理
-tp 10+ 传送（支持 facing 等参数）
-summon 12+ 召唤实体
-give / clear 5+ 物品管理
-effect 6+ 状态效果
-gamerule 3+ 游戏规则（动态补全）
-tellraw 2+ JSON 文本显示
-... ... 共 25+ 条指令
+MCfun 采用分层模块化设计。主要组件如下：
 
-补全数据规模
 
-· 🧱 物品：1500+ 种（minecraft 命名空间）
-· 👾 实体：100+ 种
-· ✨ 状态效果：40+ 种
-· 🏷️ 标签：动态积累
+应用层（UI）
+│
+▼
+全局单例（ProjectManager, FileSystem, EditManager）
+│
+▼
+编辑器核心（CustomCodeEdit, FunctionEdit, FileListContainer）
+│
+▼
+解析与补全引擎
+├── CommandElementCreater（状态机解析器）
+├── Element 继承树（25+ 个类）
+└── FunctionCompletionData（加权排序）
+│
+▼
+语法层（可热加载）
+├── GrammarProcess（命令序列）
+├── GrammarLaw（括号/选择器规则）
+└── GrammarEntry（补全词库）
+│
+▼
+项目与导出层
+└── 行为包生成器（ZIP + manifest）
 
----
 
-🏗️ 技术架构
+### 命令解析流程
+1. 用户输入 → `CustomCodeEdit`（处理双击映射、退格、粘贴）
+2. `FunctionSyntaxHighlight` 请求当前行的 `CommandElement`
+3. `CommandElementCreater` 运行语法状态机（支持 `goto`、`extends`、试探性解析）
+4. 解析出的 `CommandElement` 包含 `Element` 节点树（如 `IntElement`、`SelectorElement`）
+5. 提取高亮和补全数据，回传给编辑器
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    表现层 (Editor)                       │
-│          FunctionEdit (继承 Godot CodeEdit)              │
-│              语法高亮 + 补全显示 + 光标管理               │
-└─────────────────────────────────────────────────────────┘
-							  ↓
-┌─────────────────────────────────────────────────────────┐
-│                   解析层 (Element)                       │
-│   22种元素类型 | 递归下降解析 | 括号匹配 | 错误收集       │
-└─────────────────────────────────────────────────────────┘
-							  ↓
-┌─────────────────────────────────────────────────────────┐
-│                   规则层 (Grammar)                       │
-│   指令结构定义 | 嵌套规则 | 补全数据 | 内嵌命令           │
-└─────────────────────────────────────────────────────────┘
-							  ↓
-┌─────────────────────────────────────────────────────────┐
-│                   数据层 (JSON)                          │
-│     Grammer.json | GrammerLaw.json | GrammerEntry.json   │
-└─────────────────────────────────────────────────────────┘
-```
+### 语法热加载系统
+- **定义**：`main.json`（格式版本 1）指向三个文件：`process.json`（命令序列）、`law.json`（括号规则）、`entry.json`（补全词库）
+- **编译**：JSON 文件被编译为 Godot 序列化的二进制缓存（`.compiled`），存储在 `user://cache/grammar/`
+- **运行时**：`Grammar` 类加载缓存；若缺失或过期，自动重新编译
+- **可扩展性**：只需编辑 JSON 即可添加新的 Minecraft 命令——无需重新编译应用
 
-类型系统
+### Element 继承树（部分）
 
-支持 22 种 Minecraft 指令参数类型：
+Element（抽象）
+└── BaseStringElement
+├── BoolElement / IntElement / FloatElement / StringElement / WordElement
+├── CoordElement / CoordsElement / ScopeElement
+├── SelectorElement / SpaceItemElement / PointPathElement / FilePathElement
+├── RichStringElement
+├── HeadElement
+├── OptionElement
+└── BacketElement（及其子类：ParamBacket、EqualParamBacket、ColonParamBacket、ArrayBacket）
 
-基础类型 复合类型 高级类型
-bool, int, float, string dictionary, array, quotation selector, coords, spaceitem
-word, option, scope point_path, rich_string command (递归)
-
-补全模式
-
-模式 说明
-NORMAL 直接插入
-WORLD 替换当前单词
-SPACEITEM 智能处理 namespace:item
-SELECTOR 目标选择器补全
-QUOTATION 引号内补全
-POINT_PATH 点号路径补全（如 slot.weapon.mainhand）
 
 ---
 
-📁 项目结构
+## 📖 使用说明
 
-```
+### 从源码构建
+1. 克隆仓库
+2. 在 Godot 4.x 中打开项目
+3. 导出为 Android（`.apk`）或 iOS（需要 Xcode 和签名）  
+   *注意：项目仅使用 GDScript，无需 C# 模块。*
+
+### 首次运行
+- 授予存储权限
+- 应用会要求选择一个数据目录（选择可写文件夹，如 `Documents/MCfun`）
+- 创建新项目或导入已有项目
+
+### 编辑
+- 在项目内创建 `.mcfun` 文件
+- 使用编辑器编写命令（自动触发补全，或通过菜单手动触发）
+- 错误会显示在行内和错误面板中；点击错误可跳转到对应位置
+
+### 导出行为包
+- 打开项目菜单 → **导出**
+- 设置输出路径和包名
+- 选择错误处理方式（忽略/直接导出）以及是否保留注释/空行
+- 点击**导出**。生成的 `.zip` 包含 `manifest.json` 和 `functions/` 文件夹（内含编译后的 `.mcfunction` 文件）
+
+---
+
+## 🧪 技术亮点
+
+- **行 ID 系统**：每行具有持久 ID，在插入/删除行后仍然保持不变，用于撤销/重做后的光标位置恢复
+- **撤销/重做**：与 Godot 的 `UndoRedo` 集成，用于文件打开/关闭操作
+- **多线程加载**：语法编译在后台线程运行，UI 保持响应
+- **可配置 UI**：窗口缩放、编辑器颜色、双击映射、自动保存间隔等均存储在 `user://config.cfg`
+- **移动端输入优化**：双击映射（如空格 → Tab，`.` → `~`，`s` → `§`），快速退格时抑制补全
+
+---
+
+## 📂 仓库结构（精简）
+
+
 MCfun/
-├── resource/                 # 数据资源
-│   ├── grammer/             # 语法定义（编译后缓存）
-│   ├── law/                 # 嵌套规则（编译后缓存）
-│   └── entry/               # 补全条目（编译后缓存）
-│
+├── scene/                 # UI 场景（项目列表、编辑器、设置、帮助等）
 ├── script/
-│   ├── element/             # 解析元素
-│   │   ├── child/          # 16种具体元素类型
-│   │   └── *.gd            # 基类定义
-│   ├── grammer/            # 规则编译系统
-│   │   ├── Grammer.gd      # 指令语法编译
-│   │   ├── GrammerLaw.gd   # 嵌套规则编译
-│   │   └── GrammerEntry.gd # 补全数据编译
-│   ├── manager/            # 工厂与管理
-│   │   ├── ElementManager.gd
-│   │   ├── ElementRule.gd
-│   │   └── ElementRuleCMD.gd
-│   ├── Edit.gd             # 编辑器核心
-│   ├── Global.gd           # 全局单例
-│   ├── StringTool.gd       # 字符串工具库
-│   └── ...
-│
-├── main.tscn               # 主场景
-│
-├── Grammer.json            # 指令语法配置
-├── GrammerLaw.json         # 嵌套规则配置
-└── GrammerEntry.json       # 补全数据配置
-```
+│   ├── command/           # 解析与元素定义
+│   │   ├── creater/       # 命令解析的状态机
+│   │   ├── element/       # 25+ 个 Element 类（Bool、Int、Selector、Backet...）
+│   │   └── native/        # 内置辅助命令的实现
+│   ├── completion/        # 补全数据结构与权重计算
+│   ├── element/           # Element 基类与管理器
+│   ├── exporter/          # 行为包导出器
+│   ├── grammar/           # 语法加载、编译、缓存
+│   ├── project/           # 项目管理与配置
+│   ├── edit/              # 扩展的 CodeEdit（CustomCodeEdit、FunctionEdit）
+│   ├── highlight/         # 语法高亮器
+│   ├── global/            # 全局单例（FileSystem、ProjectManager、EditManager）
+│   └── tool/              # 工具类（字符串、AABB、字典键值等）
+├── resource/
+│   ├── grammar/           # JSON 语法定义（main.json、process.json、law.json、entry.json）
+│   │   └── default/       # 默认语法（Minecraft beta 1.21）
+│   └── native/            # 内置辅助命令的 JSON 定义
+└── test/                  # （可选）测试资源
+
 
 ---
 
-🚀 开始使用
+## ⚖️ 许可证
 
-环境要求
-
-· Godot 4.6.1 或更高版本
-· 支持 Vulkan 的设备（Android / Windows / Web）
-
-运行方式
-
-方式一：Godot 编辑器运行
-
-```bash
-git clone https://github.com/Paotons/MCfun.git
-cd MCfun
-# 用 Godot 4.6.1 打开 project.godot
-```
-
-方式二：导出为应用程序
-
-· Android：导出 APK，安装到手机
-· Windows：导出可执行文件
-· Web：导出 HTML5，部署到网页
-
-方式三：已编译版本（如有）
-
-前往 Releases 下载对应平台的预编译版本
-
-基本操作
-
-操作 说明
-输入指令 自动触发补全和高亮
-Tab 接受补全建议
-Enter 换行
-双击 符号映射（如 .. → ~）
-多光标 Ctrl+左键 或 Alt+左键
+**GNU General Public License v3.0**  
+您可以根据 GPLv3 的条款复制、修改和分发本软件。详见 [LICENSE](LICENSE) 文件。
 
 ---
 
-📊 项目统计
+## 👤 作者
 
-维度 数据
-GDScript 44 个文件 / ~5100 行
-JSON 配置 3 个文件 / ~6500 行
-总代码量 ~11600 行
-开发周期 约 2 个月（2025.3.1 - 2025.4.25）
-指令支持 25+ 条
-物品数据 1500+ 种
-实体数据 100+ 种
+**泡桐树 (Paotons)** – 完全在手机上开发，没有使用电脑，历时数月，完成于高中时期。  
+GitHub：[@Paotons](https://github.com/Paotons)
 
 ---
 
-🛠️ 技术亮点
+## 🙏 致谢
 
-1. 完整的语法解析引擎
-
-· 递归下降解析器，支持子命令嵌套
-· 22 种类型系统，可扩展
-· 括号匹配支持嵌套、转义、字符串保护
-
-2. 可配置的规则系统
-
-· 指令结构通过 JSON 定义，无需改代码
-· 支持 goto 跳转（选项驱动的解析路径）
-· 支持 extends 继承（条件参数）
-
-3. 智能补全算法
-
-· 模糊匹配 + 连续性加权排序
-· 6 种插入模式，适配不同场景
-· 动态补全（历史输入积累）
-
-4. 高性能设计
-
-· 正则表达式预编译
-· 行 ID 系统（删除行后 ID 不复用）
-· 字符串工具库（避免频繁创建临时字符串）
+- **Mojang** – 创造了 Minecraft 及其命令系统
+- **Godot 引擎** – 免费、开源的游戏引擎，使这一切成为可能
+- **DeepSeek** – 协助代码生成与文档编写
 
 ---
 
-🙏 致谢
-
-· Mojang Studios - 创造了一个值得为之写解析器的游戏
-· Godot 社区 - 提供了优秀的开源引擎
-· 每一位测试用户 - 你们的反馈让 MCfun 变得更好
-
----
-
-📝 开发日志
-
-v1.0.0 (2026.4.25)
-
-· ✅ 完成 25+ 条指令的语法定义
-· ✅ 实现 1500+ 物品/100+ 实体的补全数据
-· ✅ 支持 execute、scoreboard 等复杂指令
-· ✅ 完成语法高亮和错误检测
-
----
-
-🔮 未来计划
-
-· 添加更多指令（Minecraft 1.21+ 新指令）
-· 指令可视化构建器（拖拽式）
-· 指令模板库（一键生成常用指令）
-· 云端同步（多设备共享补全数据）
-· Godot 插件版本（直接拖入其他项目使用）
-
----
-
-📄 许可证
-
-MIT License © 2025 Paotons
-
----
-
-📬 联系
-
-· 作者：泡桐树 (Paotons)
-· GitHub：github.com/Paotons
-
----
-
-<div align="center">
-
-用手机写代码的高二学生，做了一个需要编译原理知识的项目
-
-这本身就是一个有趣的故事
-
-</div>
-
----
-
-附：作品集描述（精简版）
-
-MCfun - Minecraft 智能指令编辑器
-
-独立开发的一个完整语法解析引擎，支持 25+ 条 Minecraft 指令的实时高亮、补全和错误检测。实现了递归下降解析器、22 种类型系统、可配置规则引擎。代码量约 5100 行 GDScript + 6500 行 JSON 配置。
-
-技术栈：Godot 4.6.1 + GDScript + 自定义语法解析引擎
+*献给那些相信一部手机也足以打造专业工具的 Minecraft 命令创作者们。*
