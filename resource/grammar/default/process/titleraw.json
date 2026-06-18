@@ -1,22 +1,23 @@
 {
 	"description" : "控制屏幕标题",
 	"data" : [
-		{"id" : 0, "extends" : -1, "goto" : [2], "type" : "option", "detail" : {"using_entry" : true, "is_probing" : true}, "items" : ["title_type"], "is_end" : true, "description" : "显示位置"},
-		{"id" : 1, "extends" : -1, "goto" : [3, 4, 5], "type" : "option", "items" : [{"clear" : "清空显示"}, {"reset" : "重置"}, {"times" : "调整时间"}], "description" : "操作模式"},
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "目标对象"},
+		{"id" : 1, "extends" : 0, "goto" : [3], "type" : "option", "detail" : {"using_entry" : true, "is_probing" : true}, "items" : ["title_type"], "is_end" : true, "description" : "显示位置"},
+		{"id" : 2, "extends" : 0, "goto" : [4, 5, 6], "type" : "option", "items" : [{"clear" : "清空显示"}, {"reset" : "重置"}, {"times" : "调整时间"}], "description" : "操作模式"},
 		{"goto" : 999},
 		
-		{"id" : 2, "extends" : 0, "type" : "dictionary", "detail" : {"rule" : "t_show"}, "description" : "显示内容"},
+		{"id" : 3, "extends" : 1, "type" : "dictionary", "detail" : {"rule" : "t_show"}, "description" : "显示内容"},
 		{"goto" : 999},
 		
-		{"id" : 3, "extends" : 1, "is_end" : true},
+		{"id" : 4, "extends" : 2, "is_end" : true},
 		{"goto" : 999},
 		
-		{"id" : 4, "extends" : 1, "is_end" : true},
+		{"id" : 5, "extends" : 2, "is_end" : true},
 		{"goto" : 999},
 		
-		{"id" : 5, "extends" : 1, "type" : "int", "detail" : {"min" : 0}, "is_end" : true, "description" : "渐入Tick"},
-		{"id" : 6, "extends" : 5, "type" : "int", "detail" : {"min" : 0}, "description" : "持续Tick"},
-		{"id" : 7, "extends" : 6, "type" : "int", "detail" : {"min" : 0}, "description" : "渐出Tick"},
+		{"id" : 6, "extends" : 2, "type" : "int", "detail" : {"min" : 0}, "is_end" : true, "description" : "渐入Tick"},
+		{"id" : 7, "extends" : 6, "type" : "int", "detail" : {"min" : 0}, "description" : "持续Tick"},
+		{"id" : 8, "extends" : 7, "type" : "int", "detail" : {"min" : 0}, "description" : "渐出Tick"},
 		{"goto" : 999},
 		
 		{"id" : 999}
