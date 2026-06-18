@@ -2,7 +2,7 @@
 	"type" : "equal_param_backet",
 	"detail" : "using_key",
 	"data" : {
-		"key" : {"type" : "word", "description" : "scoreboard", "cmd" : ["completion list scoreboard"]},
+		"key" : {"type" : "word", "description" : "scoreboard", "cmd" : ["completion list scoreboard_objective"]},
 		"value" : {"type" : "scope", "description" : "score"},
 	},
 }
