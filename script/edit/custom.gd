@@ -58,6 +58,9 @@ var _line_ids : PackedInt32Array = [0]
 # 下一行的 id。
 var _next_line_id := 1
 
+func _init() -> void:
+	lines_edited_from.connect(_on_custom_line_edit_from)
+
 #region 输入。
 ## 设置双击映射表。
 func set_double_input_map(value : Dictionary[String, String]) -> void:
@@ -353,3 +356,16 @@ func get_has_bgcolor_lines() -> PackedInt32Array:
 func get_default_bgcolor() -> Color:
 	return (get_theme_stylebox(&"normal") as StyleBoxFlat).bg_color
 #endregion
+
+func _on_custom_line_edit_from(line : int, to_line : int) -> void:
+	if line == to_line:
+		return
+	
+	elif line > to_line:
+		for i in range(line - 1, to_line, -1):
+			if _line_ids.has(i):
+				_remove_edit_line(i)
+	else: # line < to_line
+		for i in range(line + 1, to_line + 1):
+			if not _line_ids.has(i):
+				_add_edit_line(i)

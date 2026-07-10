@@ -16,10 +16,26 @@ const CONFIG_PROJECT_KEYS : PackedStringArray = ["name", "nearest_time", "path"]
 ## 项目名称。
 var project_name : String
 
+# 如果当帧已经触发了 pressed，当帧不再接受输入。以防止一帧重复输入的标志。
+var _frame_pressed_flag := false
+
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+			if _frame_pressed_flag:
+				return
+			_frame_pressed_flag = true
 			pressed.emit()
+			await get_tree().process_frame
+			_frame_pressed_flag = false
+	elif event is InputEventScreenTouch:
+		if not event.pressed:
+			if _frame_pressed_flag:
+				return
+			_frame_pressed_flag = true
+			pressed.emit()
+			await get_tree().process_frame
+			_frame_pressed_flag = false
 
 ## 设置选中状态。
 func set_select_mode(enabled : bool) -> void:

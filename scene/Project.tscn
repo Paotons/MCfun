@@ -54,7 +54,9 @@ func _ready() -> void:
 	update_list()
 
 func _on_project_container_pressed(node : ProjectListContainer) -> void:
-	project_pressed.emit(node)
+	if selected_list != null and selected_list == node:
+		project_pressed.emit(node)
+	
 	if selected_list != null:
 		selected_list.set_select_mode(false)
 	selected_list = node
@@ -124,7 +126,6 @@ func _get_selected_project() -> ProjectListContainer:
 	return $\"../../../MarginContainer/ProjectList\".selected_list
 func _update_project_list() -> void:
 	$\"../../../MarginContainer/ProjectList\".update_list()
-
 
 func _on_project_list_selected_project_changed(node: ProjectListContainer) -> void:
 	disabled = node == null

@@ -7,7 +7,7 @@ script/source = "extends Tree
 ## 显示帮助的树。
 
 ## 目录被选中。
-signal directory_selectrd(directory : String)
+signal directory_selected(directory : String)
 
 ## 根节点路径。
 @export_dir var root_path : String
@@ -25,46 +25,68 @@ func updata_tree_item() -> void:
 	_tree_items.clear()
 	_tree_directories.clear()
 	
+	var init_cfg : ConfigFile
 	var queue_directories : Array[DirAccess]
 	var queue_tree : Array[TreeItem]
+	
+	if FileAccess.file_exists(root_path.path_join(\"config.cfg\")):
+		init_cfg = ConfigFile.new()
+		init_cfg.load(root_path.path_join(\"config.cfg\"))
 	
 	var root := create_item()
 	root.set_text(0, \"root\")
 	
-	for dir in DirAccess.get_directories_at(root_path):
-		queue_directories.append(DirAccess.open(root_path.path_join(dir)))
-	queue_tree.resize(queue_directories.size())
-	queue_tree.fill(root)
+	if init_cfg != null:
+		for dir : String in init_cfg.get_value(\"sort\", \"list\", DirAccess.get_directories_at(root_path)):
+			if not DirAccess.dir_exists_absolute(root_path.path_join(dir)):
+				push_error(\"Path \\\"%s\\\" isn't exists.\" % root_path.path_join(dir))
+				continue
+			queue_directories.append(DirAccess.open(root_path.path_join(dir)))
+			queue_tree.append(root)
+	else:
+		for dir : String in DirAccess.get_directories_at(root_path):
+			queue_directories.append(DirAccess.open(root_path.path_join(dir)))
+			queue_tree.append(root)
 	
 	_tree_directories.append(root_path)
 	_tree_items.append(root)
+	init_cfg = null
 	
 	while not queue_directories.is_empty():
 		var directory : DirAccess = queue_directories.pop_back()
 		var parent : TreeItem = queue_tree.pop_back()
 		var path := directory.get_current_dir()
 		var tree := parent.create_child()
+		var cfg : ConfigFile
 		
 		_tree_items.append(tree)
 		_tree_directories.append(path)
 		
 		if directory.file_exists(\"config.cfg\"):
-			var cfg := ConfigFile.new()
+			cfg = ConfigFile.new()
 			cfg.load(path.path_join(\"config.cfg\"))
+		
+		if cfg != null:
 			_config_tree_item(tree, cfg)
+			for dir : String in cfg.get_value(\"sort\", \"list\", directory.get_directories()):
+				if not directory.dir_exists(dir):
+					push_error(\"Path \\\"%s\\\" isn't exists.\")
+					continue
+				queue_directories.append(DirAccess.open(path.path_join(dir)))
+				queue_tree.append(tree)
 		else:
 			tree.set_text(0, path.get_file())
-		
-		for dir in directory.get_directories():
-			queue_directories.append(DirAccess.open(path.path_join(dir)))
-			queue_tree.append(tree)
+			for dir : String in directory.get_directories():
+				queue_directories.append(DirAccess.open(path.path_join(dir)))
+				queue_tree.append(tree)
+
 func _config_tree_item(item : TreeItem, cfg : ConfigFile) -> void:
 	item.set_text(0, cfg.get_value(\"title\", \"title\", \"Unknow\"))
 
 func _on_item_selected() -> void:
 	var tree := get_selected()
 	var index := _tree_items.find(tree)
-	directory_selectrd.emit(\"\" if index == -1 else _tree_directories[index])
+	directory_selected.emit(\"\" if index == -1 else _tree_directories[index])
 
 func _on_rich_text_label_goto_file(file: String) -> void:
 	if not DirAccess.dir_exists_absolute(root_path.path_join(file)):
@@ -83,7 +105,7 @@ extends HelperRichTextLabel
 ## 跳转到文件。
 signal goto_file(file : String)
 
-func _on_tree_directory_selectrd(directory: String) -> void:
+func _on_tree_directory_selected(directory: String) -> void:
 	var path := directory.path_join(\"text.txt\")
 	if not FileAccess.file_exists(path):
 		set_text(\"\")
@@ -153,7 +175,7 @@ selection_enabled = true
 script = SubResource("GDScript_ri6ce")
 
 [connection signal="confirmed" from="." to="." method="hide"]
-[connection signal="directory_selectrd" from="HSplitContainer/Tree" to="HSplitContainer/MarginContainer/MarginContainer/ScrollContainer/RichTextLabel" method="_on_tree_directory_selectrd"]
+[connection signal="directory_selected" from="HSplitContainer/Tree" to="HSplitContainer/MarginContainer/MarginContainer/ScrollContainer/RichTextLabel" method="_on_tree_directory_selected"]
 [connection signal="item_selected" from="HSplitContainer/Tree" to="HSplitContainer/Tree" method="_on_item_selected"]
 [connection signal="goto_file" from="HSplitContainer/MarginContainer/MarginContainer/ScrollContainer/RichTextLabel" to="HSplitContainer/Tree" method="_on_rich_text_label_goto_file"]
 [connection signal="meta_clicked" from="HSplitContainer/MarginContainer/MarginContainer/ScrollContainer/RichTextLabel" to="HSplitContainer/MarginContainer/MarginContainer/ScrollContainer/RichTextLabel" method="_on_meta_clicked"]

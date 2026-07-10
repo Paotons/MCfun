@@ -6,6 +6,7 @@ extends BaseCommandElementCreater
 ## 抽象类，你不应该实例化。
 # 这个类历史包袱有点重，最开始没有想到把 Creater 和 Element 分离。
 # 导致这个类有点屎，但能跑就行。
+# 如果改成信号驱动，应该能好一点。
 
 ## 获取指令。
 func get_command() -> ProcessCommandElement:
@@ -189,6 +190,8 @@ func _do_option(text : String, process : CommandElementCreaterProcess) -> bool:
 		process.continue_flag = true
 		return false
 	elif exe.is_probing():
+		if not result.is_faild and result.is_probing_prevaild():
+			get_command().faild_element_idxs.append(process.exe_index)
 		var histories := _get_histories()
 		process.exe_element = null if histories.is_empty() else process.rule.get_element(histories[histories.size() - 1])
 		process.exe_index += 1

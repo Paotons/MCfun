@@ -15,6 +15,9 @@
 		"l" : {"type" : "int"},
 		"lm" : {"type" : "int"},
 		
+		"rx" : {"type" : "coord"},
+		"ry" : {"type" : "coord"},
+		
 		"x" : {"type" : "coord"},
 		"y" : {"type" : "coord"},
 		"z" : {"type" : "coord"},

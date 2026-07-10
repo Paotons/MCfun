@@ -11,7 +11,7 @@ func _get_line_syntax_highlighting(line: int) -> Dictionary:
 	return result.get_highlight(edit) if result != null else {}
 
 # 开始计算，预处理。
-func _compute(line : int) -> CommandElement:
+func _compute(line : int) -> BaseCommandElement:
 	var edit := get_text_edit() as FunctionEdit
 	var unicode := edit.get_caret_nearest_input_unicode()
 	var command := edit.get_command_element(line)

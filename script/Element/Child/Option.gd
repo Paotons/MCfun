@@ -48,3 +48,13 @@ static func get_precast_code_completion_data(_column : int, rule : ElementRule, 
 ## 如果有序列，返回 [code]true[/code]。
 func has_option() -> bool:
 	return option_index != -1
+## 如果试探预成功，但失败，返回 [code]true[/code]。
+func is_probing_prevaild() -> bool:
+	is_faild_assert()
+	if element_rule == null:
+		return false
+	var vaild_str := get_valid_string()
+	for item in element_rule.get_option_items():
+		if item.begins_with(vaild_str):
+			return true
+	return false

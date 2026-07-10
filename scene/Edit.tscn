@@ -43,7 +43,7 @@ func _get_file_list_container_base_control() -> MarginContainer:
 	return $\"../Base/HSplitContainer/FileList\"
 func _get_split_container() -> HSplitContainer:
 	return $\"../Base/HSplitContainer\"
-func _get_split_container2() -> HSplitContainer:
+func _get_split_container2() -> VSplitContainer:
 		return $\"../Base/HSplitContainer/VBoxContainer2\"
 func _get_export_setting_window() -> ProjectExportSettingWindow:
 	return $\"../ProjectExportSetting\"
@@ -241,7 +241,7 @@ func _get_file_list_container_base_control() -> MarginContainer:
 	return $\"../Base/HSplitContainer/FileList\"
 func _get_split_container() -> HSplitContainer:
 	return $\"../Base/HSplitContainer\"
-func _get_split_container2() -> HSplitContainer:
+func _get_split_container2() -> VSplitContainer:
 		return $\"../Base/HSplitContainer/VBoxContainer2\"
 func _get_export_setting_window() -> ProjectExportSettingWindow:
 	return $\"../ProjectExportSetting\"
@@ -542,10 +542,14 @@ func _on_undo() -> void:
 	var edit := EditManager.get_edit()
 	if edit.has_undo():
 		edit.undo()
+		await get_tree().process_frame
+		show_popup()
 func _on_redo() -> void:
 	var edit := EditManager.get_edit()
 	if edit.has_redo():
 		edit.redo()
+		await get_tree().process_frame
+		show_popup()
 
 func _on_cut() -> void:
 	var edit := EditManager.get_edit()
@@ -1298,7 +1302,6 @@ dialog_close_on_escape = false
 [connection signal="text_changed" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_function_edit_text_changed"]
 [connection signal="pressed" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ShowHideFileListButton" to="Base/HSplitContainer/FileList" method="_on_show_hide_file_list_button_pressed"]
 [connection signal="pressed" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/ErrorHint" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer/ErrorList" method="_on_error_hint_pressed"]
-[connection signal="goto" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer/ErrorList" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer/ErrorList" method="_on_goto"]
 [connection signal="timeout" from="AutoSaveingTimer" to="." method="_on_auto_saveing_timer_timeout"]
 [connection signal="reload_scene" from="EditSetting" to="." method="_on_edit_setting_reload_scene"]
 [connection signal="reload_project" from="ProjectSetting" to="." method="_on_project_setting_reload_project"]
