@@ -85,8 +85,7 @@ func get_aabb(a : CoordsElement) -> AABB:
 		
 		aabb.position[i] = x.get_offset_value()
 		aabb.end[i] = y.get_offset_value()
-	aabb.abs()
-	return aabb
+	return aabb.abs()
 ## 获取图块矩形。
 func get_tile_aabb(a : CoordsElement) -> AABB:
 	if get_valid_size() != 3 or get_valid_size() != a.get_valid_size():
@@ -102,8 +101,7 @@ func get_tile_aabb(a : CoordsElement) -> AABB:
 		
 		aabb.position[i] = floori(x.get_offset_value())
 		aabb.end[i] = roundi(y.get_offset_value() + 1.0)
-	aabb.abs()
-	return aabb
+	return aabb.abs()
 
 ## 根据偏移和模式构建坐标。
 static func create_coords_string(offset : Vector3, x := CoordElement.CoordMode.CONST, y := CoordElement.CoordMode.CONST, z := CoordElement.CoordMode.CONST) -> String:

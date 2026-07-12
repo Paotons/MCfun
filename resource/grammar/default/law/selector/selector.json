@@ -7,7 +7,7 @@
 		"hasitem" : {"type" : "dictionary", "detail" : "selector_hasitem"},
 		"score" : {"type" : "dictionary", "detail" : "selector_score"},
 		
-		"m" : {"type" : "option", "detial" : "using_entry", "items" : ["gamemode"]},
+		"m" : {"type" : "option", "detail" : {"using_entry" : true}, "items" : ["gamemode"]},
 		
 		"r" : {"type" : "float", "detail" : {"min" : 0.0}},
 		"rm" : {"type" : "float", "detail" : {"min" : 0.0}},
