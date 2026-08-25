@@ -340,7 +340,8 @@ func clear_bgcolor() -> void:
 	var default := get_default_bgcolor()
 	for id in _has_bgcolor_line_ids:
 		var line := get_line_index(id)
-		set_line_background_color(line, default)
+		if line != -1 and line < get_line_count():
+			set_line_background_color(line, default)
 	_has_bgcolor_line_ids.clear()
 ## 如果指定行有背景色返回 [code]true[/code]。
 func has_line_bgcolor(line : int) -> bool:

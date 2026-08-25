@@ -109,4 +109,3 @@ static func create_coords_string(offset : Vector3, x := CoordElement.CoordMode.C
 ## 根据偏移和模式构建图块坐标。
 static func create_tile_coords_string(offset : Vector3i, x := CoordElement.CoordMode.CONST, y := CoordElement.CoordMode.CONST, z := CoordElement.CoordMode.CONST) -> String:
 	return "%s %s %s" % [CoordElement.create_tile_coord_string(offset.x, x), CoordElement.create_tile_coord_string(offset.y, y), CoordElement.create_tile_coord_string(offset.z, z)]
-

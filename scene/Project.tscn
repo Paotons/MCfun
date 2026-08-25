@@ -15,7 +15,7 @@ var count := 0
 func _pressed() -> void:
 	count += 1
 	if count == 10:
-		text = \"我也知道错了\"
+		text = \"MCFfFfFfun\"
 		add_theme_color_override(\"font_color\", Color.GREEN)
 		await get_tree().create_timer(3.0).timeout
 		set_text.call_deferred(\"MCFun\")

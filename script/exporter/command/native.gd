@@ -8,4 +8,3 @@ var parser_values := NativeCommandElementParserValues.new()
 func _start(text : String) -> void:
 	var cmd : NativeCommandElement = command
 	to = cmd.parse(parser_values)
-

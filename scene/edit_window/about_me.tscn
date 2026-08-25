@@ -23,11 +23,10 @@ func _gui_input(event: InputEvent) -> void:
 				add_theme_color_override(\"font_color\", Color(1.0, v, v))
 			
 			if count == 10:
-				text = \"知道了\"
+				text = \"ffffff\"
 				await get_tree().create_timer(3.0).timeout
 				add_theme_color_override.call_deferred(\"font_color\", Color.WHITE)
 				set_text.call_deferred(\"F\")
-
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_j8lag"]
@@ -109,29 +108,72 @@ alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=515419801]
 layout_mode = 2
-text = "v0.9.4-alpha.0"
+text = "v1.0.stable"
 script = SubResource("GDScript_e344j")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1031317699]
+[node name="Creater" type="HBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1031317699]
 layout_mode = 2
 
-[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=785451180]
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Creater" unique_id=785451180]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=1041304246]
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Creater" unique_id=1041304246]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "开发者"
+text = "创建者"
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=1384548682]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Creater" unique_id=1384548682]
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1130111758]
 layout_mode = 2
-text = "创始人：泡桐树(Paotons)
-"
+text = "泡桐树(Paotons)"
+
+[node name="Coder" type="HBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1969505175]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Coder" unique_id=1006967897]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Coder" unique_id=978660767]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "维护者"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Coder" unique_id=300366354]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label3" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=183486867]
+layout_mode = 2
+text = "泡桐树(Paotons)
+
+Eane"
+
+[node name="Coder2" type="HBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=943271931]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Coder2" unique_id=2010848885]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Coder2" unique_id=1703645459]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "开发者"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Coder2" unique_id=267089923]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label4" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=2137116850]
+layout_mode = 2
+text = "泡桐树(Paotons)
+
+Eane"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1550313070]
 layout_mode = 2
@@ -155,7 +197,7 @@ text = "Mojang 创造了游戏主体
 
 Godot 提供了引擎
 
-DeepSeek 干的苦力"
+DeepSeek 干的部分杂事"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=462260626]
 layout_mode = 2
