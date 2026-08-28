@@ -47,7 +47,7 @@ static func create(text : String, offset : int, start := "[", end := "]", rule :
 		var text_ : String = text if is_backet else text.substr(0, text.find(",", index))
 		var sult := ElementManager.create_from_rule(text_, index, result_rule) as BaseStringElement
 		if sult.is_faild:
-			element.create_error(index, "Not find param.")
+			element.create_error(index, TranslationSystem.tr("Unfind param."))
 			element.params.append(null)
 			var split := text.find(",", index)
 			if split == -1:
@@ -64,4 +64,3 @@ static func create(text : String, offset : int, start := "[", end := "]", rule :
 			index = split + 1
 	element.grammer_rule = rule
 	return element
-

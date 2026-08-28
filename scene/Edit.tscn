@@ -747,6 +747,8 @@ const CONFIG_HIGHLIGHT_COLOR_SELECT := \"HighLightColor\"
 const CONFIG_BEHAVIOR := \"EditBehavior\"
 ## 用于检测配置文件补全。
 const CONFIG_COMPLETION := \"EditCompletion\"
+## 用于检测配置文件外观。
+const CONFIG_APPEARANCE := \"EditAppearance\"
 
 # 初始化配置文件。
 func _init_config() -> void:
@@ -786,6 +788,10 @@ func _init_config_completion() -> void:
 	setting.spaceitem_included_space = config.get_value(CONFIG_COMPLETION, \"using_space_name\", true)
 	setting.showing_hint_word = config.get_value(CONFIG_COMPLETION, \"showing_hint_word\", true)
 	setting.using_hint_word_weight = config.get_value(CONFIG_COMPLETION, \"using_hint_word_weight\", false)
+func _init_config_appearance() -> void:
+	var config := FileSystem.config
+	
+	_edit.caret_blink = config.get_value(CONFIG_APPEARANCE, \"caret_blink\", true)
 
 func _on_function_edit_ready() -> void:
 	_init_config()
@@ -819,6 +825,8 @@ func _ready() -> void:
 [sub_resource type="GDScript" id="GDScript_fwq2t"]
 script/source = "extends Button
 
+const _MODEL := \"Error (%d, %d) %s\"
+
 func _on_function_edit_error_list_changed() -> void:
 	var edit := EditManager.get_edit()
 	
@@ -834,7 +842,7 @@ func _on_function_edit_error_list_changed() -> void:
 		if err.column < err_column:
 			head_err = err
 			err_column = head_err.column
-	set_text(\"错误 (%d, %d) %s\" % [line + 1, head_err.column, head_err.string])
+	set_text(tr(_MODEL) % [line + 1, head_err.column, head_err.string])
 "
 
 [sub_resource type="GDScript" id="GDScript_pusrq"]
@@ -984,93 +992,93 @@ layout_mode = 2
 
 [node name="ProjectMenuButton" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=5126462]
 layout_mode = 2
-text = "项目"
+text = "Project"
 item_count = 6
-popup/item_0/text = "设置"
+popup/item_0/text = "Setting"
 popup/item_0/id = 0
 popup/item_1/id = 1
 popup/item_1/separator = true
-popup/item_2/text = "导出"
+popup/item_2/text = "Export"
 popup/item_2/id = 2
 popup/item_3/id = 3
 popup/item_3/separator = true
-popup/item_4/text = "重新加载"
+popup/item_4/text = "Reload"
 popup/item_4/id = 5
-popup/item_5/text = "退出至列表"
+popup/item_5/text = "Exit to List"
 popup/item_5/id = 4
 script = SubResource("GDScript_ktujv")
 
 [node name="FileMenuButton" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=1567331877]
 layout_mode = 2
-text = "文件"
+text = "File"
 item_count = 12
-popup/item_0/text = "保存"
+popup/item_0/text = "Save"
 popup/item_0/id = 0
-popup/item_1/text = "保存全部"
+popup/item_1/text = "Save All"
 popup/item_1/id = 1
 popup/item_2/id = 2
 popup/item_2/separator = true
-popup/item_3/text = "撤销"
+popup/item_3/text = "Undo"
 popup/item_3/id = 3
-popup/item_4/text = "重做"
+popup/item_4/text = "Redo"
 popup/item_4/id = 4
 popup/item_5/id = 5
 popup/item_5/separator = true
-popup/item_6/text = "打开"
+popup/item_6/text = "Open"
 popup/item_6/id = 6
 popup/item_7/id = 7
 popup/item_7/separator = true
-popup/item_8/text = "关闭"
+popup/item_8/text = "Close"
 popup/item_8/id = 8
-popup/item_9/text = "清空"
+popup/item_9/text = "Clear"
 popup/item_9/id = 9
 popup/item_10/id = 10
 popup/item_10/separator = true
-popup/item_11/text = "系统"
+popup/item_11/text = "System"
 popup/item_11/id = 11
 script = SubResource("GDScript_w0n44")
 
 [node name="Edit" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=856299228]
 layout_mode = 2
-text = "编辑"
+text = "Edit"
 item_count = 12
-popup/item_0/text = "撤销"
+popup/item_0/text = "Undo"
 popup/item_0/id = 0
-popup/item_1/text = "重做"
+popup/item_1/text = "Redo"
 popup/item_1/id = 1
 popup/item_2/id = 2
 popup/item_2/separator = true
-popup/item_3/text = "剪切"
+popup/item_3/text = "Cut"
 popup/item_3/id = 3
-popup/item_4/text = "复制"
+popup/item_4/text = "Copy"
 popup/item_4/id = 4
-popup/item_5/text = "粘贴"
+popup/item_5/text = "Paste"
 popup/item_5/id = 5
 popup/item_6/id = 6
 popup/item_6/separator = true
-popup/item_7/text = "全选"
+popup/item_7/text = "Select All"
 popup/item_7/id = 7
-popup/item_8/text = "选择行"
+popup/item_8/text = "Select Line"
 popup/item_8/id = 8
 popup/item_9/id = 9
 popup/item_9/separator = true
-popup/item_10/text = "补全"
+popup/item_10/text = "Completion"
 popup/item_10/id = 10
-popup/item_11/text = "取消补全"
+popup/item_11/text = "Uncompletion"
 popup/item_11/id = 11
 script = SubResource("GDScript_hr7lf")
 
 [node name="setting" type="Button" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=1846478690 node_paths=PackedStringArray("window")]
 layout_mode = 2
 size_flags_horizontal = 10
-text = "设置"
+text = "Setting"
 flat = true
 script = SubResource("GDScript_yiwpq")
 window = NodePath("../../../../../EditSetting")
 
 [node name="Helper" type="Button" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=1150918165]
 layout_mode = 2
-text = "帮助"
+text = "Help"
 flat = true
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Base" unique_id=2146239094]

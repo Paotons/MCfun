@@ -56,7 +56,7 @@ static func create(text : String, offset : int, rule : GrammarColonParamBacketRu
 	
 	var result := _colon_param_regex.search(text.substr(offset))
 	if result == null:
-		element.create_error(offset, "Not find any string.")
+		element.create_error(offset, TranslationSystem.tr("Not find any string."))
 		return element
 	
 	# 键
@@ -68,7 +68,7 @@ static func create(text : String, offset : int, rule : GrammarColonParamBacketRu
 	element.key_end = element.key_element.get_valid_end() - offset if is_key_has_quotation_ else result.get_end("key")
 	
 	if is_key_has_quotation_ and not element.key_element.is_closed():
-		element.create_error(element.key_start + offset, "Key not has closed backet.")
+		element.create_error(element.key_start + offset, TranslationSystem.tr("Key not has closed backet."))
 		element.string = text.substr(offset, element.key_end)
 		element.is_faild = false
 		return element
@@ -76,7 +76,7 @@ static func create(text : String, offset : int, rule : GrammarColonParamBacketRu
 	var rereule := rule.get_element_rule(key)
 	element.value_type = rereule.get_type() if rule != null and rule.has_key(key) else -1
 	if element.value_type == -1:
-		element.create_error(element.value_start + offset, "Rule not find property \"%s\"." % [key])
+		element.create_error(element.value_start + offset, TranslationSystem.tr("Rule unfind property \"%s\"." % [key]))
 		element.string = text.substr(offset, element.key_end)
 		element.is_faild = false
 		return element
@@ -84,7 +84,7 @@ static func create(text : String, offset : int, rule : GrammarColonParamBacketRu
 	# 冒号
 	element.colon_flag = result.get_start("colon")
 	if element.colon_flag == -1:
-		element.create_error(element.key_end + offset, "Not find colon flag.")
+		element.create_error(element.key_end + offset, TranslationSystem.tr("Unfind colon flag."))
 		element.string = text.substr(offset, element.key_end)
 		element.is_faild = false
 		return element
@@ -92,7 +92,7 @@ static func create(text : String, offset : int, rule : GrammarColonParamBacketRu
 	# 值
 	element.value_start = result.get_start("value")
 	if element.value_start == -1:
-		element.create_error(element.colon_flag + offset, "Not find value")
+		element.create_error(element.colon_flag + offset, TranslationSystem.tr("Unfind value."))
 		element.string = text.substr(offset, element.colon_flag + 1)
 		element.is_faild = false
 		return element
@@ -100,11 +100,11 @@ static func create(text : String, offset : int, rule : GrammarColonParamBacketRu
 	var text_ := text if GrammarValue.is_type_backet(rereule.get_type()) else text.substr(0, text.find(",", element.colon_flag + offset))
 	var value = ElementManager.create_from_rule(text_, offset + element.value_start, rereule)
 	for err in value.errors:
-		element.create_error(element.value_start + offset, "Value has error \"%s\"." % [err.string])
+		element.create_error(element.value_start + offset, err.string)
 	
 	element.value_element = value
 	if value == null or value.is_faild:
-		element.create_error(element.colon_flag + offset, "Not find value.")
+		element.create_error(element.colon_flag + offset, TranslationSystem.tr("Unfind value."))
 		element.string = text.substr(offset, element.colon_flag)
 		element.value_start = -1
 		element.is_faild = false
@@ -135,4 +135,3 @@ func has_colon() -> bool:
 func is_key_has_quotation() -> bool:
 	is_faild_assert()
 	return key_element != null and key_element is BacketElement and key_element.start_backet == "\""
-

@@ -10,7 +10,7 @@ static func create(text : String, offset : int, rule : ElementRule = null) -> Fl
 	
 	var result := StringElement.create(text, offset)
 	if result.is_faild:
-		element.create_error(offset, "Not find string.")
+		element.create_error(offset, TranslationSystem.tr("Unfind string."))
 		return element
 	
 	var valiad_str := result.get_valid_string()
@@ -18,14 +18,14 @@ static func create(text : String, offset : int, rule : ElementRule = null) -> Fl
 		if rule != null:
 			var value := valiad_str.to_float()
 			if not (rule.get_float_min() <= value and value <= rule.get_float_max()):
-				element.create_error(element.valid_start + offset, "Range is %f~%f, but is %f." % [rule.get_float_min(), rule.get_float_max(), value])
+				element.create_error(element.valid_start + offset, TranslationSystem.tr("Range is %f~%f, but is %f.") % [rule.get_float_min(), rule.get_float_max(), value])
 		
 		element.valid_start = result.valid_start
 		element.string = result.string
 		element.is_faild = false
 		return element
 	else:
-		element.create_error(offset, "String \"%s\" not is valid float." % [valiad_str])
+		element.create_error(offset, "String \"%s\" is unvalid float." % [valiad_str])
 		return element
 
 static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:

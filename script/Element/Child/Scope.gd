@@ -31,7 +31,7 @@ static func create(text : String, offset : int) -> ScopeElement:
 	
 	var result := _scope_searched_regex.search(text.substr(offset))
 	if result == null:
-		element.create_error(offset, "Not find scope.")
+		element.create_error(offset, TranslationSystem.tr("Unfind scope."))
 		return element
 	element.valid_start = result.get_end("start")
 	
@@ -66,5 +66,3 @@ static func is_valid_scope(text : String) -> bool:
 	elif start.is_empty():
 		if endv: return true
 	return false
-
-

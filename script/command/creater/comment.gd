@@ -41,7 +41,7 @@ class _ListEdecuter extends _Executer:
 ## 完全从无开始创建。
 func run_from_empty(text : String, process : CommandElementCreaterProcess) -> void:
 	if text[process.offset] != "@":
-		create_error(0, "Comment command should begin with \"@\".")
+		create_error(0, TranslationSystem.tr("Comment command should begin with \"@\"."))
 		return get_command()
 	
 	get_command().is_faild = false
@@ -77,7 +77,7 @@ func _do_head(text : String, process : CommandElementCreaterProcess) -> bool:
 	get_command().head_string = head
 	
 	if not process.grammar.has_head(head):
-		create_error(result.get_valid_start(), "Unfind get_command() \"%s\"." % [head])
+		create_error(result.get_valid_start(), "Unfind head \"%s\"." % [head])
 		return false
 	
 	process.offset = result.get_valid_end()
@@ -95,5 +95,3 @@ func _execute() -> void:
 	
 	obj.command = get_command()
 	obj._execute()
-
-

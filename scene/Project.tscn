@@ -99,7 +99,7 @@ func _on_project_list_selected_project_changed(node: ProjectListContainer) -> vo
 	disabled = node == null
 
 func _get_project() -> ProjectListContainer:
-	return $\"../../../MarginContainer/ProjectList\".selected_list
+	return %ProjectList.selected_list
 
 func _pressed() -> void:
 	var node := _get_project()
@@ -123,9 +123,9 @@ func _on_project_list_project_pressed(node: ProjectListContainer) -> void:
 script/source = "extends Button
 
 func _get_selected_project() -> ProjectListContainer:
-	return $\"../../../MarginContainer/ProjectList\".selected_list
+	return %ProjectList.selected_list
 func _update_project_list() -> void:
-	$\"../../../MarginContainer/ProjectList\".update_list()
+	%ProjectList.update_list()
 
 func _on_project_list_selected_project_changed(node: ProjectListContainer) -> void:
 	disabled = node == null
@@ -170,7 +170,7 @@ script = SubResource("GDScript_bkhvp")
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=68951348]
 layout_mode = 2
 size_flags_horizontal = 6
-text = "项目列表"
+text = "Project List"
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer" unique_id=870058305]
 layout_mode = 2
@@ -190,23 +190,23 @@ layout_mode = 2
 
 [node name="Create" type="Button" parent="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer" unique_id=549182908]
 layout_mode = 2
-text = "新建"
+text = "new"
 
 [node name="Load" type="Button" parent="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer" unique_id=795968418]
 layout_mode = 2
-text = "导入"
+text = "import"
 
 [node name="Setting" type="Button" parent="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer" unique_id=170096042]
 layout_mode = 2
-text = "设置"
+text = "setting"
 
 [node name="Coper" type="Button" parent="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer" unique_id=1002059370]
 layout_mode = 2
-text = "复制"
+text = "coper"
 
 [node name="Helper" type="Button" parent="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer" unique_id=1040555496]
 layout_mode = 2
-text = "帮助"
+text = "help"
 script = SubResource("GDScript_ivmrw")
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer" unique_id=1372849124]
@@ -226,6 +226,7 @@ size_flags_stretch_ratio = 7.3
 layout_mode = 2
 
 [node name="ProjectList" type="VBoxContainer" parent="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer" unique_id=1098886023]
+unique_name_in_owner = true
 layout_mode = 2
 script = SubResource("GDScript_t4e8x")
 
@@ -240,18 +241,21 @@ layout_mode = 2
 layout_mode = 2
 alignment = 1
 
-[node name="Edit" type="Button" parent="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer2/VBoxContainer" unique_id=612977947]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer2/VBoxContainer" unique_id=1705037426]
 layout_mode = 2
 size_flags_horizontal = 4
+
+[node name="Edit" type="Button" parent="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer2/VBoxContainer/VBoxContainer" unique_id=612977947]
+layout_mode = 2
 disabled = true
-text = "  编辑  "
+text = "edit"
 script = SubResource("GDScript_5kpg8")
 
-[node name="Remove" type="Button" parent="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer2/VBoxContainer" unique_id=1352345869]
+[node name="Remove" type="Button" parent="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer2/VBoxContainer/VBoxContainer" unique_id=1352345869]
 layout_mode = 2
 size_flags_horizontal = 4
 disabled = true
-text = "  移除  "
+text = "remove"
 script = SubResource("GDScript_7wlok")
 
 [node name="AboutMe" parent="." unique_id=1705403622 instance=ExtResource("1_t738l")]
@@ -278,9 +282,9 @@ visible = false
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/Setting" to="EditSetting" method="popup_centered_clamped"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/Coper" to="MCFunctionCoperWindow" method="popup_centered_clamped"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/Helper" to="HelperWindow" method="popup_centered_clamped"]
-[connection signal="project_pressed" from="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer/ProjectList" to="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer2/VBoxContainer/Edit" method="_on_project_list_project_pressed"]
-[connection signal="selected_project_changed" from="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer/ProjectList" to="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer2/VBoxContainer/Edit" method="_on_project_list_selected_project_changed"]
-[connection signal="selected_project_changed" from="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer/ProjectList" to="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer2/VBoxContainer/Remove" method="_on_project_list_selected_project_changed"]
+[connection signal="project_pressed" from="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer/ProjectList" to="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer2/VBoxContainer/VBoxContainer/Edit" method="_on_project_list_project_pressed"]
+[connection signal="selected_project_changed" from="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer/ProjectList" to="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer2/VBoxContainer/VBoxContainer/Edit" method="_on_project_list_selected_project_changed"]
+[connection signal="selected_project_changed" from="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer/ProjectList" to="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer2/VBoxContainer/VBoxContainer/Remove" method="_on_project_list_selected_project_changed"]
 [connection signal="close_requested" from="CreateProjectWindow" to="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer/ProjectList" method="update_list"]
 [connection signal="close_requested" from="LoadProjectWindow" to="VBoxContainer/MarginContainer3/HSplitContainer/MarginContainer/ProjectList" method="update_list"]
 [connection signal="close_requested" from="LoadProjectWindow" to="LoadProjectWindow" method="hide"]

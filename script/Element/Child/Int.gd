@@ -13,7 +13,7 @@ static func create(text : String, offset : int, rule : ElementRule = null) -> In
 	
 	var result := StringElement.create(text, offset)
 	if result.is_faild:
-		element.create_error(offset, "Not find string.")
+		element.create_error(offset, TranslationSystem.tr("Unfind string."))
 		return element
 	element.valid_start = result.valid_start
 	element.string = result.string
@@ -28,7 +28,7 @@ static func create(text : String, offset : int, rule : ElementRule = null) -> In
 				suffix_flag = true
 				break
 		if not suffix_flag:
-			element.create_error(offset, "Not find int suffix %s in %s." % [valiad_str, rule.get_suffixs()])
+			element.create_error(offset, TranslationSystem.tr("Unfind int suffix %s in %s.") % [valiad_str, rule.get_suffixs()])
 			return element
 	
 	element.value_start = element.string.length() - suffix.length() if not suffix.is_empty() else -1
@@ -41,12 +41,12 @@ static func create(text : String, offset : int, rule : ElementRule = null) -> In
 		
 		var value := int_str.to_int()
 		if rule != null and not (rule.get_int_min() <= value and value <= rule.get_int_max()):
-			element.create_error(element.key_start + offset, "Range is %d~%d, but is %d." % [rule.get_int_min(), rule.get_int_max(), value])
+			element.create_error(element.key_start + offset, TranslationSystem.tr("Range is %d~%d, but is %d.") % [rule.get_int_min(), rule.get_int_max(), value])
 		
 		element.is_faild = false
 		return element
 	else:
-		element.create_error(offset, "String \"%s\" not is valid int." % [valiad_str])
+		element.create_error(offset, TranslationSystem.tr("String \"%s\" not is valid int.") % [valiad_str])
 		return element
 
 static func get_precast_code_completion_data(_column : int, rule : ElementRule, _command : BaseCommandElement) -> FunctionCompletionData:

@@ -61,7 +61,7 @@ static func create(text : String, offset : int) -> CoordElement:
 		return element
 	else:
 		element.string = ""
-		element.create_error(text.length(), "Not find coord.")
+		element.create_error(text.length(), TranslationSystem.tr("Unfind coord."))
 		element.is_faild = true
 		return element
 

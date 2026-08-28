@@ -42,7 +42,7 @@ static func create(text : String, offset : int, start := "{", end := "}", rule :
 	while index < length:
 		var sult := ColonParamElement.create(text, index, rule)
 		if sult.is_faild:
-			element.create_error(index, "Not find param.")
+			element.create_error(index, TranslationSystem.tr("Unfind param."))
 			element.params.append(null)
 			var split := text.find(",", index)
 			if split == -1:
@@ -78,5 +78,3 @@ func get_value_strings() -> PackedStringArray:
 	for param in params:
 		sult.append(param.get_value_string() if param != null else "")
 	return sult
-
-

@@ -86,27 +86,27 @@ func test_path() -> bool:
 	
 	if path.is_empty():
 		label.add_theme_color_override("font_color", Color.RED)
-		label.text = "空路径。"
+		label.text = "Empty filename."
 		return true
 	
 	if not (path.is_absolute_path() or path.is_relative_path()):
 		label.add_theme_color_override("font_color", Color.RED)
-		label.text = "路径无效。"
+		label.text = "Unvalid filename."
 		return true
 	
 	var extension := path.get_extension()
 	if not (extension == "mcfunction" or extension == "zip"):
 		label.add_theme_color_override("font_color", Color.RED)
-		label.text = "文件格式需要为mcfunction或者是zip格式。"
+		label.text = "Filetype must be mcfunction or zip."
 		return true
 	
 	if not FileAccess.file_exists(path):
 		label.add_theme_color_override("font_color", Color.RED)
-		label.text = "文件不存在。"
+		label.text = "Notfind file."
 		return true
 	
 	label.add_theme_color_override("font_color", Color.GREEN)
-	label.text = "文件有效。"
+	label.text = "Valid file."
 	return false
 
 ## 更新函数内容，要求路径有效。
@@ -133,11 +133,11 @@ func update_file_inform() -> void:
 	
 	if _fun_string.size() == 0:
 		label.add_theme_color_override("font_color", Color.YELLOW)
-		label.text = "文件有效。\n空文件。"
+		label.text = "%s\n%s" % [tr("Vaild file."), tr("Empty file.")]
 		_set_button_disabled(true)
 	else:
 		label.add_theme_color_override("font_color", Color.GREEN)
-		label.text = "文件有效。\n总计 %d 条指令" % [_fun_string.size()]
+		label.text = "%s\n%s" % [tr("Vaild file."), tr("%d lines.") % [_fun_string.size()]]
 		_set_button_disabled(false)
 
 ## 更新界面。

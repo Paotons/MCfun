@@ -23,7 +23,7 @@ static func create(text : String, offset : int, rule : GrammarEqualParamBacktedR
 	
 	var result := _equal_param_searched_regex.search(text.substr(offset))
 	if result == null:
-		element.create_error(offset, "Not find any string.")
+		element.create_error(offset, TranslationSystem.tr("Unfind any string."))
 		return element
 	element.valid_start = result.get_end("start")
 	
@@ -35,7 +35,7 @@ static func create(text : String, offset : int, rule : GrammarEqualParamBacktedR
 	var rerule := rule.get_element_rule(key)
 	element.value_type = rerule.get_type() if rule != null and rule.has_key(key) else -1
 	if element.value_type == -1:
-		element.create_error(result.get_start("key"), "Not find key \"%s\" in rule." % [key])
+		element.create_error(result.get_start("key"), "Unfind key \"%s\" in rule." % [key])
 		element.string = text.substr(offset, element.key_end)
 		element.is_faild = false
 		return element
@@ -43,7 +43,7 @@ static func create(text : String, offset : int, rule : GrammarEqualParamBacktedR
 	# 等号
 	element.equal_flag = result.get_start("equal")
 	if element.equal_flag == -1:
-		element.create_error(offset + element.key_end, "Not has equal.")
+		element.create_error(offset + element.key_end, TranslationSystem.tr("Unfind equal flag."))
 		element.string = text.substr(offset, element.key_end)
 		element.is_faild = false
 		return element
@@ -54,7 +54,7 @@ static func create(text : String, offset : int, rule : GrammarEqualParamBacktedR
 	# 值
 	element.value_start = result.get_start("value_begin")
 	if element.value_start == -1:
-		element.create_error(offset + maxi(element.equal_flag, element.not_flag), "Not has value.")
+		element.create_error(offset + maxi(element.equal_flag, element.not_flag), TranslationSystem.tr("Unfind value."))
 		element.string = text.substr(offset, maxi(element.not_flag, element.equal_flag) + 1)
 		element.is_faild = false
 		return element
@@ -63,7 +63,7 @@ static func create(text : String, offset : int, rule : GrammarEqualParamBacktedR
 	
 	element.value_element = value
 	if value == null or value.is_faild:
-		element.create_error(maxi(element.not_flag, element.equal_flag) + offset, "Not find value.")
+		element.create_error(maxi(element.not_flag, element.equal_flag) + offset, TranslationSystem.tr("Unfind value."))
 		element.string = text.substr(offset, maxi(element.equal_flag, element.not_flag))
 		element.value_start = -1
 		element.is_faild = false
@@ -85,7 +85,7 @@ static func _create_using_key(text : String, offset : int, rule : GrammarEqualPa
 	element.key_element = key_ele
 	
 	if key_ele == null or key_ele.is_faild:
-		element.create_error(offset, "Not find key.")
+		element.create_error(offset, TranslationSystem.tr("Unfind key."))
 		return element
 	element.key_start = key_ele.get_valid_start() - offset
 	element.key_end = key_ele.get_valid_end() - offset
@@ -95,7 +95,7 @@ static func _create_using_key(text : String, offset : int, rule : GrammarEqualPa
 	var i := key_ele.get_valid_end()
 	i = StrT.find_unempty(text, i)
 	if i == -1 or text[i] != "=":
-		element.create_error(key_ele.get_valid_end(), "Not find equal.")
+		element.create_error(key_ele.get_valid_end(), TranslationSystem.tr("Unfind equal flag."))
 		element.string = text.substr(offset, key_ele.get_valid_end() - offset)
 		element.is_faild = false
 		return element
@@ -105,7 +105,7 @@ static func _create_using_key(text : String, offset : int, rule : GrammarEqualPa
 	var is_not := false
 	i = StrT.find_unempty(text, i + 1)
 	if i == -1:
-		element.create_error(i, "Not find value.")
+		element.create_error(i, TranslationSystem.tr("Unfind value."))
 		element.string = text.substr(offset, key_ele.get_valid_end() - offset)
 		element.is_faild = false
 		return element
@@ -121,7 +121,7 @@ static func _create_using_key(text : String, offset : int, rule : GrammarEqualPa
 	element.value_element = value_ele
 	
 	if value_ele == null or value_ele.is_faild:
-		element.create_error(i, "Not find value.")
+		element.create_error(i, TranslationSystem.tr("Unfind value."))
 		element.string = text.substr(offset, key_ele.get_valid_end() - offset)
 		element.is_faild = false
 		return element

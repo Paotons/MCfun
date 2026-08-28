@@ -124,7 +124,7 @@ static func create(text : String, offset : int, rule : ElementRule = null) -> Ri
 	
 	var result := StringElement.create(text, offset, rule)
 	if result.is_faild:
-		element.create_error(offset, "Not find any string.")
+		element.create_error(offset, TranslationSystem.tr("Unfind any string."))
 		return element
 	element.valid_start = result.get_valid_start() - offset
 	

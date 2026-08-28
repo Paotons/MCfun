@@ -33,7 +33,7 @@ static func _create_string_element(element : BaseStringElement, text : String, o
 		element.is_faild = false
 		return element
 	else:
-		element.create_error(offset, "Not find any string.")
+		element.create_error(offset, TranslationSystem.tr("Unfind any string."))
 		return element
 
 ## 获取最近的字符串的开头。
@@ -58,4 +58,3 @@ static func is_nearest_string_begin_with(text : String, offset : int, with : Str
 
 static func _is_valid_chr(chr : int) -> bool:
 	return chr !=32 and chr != 9
-

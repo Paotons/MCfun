@@ -17,7 +17,7 @@ static func create(text : String, offset : int) -> BoolElement:
 	
 	element.bool_value = _BOOL_OPTION.find(valid_str)
 	if element.bool_value == -1:
-		element.create_error(offset, "Not has option \"%s\"." % [valid_str])
+		element.create_error(offset, TranslationSystem.tr("Unvalid option \"%s\".") % [valid_str])
 		element.is_faild = true
 	return element
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:

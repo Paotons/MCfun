@@ -126,11 +126,11 @@ func _on_meta_clicked(meta: Variant) -> void:
 
 [node name="HelperWindow" type="AcceptDialog" unique_id=1477635680]
 oversampling_override = 1.0
-title = "帮助"
+title = "Help"
 position = Vector2i(0, 36)
 size = Vector2i(1152, 648)
 visible = true
-ok_button_text = "关闭"
+ok_button_text = "close"
 script = ExtResource("1_ri6ce")
 
 [node name="HSplitContainer" type="HSplitContainer" parent="." unique_id=1102008164]

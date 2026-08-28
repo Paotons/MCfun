@@ -42,7 +42,7 @@ func _ready() -> void:
 
 [node name="AboutMe" type="Window" unique_id=1705403622]
 oversampling_override = 1.0
-title = "关于"
+title = "About Me"
 position = Vector2i(0, 36)
 size = Vector2i(1152, 648)
 transient = true
@@ -108,7 +108,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=515419801]
 layout_mode = 2
-text = "v1.0.stable"
+text = "v1.0.ry.8"
 script = SubResource("GDScript_e344j")
 
 [node name="Creater" type="HBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1031317699]
@@ -121,7 +121,7 @@ size_flags_horizontal = 3
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Creater" unique_id=1041304246]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "创建者"
+text = "Creater"
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Creater" unique_id=1384548682]
 layout_mode = 2
@@ -141,7 +141,7 @@ size_flags_horizontal = 3
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Coder" unique_id=978660767]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "维护者"
+text = "Keeper"
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Coder" unique_id=300366354]
 layout_mode = 2
@@ -163,7 +163,7 @@ size_flags_horizontal = 3
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Coder2" unique_id=1703645459]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "开发者"
+text = "Developer"
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Coder2" unique_id=267089923]
 layout_mode = 2
@@ -185,7 +185,7 @@ size_flags_horizontal = 3
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer3" unique_id=1371526946]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "特别感谢"
+text = "Special Thanks"
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer3" unique_id=544613924]
 layout_mode = 2
@@ -193,11 +193,11 @@ size_flags_horizontal = 3
 
 [node name="Label2" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=690102801]
 layout_mode = 2
-text = "Mojang 创造了游戏主体
+text = "Mojang created the main body of the game
 
-Godot 提供了引擎
+Godot provided the engine
 
-DeepSeek 干的部分杂事"
+DeepSeek handled the miscellaneous tasks"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=462260626]
 layout_mode = 2
@@ -205,7 +205,7 @@ alignment = 1
 
 [node name="Button" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=478300315]
 layout_mode = 2
-text = "关闭"
+text = "Close"
 
 [connection signal="close_requested" from="." to="." method="hide"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="hide"]

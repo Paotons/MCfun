@@ -7,9 +7,9 @@ func run_from_empty(text : String, process : CommandElementCreaterProcess) -> vo
 	var offset := StrT.find_unempty(text, process.offset)
 	
 	if offset == -1:
-		command.create_error(process.offset, "Not find any string.")
+		command.create_error(process.offset, TranslationSystem.tr("Unfind any string."))
 	elif text[offset] != "#":
-		command.create_error(process.offset, "Annotaition must begin with #.")
+		command.create_error(process.offset, TranslationSystem.tr("Annotaition must begin with #."))
 	command.is_faild = false
 	command.valid_start = offset
 	

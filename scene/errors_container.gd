@@ -9,7 +9,7 @@ signal goto(line : int, column : int)
 @export var goto_text_color := Color(0.899, 0.16, 0.0, 1.0)
 
 class _ErrorContainer extends HBoxContainer:
-	const _GOTO_TEXT_MODEL := "第%d行第%d列："
+	const _GOTO_TEXT_MODEL := "%d lines %d column:"
 	
 	## 跳转按钮被按下.
 	signal goto_pressed(line : int, column : int)
@@ -35,7 +35,7 @@ class _ErrorContainer extends HBoxContainer:
 		node.goto_button.add_theme_color_override(&"font_focus_color", goto_label_color)
 		node.goto_button.add_theme_color_override(&"font_hover_color", goto_label_color)
 		node.goto_button.add_theme_color_override(&"font_hover_pressed_color", goto_label_color)
-		node.goto_button.set_text(_GOTO_TEXT_MODEL % [line + 1, error.column])
+		node.goto_button.set_text(node.tr(_GOTO_TEXT_MODEL) % [line + 1, error.column])
 		node.hint_label.set_text(error.string)
 		node.error_position = Vector2i(error.column, line)
 		return node

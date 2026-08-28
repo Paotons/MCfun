@@ -23,7 +23,7 @@ static func create(text : String, offset : int, rule : ElementRule = null) -> Op
 	
 	element.option_index = rule.get_option_string_index(valid_str)
 	if element.option_index == -1 and not rule.is_probing():
-		element.create_error(offset, "Not has option \"%s\"." % [valid_str])
+		element.create_error(offset, TranslationSystem.tr("Unvalid option \"%s\".") % [valid_str])
 	return element
 func _get_highlight(edit : FunctionEdit) -> Dictionary[int, Dictionary]:
 	return {get_valid_start() : {"color" : edit.color_option if has_option() else edit.color_error_option}, get_valid_end() : {"color" : edit.color_default}}

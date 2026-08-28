@@ -56,7 +56,7 @@ static func create(text : String, offset : int, start := "{", end := "}", rule :
 	while index < length:
 		var result := EqualParamElement.create(text, index, rule)
 		if result.is_faild:
-			element.create_error(index, "Not find param.")
+			element.create_error(index, TranslationSystem.tr("Unfind param."))
 			element.params.append(null)
 		else:
 			element.params.append(result)
@@ -82,4 +82,3 @@ func get_value_strings() -> PackedStringArray:
 	for param in params:
 		result.append(param.get_value_string())
 	return result
-

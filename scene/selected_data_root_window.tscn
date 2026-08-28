@@ -5,6 +5,10 @@
 [sub_resource type="GDScript" id="GDScript_spie5"]
 script/source = "extends Button
 
+func _ready() -> void:
+	if not OS.has_feature(\"Android\"):
+		hide()
+
 func _pressed() -> void:
 	OS.request_permissions()
 "
@@ -55,11 +59,11 @@ func _get_label() -> Label:
 
 [node name="SelectedDataRootWindow" type="AcceptDialog" unique_id=502664920]
 oversampling_override = 1.0
-title = "选择数据目录"
+title = "Choose Data Directory Please"
 position = Vector2i(0, 36)
 size = Vector2i(1152, 648)
 visible = true
-ok_button_text = "确定"
+ok_button_text = "OK"
 script = ExtResource("1_inet1")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1676352636]
@@ -81,13 +85,13 @@ layout_mode = 2
 
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer" unique_id=202429460]
 layout_mode = 2
-text = "请选择一个文件夹，作为主要数据目录。
-如果不进行操作，默认会使用软件沙盒目录，这个目录普通用户是无法访问的。
-如果你想让你的作品能够随意操作，建议专门创建一个目录，并选择。"
+text = "Please select a folder as the main data directory.
+If no action is taken, the software sandbox directory will be used by default. This directory is inaccessible to ordinary users.
+If you want your work to be freely operable, it is recommended to create a separate directory and choose it."
 
 [node name="Test" type="Button" parent="MarginContainer/VBoxContainer" unique_id=35253007]
 layout_mode = 2
-text = "检查权限"
+text = "Check Permissions"
 script = SubResource("GDScript_spie5")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=813448669]
@@ -95,7 +99,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=2083443270]
 layout_mode = 2
-text = "路径："
+text = "path:"
 
 [node name="Path" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1645684934]
 layout_mode = 2

@@ -39,17 +39,17 @@ func test_file() -> bool:
 	var file := _get_line_edit().text
 	
 	if not DirAccess.dir_exists_absolute(directory):
-		label.set_text("创建目录无效。")
+		label.set_text("Unvalid directory.")
 		label.add_theme_color_override("font_color", Color.RED)
 		return true
 	
 	if file.is_empty():
-		label.set_text("空文件名。")
+		label.set_text("Empty filename.")
 		label.add_theme_color_override("font_color", Color.RED)
 		return true
 	
 	if not file.is_valid_filename():
-		label.set_text("文件名包含无效字符。")
+		label.set_text("Unvalid filename.")
 		label.add_theme_color_override("font_color", Color.RED)
 		return true
 	
@@ -57,24 +57,24 @@ func test_file() -> bool:
 	
 	if FileAccess.file_exists(path):
 		if allow_covered:
-			label.set_text("存在同名文件夹，将被覆盖。")
+			label.set_text("Already exist same-name file, will be coverd.")
 			label.add_theme_color_override("font_color", Color.YELLOW)
 			return false
 		else:
-			label.set_text("存在同名文件。")
+			label.set_text("Already exist same-name filename.")
 			label.add_theme_color_override("font_color", Color.RED)
 			return true
 	elif DirAccess.dir_exists_absolute(path):
 		if allow_covered:
-			label.set_text("存在同名目录，将被覆盖。")
+			label.set_text("Already exist same-name directory, will be coverd.")
 			label.add_theme_color_override("font_color", Color.YELLOW)
 			return false
 		else:
-			label.set_text("存在同名目录。")
+			label.set_text("Alrady exist same-name directory.")
 			label.add_theme_color_override("font_color", Color.RED)
 			return true
 	
-	label.set_text("文件名可用。")
+	label.set_text("You can create file!")
 	label.add_theme_color_override("font_color", Color.GREEN)
 	return false
 

@@ -42,8 +42,6 @@ static func create(text : String, offset : int, start := "\"", end := "\"", rule
 	
 	if element.value_element == null or element.value_element.is_faild:
 		element.value_element = null
-		element.create_error(element.get_backet_string_start(), "Not find value.")
+		element.create_error(element.get_backet_string_start(), TranslationSystem.tr("Unfind value."))
 		return element
 	return element
-
-

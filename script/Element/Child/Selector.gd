@@ -67,7 +67,7 @@ static func create(text : String, offset : int, rule : ElementRule = null) -> Se
 		if element.is_faild:
 			return element
 		if not element.is_asterisk():
-			element.create_error(offset, "Unvaild selector.")
+			element.create_error(offset, TranslationSystem.tr("Unvaild selector."))
 			element.is_faild = true
 			return element
 		element.head_end = element.get_valid_end()
@@ -80,11 +80,11 @@ static func _create_selector_from_art(text : String, offset : int) -> SelectorEl
 	
 	var result := _selector_search_regex.search(text.substr(offset))
 	if result == null:
-		element.create_error(offset, "Not find any string.")
+		element.create_error(offset, TranslationSystem.tr("Unfind any string."))
 		return element
 	
 	if result.get_start("begin") == -1:
-		element.create_error(result.get_start("body_begin"), "Not is begin with \"@\".")
+		element.create_error(result.get_start("body_begin"), TranslationSystem.tr("Not is begin with \"@\"."))
 		return element
 	
 	element.string = result.get_string()
@@ -158,4 +158,3 @@ func is_selector() -> bool:
 	if text.length() > 1:
 		return true
 	return false
-

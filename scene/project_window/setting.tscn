@@ -62,14 +62,14 @@ func update_tree_item() -> void:
 	var root := create_item()
 	
 	var normal := root.create_child()
-	normal.set_text(0, \"通用\")
+	normal.set_text(0, \"General\")
 	var normal_config := normal.create_child()
-	normal_config.set_text(0, \"配置\")
+	normal_config.set_text(0, \"Config\")
 	
 	var edit := root.create_child()
-	edit.set_text(0, \"编辑器\")
+	edit.set_text(0, \"Edit\")
 	var edit_grammar := edit.create_child()
-	edit_grammar.set_text(0, \"语法\")
+	edit_grammar.set_text(0, \"Grammar\")
 	
 	items = [
 		root,
@@ -240,7 +240,7 @@ func _ready() -> void:
 
 [node name="ProjectSetting" type="Window" unique_id=216988942]
 oversampling_override = 1.0
-title = "项目设置"
+title = "Project Setting"
 position = Vector2i(0, 36)
 size = Vector2i(1152, 648)
 wrap_controls = true
@@ -296,7 +296,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName" unique_id=1129127225]
 layout_mode = 2
-text = "项目名称"
+text = "project name"
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName" unique_id=1896777267]
 custom_minimum_size = Vector2(200, 0)
@@ -309,7 +309,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectPath" unique_id=1727260768]
 layout_mode = 2
-text = "项目路径"
+text = "project path"
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectPath" unique_id=359083599]
 custom_minimum_size = Vector2(200, 0)
@@ -323,7 +323,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/HBoxContainer" unique_id=1545399935]
 layout_mode = 2
-text = "项目版本"
+text = "project version"
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/HBoxContainer" unique_id=853189560]
 custom_minimum_size = Vector2(200, 0)
@@ -336,12 +336,12 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/VBoxContainer" unique_id=1124546953]
 layout_mode = 2
-text = "项目描述"
+text = "project description"
 
 [node name="TextEdit" type="TextEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/VBoxContainer" unique_id=180649143]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
-placeholder_text = "没有描述"
+placeholder_text = "Empty"
 script = SubResource("GDScript_lyttk")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig" unique_id=2067263707]
@@ -349,7 +349,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/HBoxContainer2" unique_id=1256651496]
 layout_mode = 2
-text = "最低游戏版本"
+text = "min game version"
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/HBoxContainer2" unique_id=502987257]
 custom_minimum_size = Vector2(200, 0)
@@ -366,7 +366,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer" unique_id=983016244]
 layout_mode = 2
-text = "语法目录"
+text = "grammar path"
 
 [node name="GrammarPath" type="LineEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer" unique_id=1727898882]
 custom_minimum_size = Vector2(200, 0)
@@ -383,12 +383,12 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer2" unique_id=1958944843]
 layout_mode = 2
-text = "语法缓存"
+text = "grammar cache"
 
 [node name="Button" type="Button" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer2" unique_id=1884380911]
 layout_mode = 2
 size_flags_horizontal = 10
-text = "删除重新计算"
+text = "Delete & Recompute"
 script = SubResource("GDScript_7qvvl")
 
 [node name="ReloadProject" type="MarginContainer" parent="VBoxContainer" unique_id=1958719399]
@@ -403,17 +403,17 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/ReloadProject/HBoxContainer" unique_id=2007426041]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 0, 1)
-text = "项目设置发生改变，是否重启项目。"
+text = "Project settings have been changed. Do you want to reload the project?"
 
 [node name="ReloadProjectButton" type="Button" parent="VBoxContainer/ReloadProject/HBoxContainer" unique_id=1881670423]
 layout_mode = 2
 size_flags_horizontal = 10
-text = "重启"
+text = "reload"
 
 [node name="Button" type="Button" parent="VBoxContainer" unique_id=1152094523]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "关闭"
+text = "close"
 
 [node name="GrammarPath" type="FileDialog" parent="." unique_id=1585746821]
 title = "Open a Directory"

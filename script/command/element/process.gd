@@ -151,4 +151,3 @@ func _get_code_completion_next(column : int) -> FunctionCompletionData:
 			data_main.add_data(data)
 	
 	return data_main
-

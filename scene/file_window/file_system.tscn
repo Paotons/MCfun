@@ -267,7 +267,7 @@ func _ready() -> void:
 
 [node name="FileSystem" type="Window" unique_id=816334499]
 oversampling_override = 1.0
-title = "文件系统"
+title = "File System"
 position = Vector2i(0, 36)
 size = Vector2i(1152, 648)
 script = ExtResource("1_3atx5")
@@ -290,9 +290,9 @@ layout_mode = 2
 
 [node name="Add" type="MenuButton" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1014723105]
 layout_mode = 2
-text = "添加"
+text = "Add"
 item_count = 2
-popup/item_0/text = "目录"
+popup/item_0/text = "Directory"
 popup/item_0/id = 0
 popup/item_1/text = "mcfun"
 popup/item_1/id = 1
@@ -300,25 +300,25 @@ script = SubResource("GDScript_3atx5")
 
 [node name="Open" type="MenuButton" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1281373393]
 layout_mode = 2
-text = "打开"
+text = "Open"
 item_count = 2
-popup/item_0/text = "文件"
+popup/item_0/text = "File"
 popup/item_0/id = 0
-popup/item_1/text = "子文件"
+popup/item_1/text = "Children"
 popup/item_1/id = 1
 script = SubResource("GDScript_laydq")
 
 [node name="File" type="MenuButton" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=2059539899]
 layout_mode = 2
-text = "文件"
+text = "File"
 item_count = 4
-popup/item_0/text = "重命名"
+popup/item_0/text = "Rename"
 popup/item_0/id = 0
-popup/item_1/text = "移动"
+popup/item_1/text = "Cut"
 popup/item_1/id = 1
-popup/item_2/text = "复制"
+popup/item_2/text = "Copy"
 popup/item_2/id = 2
-popup/item_3/text = "删除"
+popup/item_3/text = "Delete"
 popup/item_3/id = 3
 script = SubResource("GDScript_q0rmr")
 
@@ -331,39 +331,36 @@ script = SubResource("GDScript_xngp6")
 visible = false
 
 [node name="RenameFileWindow" parent="." unique_id=571617450 instance=ExtResource("2_xngp6")]
-title = "重命名文件"
+title = "Rename File"
 visible = false
-ok_button_text = "重命名"
+ok_button_text = "Rename"
 allow_covered = true
 
 [node name="MoveFileWindow" type="FileDialog" parent="." unique_id=916317885]
 oversampling_override = 1.0
 title = "Open a Directory"
 position = Vector2i(0, 36)
-ok_button_text = "移动"
-cancel_button_text = "取消"
+ok_button_text = "Cut"
 file_mode = 2
 access = 2
 script = SubResource("GDScript_l16b6")
 
 [node name="CopyFileWindow" type="FileDialog" parent="." unique_id=533337381]
 title = "Open a Directory"
-ok_button_text = "复制"
+ok_button_text = "Copy"
 file_mode = 2
 access = 2
 script = SubResource("GDScript_kdn8y")
 
 [node name="DeleteFileWindow" type="ConfirmationDialog" parent="." unique_id=29349439]
 oversampling_override = 1.0
-title = "删除文件"
-ok_button_text = "删除"
-cancel_button_text = "取消"
+title = "Delete File"
+ok_button_text = "Delete"
 
 [node name="CoverFileWindow" type="ConfirmationDialog" parent="." unique_id=290101633]
-title = "覆盖文件/目录"
-ok_button_text = "覆盖"
-dialog_text = "存在同名文件/目录，是否覆盖。"
-cancel_button_text = "取消"
+title = "Cove File/Directory"
+ok_button_text = "Covered"
+dialog_text = "Already exist same-name file/directory, are you allow to be coverd."
 
 [connection signal="close_requested" from="." to="." method="hide"]
 [connection signal="create_file" from="CreateFileWindow" to="VBoxContainer/MarginContainer/HBoxContainer/Add" method="_on_create_file_window_create_file"]

@@ -22,6 +22,7 @@ boot_splash/image="uid://sv55didabwke"
 [autoload]
 
 FileSystem="*uid://dgvwbitqn8jwg"
+TranslationSystem="*uid://clilh3cy641ws"
 ProjectManager="*uid://dns5us14ivivq"
 EditManager="*uid://dkfx0gngr3l32"
 GlobalTester="*uid://dcnluigaptj2c"
@@ -45,6 +46,10 @@ folder_colors={
 [gui]
 
 theme/custom="uid://by8ql6ujn08f8"
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://resource/tr/zh.po", "res://resource/tr/en.po")
 
 [physics]
 

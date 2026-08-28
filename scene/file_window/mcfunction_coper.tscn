@@ -61,7 +61,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=317239061]
 layout_mode = 2
-text = "路径："
+text = "path:"
 
 [node name="Path" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=886534391]
 layout_mode = 2
@@ -87,14 +87,14 @@ size_flags_horizontal = 10
 
 [node name="Inform" type="Label" parent="MarginContainer/VBoxContainer" unique_id=251295595]
 layout_mode = 2
-text = "文件无效。"
+text = "Unvaild filename."
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=769024658]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=793142597]
 layout_mode = 2
-text = "偏移："
+text = "offset:"
 
 [node name="LineOffset" type="SpinBox" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=590675338]
 layout_mode = 2
@@ -106,7 +106,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=1452317133]
 layout_mode = 2
-text = "长度："
+text = "length:"
 
 [node name="LineLength" type="SpinBox" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=216400109]
 layout_mode = 2
@@ -121,12 +121,12 @@ layout_mode = 2
 [node name="CopyOneLine" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer5" unique_id=1422421693]
 layout_mode = 2
 size_flags_horizontal = 6
-text = "复制一行"
+text = "Copy line"
 
 [node name="CopyNormal" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer5" unique_id=808863613]
 layout_mode = 2
 size_flags_horizontal = 6
-text = "正常复制"
+text = "Copy normal"
 
 [node name="SelectedFileWindow" type="FileDialog" parent="." unique_id=1871257631]
 title = "Open a File"

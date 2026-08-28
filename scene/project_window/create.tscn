@@ -52,27 +52,27 @@ func is_valid() -> bool:
 	
 	if not nam.is_valid_filename():
 		label.add_theme_color_override(&\"font_color\", Color.RED)
-		label.set_text(\"文件名不可用。\")
+		label.set_text(\"Unvalid filename.\")
 		return false
 	
 	var path := _get_project_path()
 	if not (path.is_absolute_path() or path.is_relative_path()):
 		label.add_theme_color_override(&\"font_color\", Color.RED)
-		label.set_text(\"目录名不可用。\")
+		label.set_text(\"Unvalid directory.\")
 		return false
 	
 	elif not DirAccess.dir_exists_absolute(path):
 		label.add_theme_color_override(&\"font_color\", Color.RED)
-		label.set_text(\"目录不存在。\")
+		label.set_text(\"Unfind directory.\")
 		return false
 	
 	elif ProjectManager.has_project(nam):
 		label.add_theme_color_override(&\"font_color\", Color.RED)
-		label.set_text(\"已经存在同名项目。\")
+		label.set_text(\"Already exist same-name project.\")
 		return false
 	
 	label.add_theme_color_override(&\"font_color\", Color.GREEN)
-	label.set_text(\"项目可以创建。\")
+	label.set_text(\"You can create project!\")
 	return true
 
 func _on_project_path_text_changed(_new_text: String) -> void:
@@ -93,7 +93,7 @@ func _ready() -> void:
 
 [node name="CreateProjectWindow" type="Window" unique_id=136878735]
 oversampling_override = 1.0
-title = "创建项目"
+title = "New Project"
 position = Vector2i(0, 36)
 size = Vector2i(1152, 648)
 wrap_controls = true
@@ -125,7 +125,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1733808950]
 layout_mode = 2
-text = "名称："
+text = "name:"
 
 [node name="ProjectName" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1636120132]
 layout_mode = 2
@@ -136,7 +136,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=57412762]
 layout_mode = 2
-text = "路径："
+text = "path:"
 
 [node name="ProjectPath" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=107378591]
 layout_mode = 2
@@ -145,7 +145,7 @@ script = SubResource("GDScript_i4nqj")
 
 [node name="Locate" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1489654073]
 layout_mode = 2
-text = "Loc"
+text = "LOC"
 
 [node name="Hint" type="Label" parent="MarginContainer/VBoxContainer" unique_id=117828508]
 layout_mode = 2
@@ -157,8 +157,13 @@ size_flags_vertical = 10
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=739030240]
 layout_mode = 2
 size_flags_horizontal = 6
-text = "创建"
+text = "Create"
 script = SubResource("GDScript_ry5r1")
+
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=310659869]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Cancel"
 
 [node name="FileDialog" type="FileDialog" parent="." unique_id=24903102]
 oversampling_override = 1.0
@@ -173,5 +178,6 @@ script = SubResource("GDScript_f4o77")
 [connection signal="text_changed" from="MarginContainer/VBoxContainer/HBoxContainer/ProjectName" to="MarginContainer/VBoxContainer/HBoxContainer3/Button" method="_on_project_name_text_changed"]
 [connection signal="text_changed" from="MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" to="MarginContainer/VBoxContainer/HBoxContainer3/Button" method="_on_project_path_text_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/Locate" to="FileDialog" method="popup_file_dialog"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer3/Button2" to="." method="hide"]
 [connection signal="dir_selected" from="FileDialog" to="MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" method="_on_file_dialog_dir_selected"]
 [connection signal="visibility_changed" from="FileDialog" to="MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" method="_on_file_dialog_visibility_changed"]

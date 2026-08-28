@@ -22,7 +22,7 @@ static func create(text : String, offset : int) -> SpaceItemElement:
 	element.string_offset = offset
 	var result := _spaceitem_search_regex.search(text.substr(offset))
 	if result == null:
-		element.create_error(offset, "Not find string.")
+		element.create_error(offset, TranslationSystem.tr("Unfind any string."))
 		return element
 	element.valid_start = result.get_end("start")
 	
@@ -66,4 +66,3 @@ static func is_spaceitem(text : String) -> bool:
 			return true
 		else:
 			return false
-

@@ -54,4 +54,3 @@ func remove_error_from_range(from : int, to : int) -> void:
 # 如果错误是否在指定范围，返回 true。
 func _is_error_at_range(err : ElementError, from : int, to : int) -> bool:
 	return from <= err.column and err.column < to
-

@@ -28,11 +28,11 @@ func _ready() -> void:
 	test_is_vaild()
 
 func _get_project_name() -> String:
-	return $\"../MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ProjectName\".text
+	return $\"../../MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ProjectName\".text
 func _get_project_path() -> String:
-	return $\"../MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath\".text
+	return $\"../../MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath\".text
 func _get_hint_label() -> Label:
-	return $\"../MarginContainer/MarginContainer/VBoxContainer/Hint\"
+	return $\"../../MarginContainer/MarginContainer/VBoxContainer/Hint\"
 func get_project_name() -> String:
 	return _get_project_name().validate_filename()
 func get_project_path() -> String:
@@ -47,30 +47,30 @@ func is_valid() -> bool:
 	
 	if not nam.is_valid_filename():
 		label.add_theme_color_override(&\"font_color\", Color.RED)
-		label.set_text(\"文件名不可用。\")
+		label.set_text(\"Unvalid filename.\")
 		return false
 	elif ProjectManager.has_project(nam):
 		label.add_theme_color_override(&\"font_color\", Color.RED)
-		label.set_text(\"已经存在同名项目。\")
+		label.set_text(\"Already exist same-name project.\")
 		return false
 	
 	var path := _get_project_path()
 	if not(path.is_absolute_path() or path.is_relative_path()):
 		label.add_theme_color_override(&\"font_color\", Color.RED)
-		label.set_text(\"目录名不可用。\")
+		label.set_text(\"Unvalid directory.\")
 		return false
 	elif not DirAccess.dir_exists_absolute(path):
 		label.add_theme_color_override(&\"font_color\", Color.RED)
-		label.set_text(\"目录不存在。\")
+		label.set_text(\"Notfind directory.\")
 		return false
 	
 	if not FileAccess.file_exists(ProjectConfig.get_config_path(path)):
 		label.add_theme_color_override(&\"font_color\", Color.RED)
-		label.set_text(\"不是项目目录。\")
+		label.set_text(\"Unvaild project-directory.\")
 		return false
 	
 	label.add_theme_color_override(&\"font_color\", Color.GREEN)
-	label.set_text(\"项目可导入。\")
+	label.set_text(\"You can import project!\")
 	return true
 
 func _pressed() -> void:
@@ -101,7 +101,7 @@ func _ready() -> void:
 
 [node name="LoadProjectWindow" type="Window" unique_id=944477413]
 oversampling_override = 1.0
-title = "导入项目"
+title = "Import Project"
 position = Vector2i(0, 36)
 size = Vector2i(1152, 648)
 wrap_controls = true
@@ -140,7 +140,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1602190811]
 layout_mode = 2
-text = "名称："
+text = "name:"
 
 [node name="ProjectName" type="LineEdit" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=248696767]
 layout_mode = 2
@@ -152,7 +152,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1067204082]
 layout_mode = 2
-text = "路径："
+text = "path:"
 
 [node name="ProjectPath" type="LineEdit" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1524012199]
 layout_mode = 2
@@ -166,12 +166,20 @@ text = "LOC"
 [node name="Hint" type="Label" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer" unique_id=2106311897]
 layout_mode = 2
 
-[node name="Load" type="Button" parent="VBoxContainer" unique_id=1982959239]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=511123654]
 layout_mode = 2
-size_flags_horizontal = 4
+
+[node name="Load" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1982959239]
+layout_mode = 2
+size_flags_horizontal = 6
 disabled = true
-text = "导入"
+text = "Import"
 script = SubResource("GDScript_u0kf3")
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=97959460]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Cancel"
 
 [node name="FileDialog" type="FileDialog" parent="." unique_id=675339959]
 oversampling_override = 1.0
@@ -181,8 +189,9 @@ file_mode = 2
 access = 2
 script = SubResource("GDScript_7nifj")
 
-[connection signal="text_changed" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ProjectName" to="VBoxContainer/Load" method="_on_project_name_text_changed"]
-[connection signal="text_changed" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" to="VBoxContainer/Load" method="_on_project_path_text_changed"]
+[connection signal="text_changed" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ProjectName" to="VBoxContainer/HBoxContainer/Load" method="_on_project_name_text_changed"]
+[connection signal="text_changed" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" to="VBoxContainer/HBoxContainer/Load" method="_on_project_path_text_changed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/Button" to="FileDialog" method="popup_centered_clamped"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="hide"]
 [connection signal="dir_selected" from="FileDialog" to="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ProjectName" method="_on_file_dialog_dir_selected"]
 [connection signal="dir_selected" from="FileDialog" to="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" method="_on_file_dialog_dir_selected"]

@@ -26,7 +26,7 @@ static func _create_word_element(element : BaseStringElement, text : String, off
 	
 	var result := _search_word_regex.search(text.substr(offset))
 	if result == null:
-		element.create_error(offset, "Not find any word.")
+		element.create_error(offset, "Unfind any word.")
 		return element
 	
 	element.valid_start = result.get_start("word")

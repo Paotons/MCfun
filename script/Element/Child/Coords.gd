@@ -42,7 +42,7 @@ static func create(text : String, offset : int, size := 3) -> CoordsElement:
 	for i in size:
 		var sult := CoordElement.create(text, start)
 		if sult.is_faild:
-			element.create_error(start, "Not find valid coord for %d." % [i])
+			element.create_error(start, "Unfind valid coord for %d." % [i])
 			break
 		element.params.append(sult)
 		if i != 0: element.split_flags.append(sult.get_valid_start() - offset)

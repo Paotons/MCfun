@@ -243,7 +243,7 @@ func _do_selector(text : String, process : CommandElementCreaterProcess) -> bool
 	if result.has_body():
 		var backet := result.get_body_element()
 		for err in backet.errors:
-			create_error(err.column, "Body has error \"%s\"." % [err.string])
+			create_error(err.column, err.string)
 	
 	if exe.has_cmd():
 		ElementRuleCMD.execute(result, exe, get_command())
@@ -317,7 +317,7 @@ func _do_array(text : String, process : CommandElementCreaterProcess) -> bool:
 # 处理指令中的附属指令。
 func _do_subcommand(text : String, process : CommandElementCreaterProcess) -> bool:
 	if process.offset == text.length():
-		create_error(process.offset, "Not find command.")
+		create_error(process.offset, TranslationSystem.tr("Unfind command."))
 		return true
 	
 	var offset := StrT.find_unempty(text, process.offset)
@@ -326,7 +326,7 @@ func _do_subcommand(text : String, process : CommandElementCreaterProcess) -> bo
 	var result := BaseCommandElement.create(text, process.offset, process.line)
 	
 	if result.is_empty():
-		create_error(process.offset, "Not find command.")
+		create_error(process.offset, TranslationSystem.tr("Unfind command."))
 	if result.has_error():
 		_get_failds().append(process.exe_index)
 		for err in result.errors: create_error(process.offset + err.column, err.string)
@@ -337,7 +337,7 @@ func _do_subcommand(text : String, process : CommandElementCreaterProcess) -> bo
 	get_command()._has_child_element = true
 	
 	if result.command_type & process.exe_element.get_command_types() == 0:
-		create_error(process.offset, "Command should be %s, but is %s." % [CommandElementManager.command_type_to_string(process.exe_element.get_command_types()), CommandElementManager.command_type_to_string(result.command_type)])
+		create_error(process.offset, TranslationSystem.tr("Command should be %s, but is %s.") % [CommandElementManager.command_type_to_string(process.exe_element.get_command_types()), CommandElementManager.command_type_to_string(result.command_type)])
 	if not result.is_faild:
 		_get_hl_data().merge(result.get_highlight(process.edit))
 	_add_history(process.exe_index, result)
@@ -390,7 +390,7 @@ func _do_command_tail(text : String, process : CommandElementCreaterProcess) -> 
 		if process.offset < length:
 			var result := StringElement.create(text, process.offset)
 			if not result.is_faild:
-				create_error(result.get_valid_start(), "More string \"%s\"." % [result.get_valid_string()])
+				create_error(result.get_valid_start(), TranslationSystem.tr("More string \"%s\".") % [result.get_valid_string()])
 				return
 	else:
-		create_error(process.offset , "Cant end.")
+		create_error(process.offset , TranslationSystem.tr("Can't end."))

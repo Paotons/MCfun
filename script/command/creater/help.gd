@@ -17,12 +17,12 @@ func run_from_empty(text : String, process : CommandElementCreaterProcess) -> vo
 	
 	var result := _help_command_regex.search(string, 0)
 	if result == null:
-		get_command().create_error(offset, "Not has help.")
+		get_command().create_error(offset, TranslationSystem.tr("Unfind help."))
 		return
 	get_command().is_faild = false
 	
 	if result.get_start() != 0:
-		command.create_error(offset, "Unvaild beginning.")
+		command.create_error(offset, TranslationSystem.tr("Unvaild beginning."))
 	
 	var highlight := get_command()._highlight_data
 	highlight.merge({result.get_start("head") + offset : {"color" : process.edit.color_normal_command_head}, result.get_end("head") + offset : {"color" : process.edit.color_default}})
