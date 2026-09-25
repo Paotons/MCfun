@@ -35,4 +35,3 @@ static func _init_project_file(path : String, name : String) -> void:
 	ProjectConfig._save_config_file(config, path)
 	
 	ProjectChache._init_chache(path)
-

@@ -3,29 +3,169 @@ msgstr ""
 "Language: zh\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
+### 前言
+## 常用
 msgid "close"
+msgstr "关闭"
+
+msgid "Close"
 msgstr "关闭"
 
 msgid "OK"
 msgstr "确定"
 
-msgid "Setting"
-msgstr "设置"
-
-msgid "scale"
-msgstr "缩放"
-
-msgid "translation"
-msgstr "翻译"
-
-msgid "cancel"
-msgstr "取消"
+msgid "ok"
+msgstr "确定"
 
 msgid "Cancel"
 msgstr "取消"
 
+msgid "cancel"
+msgstr "取消"
+
+msgid "LOC"
+msgstr "定位"
+
+msgid "Empty"
+msgstr "空"
+
+msgid "Exit"
+msgstr "退出"
+
+msgid "Loading"
+msgstr "加载中"
+
+## 文件系统
+msgid "Recent:"
+msgstr "最近："
+
+msgid "Favorites:"
+msgstr "收藏："
+
+msgid "Directories & Files:"
+msgstr "目录 & 文件："
+
+msgid "Path:"
+msgstr "路径："
+
+## 常见动词
+msgid "Add"
+msgstr "添加"
+
+msgid "add"
+msgstr "添加"
+
+msgid "Get"
+msgstr "提取"
+
+msgid "get"
+msgstr "提取"
+
 msgid "Create"
 msgstr "创建"
+
+msgid "create"
+msgstr "创建"
+
+msgid "New"
+msgstr "新建"
+
+msgid "new"
+msgstr "新建"
+
+## 常用动作。
+msgid "Start."
+msgstr "开始。"
+
+## 路径选择
+msgid "Empty filename."
+msgstr "空文件名。"
+
+msgid "Empty directoryname."
+msgstr "空目录名。"
+
+msgid "Empty file."
+msgstr "空文件。"
+
+msgid "Empty directory."
+msgstr "空目录。"
+
+msgid "Filetype must be mcfunction or zip."
+msgstr "文件类型必须为mcfunction或者是zip格式。"
+
+msgid "Unfind file."
+msgstr "没有找到文件。"
+
+msgid "Notfind file."
+msgstr "没有找到文件。"
+
+msgid "Notfind directory."
+msgstr "没有找到目录。"
+
+msgid "Unfind directory."
+msgstr "没有找到目录。"
+
+msgid "Valid file."
+msgstr "文件有效。"
+
+msgid "Valid directory."
+msgstr "目录有效。"
+
+msgid "Already exist same-name filename."
+msgstr "已经存在同名文件。"
+
+msgid "Already exist same-name filename, will be coverd."
+msgstr "已经存在同名文件，将会被覆盖。"
+
+msgid "Alrady exist same-name directoryname."
+msgstr "已经存在同名目录。"
+
+msgid "Already exist same-name directory, will be coverd."
+msgstr "已经存在同名目录，将会被覆盖。"
+
+msgid "You can create file!"
+msgstr "你能够创建文件了！"
+
+msgid "You can create directory!"
+msgstr "你能够创建目录了！"
+
+msgid "Unvalid filename."
+msgstr "无效文件名。"
+
+msgid "Unvalid directory."
+msgstr "无效目录。"
+
+## 常用属性
+msgid "offset"
+msgstr "偏移"
+
+msgid "length"
+msgstr "长度"
+
+msgid "path"
+msgstr "路径"
+
+msgid "name"
+msgstr "名称"
+
+msgid "scale"
+msgstr "缩放"
+
+msgid "behavior"
+msgstr "行为"
+
+msgid "file"
+msgstr "文件"
+
+msgid "File"
+msgstr "文件"
+
+### 项目列表界面
+msgid "Setting"
+msgstr "设置"
+
+msgid "translation"
+msgstr "翻译"
 
 msgid "Import"
 msgstr "导入"
@@ -54,11 +194,12 @@ msgstr "行为"
 msgid "Grammar"
 msgstr "语法"
 
-msgid "offset:"
-msgstr "偏移："
+msgid "Project lost."
+msgstr "项目丢失。"
 
-msgid "length:"
-msgstr "长度："
+### 复制帮手窗口
+msgid "Function Copyer"
+msgstr "函数复制帮手"
 
 msgid "Copy line"
 msgstr "复制一行"
@@ -66,24 +207,11 @@ msgstr "复制一行"
 msgid "Copy normal"
 msgstr "正常复制"
 
-msgid "Empty filename."
-msgstr "空文件名。"
-
-msgid "Filetype must be mcfunction or zip."
-msgstr "文件类型必须为mcfunction或者是zip格式。"
-
-msgid "Notfind file."
-msgstr "没有找到文件。"
-
-msgid "Vaild file."
-msgstr "文件有效。"
-
-msgid "Empty file."
-msgstr "空文件。"
-
 msgid "%d lines."
 msgstr "%d 行数。"
 
+### 编辑器设置
+## 分类
 msgid "Running"
 msgstr "运行"
 
@@ -96,38 +224,8 @@ msgstr "数据目录"
 msgid "Choose Data Directory Please"
 msgstr "请选择数据目录。"
 
-msgid "Already exist same-name filename."
-msgstr "已经存在同名文件，将会被覆盖。"
-
-msgid "Alrady exist same-name directory."
-msgstr "已经存在同名目录。"
-
-msgid "Already exist same-name directory, will be coverd."
-msgstr "已经存在同名目录，将会被覆盖。"
-
-msgid "You can create file!"
-msgstr "你能够创建文件了！"
-
-msgid "Empty"
-msgstr "空"
-
-msgid "LOC"
-msgstr "定位"
-
-msgid "path:"
-msgstr "路径"
-
-msgid "name:"
-msgstr "名称："
-
-msgid "create"
-msgstr "创建"
-
 msgid "Project List"
 msgstr "项目列表"
-
-msgid "new"
-msgstr "新建"
 
 msgid "import"
 msgstr "导入"
@@ -138,6 +236,10 @@ msgstr "设置"
 msgid "coper"
 msgstr "复制帮手"
 
+msgid "Help"
+msgstr "帮助"
+
+## 高亮
 msgid "Command Head"
 msgstr "指令头"
 
@@ -201,9 +303,7 @@ msgstr "y"
 msgid "z"
 msgstr "z"
 
-msgid "Help"
-msgstr "帮助"
-
+## 补全
 msgid "help"
 msgstr "帮助"
 
@@ -225,9 +325,11 @@ msgstr "提示词权重 （注意：该功能可能会带来性能影响。）"
 msgid "spacename completion"
 msgstr "空间名称补全"
 
+## 外观
 msgid "caret blink"
 msgstr "光标闪烁"
 
+## 行为
 msgid "double reflecting"
 msgstr "双击映射"
 
@@ -237,15 +339,14 @@ msgstr "映射字符串"
 msgid "border enter"
 msgstr "边界换行"
 
+## 语法
 msgid "grammar path"
 msgstr "语法路径"
 
 msgid "get grammar"
 msgstr "提取语法"
 
-msgid "get"
-msgstr "提取"
-
+## 自保存
 msgid "auto saving"
 msgstr "自动保存"
 
@@ -256,25 +357,14 @@ msgid "%dmin%dsec"
 msgstr "%d分%d秒"
 
 msgid "saving space (%s)"
-msgstr "保存间隔 (%s)"
+msgstr "保存间隔 （%s）"
 
+## 其他
 msgid "To apply the changes in the configuration file, a reload is necessary."
 msgstr "配置文件发生更改，是否重启。"
 
 msgid "Save & Reload"
 msgstr "保存并重启"
-
-msgid "Unvalid filename."
-msgstr "无效文件名。"
-
-msgid "Unvalid directory."
-msgstr "无效目录。"
-
-msgid "Unvaild project-directory."
-msgstr "无效项目目录。"
-
-msgid "Unfind directory."
-msgstr "没有找到目录。"
 
 msgid "Already exist same-name project."
 msgstr "已存在同名项目。"
@@ -282,9 +372,13 @@ msgstr "已存在同名项目。"
 msgid "You can create project!"
 msgstr "你能够创建项目了！"
 
+msgid "Unvaild project-directory."
+msgstr "无效项目目录。"
+
 msgid "You can import project!"
 msgstr "你能够导入项目了！"
 
+### 项目设置窗口
 msgid "project name"
 msgstr "项目名称"
 
@@ -315,14 +409,23 @@ msgstr "删除并重新计算"
 msgid "Project settings have been changed. Do you want to reload the project?"
 msgstr "项目设置发生更改，是否重启项目？"
 
+### 界面
+## 加载进程
+msgid "Loading data."
+msgstr "正在加载数据。"
+
+msgid "Unvalid grammar:\n%s"
+msgstr "语法发生错误：\n%s"
+
+msgid "Loading GUI."
+msgstr "正在加载界面。"
+
+## 界面
 msgid "reload"
 msgstr "重启"
 
 msgid "Project"
 msgstr "项目"
-
-msgid "File"
-msgstr "文件"
 
 msgid "Export"
 msgstr "导出"
@@ -384,12 +487,6 @@ msgstr "导入项目"
 msgid "About Me"
 msgstr "关于我"
 
-msgid "Creater"
-msgstr "创建者"
-
-msgid "Add"
-msgstr "添加"
-
 msgid "Directory"
 msgstr "目录"
 
@@ -411,8 +508,21 @@ msgstr "空文件名。"
 msgid "Error (%d, %d) %s"
 msgstr "错误 （%d, %d） %s"
 
-msgid "%d lines %d column:"
+msgid "%d lines %d column: "
 msgstr "%d 行 %d 列："
+
+msgid "The file has not been saved. Do you want to exit?"
+msgstr "文件没有保存，是否退出。"
+
+msgid "Save & Exit"
+msgstr "保存并退出"
+
+msgid "UnSave & Exit"
+msgstr "不保存并退出"
+
+### 关于窗口
+msgid "Creater"
+msgstr "创建者"
 
 msgid "Keeper"
 msgstr "维护者"
@@ -429,8 +539,7 @@ msgstr "Mojang 创造了游戏主体\n\nGodot 提供了引擎\n\nDeepSeek 干的
 msgid "Please select a folder as the main data directory.\nIf no action is taken, the software sandbox directory will be used by default. This directory is inaccessible to ordinary users.\nIf you want your work to be freely operable, it is recommended to create a separate directory and choose it."
 msgstr "请选择一个文件夹，作为主要数据目录。\n如果不进行操作，默认会使用软件沙盒目录，这个目录普通用户是无法访问的。\n如果你想让你的作品能够随意操作，建议专门创建一个目录，并选择。"
 
-
-# 错误提示
+### 错误提示
 msgid "Unfind any string."
 msgstr "没有找到字符串。"
 
@@ -506,6 +615,9 @@ msgstr "不以\"%s\"开头。"
 msgid "Unfind end backet \"%s\"."
 msgstr "没有找到反括号\"%s\""
 
+msgid "Unfind brother backet."
+msgstr "没有找到兄弟括号。"
+
 msgid "Not begin with quotation."
 msgstr "不以引号开头。"
 
@@ -539,7 +651,48 @@ msgstr "找不到帮助。"
 msgid "Unvaild beginning."
 msgstr "无效开头。"
 
-msgid "Annotaition must begin with #."
+msgid "Annotaition must begin with ###."
 msgstr "注释必须以\"#\"开头。"
+
+### 导出设置窗口
+msgid "Project Export"
+msgstr "项目导出"
+
+msgid "error behavior"
+msgstr "错误处理"
+
+msgid "retain annotation"
+msgstr "保留注释"
+
+msgid "retain empty-line"
+msgstr "保留空行"
+
+msgid "ignore"
+msgstr "忽视"
+
+msgid "direct export"
+msgstr "直接导出"
+
+msgid "path"
+msgstr "路径"
+
+msgid "name"
+msgstr "名称"
+
+msgid "Exporting"
+msgstr "正在导出"
+
+msgid "Export successful."
+msgstr "导出成功。"
+
+msgid "Simply extract the file to the behavior_packs directory in your map and enable the behavior pack."
+msgstr "只需把文件解压到地图目录behavior_packs并激活行为包即可。"
+
+### 导出进程。
+msgid "Creating leader-file."
+msgstr "正在创建引导文件。"
+
+msgid "Compiling function."
+msgstr "正在编译函数。"
 
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://diyi5chw3itl4"]
 
-[ext_resource type="Script" uid="uid://xubfrpnsxr36" path="res://scene/project_window/export_setting.gd" id="1_xymlg"]
+[ext_resource type="Script" uid="uid://xubfrpnsxr36" path="res://scene/project/export_setting/export_setting.gd" id="1_xymlg"]
 
 [sub_resource type="GDScript" id="GDScript_w0g4x"]
 script/source = "extends LineEdit
@@ -39,11 +39,11 @@ func _ready() -> void:
 
 [node name="ProjectExportSetting" type="AcceptDialog" unique_id=1489223026]
 oversampling_override = 1.0
-title = "导出项目"
+title = "Project Export"
 position = Vector2i(0, 36)
 size = Vector2i(1152, 648)
 visible = true
-ok_button_text = "导出"
+ok_button_text = "Export"
 dialog_hide_on_ok = false
 script = ExtResource("1_xymlg")
 
@@ -89,7 +89,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=878283917]
 layout_mode = 2
-text = "路径："
+text = "path"
 
 [node name="Path" type="LineEdit" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=480722160]
 layout_mode = 2
@@ -105,7 +105,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=1197869985]
 layout_mode = 2
-text = "名称："
+text = "name"
 
 [node name="Name" type="LineEdit" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2" unique_id=1380853674]
 layout_mode = 2
@@ -117,16 +117,16 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer5" unique_id=787745318]
 layout_mode = 2
-text = "错误处理："
+text = "error behavior"
 
 [node name="DoErrorOptionButton" type="OptionButton" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer5" unique_id=357609420]
 layout_mode = 2
 size_flags_horizontal = 10
 selected = 0
 item_count = 2
-popup/item_0/text = "忽略"
+popup/item_0/text = "ignore"
 popup/item_0/id = 0
-popup/item_1/text = "直接导出"
+popup/item_1/text = "direct export"
 popup/item_1/id = 1
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1241569118]
@@ -134,7 +134,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer3" unique_id=677171374]
 layout_mode = 2
-text = "保留注释："
+text = "retain annotation"
 
 [node name="IncludeAnnotationCheck" type="CheckBox" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer3" unique_id=1313523701]
 layout_mode = 2
@@ -145,7 +145,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer4" unique_id=1098724874]
 layout_mode = 2
-text = "保留空行："
+text = "retain empty-line"
 
 [node name="IncludeEmptyCheck" type="CheckBox" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer4" unique_id=1038403876]
 layout_mode = 2

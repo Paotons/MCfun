@@ -4,6 +4,9 @@ extends Window
 ##
 ## 帮助复制函数的窗口。
 
+## 必要的节点。
+@export var essent_nodes : Dictionary[StringName, Node]
+
 ## 函数内容。
 var _fun_string : PackedStringArray
 
@@ -11,27 +14,27 @@ func _ready() -> void:
 	update_control()
 
 func _get_path_line_edit() -> LineEdit:
-	return $MarginContainer/VBoxContainer/HBoxContainer/Path
+	return essent_nodes.get(&"PathLineEdit")
 func _get_file_path() -> String:
 	return _get_path_line_edit().get_text()
 # 获取信息标签。
 func _get_inform_label() -> Label:
-	return $MarginContainer/VBoxContainer/Inform
+	return essent_nodes.get(&"InformLabel")
 # 获取复制一行的按钮。
 func _get_copy_oneline_button() -> Button:
-	return $MarginContainer/VBoxContainer/HBoxContainer5/CopyOneLine
+	return essent_nodes.get(&"CopyOnelineButton")
 # 获取正常复制到按钮。
 func _get_copy_normal_button() -> Button:
-	return $MarginContainer/VBoxContainer/HBoxContainer5/CopyNormal
+	return essent_nodes.get(&"CopyNormalButton")
 # 获取文件选项按钮。
 func _get_file_option_button() -> OptionButton:
-	return $MarginContainer/VBoxContainer/HBoxContainer2/FileOptionButton
+	return essent_nodes.get(&"FileOptionButton")
 # 获取行偏移盒子。
 func _get_line_offset_box() -> SpinBox:
-	return $MarginContainer/VBoxContainer/HBoxContainer3/LineOffset
+	return essent_nodes.get(&"LineOffsetBox")
 # 获取行长度盒子。
 func _get_line_length_box() -> SpinBox:
-	return $MarginContainer/VBoxContainer/HBoxContainer4/LineLength
+	return essent_nodes.get(&"LineLengthBox")
 # 获取偏移。
 func _get_line_offset() -> int:
 	return int(_get_line_offset_box().value)

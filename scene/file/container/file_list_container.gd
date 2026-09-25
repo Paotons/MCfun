@@ -10,6 +10,7 @@ signal saved(path : String)
 signal closed(path : String)
 
 class _File extends Resource:
+	var button : Button
 	var path : String
 	var has_saved := true
 	var caret_position := Vector2i()
@@ -38,7 +39,7 @@ func _ready() -> void:
 	_button_group.pressed.connect(_on_button_group_pressed)
 
 func _on_button_group_pressed(button : BaseButton) -> void:
-	var index := button.get_index()
+	var index := _get_file_button_index(button)
 	selected_index = index
 	selected_changed.emit(_files[index].path)
 
@@ -120,7 +121,7 @@ func is_file_opend(path : String) -> bool:
 func get_selected() -> String:
 	if get_child_count() == 0:
 		return ""
-	var index := _button_group.get_pressed_button().get_index()
+	var index := _get_file_button_index(_button_group.get_pressed_button())
 	return _files[index].path
 ## 获取选中的序列。
 func get_selected_index() -> int:
@@ -186,7 +187,6 @@ func _open_multifile(paths : PackedStringArray) -> void:
 		_files.append(_File.create(path))
 		_add_file_button()
 	
-	await get_tree().process_frame # 等待节点加入
 	if not last_index == -1:
 		_select_file(last_index)
 func _close_file(path : String) -> void:
@@ -197,13 +197,11 @@ func _close_multifile(paths : PackedStringArray) -> void:
 		var index := get_file_index(path)
 		if index != -1:
 			remove_file(index)
-			# HACK 懒得做缓存节点系统，等待一帧释放节点。
-			await get_tree().process_frame
 # 选中路径。
 func _select_file(index : int) -> bool:
 	if index == -1:
 		return false
-	var button := get_child(index) as Button
+	var button := _get_file_button(index)
 	button.button_pressed = true
 	selected_index = index
 	selected_changed.emit(_files[index].path)
@@ -218,9 +216,18 @@ func _save_file(index : int) -> void:
 #endregion
 
 #region 文件工具。
+# 返回文件按钮。
+func _get_file_button(index : int) -> Button:
+	return _files[index].button
 # 如果文件路径为 path，返回 true。
 func _is_file_path(file : _File, path : String) -> bool:
 	return file.path == path
+# 返回文件按钮序列。
+func _get_file_button_index(button : Button) -> int:
+	for i in _files.size():
+		if _files[i].button == button:
+			return i
+	return -1
 
 # 给文件加上按钮。
 func _add_file_button(index : int = -1) -> void:
@@ -230,21 +237,22 @@ func _add_file_button(index : int = -1) -> void:
 	button.button_group = _button_group
 	button.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	add_child(button)
+	_files[index].button = button
 # 移除文件按钮。
 func _remove_file_button(index : int) -> void:
-	var button := get_child(index) as Button
-	button.queue_free()
+	var button := _get_file_button(index)
+	if button.is_node_ready():
+		button.queue_free()
+	_files[index].button = null
 	
 	if button.button_pressed:
-		await get_tree().process_frame
 		if get_child_count() > 0:
-			_select_file(maxi(0, index - 1))
+			_select_file(index - 1)
 		else:
 			selected_changed.emit("")
 # 更新文件按钮的显示。
 func _update_file_button(index : int) -> void:
-	var button := get_child(index) as Button
-	button.text = _files[index].get_display_text()
+	_get_file_button(index).text = _files[index].get_display_text()
 #endregion
 
 # HACK 一律关闭。
@@ -256,8 +264,6 @@ func _on_file_system_removed_directory(path: String) -> void:
 			res.append(file.path)
 	_close_multifile(res)
 
-# HACK 一律关闭。
-@warning_ignore("unused_parameter")
 func _on_file_system_renamed_file(path: String, to_path: String) -> void:
 	var res : PackedStringArray
 	for i in _files.size():

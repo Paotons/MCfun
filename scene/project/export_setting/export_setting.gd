@@ -9,7 +9,7 @@ var export_setting : ProjectExportSetting
 
 func _ready() -> void:
 	set_process(false)
-	add_cancel_button("关闭")
+	add_cancel_button(TranslationSystem.tr("Cancel"))
 	confirmed.connect(export_project)
 	test_path()
 
@@ -104,27 +104,27 @@ func test_path() -> bool:
 	var dir := _get_export_path()
 	
 	if not (dir.is_absolute_path() or dir.is_relative_path()):
-		_show_error("无效文件夹。")
+		_show_error("Unvalid directory.")
 		return true
 	
 	if not DirAccess.dir_exists_absolute(dir):
-		_show_error("文件夹不存在。")
+		_show_error("Unfind directory.")
 		return true
 	
 	var nam := _get_export_name() + ".zip"
 	
 	if not nam.is_valid_filename():
-		_show_error("无效文件名。")
+		_show_error("Unvalid filename.")
 		return true
 	
 	var path := dir.path_join(nam)
 	
 	if DirAccess.dir_exists_absolute(dir.path_join(nam)):
-		_show_warming("存在同名文件夹，将被覆盖。")
+		_show_warming("Already exist same-name filename, will be coverd.")
 		return false
 	
 	if FileAccess.file_exists(path):
-		_show_warming("存在同名文件，将被覆盖。")
+		_show_warming("Already exist same-name filename, will be coverd.")
 		return false
 	
 	_close_test_label()
@@ -147,13 +147,15 @@ func export_project() -> void:
 func _process(_delta: float) -> void:
 	if export_thread.is_started() and not export_thread.is_alive():
 		export_thread.wait_to_finish()
-		_get_exporting_label().text = "导出成功\n只需把文件解压到地图目录behavior_packs并激活行为包即可\n%s" % "\n".join(export_setting.errors)
+		_get_exporting_label().text = TranslationSystem.tr("Export successful.") + "\n" + \
+			TranslationSystem.tr("Simply extract the file to the behavior_packs directory in your map and enable the behavior pack.") + \
+			"\n%s" % "\n".join(export_setting.errors)
 		set_process(false)
 		set_block_signals(false)
 		return
 	
 	export_setting.mutex.lock()
-	_get_exporting_label().text = "正在导出(%d/%d)\n%s(%d/%d)\n%s" %[
+	_get_exporting_label().text = TranslationSystem.tr("Exporting") + "(%d/%d)\n%s(%d/%d)\n%s" %[
 		export_setting.main_process, ProjectExportSetting.MainProcess.MAX,
 		export_setting.current_process, export_setting.sub_process.x, export_setting.sub_process.y,
 		"\n".join(export_setting.errors)

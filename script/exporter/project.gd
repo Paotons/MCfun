@@ -10,7 +10,7 @@ static func export(project : Project, setting : ProjectExportSetting) -> void:
 	
 	setting.mutex.lock()
 	setting.main_process = ProjectExportSetting.MainProcess.START
-	setting.current_process = "开始。"
+	setting.current_process = "Start."
 	setting.sub_process = Vector2i(-1, -1)
 	setting.mutex.unlock()
 	
@@ -34,7 +34,7 @@ static func export(project : Project, setting : ProjectExportSetting) -> void:
 static func _export_create_manifset(project : Project, setting : ProjectExportSetting, packer : ZIPPacker) -> void:
 	setting.mutex.lock()
 	setting.main_process = ProjectExportSetting.MainProcess.MANIFEST
-	setting.current_process = "正在创建引导文件。"
+	setting.current_process = "Creating leader-file."
 	setting.sub_process = Vector2i(1, 1)
 	setting.mutex.unlock()
 	
@@ -46,7 +46,7 @@ static func _export_create_manifset(project : Project, setting : ProjectExportSe
 static func _export_create_functions(project : Project, setting : ProjectExportSetting, packer : ZIPPacker) -> void:
 	setting.mutex.lock()
 	setting.main_process = ProjectExportSetting.MainProcess.FUNCTIONS
-	setting.current_process = "正在解析函数"
+	setting.current_process = "Compiling function."
 	setting.sub_process = Vector2i(-1, -1)
 	setting.mutex.unlock()
 	
@@ -55,7 +55,7 @@ static func _export_create_functions(project : Project, setting : ProjectExportS
 		var fun_path := fun_paths[i]
 		
 		setting.mutex.lock()
-		setting.current_process = "正在解析函数[%s]" % [fun_path.get_file()]
+		setting.current_process = TranslationSystem.tr("Compiling function.") + "[%s]" % [fun_path.get_file()]
 		setting.sub_process =Vector2i(i, fun_paths.size())
 		setting.mutex.unlock()
 		
@@ -132,4 +132,3 @@ static func create_uuid() -> String:
 	parts.append(part5)
 	
 	return "-".join(parts)
-

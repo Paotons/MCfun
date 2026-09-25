@@ -154,16 +154,16 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 10
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=739030240]
+[node name="Cancel" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=310659869]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Cancel"
+
+[node name="Create" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=739030240]
 layout_mode = 2
 size_flags_horizontal = 6
 text = "Create"
 script = SubResource("GDScript_ry5r1")
-
-[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=310659869]
-layout_mode = 2
-size_flags_horizontal = 6
-text = "Cancel"
 
 [node name="FileDialog" type="FileDialog" parent="." unique_id=24903102]
 oversampling_override = 1.0
@@ -175,9 +175,9 @@ access = 2
 script = SubResource("GDScript_f4o77")
 
 [connection signal="close_requested" from="." to="." method="hide"]
-[connection signal="text_changed" from="MarginContainer/VBoxContainer/HBoxContainer/ProjectName" to="MarginContainer/VBoxContainer/HBoxContainer3/Button" method="_on_project_name_text_changed"]
-[connection signal="text_changed" from="MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" to="MarginContainer/VBoxContainer/HBoxContainer3/Button" method="_on_project_path_text_changed"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/HBoxContainer/ProjectName" to="MarginContainer/VBoxContainer/HBoxContainer3/Create" method="_on_project_name_text_changed"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" to="MarginContainer/VBoxContainer/HBoxContainer3/Create" method="_on_project_path_text_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/Locate" to="FileDialog" method="popup_file_dialog"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer3/Button2" to="." method="hide"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer3/Cancel" to="." method="hide"]
 [connection signal="dir_selected" from="FileDialog" to="MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" method="_on_file_dialog_dir_selected"]
 [connection signal="visibility_changed" from="FileDialog" to="MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" method="_on_file_dialog_visibility_changed"]

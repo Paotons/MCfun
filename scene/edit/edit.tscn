@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://dw3ca0im08urk"]
 
-[ext_resource type="Script" uid="uid://3ib40sa30sdk" path="res://scene/edit_base_control.gd" id="1_4ldgq"]
+[ext_resource type="Script" uid="uid://3ib40sa30sdk" path="res://scene/edit/edit_base_control.gd" id="1_4ldgq"]
 [ext_resource type="Script" uid="uid://dbsguqbxsn3im" path="res://script/hightlight/highlight.gd" id="1_uu6xs"]
-[ext_resource type="Script" uid="uid://c56tb0y6fuj01" path="res://scene/file_list_container.gd" id="1_w0n44"]
-[ext_resource type="PackedScene" uid="uid://daio2odmv7kgw" path="res://scene/edit_window/setting.tscn" id="5_pdkdi"]
-[ext_resource type="PackedScene" uid="uid://qyqgjfqhms20" path="res://scene/project_window/setting.tscn" id="6_w0n44"]
-[ext_resource type="PackedScene" uid="uid://bdehv7qu4feyt" path="res://scene/helper/window.tscn" id="7_vsmy6"]
-[ext_resource type="PackedScene" uid="uid://b1mh5o58v8e5g" path="res://scene/file_window/file_system.tscn" id="8_qyh5x"]
-[ext_resource type="PackedScene" uid="uid://diyi5chw3itl4" path="res://scene/project_window/export_setting.tscn" id="9_kijkp"]
+[ext_resource type="Script" uid="uid://c56tb0y6fuj01" path="res://scene/file/container/file_list_container.gd" id="1_w0n44"]
+[ext_resource type="PackedScene" uid="uid://daio2odmv7kgw" path="res://scene/edit/setting/edit_setting.tscn" id="5_pdkdi"]
+[ext_resource type="PackedScene" uid="uid://qyqgjfqhms20" path="res://scene/project/setting/setting.tscn" id="6_w0n44"]
+[ext_resource type="PackedScene" uid="uid://bdehv7qu4feyt" path="res://scene/helper/helper.tscn" id="7_vsmy6"]
+[ext_resource type="PackedScene" uid="uid://b1mh5o58v8e5g" path="res://scene/file/system/file_system.tscn" id="8_qyh5x"]
+[ext_resource type="PackedScene" uid="uid://diyi5chw3itl4" path="res://scene/project/export_setting/export_setting.tscn" id="9_kijkp"]
 
 [sub_resource type="GDScript" id="GDScript_4ldgq"]
 resource_name = "Loader"
@@ -26,6 +26,13 @@ enum LoadingType {
 }
 const _UI_LOADING_PROCESS_COUNT := 4
 
+## 加载有关数据的数据，在线程中。
+signal load_data(config : ConfigFile)
+## 加载有关项目的UI。
+signal load_ui(config : ConfigFile)
+## 加载有关编辑器设置UI。
+signal load_edit_ui(config : ConfigFile)
+
 var _thread := Thread.new()
 var _base_control : EditBaseControl
 var _project_process := ProjectOpendProcess.new()
@@ -35,20 +42,8 @@ var main_process := Vector2i(-1, -1)
 var main_name := \"\"
 var _control_sub_process := Vector2i(-1, -1)
 
-func _get_function_edit() -> FunctionEdit:
-	return $\"../Base/HSplitContainer/VBoxContainer2/FunctionEdit\"
-func _get_file_list_container() -> FileListContainer:
-	return $\"../Base/HSplitContainer/FileList/MarginContainer/FileListContainer\"
-func _get_file_list_container_base_control() -> MarginContainer:
-	return $\"../Base/HSplitContainer/FileList\"
-func _get_split_container() -> HSplitContainer:
-	return $\"../Base/HSplitContainer\"
-func _get_split_container2() -> VSplitContainer:
-		return $\"../Base/HSplitContainer/VBoxContainer2\"
-func _get_export_setting_window() -> ProjectExportSettingWindow:
-	return $\"../ProjectExportSetting\"
 func _get_error_option_window() -> AcceptDialog:
-	return$\"../ErrorOptionWindow\"
+	return $\"../ErrorOptionWindow\"
 # 弹出错误。
 func _popup_error(text : String) -> void:
 	var window := _get_error_option_window()
@@ -68,16 +63,17 @@ func _get_sub_process() -> Vector2i:
 func start() -> void:
 	_base_control.show_loading()
 	
+	load_edit_ui.emit(FileSystem.config)
 	_project_process.mutex = _mutex
 	_thread.start(_on_thread)
 	set_process(true)
 
-func _on_thread() -> void:
+func _on_thread() -> ConfigFile:
 	const PATH_UI_CFG := \"ui.cfg\"
 	
 	_mutex.lock()
 	main_process.y = LoadingType.MAX
-	main_name = \"正在加载配置\"
+	main_name = \"Loading data.\"
 	main_process.x = LoadingType.PROJECT
 	_mutex.unlock()
 	
@@ -88,49 +84,38 @@ func _on_thread() -> void:
 	var errors := _project_process.errors
 	_mutex.unlock()
 	
-	if not errors.is_empty():
-		var directory := project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.CACHE).path_join(\"grammar\")
-		FileSystem.remove_directory(directory)
-		_popup_error.call_deferred(\"语法内容发生错误：\\n%s\" % \"\\n\".join(errors))
-		return
-	
 	var config := ConfigFile.new()
+	
 	var path := project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.EDIT)
 	if FileAccess.file_exists(path.path_join(PATH_UI_CFG)):
 		config.load(path.path_join(PATH_UI_CFG))
 	
+	if not errors.is_empty():
+		var directory := project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.CACHE).path_join(\"grammar\")
+		FileSystem.remove_directory(directory)
+		_popup_error.call_deferred(TranslationSystem.tr(\"Unvaild grammar:\\n%s\") % \"\\n\".join(errors))
+		return config
+	
+	Thread.set_thread_safety_checks_enabled(false)
+	load_data.emit(config)
+	Thread.set_thread_safety_checks_enabled(true)
+	
 	_mutex.lock()
-	main_name = \"正在加载界面\"
+	main_name = \"Loading GUI.\"
 	main_process.x = LoadingType.UI
 	_control_sub_process.y = _UI_LOADING_PROCESS_COUNT
 	_mutex.unlock()
 	
 	if not _thread_edit_grammar(config):
-		return
-	_thread_load_tree(config)
-	_thread_load_setting()
-
-func _thread_load_tree(config : ConfigFile) -> void:
-	const PATH_EXPORT_UI_CFG := \"export_ui.cfg\"
+		return config
 	
-	_thread_edit_split(config)
-	_thread_edit_file_list(config)
-	
-	var path := ProjectManager.get_current_project().get_project_cache().get_cache_path(ProjectChache.DirectoryType.EDIT)
-	var exporter_config = ConfigFile.new()
-	if FileAccess.file_exists(path.path_join(PATH_EXPORT_UI_CFG)):
-		exporter_config.load(path.path_join(PATH_EXPORT_UI_CFG))
-	(func() -> void:
-		_get_export_setting_window().config_winodw(exporter_config)
-	).call_deferred()
-
-func _thread_load_setting() -> void:
-	var config := FileSystem.config
-	_thread_running_auto_saving(config)
+	return config
 
 func _process(_delta: float) -> void:
 	if _thread.is_started() and not _thread.is_alive():
-		_thread.wait_to_finish()
+		var config : ConfigFile = _thread.wait_to_finish()
+		load_ui.emit(config)
+		
 		_base_control.set_loading.call_deferred(\"\", \"\")
 		_base_control.hide_lading.call_deferred()
 		set_process(false)
@@ -165,55 +150,6 @@ func _thread_edit_grammar(_config : ConfigFile) -> bool:
 	).call_deferred()
 	return true
 
-func _thread_edit_split(config : ConfigFile) -> void:
-	var offset_1 : int = config.get_value(\"Split\", \"1\", 50)
-	var offset_2 : int = config.get_value(\"Split\", \"2\", 30)
-	
-	(func() -> void:
-		_get_split_container().split_offset = offset_1
-		_get_split_container2().split_offset = offset_2
-	).call_deferred()
-func _thread_edit_file_list(config : ConfigFile) -> void:
-	const SELECTOR := \"FileList\"
-	
-	_mutex.lock()
-	_control_sub_process.x += 1
-	_mutex.unlock()
-	
-	var files : PackedStringArray = config.get_value(SELECTOR, \"file_paths\", [])
-	var selected : int = config.get_value(SELECTOR, \"selected\", 0)
-	var visible : bool = config.get_value(SELECTOR, \"visible\", true)
-	var caret_positions : Array = config.get_value(SELECTOR, \"file_caret_positions\", [])
-	(func() -> void:
-		var list := _get_file_list_container()
-		for path in files:
-			list.open_file(path)
-		list.select_file(selected)
-		_get_file_list_container_base_control().visible = visible
-		
-		for i in caret_positions.size():
-			list.set_file_caret_position(i, caret_positions[i])
-		
-		if selected < caret_positions.size():
-			_get_function_edit().set_caret_position(caret_positions[selected])
-	).call_deferred()
-
-func _thread_running_auto_saving(config : ConfigFile) -> void:
-	const SELECTOR := \"RunningAutoSaving\"
-	_mutex.lock()
-	_control_sub_process.x += 1
-	_mutex.unlock()
-	
-	var delta := config.get_value(SELECTOR, \"delta\", 30.0) as float
-	(func() -> void:
-		var timer := _base_control.get_auto_saving_timer()
-		if delta < 0.0:
-			timer.stop()
-		else:
-			timer.wait_time = delta
-			timer.start()
-	).call_deferred()
-
 func _on_base_control_ready() -> void:
 	_base_control = get_parent()
 	start()
@@ -224,64 +160,33 @@ func _enter_tree() -> void:
 "
 
 [sub_resource type="GDScript" id="GDScript_3aibf"]
+resource_name = "Saver"
 script/source = "extends Node
 ##
 ##
 ## 配置文件。
-## FileList -- {file_paths : PackedStringArray, selected : String, visible : bool}
-## Split -- {1 : int}
+
+## 保存时发出。
+signal save(config : ConfigFile)
 
 var _base_control : EditBaseControl
 
-func _get_function_edit() -> FunctionEdit:
-	return $\"../Base/HSplitContainer/VBoxContainer2/FunctionEdit\"
-func _get_file_list_container() -> FileListContainer:
-	return $\"../Base/HSplitContainer/FileList/MarginContainer/FileListContainer\"
-func _get_file_list_container_base_control() -> MarginContainer:
-	return $\"../Base/HSplitContainer/FileList\"
-func _get_split_container() -> HSplitContainer:
-	return $\"../Base/HSplitContainer\"
-func _get_split_container2() -> VSplitContainer:
-		return $\"../Base/HSplitContainer/VBoxContainer2\"
-func _get_export_setting_window() -> ProjectExportSettingWindow:
-	return $\"../ProjectExportSetting\"
-
 func save_scene() -> void:
-	const PATH_UI_CFG := \"ui.cfg\"
-	const PATH_EXPORT_UI_CFG := \"export_ui.cfg\"
-	
-	var project := ProjectManager.get_current_project()
 	var config := ConfigFile.new()
-	var path := project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.EDIT)
-	
-	_save_split(config)
-	_save_file_list(config)
-	
-	config.save(path.path_join(PATH_UI_CFG))
-	
-	config = _get_export_setting_window().get_window_config()
-	config.save(path.path_join(PATH_EXPORT_UI_CFG))
-
-func _save_split(config : ConfigFile) -> void:
-	config.set_value(\"Split\", \"1\", _get_split_container().split_offset)
-	config.set_value(\"Split\", \"2\", _get_split_container2().split_offset)
-func _save_file_list(config : ConfigFile) -> void:
-	var list := _get_file_list_container()
-	config.set_value(\"FileList\", \"file_paths\", list.get_files())
-	config.set_value(\"FileList\", \"selected\", list.get_selected_index())
-	config.set_value(\"FileList\", \"visible\", _get_file_list_container_base_control().visible)
-	_config_file_list_caret_position(list, config)
-func _config_file_list_caret_position(list : FileListContainer, config : ConfigFile) -> void:
-	var result : Array
-	for i in list.get_file_count():
-		result.append(list.get_file_caret_position(i))
-	if result.size() != 0:
-		var selected := list.get_selected_index()
-		result[selected] = _get_function_edit().get_caret_position()
-	config.set_value(\"FileList\", \"file_caret_positions\", result)
+	save.emit(config)
 
 func _on_base_control_ready() -> void:
 	_base_control = get_parent()
+"
+
+[sub_resource type="GDScript" id="GDScript_6qx4q"]
+script/source = "extends Node
+
+## 移动文件。
+signal rename_file(path : String, to_path : String)
+
+func _on_file_system_renamed_file(path: String, to_path: String) -> void:
+	rename_file.emit(path, to_path)
 "
 
 [sub_resource type="GDScript" id="GDScript_ktujv"]
@@ -595,6 +500,17 @@ func _pressed() -> void:
 		window.popup_centered_clamped()
 "
 
+[sub_resource type="GDScript" id="GDScript_fw665"]
+resource_name = "Split"
+script/source = "extends HSplitContainer
+
+func _on_saver_save(config: ConfigFile) -> void:
+	config.set_value(\"Split\", \"1\", split_offset)
+
+func _on_loader_load_ui(config: ConfigFile) -> void:
+	set_deferred(\"split_offset\", config.get_value(\"Split\", \"1\", split_offset))
+"
+
 [sub_resource type="GDScript" id="GDScript_pdkdi"]
 resource_name = "FileList"
 script/source = "extends MarginContainer
@@ -602,7 +518,70 @@ script/source = "extends MarginContainer
 func _on_show_hide_file_list_button_pressed() -> void:
 	visible = not visible
 
+func _on_saver_save(config: ConfigFile) -> void:
+	config.get_value(\"FileList\", \"visible\", visible)
 
+func _on_loader_load_ui(config: ConfigFile) -> void:
+	visible = config.get_value(\"FileList\", \"visible\", true)
+"
+
+[sub_resource type="GDScript" id="GDScript_gyc6d"]
+script/source = "extends Node
+
+const SELECTOR := \"FileList\"
+
+func get_target() -> FileListContainer:
+	return get_parent()
+
+func _on_loader_load_ui(config: ConfigFile) -> void:
+	var files : PackedStringArray = config.get_value(SELECTOR, \"file_paths\", [])
+	var selected : int = config.get_value(SELECTOR, \"selected\", 0)
+	var caret_positions : Array = config.get_value(SELECTOR, \"file_caret_positions\", [])
+	
+	var list := get_target()
+	for path in files:
+		list.open_file(path)
+	list.select_file(selected)
+	
+	for i in caret_positions.size():
+		list.set_file_caret_position(i, caret_positions[i])
+	
+	if selected < caret_positions.size():
+		EditManager.get_edit().set_caret_position(caret_positions[selected])
+"
+
+[sub_resource type="GDScript" id="GDScript_hqkgv"]
+resource_name = "FileListContainerSaver"
+script/source = "extends Node
+
+const SELECTOR := \"FileList\"
+
+func get_target() -> FileListContainer:
+	return get_parent()
+
+func _on_saver_save(config: ConfigFile) -> void:
+	var list := get_target()
+	config.set_value(SELECTOR, \"file_paths\", list.get_files())
+	config.set_value(SELECTOR, \"selected\", list.get_selected_index())
+	
+	var edit := EditManager.get_edit()
+	var result : Array
+	for i in list.get_file_count():
+		result.append(list.get_file_caret_position(i))
+	if result.size() != 0:
+		var selected := list.get_selected_index()
+		result[selected] = edit.get_caret_position()
+	config.set_value(SELECTOR, \"file_caret_positions\", result)
+"
+
+[sub_resource type="GDScript" id="GDScript_eqr0p"]
+script/source = "extends VSplitContainer
+
+func _on_saver_save(config: ConfigFile) -> void:
+	config.set_value(\"Split\", \"2\", split_offset)
+
+func _on_loader_load_ui(config: ConfigFile) -> void:
+	set_deferred(\"split_offset\", config.get_value(\"Split\", \"2\", split_offset))
 "
 
 [sub_resource type="GDScript" id="GDScript_y67ap"]
@@ -899,6 +878,22 @@ func has_visible() -> bool:
 	return _base_control.visible
 "
 
+[sub_resource type="GDScript" id="GDScript_3e3y3"]
+script/source = "extends Timer
+
+func _on_loader_load_edit_ui(config: ConfigFile) -> void:
+	var delta := config.get_value(\"RunningAutoSaving\", \"delta\", 30.0) as float
+	
+	if delta < 0.0:
+		stop()
+	else:
+		wait_time = delta
+		start()
+
+func _on_loader_load_ui(_config: ConfigFile) -> void:
+	start()
+"
+
 [sub_resource type="GDScript" id="GDScript_qyh5x"]
 script/source = "extends FileDialog
 
@@ -934,6 +929,47 @@ func _on_custom_action(action: StringName) -> void:
 	hide()
 "
 
+[sub_resource type="GDScript" id="GDScript_g7b7a"]
+script/source = "extends Node
+
+const CFG_PATH := \"export_ui.cfg\"
+
+func get_target() -> ProjectExportSettingWindow:
+	return get_window()
+
+func _on_loader_load_data(config: ConfigFile) -> void:
+	var path := ProjectManager.get_current_project().get_project_cache().get_cache_path(ProjectChache.DirectoryType.EDIT)
+	var cfg = ConfigFile.new()
+	if FileAccess.file_exists(path.path_join(CFG_PATH)):
+		cfg.load(path.path_join(CFG_PATH))
+	config.set_value(\"ExportSetting\", \"config\", cfg)
+
+func _on_loader_load_ui(config: ConfigFile) -> void:
+	var cfg := config.get_value(\"ExportSetting\", \"config\", ConfigFile.new()) as ConfigFile
+	get_target().config_winodw(cfg)
+"
+
+[sub_resource type="GDScript" id="GDScript_xrv66"]
+resource_name = "ExportSettingSaver"
+script/source = "extends Node
+
+func get_target() -> ProjectExportSettingWindow:
+	return get_window()
+
+func _on_saver_save(config: ConfigFile) -> void:
+	const PATH_UI_CFG := \"ui.cfg\"
+	const PATH_EXPORT_UI_CFG := \"export_ui.cfg\"
+	
+	var project := ProjectManager.get_current_project()
+	
+	var path := project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.EDIT)
+	
+	config.save(path.path_join(PATH_UI_CFG))
+	
+	config = get_target().get_window_config()
+	config.save(path.path_join(PATH_EXPORT_UI_CFG))
+"
+
 [sub_resource type="GDScript" id="GDScript_x5ap5"]
 script/source = "extends AcceptDialog
 
@@ -941,8 +977,8 @@ signal saved_and_edit
 signal direct_exit
 
 func _ready() -> void:
-	add_cancel_button(\"取消\")
-	add_button(\"不保存并退出\", false, \"1\")
+	add_cancel_button(TranslationSystem.tr(\"Cancel\"))
+	add_button(TranslationSystem.tr(\"Unsave & Exit\"), false, \"1\")
 
 func _on_confirmed() -> void:
 	saved_and_edit.emit()
@@ -967,6 +1003,9 @@ script = SubResource("GDScript_4ldgq")
 
 [node name="Saver" type="Node" parent="." unique_id=1988062796]
 script = SubResource("GDScript_3aibf")
+
+[node name="File" type="Node" parent="." unique_id=780081889]
+script = SubResource("GDScript_6qx4q")
 
 [node name="Base" type="VBoxContainer" parent="." unique_id=749474620]
 layout_mode = 1
@@ -1085,6 +1124,7 @@ flat = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 4
+script = SubResource("GDScript_fw665")
 
 [node name="FileList" type="MarginContainer" parent="Base/HSplitContainer" unique_id=2009113452]
 custom_minimum_size = Vector2(50, 0)
@@ -1106,10 +1146,17 @@ theme_override_constants/margin_right = 4
 layout_mode = 2
 script = ExtResource("1_w0n44")
 
+[node name="Loader" type="Node" parent="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" unique_id=1860071630]
+script = SubResource("GDScript_gyc6d")
+
+[node name="Saver" type="Node" parent="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" unique_id=2071666223]
+script = SubResource("GDScript_hqkgv")
+
 [node name="VBoxContainer2" type="VSplitContainer" parent="Base/HSplitContainer" unique_id=1636243781]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
+script = SubResource("GDScript_eqr0p")
 
 [node name="FunctionEditFiler" type="Node" parent="Base/HSplitContainer/VBoxContainer2" unique_id=703145549]
 script = SubResource("GDScript_y67ap")
@@ -1236,6 +1283,7 @@ horizontal_alignment = 1
 
 [node name="AutoSaveingTimer" type="Timer" parent="." unique_id=1593355909]
 wait_time = 30.0
+script = SubResource("GDScript_3e3y3")
 
 [node name="EditSetting" parent="." unique_id=1229169659 instance=ExtResource("5_pdkdi")]
 visible = false
@@ -1271,16 +1319,22 @@ script = SubResource("GDScript_kijkp")
 [node name="ProjectExportSetting" parent="." unique_id=1489223026 instance=ExtResource("9_kijkp")]
 visible = false
 
+[node name="Loader2" type="Node" parent="ProjectExportSetting" unique_id=1125742212]
+script = SubResource("GDScript_g7b7a")
+
+[node name="Saver" type="Node" parent="ProjectExportSetting" unique_id=366099312]
+script = SubResource("GDScript_xrv66")
+
 [node name="HelperWindow" parent="." unique_id=1477635680 instance=ExtResource("7_vsmy6")]
 visible = false
 
 [node name="ProjectExitOptionWindow" type="AcceptDialog" parent="." unique_id=1254205356]
 oversampling_override = 1.0
-title = "退出"
+title = "Exit"
 position = Vector2i(0, 36)
 size = Vector2i(1152, 648)
-ok_button_text = "保存并退出"
-dialog_text = "文件没有保存，是否退出。"
+ok_button_text = "Save & Exit"
+dialog_text = "The file has not been saved. Do you want to exit?"
 script = SubResource("GDScript_x5ap5")
 
 [node name="ErrorOptionWindow" type="AcceptDialog" parent="." unique_id=440137377]
@@ -1295,6 +1349,19 @@ dialog_close_on_escape = false
 [connection signal="ready" from="." to="Loader" method="_on_base_control_ready"]
 [connection signal="ready" from="." to="Saver" method="_on_base_control_ready"]
 [connection signal="save_scene" from="." to="Saver" method="save_scene"]
+[connection signal="load_data" from="Loader" to="ProjectExportSetting/Loader2" method="_on_loader_load_data"]
+[connection signal="load_edit_ui" from="Loader" to="AutoSaveingTimer" method="_on_loader_load_edit_ui"]
+[connection signal="load_ui" from="Loader" to="Base/HSplitContainer" method="_on_loader_load_ui"]
+[connection signal="load_ui" from="Loader" to="Base/HSplitContainer/FileList" method="_on_loader_load_ui"]
+[connection signal="load_ui" from="Loader" to="Base/HSplitContainer/VBoxContainer2" method="_on_loader_load_ui"]
+[connection signal="load_ui" from="Loader" to="AutoSaveingTimer" method="_on_loader_load_ui"]
+[connection signal="load_ui" from="Loader" to="ProjectExportSetting/Loader2" method="_on_loader_load_ui"]
+[connection signal="load_ui" from="Loader" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer/Loader" method="_on_loader_load_ui"]
+[connection signal="save" from="Saver" to="Base/HSplitContainer" method="_on_saver_save"]
+[connection signal="save" from="Saver" to="Base/HSplitContainer/FileList" method="_on_saver_save"]
+[connection signal="save" from="Saver" to="Base/HSplitContainer/VBoxContainer2" method="_on_saver_save"]
+[connection signal="save" from="Saver" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer/Saver" method="_on_saver_save"]
+[connection signal="save" from="Saver" to="ProjectExportSetting/Saver" method="_on_saver_save"]
 [connection signal="exit_scene" from="Base/MarginContainer/MarginContainer/HBoxContainer/ProjectMenuButton" to="." method="_on_project_menu_button_exit_scene"]
 [connection signal="reload_scene" from="Base/MarginContainer/MarginContainer/HBoxContainer/ProjectMenuButton" to="." method="_on_project_menu_button_reload_scene"]
 [connection signal="pressed" from="Base/MarginContainer/MarginContainer/HBoxContainer/Helper" to="HelperWindow" method="popup_centered_clamped"]
@@ -1320,6 +1387,7 @@ dialog_close_on_escape = false
 [connection signal="multifile_open" from="FileSystem" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" method="open_multifile"]
 [connection signal="removed_directory" from="FileSystem" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" method="_on_file_system_removed_directory"]
 [connection signal="renamed_file" from="FileSystem" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" method="_on_file_system_renamed_file"]
+[connection signal="renamed_file" from="FileSystem" to="File" method="_on_file_system_renamed_file"]
 [connection signal="close" from="FileSaveOptionWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/FileMenuButton" method="_on_file_save_option_window_close"]
 [connection signal="close_requested" from="FileSaveOptionWindow" to="FileSaveOptionWindow" method="hide"]
 [connection signal="confirmed" from="FileSaveOptionWindow" to="FileSaveOptionWindow" method="_on_confirmed"]

@@ -7,9 +7,16 @@ extends Tree
 ## 根节点名称。
 @export var root_name : String
 
-## 更新树。
+## 原地更新树。
 func update_tree_item() -> void:
+	var folded_directories := get_folded_directories()
+	var selected := get_current_selected_path()
+	update_tree_from_data(selected, folded_directories)
+
+## 使用数据进行更新。
+func update_tree_from_data(selected : String, folded : PackedStringArray) -> void:
 	clear()
+	
 	var root := create_item()
 	root.set_text(0, root_name)
 	
@@ -24,17 +31,51 @@ func update_tree_item() -> void:
 		
 		for child in directory.get_directories():
 			var child_tree := parent.create_child()
+			var child_path := directory.get_current_dir().path_join(child)
+			
+			child_tree.collapsed = folded.has(child_path)
 			child_tree.set_text(0, child)
 			child_tree.set_custom_color(0, Color.AQUA)
 			
-			queue_directories.append(DirAccess.open(directory.get_current_dir().path_join(child)))
+			queue_directories.append(DirAccess.open(child_path))
 			queue_directory_item.append(child_tree)
+			
+			if selected == child_path:
+				child_tree.select(0)
 		
 		for child in directory.get_files():
-			var child_item := parent.create_child()
-			child_item.set_text(0, child)
+			var child_tree := parent.create_child()
+			var child_path := directory.get_current_dir().path_join(child)
+			
+			child_tree.set_text(0, child)
+			if selected == child_path:
+				child_tree.select(0)
 
-## 获取当前选中的文件路径。
+## 返回当前被折叠的目录。
+func get_folded_directories() -> PackedStringArray:
+	if get_root() == null:
+		return PackedStringArray()
+	
+	var queue_trees : Array[TreeItem] = [get_root()]
+	var queue_paths : Array[String] = [root_path]
+	var result : PackedStringArray
+	
+	while not queue_trees.is_empty():
+		var parent := queue_trees.pop_back() as TreeItem
+		var parp := queue_paths.pop_back() as String
+		
+		for i in parent.get_child_count():
+			var item := parent.get_child(i)
+			var path := parp.path_join(item.get_text(0))
+			
+			if item.collapsed:
+				result.append(path)
+			
+			queue_trees.append(item)
+			queue_paths.append(path)
+	return result
+
+## 返回当前选中的文件路径。
 func get_current_selected_path() -> String:
 	var tree_item := get_selected()
 	var paths : PackedStringArray
@@ -43,7 +84,8 @@ func get_current_selected_path() -> String:
 		paths.append(tree_item.get_text(0))
 		tree_item = tree_item.get_parent()
 	
-	paths.remove_at(paths.size() - 1) # 移除root
+	if not paths.is_empty():
+		paths.remove_at(paths.size() - 1) # 移除root
 	paths.reverse()
 	
 	return root_path.path_join("/".join(paths))

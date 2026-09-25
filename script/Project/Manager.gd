@@ -93,5 +93,3 @@ func create_project(name : String, path : String) -> bool:
 func _get_project_config_file(name : String) -> ProjectConfig:
 	var path := get_project_path(name)
 	return ProjectConfig._open_config_file(path)
-
-

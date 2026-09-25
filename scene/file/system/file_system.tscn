@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b1mh5o58v8e5g"]
 
-[ext_resource type="Script" uid="uid://kix1v254ull0" path="res://scene/file_window/file_system.gd" id="1_3atx5"]
-[ext_resource type="PackedScene" uid="uid://bwfbp4n5l0afb" path="res://scene/file_window/create.tscn" id="2_xngp6"]
+[ext_resource type="Script" uid="uid://kix1v254ull0" path="res://scene/file/system/file_system.gd" id="1_3atx5"]
+[ext_resource type="PackedScene" uid="uid://bwfbp4n5l0afb" path="res://scene/file/creater/file_creater.tscn" id="2_xngp6"]
 
 [sub_resource type="GDScript" id="GDScript_3atx5"]
 script/source = "extends MenuButton
@@ -346,6 +346,7 @@ access = 2
 script = SubResource("GDScript_l16b6")
 
 [node name="CopyFileWindow" type="FileDialog" parent="." unique_id=533337381]
+oversampling_override = 1.0
 title = "Open a Directory"
 ok_button_text = "Copy"
 file_mode = 2

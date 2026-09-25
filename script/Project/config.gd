@@ -10,7 +10,7 @@ const _SELECT_EDIT := "Edit"
 # 项---项目的键。
 const _SELECT_PROJECT_KEYS : PackedStringArray = ["name", "path", "nearest_time", "version"]
 # 项---编辑器的键。
-const _SELECT_EDIT_KEYS : PackedStringArray = ["grammar"]
+const _SELECT_EDIT_KEYS : PackedStringArray = ["grammar", "version"]
 
 ## 项目配置文件路径。
 const _CONFIG_PATH := ".project.cfg"
@@ -69,6 +69,12 @@ func get_edit_grammar_path(test := true) -> String:
 func set_edit_grammar_path(path : String) -> void:
 	_config.set_value(_SELECT_EDIT, "grammar", path)
 	save()
+## 获取编辑器版本名称。
+func get_edit_version() -> String:
+	return _config.get_value(_SELECT_EDIT, "version", "1.0.stable")
+## 设置编辑器版本名称。
+func set_edit_version(value : String) -> void:
+	return _config.set_value(_SELECT_EDIT, "version", value)
 #endregion
 
 ## 保存。
@@ -122,6 +128,7 @@ static func _create_config_file(name : String, path : String) -> ConfigFile:
 	config.set_value(_SELECT_PROJECT, "name", name)
 	config.set_value(_SELECT_PROJECT, "path", path)
 	config.set_value(_SELECT_PROJECT, "nearest_time", Time.get_datetime_string_from_system())
+	config.set_value(_SELECT_EDIT, "version", ProjectSettings.get_setting("application/config/version"))
 	return config
 ## [b]friend [PronectManager]:[/b]打开指定目录下的配置文件。
 static func _open_config_file(path : String) -> ProjectConfig:

@@ -59,7 +59,7 @@ static func _create_backet_element(element : BacketElement, text : String, offse
 		i += 1
 	
 	if not backet.is_empty():
-		element.create_error(i, "Unfind end backet \"%s\"." % [end])
+		element.create_error(i, TranslationSystem.tr("Unfind end backet \"%s\".") % [end])
 	
 	element.string = text.substr(offset, i - offset + 1)
 	element.is_faild = false
@@ -86,7 +86,7 @@ static func _create_backet_for_same_sign(element : BacketElement,text : String, 
 	while start < length:
 		start = text.find(sign_string, start + 1)
 		if start == -1:
-			element.create_error(element.valid_start + offset, "Unfind brother backet.")
+			element.create_error(element.valid_start + offset, TranslationSystem.tr("Unfind brother backet."))
 			element.string = text.substr(offset)
 			element.is_faild = false
 			return element

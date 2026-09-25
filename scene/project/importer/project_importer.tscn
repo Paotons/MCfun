@@ -140,7 +140,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1602190811]
 layout_mode = 2
-text = "name:"
+text = "name"
 
 [node name="ProjectName" type="LineEdit" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=248696767]
 layout_mode = 2
@@ -152,7 +152,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1067204082]
 layout_mode = 2
-text = "path:"
+text = "path"
 
 [node name="ProjectPath" type="LineEdit" parent="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1524012199]
 layout_mode = 2
@@ -169,17 +169,17 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=511123654]
 layout_mode = 2
 
+[node name="Cancel" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=97959460]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Cancel"
+
 [node name="Load" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1982959239]
 layout_mode = 2
 size_flags_horizontal = 6
 disabled = true
 text = "Import"
 script = SubResource("GDScript_u0kf3")
-
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=97959460]
-layout_mode = 2
-size_flags_horizontal = 6
-text = "Cancel"
 
 [node name="FileDialog" type="FileDialog" parent="." unique_id=675339959]
 oversampling_override = 1.0
@@ -192,6 +192,6 @@ script = SubResource("GDScript_7nifj")
 [connection signal="text_changed" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ProjectName" to="VBoxContainer/HBoxContainer/Load" method="_on_project_name_text_changed"]
 [connection signal="text_changed" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" to="VBoxContainer/HBoxContainer/Load" method="_on_project_path_text_changed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/Button" to="FileDialog" method="popup_centered_clamped"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="hide"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Cancel" to="." method="hide"]
 [connection signal="dir_selected" from="FileDialog" to="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ProjectName" method="_on_file_dialog_dir_selected"]
 [connection signal="dir_selected" from="FileDialog" to="VBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProjectPath" method="_on_file_dialog_dir_selected"]

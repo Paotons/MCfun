@@ -89,5 +89,5 @@ func set_project_name(name : String) -> void:
 ## 设置成错误项目。
 func set_error_project() -> void:
 	_project_name_label.add_theme_color_override("font_color", Color("c00"))
-	_project_name_label.set_text("项目丢失")
+	_project_name_label.set_text(TranslationSystem.tr("Project lost."))
 	_project_information_label.hide()
