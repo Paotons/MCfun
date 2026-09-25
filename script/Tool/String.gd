@@ -173,7 +173,7 @@ static func rand_base63(length : int, sed := -1) -> String:
 
 ## 如果指定文件是 [param parent] 下的路径，返回 [code]true[/code]。
 static func is_child_path(parent : String, child : String) -> bool:
-	return child.begins_with(parent)
+	return child.begins_with(parent) if parent.ends_with("/") else child.begins_with(parent + "/")
 ## 去除父路径。
 static func remove_parent_path(parent : String, child : String) -> String:
 	return child.substr(parent.length() + (1 if not parent.ends_with("/") else 0))

@@ -7,6 +7,9 @@ signal save_scene
 
 static var _base_control : EditBaseControl
 
+## 必要的节点。
+@export var essent_nodes : Dictionary[StringName, Node]
+
 func _ready() -> void:
 	_base_control = self
 
@@ -22,20 +25,20 @@ static func is_editing() -> bool:
 
 ## 返回函数的文本编辑器。
 func get_function_edit() -> FunctionEdit:
-	return $Base/HSplitContainer/VBoxContainer2/FunctionEdit
+	return essent_nodes.get(&"FunctionEdit")
 ## 返回文件列表容器。
 func get_file_list_container() -> FileListContainer:
-	return $Base/HSplitContainer/FileList/MarginContainer/FileListContainer
+	return essent_nodes.get(&"FileListContainer")
 ## 返回自动保存的计时器。
 func get_auto_saving_timer() -> Timer:
-	return $AutoSaveingTimer
+	return essent_nodes.get(&"AutoSavingTimer")
 
 func _get_loading_title_label() -> Label:
-	return $Loading/VBoxContainer/Title
+	return essent_nodes.get(&"LoadingTitleLabel")
 func _get_loading_process_label() -> Label:
-	return $Loading/VBoxContainer/Process
+	return essent_nodes.get(&"LoadingProcessLabel")
 func _get_loading_panel() -> Panel:
-	return $Loading
+	return essent_nodes.get(&"LoadingPanel")
 
 ## 退出到项目列表。
 func exit_to_project_list(saving := true) -> void:

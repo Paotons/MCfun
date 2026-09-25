@@ -7,6 +7,9 @@ extends Tree
 ## 根节点名称。
 @export var root_name : String
 
+func _ready() -> void:
+	FileSystem.file_system_changed.connect(_on_file_system_changed, CONNECT_DEFERRED)
+
 ## 原地更新树。
 func update_tree_item() -> void:
 	var folded_directories := get_folded_directories()
@@ -14,7 +17,7 @@ func update_tree_item() -> void:
 	update_tree_from_data(selected, folded_directories)
 
 ## 使用数据进行更新。
-func update_tree_from_data(selected : String, folded : PackedStringArray) -> void:
+func update_tree_from_data(selected := "", folded := PackedStringArray()) -> void:
 	clear()
 	
 	var root := create_item()
@@ -112,3 +115,11 @@ func get_tree_item(path : String) -> TreeItem:
 		if not flag:
 			return null
 	return tree_item
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_APPLICATION_RESUMED:
+			update_tree_item()
+
+func _on_file_system_changed() -> void:
+	update_tree_item()

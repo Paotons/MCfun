@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://3ib40sa30sdk" path="res://scene/edit/edit_base_control.gd" id="1_4ldgq"]
 [ext_resource type="Script" uid="uid://dbsguqbxsn3im" path="res://script/hightlight/highlight.gd" id="1_uu6xs"]
 [ext_resource type="Script" uid="uid://c56tb0y6fuj01" path="res://scene/file/container/file_list_container.gd" id="1_w0n44"]
+[ext_resource type="Script" uid="uid://bg6ufytmho6ms" path="res://scene/edit/edit_split.gd" id="2_3e3y3"]
 [ext_resource type="PackedScene" uid="uid://daio2odmv7kgw" path="res://scene/edit/setting/edit_setting.tscn" id="5_pdkdi"]
 [ext_resource type="PackedScene" uid="uid://qyqgjfqhms20" path="res://scene/project/setting/setting.tscn" id="6_w0n44"]
 [ext_resource type="PackedScene" uid="uid://bdehv7qu4feyt" path="res://scene/helper/helper.tscn" id="7_vsmy6"]
@@ -33,6 +34,9 @@ signal load_ui(config : ConfigFile)
 ## 加载有关编辑器设置UI。
 signal load_edit_ui(config : ConfigFile)
 
+## 必要的节点。
+@export var essent_nodes : Dictionary[StringName, Node]
+
 var _thread := Thread.new()
 var _base_control : EditBaseControl
 var _project_process := ProjectOpendProcess.new()
@@ -43,7 +47,7 @@ var main_name := \"\"
 var _control_sub_process := Vector2i(-1, -1)
 
 func _get_error_option_window() -> AcceptDialog:
-	return $\"../ErrorOptionWindow\"
+	return essent_nodes.get(&\"ErrorOptionWindow\")
 # 弹出错误。
 func _popup_error(text : String) -> void:
 	var window := _get_error_option_window()
@@ -215,6 +219,9 @@ enum ItemIndex {
 	EXIT_TO_LIST,
 }
 
+## 必要的节点。
+@export var essent_nodes : Dictionary[StringName, Node]
+
 var _is_reload := false
 
 func _ready() -> void:
@@ -231,14 +238,14 @@ func _on_popup_index_pressed(index : int) -> void:
 
 # 获取项目设置的窗口。
 func _get_project_window() -> Window:
-	return $\"../../../../../ProjectSetting\"
+	return essent_nodes.get(&\"ProjectSettingWindow\")
 # 获取项目导出设置窗口。
 func _get_project_export_winodw() -> Window:
-	return $\"../../../../../ProjectExportSetting\"
+	return essent_nodes.get(&\"ProjectExportWindow\")
 func _get_file_list_container() -> FileListContainer:
-	return $\"../../../../HSplitContainer/FileList/MarginContainer/FileListContainer\"
+	return essent_nodes.get(&\"FileListContainer\")
 func _get_project_exit_option_window() -> Window:
-	return $\"../../../../../ProjectExitOptionWindow\"
+	return essent_nodes.get(&\"ProjectExitOptionWindow\")
 
 func _on_open_project_setting() -> void:
 	_get_project_window().popup_centered_clamped()
@@ -277,7 +284,7 @@ func _on_project_exit_option_window_saved_and_edit() -> void:
 resource_name = "FileMenuButton"
 script/source = "extends MenuButton
 
-@onready var _list_container := $\"../../../../HSplitContainer/FileList/MarginContainer/FileListContainer\" as FileListContainer
+@export var _list_container : FileListContainer
 
 enum ItemIndex {
 	## 保存。
@@ -296,6 +303,10 @@ enum ItemIndex {
 	SEPATATOR2,
 	## 打开。
 	OPEN,
+	## 向上移动。
+	MOVE_UP,
+	## 向下移动。
+	MOVE_DOWN,
 	
 	## 分割符。
 	SEPATATOR3,
@@ -306,19 +317,22 @@ enum ItemIndex {
 	
 	## 分割符。
 	SEPATATOR4,
-	## 创建。
+	## 系统。
 	SYSTEM,
 }
 
+## 必要的节点。
+@export var essent_nodes : Dictionary[StringName, Node]
+
 # 获取列表窗口。
 func _get_file_list_window() -> FileDialog:
-	return $\"../../../../../FileListWindow\"
+	return essent_nodes.get(&\"FileListWindow\")
 # 获取创建文件都窗口。
 func _get_filesystem_window() -> FileSystemWindow:
-	return $\"../../../../../FileSystem\"
+	return essent_nodes.get(&\"FileSystemWindow\")
 # 获取保存文件窗口。
 func _get_save_file_option_window() -> Window:
-	return $\"../../../../../FileSaveOptionWindow\"
+	return essent_nodes.get(&\"SaveFileOptionWindow\")
 
 func _ready() -> void:
 	get_popup().index_pressed.connect(_on_popup_index_pressed)
@@ -331,6 +345,8 @@ func _on_popup_index_pressed(index : int) -> void:
 		ItemIndex.REDO: _on_item_redo()
 		
 		ItemIndex.OPEN: _on_item_open()
+		ItemIndex.MOVE_UP: _on_item_move_up()
+		ItemIndex.MOVE_DOWN: _on_item_move_down()
 		
 		ItemIndex.CLOSE: _on_item_close()
 		ItemIndex.CLEAR: _on_item_clear()
@@ -351,6 +367,10 @@ func _on_item_redo() -> void:
 func _on_item_open() -> void:
 	var window := _get_file_list_window()
 	window.popup_centered_clamped()
+func _on_item_move_up() -> void:
+	_list_container.move_file_up(_list_container.selected_index)
+func _on_item_move_down() -> void:
+	_list_container.move_file_down(_list_container.selected_index)
 
 func _on_item_close() -> void:
 	var path := _list_container.get_selected()
@@ -484,7 +504,6 @@ func _on_add_hint() -> void:
 func _on_undo_hint() -> void:
 	var edit := EditManager.get_edit()
 	edit.clear_hint()
-
 "
 
 [sub_resource type="GDScript" id="GDScript_yiwpq"]
@@ -500,29 +519,17 @@ func _pressed() -> void:
 		window.popup_centered_clamped()
 "
 
-[sub_resource type="GDScript" id="GDScript_fw665"]
-resource_name = "Split"
-script/source = "extends HSplitContainer
+[sub_resource type="GDScript" id="GDScript_pfka3"]
+script/source = "extends \"res://scene/edit/edit_split.gd\"
 
 func _on_saver_save(config: ConfigFile) -> void:
-	config.set_value(\"Split\", \"1\", split_offset)
-
-func _on_loader_load_ui(config: ConfigFile) -> void:
-	set_deferred(\"split_offset\", config.get_value(\"Split\", \"1\", split_offset))
-"
-
-[sub_resource type="GDScript" id="GDScript_pdkdi"]
-resource_name = "FileList"
-script/source = "extends MarginContainer
-
-func _on_show_hide_file_list_button_pressed() -> void:
-	visible = not visible
-
-func _on_saver_save(config: ConfigFile) -> void:
-	config.get_value(\"FileList\", \"visible\", visible)
+	config.set_value(\"FileList\", \"visible\", visible)
 
 func _on_loader_load_ui(config: ConfigFile) -> void:
 	visible = config.get_value(\"FileList\", \"visible\", true)
+
+func _on_show_hide_file_list_button_pressed() -> void:
+	visible = not visible
 "
 
 [sub_resource type="GDScript" id="GDScript_gyc6d"]
@@ -574,14 +581,37 @@ func _on_saver_save(config: ConfigFile) -> void:
 	config.set_value(SELECTOR, \"file_caret_positions\", result)
 "
 
-[sub_resource type="GDScript" id="GDScript_eqr0p"]
-script/source = "extends VSplitContainer
+[sub_resource type="GDScript" id="GDScript_cgait"]
+resource_name = "FileTree"
+script/source = "extends FileTree
+
+## 必要的节点。
+@export var essent_nodes : Dictionary[StringName, Node]
+
+func _get_file_list_container() -> FileListContainer:
+	return essent_nodes.get(&\"FileListContainer\")
+
+func _ready() -> void:
+	super()
+	root_name = \"res://\"
+	root_path = ProjectManager.get_current_project().get_project_config().get_project_path()
 
 func _on_saver_save(config: ConfigFile) -> void:
-	config.set_value(\"Split\", \"2\", split_offset)
+	config.set_value(\"FileTree\", \"folded_directories\", get_folded_directories())
+	config.set_value(\"FileTree\", \"selected\", get_current_selected_path())
 
 func _on_loader_load_ui(config: ConfigFile) -> void:
-	set_deferred(\"split_offset\", config.get_value(\"Split\", \"2\", split_offset))
+	var folded_directories := config.get_value(\"FileTree\", \"folded_directories\", PackedStringArray()) as PackedStringArray
+	var selected := config.get_value(\"FileTree\", \"selected\", \"\") as String
+	update_tree_from_data(selected, folded_directories)
+
+func _on_item_activated() -> void:
+	var path := get_current_selected_path()
+	
+	if DirAccess.dir_exists_absolute(path):
+		return
+	
+	_get_file_list_container().open_file(path)
 "
 
 [sub_resource type="GDScript" id="GDScript_y67ap"]
@@ -596,11 +626,14 @@ var current_file_path : String
 ## 当前编辑的文件是否发生更改。
 var is_current_file_changed : bool
 
+## 必要的节点。
+@export var essent_nodes : Dictionary[StringName, Node]
+
 func _get_text() -> String:
 	return _edit.text
 
 func _get_file_list_container() -> FileListContainer:
-	return $\"../../FileList/MarginContainer/FileListContainer\"
+	return essent_nodes.get(&\"FileListContainer\")
 
 ## 获取文件在缓存里的数据路径。
 func get_path_at_chache(path : String) -> String:
@@ -713,6 +746,21 @@ func _on_file_list_container_saved(path: String) -> void:
 	
 	remove_cache_file(path)
 
+func _on_file_rename_file(path: String, to_path: String) -> void:
+	if path == current_file_path:
+		remove_cache_file(path)
+		current_file_path = to_path
+		save_to_cache()
+		return
+	
+	if not StrT.is_child_path(current_file_path, path):
+		return
+	
+	var npath := to_path.path_join(StrT.remove_parent_path(path, current_file_path))
+	
+	remove_cache_file(current_file_path)
+	current_file_path = npath
+	save_to_cache()
 "
 
 [sub_resource type="GDScript" id="GDScript_4o8ox"]
@@ -902,7 +950,30 @@ func _ready() -> void:
 	set_current_dir(config.get_project_path())
 "
 
+[sub_resource type="GDScript" id="GDScript_bpo87"]
+resource_name = "file_system_saver"
+script/source = "extends Node
+
+func get_target() -> FileSystemWindow:
+	return get_window()
+
+func _on_saver_save(config: ConfigFile) -> void:
+	get_target().save_to_config(config)
+"
+
+[sub_resource type="GDScript" id="GDScript_wao0y"]
+resource_name = "FileSystemLoader"
+script/source = "extends Node
+
+func get_target() -> FileSystemWindow:
+	return get_window()
+
+func _on_loader_load_ui(config: ConfigFile) -> void:
+	get_target().config_window(config)
+"
+
 [sub_resource type="GDScript" id="GDScript_kijkp"]
+resource_name = "SaveOptionWindow"
 script/source = "extends AcceptDialog
 
 ## 直接关闭。
@@ -910,12 +981,14 @@ signal close
 ## 保存并关闭。
 signal save_and_close
 
+@export var file_list_container : FileListContainer
+
 func _ready() -> void:
-	add_button(\"不保存并关闭\", false, \"0\")
-	add_button(\"取消\", false, \"1\")
+	add_button(\"Unsave & Close\", false, \"0\")
+	add_button(\"Cancel\", false, \"1\")
 
 func _get_file_list_container() -> FileListContainer:
-	return $\"../Base/HSplitContainer/FileList/MarginContainer/FileListContainer\"
+	return file_list_container
 
 func _on_confirmed() -> void:
 	save_and_close.emit()
@@ -989,7 +1062,7 @@ func _on_custom_action(action: StringName) -> void:
 			direct_exit.emit()
 "
 
-[node name="Edit" type="Control" unique_id=1792355344]
+[node name="Edit" type="Control" unique_id=1792355344 node_paths=PackedStringArray("essent_nodes")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -997,9 +1070,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4ldgq")
+essent_nodes = {
+&"AutoSavingTimer": NodePath("AutoSaveingTimer"),
+&"FileListContainer": NodePath("Base/Split/Split3/FileList/MarginContainer/FileListContainer"),
+&"FunctionEdit": NodePath("Base/Split/Split2/FunctionEdit"),
+&"LoadingPanel": NodePath("Loading"),
+&"LoadingProcessLabel": NodePath("Loading/VBoxContainer/Process"),
+&"LoadingTitleLabel": NodePath("Loading/VBoxContainer/Title")
+}
 
-[node name="Loader" type="Node" parent="." unique_id=846388973]
+[node name="Loader" type="Node" parent="." unique_id=846388973 node_paths=PackedStringArray("essent_nodes")]
 script = SubResource("GDScript_4ldgq")
+essent_nodes = {
+&"ErrorOptionWindow": NodePath("../ErrorOptionWindow")
+}
 
 [node name="Saver" type="Node" parent="." unique_id=1988062796]
 script = SubResource("GDScript_3aibf")
@@ -1029,7 +1113,7 @@ theme_override_constants/margin_right = 5
 [node name="HBoxContainer" type="HBoxContainer" parent="Base/MarginContainer/MarginContainer" unique_id=1667696846]
 layout_mode = 2
 
-[node name="ProjectMenuButton" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=5126462]
+[node name="ProjectMenuButton" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=5126462 node_paths=PackedStringArray("essent_nodes")]
 layout_mode = 2
 text = "Project"
 item_count = 6
@@ -1046,11 +1130,17 @@ popup/item_4/id = 5
 popup/item_5/text = "Exit to List"
 popup/item_5/id = 4
 script = SubResource("GDScript_ktujv")
+essent_nodes = {
+&"FileListContainer": NodePath("../../../../Split/Split3/FileList/MarginContainer/FileListContainer"),
+&"ProjectExitOptionWindow": NodePath("../../../../../ProjectExitOptionWindow"),
+&"ProjectExportWindow": NodePath("../../../../../ProjectExportSetting"),
+&"ProjectSettingWindow": NodePath("../../../../../ProjectSetting")
+}
 
-[node name="FileMenuButton" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=1567331877]
+[node name="FileMenuButton" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=1567331877 node_paths=PackedStringArray("_list_container", "essent_nodes")]
 layout_mode = 2
 text = "File"
-item_count = 12
+item_count = 14
 popup/item_0/text = "Save"
 popup/item_0/id = 0
 popup/item_1/text = "Save All"
@@ -1065,17 +1155,27 @@ popup/item_5/id = 5
 popup/item_5/separator = true
 popup/item_6/text = "Open"
 popup/item_6/id = 6
-popup/item_7/id = 7
-popup/item_7/separator = true
-popup/item_8/text = "Close"
-popup/item_8/id = 8
-popup/item_9/text = "Clear"
-popup/item_9/id = 9
-popup/item_10/id = 10
-popup/item_10/separator = true
-popup/item_11/text = "System"
-popup/item_11/id = 11
+popup/item_7/text = "Move Up"
+popup/item_7/id = 12
+popup/item_8/text = "Move Down"
+popup/item_8/id = 13
+popup/item_9/id = 7
+popup/item_9/separator = true
+popup/item_10/text = "Close"
+popup/item_10/id = 8
+popup/item_11/text = "Clear"
+popup/item_11/id = 9
+popup/item_12/id = 10
+popup/item_12/separator = true
+popup/item_13/text = "System"
+popup/item_13/id = 11
 script = SubResource("GDScript_w0n44")
+_list_container = NodePath("../../../../Split/Split3/FileList/MarginContainer/FileListContainer")
+essent_nodes = {
+&"FileListWindow": NodePath("../../../../../FileListWindow"),
+&"FileSystemWindow": NodePath("../../../../../FileSystem"),
+&"SaveFileOptionWindow": NodePath("../../../../../FileSaveOptionWindow")
+}
 
 [node name="Edit" type="MenuButton" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=856299228]
 layout_mode = 2
@@ -1107,7 +1207,7 @@ popup/item_11/text = "Uncompletion"
 popup/item_11/id = 11
 script = SubResource("GDScript_hr7lf")
 
-[node name="setting" type="Button" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=1846478690 node_paths=PackedStringArray("window")]
+[node name="Setting" type="Button" parent="Base/MarginContainer/MarginContainer/HBoxContainer" unique_id=1846478690 node_paths=PackedStringArray("window")]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Setting"
@@ -1120,51 +1220,75 @@ layout_mode = 2
 text = "Help"
 flat = true
 
-[node name="HSplitContainer" type="HSplitContainer" parent="Base" unique_id=2146239094]
+[node name="Split" type="HSplitContainer" parent="Base" unique_id=2146239094]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 4
-script = SubResource("GDScript_fw665")
+script = ExtResource("2_3e3y3")
+split_name = "1"
 
-[node name="FileList" type="MarginContainer" parent="Base/HSplitContainer" unique_id=2009113452]
+[node name="Split3" type="VSplitContainer" parent="Base/Split" unique_id=836690535]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+theme_override_constants/separation = 8
+script = SubResource("GDScript_pfka3")
+split_name = "3"
+
+[node name="FileList" type="MarginContainer" parent="Base/Split/Split3" unique_id=2009113452]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.15
-script = SubResource("GDScript_pdkdi")
+size_flags_vertical = 3
 
-[node name="Panel" type="Panel" parent="Base/HSplitContainer/FileList" unique_id=28391015]
+[node name="Panel" type="Panel" parent="Base/Split/Split3/FileList" unique_id=28391015]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Base/HSplitContainer/FileList" unique_id=2146282197]
+[node name="MarginContainer" type="MarginContainer" parent="Base/Split/Split3/FileList" unique_id=2146282197]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 4
 
-[node name="FileListContainer" type="VBoxContainer" parent="Base/HSplitContainer/FileList/MarginContainer" unique_id=338411841]
+[node name="FileListContainer" type="VBoxContainer" parent="Base/Split/Split3/FileList/MarginContainer" unique_id=338411841]
 layout_mode = 2
 script = ExtResource("1_w0n44")
 
-[node name="Loader" type="Node" parent="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" unique_id=1860071630]
+[node name="Loader" type="Node" parent="Base/Split/Split3/FileList/MarginContainer/FileListContainer" unique_id=1860071630]
 script = SubResource("GDScript_gyc6d")
 
-[node name="Saver" type="Node" parent="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" unique_id=2071666223]
+[node name="Saver" type="Node" parent="Base/Split/Split3/FileList/MarginContainer/FileListContainer" unique_id=2071666223]
 script = SubResource("GDScript_hqkgv")
 
-[node name="VBoxContainer2" type="VSplitContainer" parent="Base/HSplitContainer" unique_id=1636243781]
+[node name="MarginContainer" type="MarginContainer" parent="Base/Split/Split3" unique_id=824382611]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FileTree" type="Tree" parent="Base/Split/Split3/MarginContainer" unique_id=1505062678 node_paths=PackedStringArray("essent_nodes")]
+layout_mode = 2
+script = SubResource("GDScript_cgait")
+essent_nodes = {
+&"FileListContainer": NodePath("../../FileList/MarginContainer/FileListContainer")
+}
+metadata/_custom_type_script = "uid://dk3eo724x3wwt"
+
+[node name="Split2" type="VSplitContainer" parent="Base/Split" unique_id=1636243781]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
-script = SubResource("GDScript_eqr0p")
+script = ExtResource("2_3e3y3")
+split_name = "2"
 
-[node name="FunctionEditFiler" type="Node" parent="Base/HSplitContainer/VBoxContainer2" unique_id=703145549]
+[node name="FunctionEditFiler" type="Node" parent="Base/Split/Split2" unique_id=703145549 node_paths=PackedStringArray("essent_nodes")]
 script = SubResource("GDScript_y67ap")
+essent_nodes = {
+&"FileListContainer": NodePath("../../Split3/FileList/MarginContainer/FileListContainer")
+}
 
-[node name="FunctionEditConfiger" type="Node" parent="Base/HSplitContainer/VBoxContainer2" unique_id=85726311]
+[node name="FunctionEditConfiger" type="Node" parent="Base/Split/Split2" unique_id=85726311]
 script = SubResource("GDScript_4o8ox")
 
-[node name="FunctionEdit" type="CodeEdit" parent="Base/HSplitContainer/VBoxContainer2" unique_id=12574861]
+[node name="FunctionEdit" type="CodeEdit" parent="Base/Split/Split2" unique_id=12574861]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
@@ -1187,35 +1311,35 @@ auto_brace_completion_highlight_matching = true
 script = SubResource("GDScript_r0du0")
 metadata/_custom_type_script = "uid://qbixiwedac0a"
 
-[node name="MarginContainer2" type="MarginContainer" parent="Base/HSplitContainer/VBoxContainer2" unique_id=519901684]
+[node name="MarginContainer2" type="MarginContainer" parent="Base/Split/Split2" unique_id=519901684]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 
-[node name="Panel" type="Panel" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2" unique_id=1897303777]
+[node name="Panel" type="Panel" parent="Base/Split/Split2/MarginContainer2" unique_id=1897303777]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2" unique_id=2005359111]
+[node name="MarginContainer" type="MarginContainer" parent="Base/Split/Split2/MarginContainer2" unique_id=2005359111]
 layout_mode = 2
 theme_override_constants/margin_right = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer" unique_id=1542517735]
+[node name="VBoxContainer" type="VBoxContainer" parent="Base/Split/Split2/MarginContainer2/MarginContainer" unique_id=1542517735]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer" unique_id=475979752]
+[node name="HBoxContainer" type="HBoxContainer" parent="Base/Split/Split2/MarginContainer2/MarginContainer/VBoxContainer" unique_id=475979752]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=87090644]
+[node name="MarginContainer" type="MarginContainer" parent="Base/Split/Split2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=87090644]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="ShowHideFileListButton" type="Button" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=1014233598]
+[node name="ShowHideFileListButton" type="Button" parent="Base/Split/Split2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=1014233598]
 layout_mode = 2
 text = " < "
 
-[node name="ErrorHint" type="Button" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1268823298]
+[node name="ErrorHint" type="Button" parent="Base/Split/Split2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1268823298]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 0, 0, 1)
@@ -1228,20 +1352,20 @@ alignment = 0
 text_overrun_behavior = 5
 script = SubResource("GDScript_fwq2t")
 
-[node name="CaretPositionShower" type="Label" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1159462055]
+[node name="CaretPositionShower" type="Label" parent="Base/Split/Split2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1159462055]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_colors/font_color = Color(0.70848674, 0.70848674, 0.7084867, 1)
 text = "-1 : -1"
 script = SubResource("GDScript_pusrq")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer" unique_id=1460255201]
+[node name="ScrollContainer" type="ScrollContainer" parent="Base/Split/Split2/MarginContainer2/MarginContainer/VBoxContainer" unique_id=1460255201]
 visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ErrorList" type="VBoxContainer" parent="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer" unique_id=128172235]
+[node name="ErrorList" type="VBoxContainer" parent="Base/Split/Split2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer" unique_id=128172235]
 layout_mode = 2
 script = SubResource("GDScript_3tyvy")
 
@@ -1301,20 +1425,30 @@ access = 2
 filters = PackedStringArray("*.mcfun")
 script = SubResource("GDScript_qyh5x")
 
-[node name="FileSystem" parent="." unique_id=816334499 instance=ExtResource("8_qyh5x")]
+[node name="FileSystem" parent="." unique_id=816334499 node_paths=PackedStringArray("essent_nodes") instance=ExtResource("8_qyh5x")]
 visible = false
 wrap_controls = true
 transient = true
 exclusive = true
+essent_nodes = {
+&"FileTree": NodePath("VBoxContainer/FileTree")
+}
 
-[node name="FileSaveOptionWindow" type="AcceptDialog" parent="." unique_id=956868818]
+[node name="Saver" type="Node" parent="FileSystem" unique_id=1680737389]
+script = SubResource("GDScript_bpo87")
+
+[node name="Loader" type="Node" parent="FileSystem" unique_id=343488209]
+script = SubResource("GDScript_wao0y")
+
+[node name="FileSaveOptionWindow" type="AcceptDialog" parent="." unique_id=956868818 node_paths=PackedStringArray("file_list_container")]
 oversampling_override = 1.0
-title = "保存文件"
+title = "File Saving"
 position = Vector2i(0, 36)
 size = Vector2i(1152, 648)
-ok_button_text = "保存并关闭"
-dialog_text = "文件没有保存，是否关闭。"
+ok_button_text = "Save & Close"
+dialog_text = "The file has not been saved. Do you want to exit?"
 script = SubResource("GDScript_kijkp")
+file_list_container = NodePath("../Base/Split/Split3/FileList/MarginContainer/FileListContainer")
 
 [node name="ProjectExportSetting" parent="." unique_id=1489223026 instance=ExtResource("9_kijkp")]
 visible = false
@@ -1351,42 +1485,50 @@ dialog_close_on_escape = false
 [connection signal="save_scene" from="." to="Saver" method="save_scene"]
 [connection signal="load_data" from="Loader" to="ProjectExportSetting/Loader2" method="_on_loader_load_data"]
 [connection signal="load_edit_ui" from="Loader" to="AutoSaveingTimer" method="_on_loader_load_edit_ui"]
-[connection signal="load_ui" from="Loader" to="Base/HSplitContainer" method="_on_loader_load_ui"]
-[connection signal="load_ui" from="Loader" to="Base/HSplitContainer/FileList" method="_on_loader_load_ui"]
-[connection signal="load_ui" from="Loader" to="Base/HSplitContainer/VBoxContainer2" method="_on_loader_load_ui"]
+[connection signal="load_ui" from="Loader" to="Base/Split" method="load_from_config"]
+[connection signal="load_ui" from="Loader" to="Base/Split/Split3" method="load_from_config"]
+[connection signal="load_ui" from="Loader" to="Base/Split/Split3" method="_on_loader_load_ui"]
+[connection signal="load_ui" from="Loader" to="Base/Split/Split3/FileList/MarginContainer/FileListContainer/Loader" method="_on_loader_load_ui"]
+[connection signal="load_ui" from="Loader" to="Base/Split/Split3/MarginContainer/FileTree" method="_on_loader_load_ui"]
+[connection signal="load_ui" from="Loader" to="Base/Split/Split2" method="load_from_config"]
 [connection signal="load_ui" from="Loader" to="AutoSaveingTimer" method="_on_loader_load_ui"]
+[connection signal="load_ui" from="Loader" to="FileSystem/Loader" method="_on_loader_load_ui"]
 [connection signal="load_ui" from="Loader" to="ProjectExportSetting/Loader2" method="_on_loader_load_ui"]
-[connection signal="load_ui" from="Loader" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer/Loader" method="_on_loader_load_ui"]
-[connection signal="save" from="Saver" to="Base/HSplitContainer" method="_on_saver_save"]
-[connection signal="save" from="Saver" to="Base/HSplitContainer/FileList" method="_on_saver_save"]
-[connection signal="save" from="Saver" to="Base/HSplitContainer/VBoxContainer2" method="_on_saver_save"]
-[connection signal="save" from="Saver" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer/Saver" method="_on_saver_save"]
+[connection signal="save" from="Saver" to="Base/Split" method="save_to_config"]
+[connection signal="save" from="Saver" to="Base/Split/Split3" method="_on_saver_save"]
+[connection signal="save" from="Saver" to="Base/Split/Split3" method="save_to_config"]
+[connection signal="save" from="Saver" to="Base/Split/Split3/FileList/MarginContainer/FileListContainer/Saver" method="_on_saver_save"]
+[connection signal="save" from="Saver" to="Base/Split/Split3/MarginContainer/FileTree" method="_on_saver_save"]
+[connection signal="save" from="Saver" to="Base/Split/Split2" method="save_to_config"]
+[connection signal="save" from="Saver" to="FileSystem/Saver" method="_on_saver_save"]
 [connection signal="save" from="Saver" to="ProjectExportSetting/Saver" method="_on_saver_save"]
+[connection signal="rename_file" from="File" to="Base/Split/Split3/FileList/MarginContainer/FileListContainer" method="_on_file_rename_file"]
+[connection signal="rename_file" from="File" to="Base/Split/Split2/FunctionEditFiler" method="_on_file_rename_file"]
 [connection signal="exit_scene" from="Base/MarginContainer/MarginContainer/HBoxContainer/ProjectMenuButton" to="." method="_on_project_menu_button_exit_scene"]
 [connection signal="reload_scene" from="Base/MarginContainer/MarginContainer/HBoxContainer/ProjectMenuButton" to="." method="_on_project_menu_button_reload_scene"]
 [connection signal="pressed" from="Base/MarginContainer/MarginContainer/HBoxContainer/Helper" to="HelperWindow" method="popup_centered_clamped"]
-[connection signal="closed" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_file_list_container_closed"]
-[connection signal="saved" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_file_list_container_saved"]
-[connection signal="selected_changed" from="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_file_list_container_selected_changed"]
-[connection signal="caret_changed" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/CaretPositionShower" method="_on_function_edit_caret_changed"]
-[connection signal="error_list_changed" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/FunctionEdit" method="_on_error_list_changed"]
-[connection signal="error_list_changed" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/ErrorHint" method="_on_function_edit_error_list_changed"]
-[connection signal="error_list_changed" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer/ErrorList" method="_on_function_edit_error_list_changed"]
-[connection signal="ready" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_function_edit_ready"]
-[connection signal="ready" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/FunctionEditConfiger" method="_on_function_edit_ready"]
-[connection signal="text_changed" from="Base/HSplitContainer/VBoxContainer2/FunctionEdit" to="Base/HSplitContainer/VBoxContainer2/FunctionEditFiler" method="_on_function_edit_text_changed"]
-[connection signal="pressed" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ShowHideFileListButton" to="Base/HSplitContainer/FileList" method="_on_show_hide_file_list_button_pressed"]
-[connection signal="pressed" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/ErrorHint" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer/ErrorList" method="_on_error_hint_pressed"]
-[connection signal="goto" from="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer/ErrorList" to="Base/HSplitContainer/VBoxContainer2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer/ErrorList" method="_on_goto"]
+[connection signal="closed" from="Base/Split/Split3/FileList/MarginContainer/FileListContainer" to="Base/Split/Split2/FunctionEditFiler" method="_on_file_list_container_closed"]
+[connection signal="saved" from="Base/Split/Split3/FileList/MarginContainer/FileListContainer" to="Base/Split/Split2/FunctionEditFiler" method="_on_file_list_container_saved"]
+[connection signal="selected_changed" from="Base/Split/Split3/FileList/MarginContainer/FileListContainer" to="Base/Split/Split2/FunctionEditFiler" method="_on_file_list_container_selected_changed"]
+[connection signal="item_activated" from="Base/Split/Split3/MarginContainer/FileTree" to="Base/Split/Split3/MarginContainer/FileTree" method="_on_item_activated"]
+[connection signal="caret_changed" from="Base/Split/Split2/FunctionEdit" to="Base/Split/Split2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/CaretPositionShower" method="_on_function_edit_caret_changed"]
+[connection signal="error_list_changed" from="Base/Split/Split2/FunctionEdit" to="Base/Split/Split2/FunctionEdit" method="_on_error_list_changed"]
+[connection signal="error_list_changed" from="Base/Split/Split2/FunctionEdit" to="Base/Split/Split2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/ErrorHint" method="_on_function_edit_error_list_changed"]
+[connection signal="error_list_changed" from="Base/Split/Split2/FunctionEdit" to="Base/Split/Split2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer/ErrorList" method="_on_function_edit_error_list_changed"]
+[connection signal="ready" from="Base/Split/Split2/FunctionEdit" to="Base/Split/Split2/FunctionEditFiler" method="_on_function_edit_ready"]
+[connection signal="ready" from="Base/Split/Split2/FunctionEdit" to="Base/Split/Split2/FunctionEditConfiger" method="_on_function_edit_ready"]
+[connection signal="text_changed" from="Base/Split/Split2/FunctionEdit" to="Base/Split/Split2/FunctionEditFiler" method="_on_function_edit_text_changed"]
+[connection signal="pressed" from="Base/Split/Split2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ShowHideFileListButton" to="Base/Split/Split3" method="_on_show_hide_file_list_button_pressed"]
+[connection signal="pressed" from="Base/Split/Split2/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/ErrorHint" to="Base/Split/Split2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer/ErrorList" method="_on_error_hint_pressed"]
+[connection signal="goto" from="Base/Split/Split2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer/ErrorList" to="Base/Split/Split2/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer/ErrorList" method="_on_goto"]
 [connection signal="timeout" from="AutoSaveingTimer" to="." method="_on_auto_saveing_timer_timeout"]
 [connection signal="reload_scene" from="EditSetting" to="." method="_on_edit_setting_reload_scene"]
 [connection signal="reload_project" from="ProjectSetting" to="." method="_on_project_setting_reload_project"]
 [connection signal="close_requested" from="FileListWindow" to="FileListWindow" method="hide"]
 [connection signal="file_selected" from="FileListWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/FileMenuButton" method="_on_file_list_window_file_selected"]
 [connection signal="file_open" from="FileSystem" to="Base/MarginContainer/MarginContainer/HBoxContainer/FileMenuButton" method="_on_file_system_file_open"]
-[connection signal="multifile_open" from="FileSystem" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" method="open_multifile"]
-[connection signal="removed_directory" from="FileSystem" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" method="_on_file_system_removed_directory"]
-[connection signal="renamed_file" from="FileSystem" to="Base/HSplitContainer/FileList/MarginContainer/FileListContainer" method="_on_file_system_renamed_file"]
+[connection signal="multifile_open" from="FileSystem" to="Base/Split/Split3/FileList/MarginContainer/FileListContainer" method="open_multifile"]
+[connection signal="removed_directory" from="FileSystem" to="Base/Split/Split3/FileList/MarginContainer/FileListContainer" method="_on_file_system_removed_directory"]
 [connection signal="renamed_file" from="FileSystem" to="File" method="_on_file_system_renamed_file"]
 [connection signal="close" from="FileSaveOptionWindow" to="Base/MarginContainer/MarginContainer/HBoxContainer/FileMenuButton" method="_on_file_save_option_window_close"]
 [connection signal="close_requested" from="FileSaveOptionWindow" to="FileSaveOptionWindow" method="hide"]

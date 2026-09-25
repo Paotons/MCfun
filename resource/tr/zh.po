@@ -36,6 +36,9 @@ msgid "Loading"
 msgstr "加载中"
 
 ## 文件系统
+msgid "File System"
+msgstr "文件系统"
+
 msgid "Recent:"
 msgstr "最近："
 
@@ -451,6 +454,12 @@ msgstr "重做"
 msgid "Open"
 msgstr "打开"
 
+msgid "Move Up"
+msgstr "向上移动"
+
+msgid "Move Down"
+msgstr "向下移动"
+
 msgid "Close"
 msgstr "关闭"
 
@@ -505,6 +514,7 @@ msgstr "创建文件"
 msgid "Empty filename."
 msgstr "空文件名。"
 
+## 错误处理
 msgid "Error (%d, %d) %s"
 msgstr "错误 （%d, %d） %s"
 
@@ -517,9 +527,17 @@ msgstr "文件没有保存，是否退出。"
 msgid "Save & Exit"
 msgstr "保存并退出"
 
+msgid "Save & Close"
+msgstr "保存并关闭"
+
+msgid "Unsave & Close"
+msgstr "不保存并关闭"
+
+msgid "File Saving"
+msgstr "文件保存"
+
 msgid "UnSave & Exit"
 msgstr "不保存并退出"
-
 ### 关于窗口
 msgid "Creater"
 msgstr "创建者"
@@ -651,7 +669,7 @@ msgstr "找不到帮助。"
 msgid "Unvaild beginning."
 msgstr "无效开头。"
 
-msgid "Annotaition must begin with ###."
+msgid "Annotaition must begin with #."
 msgstr "注释必须以\"#\"开头。"
 
 ### 导出设置窗口

@@ -9,6 +9,8 @@ signal saved(path : String)
 ## 关闭文件时发出。
 signal closed(path : String)
 
+@onready var initial_children_count := get_child_count()
+
 class _File extends Resource:
 	var button : Button
 	var path : String
@@ -53,7 +55,18 @@ func redo() -> void:
 	if _undo_redo.has_redo():
 		_undo_redo.redo()
 
-## 获取文件序列。
+## 向上移动文件。
+func move_file_up(idx : int) -> void:
+	if idx <= 0 or idx >= _files.size():
+		return
+	set_file_index(idx, idx - 1)
+## 向下移动文件。
+func move_file_down(idx : int) -> void:
+	if idx < 0 or idx > _files.size() - 1:
+		return
+	set_file_index(idx, idx + 1)
+
+## 返回文件序列。
 func get_file_index(path : String) -> int:
 	return _files.find_custom(_is_file_path.bind(path))
 ## 返回文件光标位置。
@@ -69,6 +82,32 @@ func get_file_path(index : int) -> String:
 ## 返回文件数量。
 func get_file_count() -> int:
 	return _files.size()
+## 设置文件序列。
+func set_file_index(index : int, to_index : int) -> void:
+	if mini(index, to_index) < 0 or maxi(index, to_index - 1) >= _files.size():
+		push_error("Unvalid index.")
+		return
+	prints("输入：", index, to_index, _files)
+	
+	if index == to_index:
+		return
+	
+	var idx := to_index - 1 if to_index < index else to_index
+	var file := _files[index]
+	if idx == -1:
+		_files.push_front(file)
+	elif idx == _files.size() - 1:
+		_files.push_back(file)
+	else:
+		_files.insert(idx, file)
+	
+	_files.remove_at(index if to_index >= index else index + 1)
+	
+	print("输出：", _files)
+	move_child(file.button, to_index + initial_children_count)
+	
+	if index == selected_index:
+		selected_index = to_index
 
 ## 打开文件。
 func open_file(path : String) -> void:
@@ -236,6 +275,7 @@ func _add_file_button(index : int = -1) -> void:
 	button.toggle_mode = true
 	button.button_group = _button_group
 	button.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	add_child(button)
 	_files[index].button = button
 # 移除文件按钮。
@@ -264,10 +304,14 @@ func _on_file_system_removed_directory(path: String) -> void:
 			res.append(file.path)
 	_close_multifile(res)
 
-func _on_file_system_renamed_file(path: String, to_path: String) -> void:
-	var res : PackedStringArray
+func _on_file_rename_file(path: String, to_path: String) -> void:
 	for i in _files.size():
 		var file := _files[i]
-		if StrT.is_child_path(path, file.path):
-			res.append(file.path)
-	_close_multifile(res)
+		if file.path == path:
+			file.path = to_path
+			_update_file_button(i)
+			break
+		elif StrT.is_child_path(path, file.path):
+			var npath := to_path.path_join(StrT.remove_parent_path(path, file.path))
+			file.path = npath
+			_update_file_button(i)

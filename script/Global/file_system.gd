@@ -5,6 +5,8 @@ extends Node
 
 ## 初始化成功时发出。
 signal initial_finished
+## 文件系统发生改变时发出。
+signal file_system_changed
 
 # 如果初始化过，则是 [code]true[/code]。
 var _is_initial_finished := false
@@ -169,6 +171,7 @@ func remove_directory(path : String) -> void:
 		var parent := queue_parents.pop_back() as DirAccess
 		parent.remove(directory.get_current_dir().get_file())
 		queue_directories.remove_at(queue_directories.size() - 1)
+	file_system_changed.emit()
 ## 递归复制文件/目录。
 func copy_directory(from : String, to : String, chmod_flags := -1) -> void:
 	if FileAccess.file_exists(from):
@@ -198,6 +201,7 @@ func copy_directory(from : String, to : String, chmod_flags := -1) -> void:
 				to_directory.make_dir(dir)
 			queue_directories.append(DirAccess.open(directory.get_current_dir().path_join(dir)))
 			queue_to_directories.append(DirAccess.open(to_directory.get_current_dir().path_join(dir)))
+	file_system_changed.emit()
 ## 返回修改时间戳。
 func get_access_time(path : String) -> int:
 	if FileAccess.file_exists(path):
@@ -251,6 +255,7 @@ func clear_cache() -> void:
 			queue_dirs.append(dir.path_join(direct))
 		empty_dirs.append(dir)
 	for dir in empty_dirs: DirAccess.remove_absolute(dir)
+	file_system_changed.emit()
 
 ## 重新加载配置文件。
 func reload_config() -> void:

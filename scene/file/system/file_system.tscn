@@ -52,11 +52,11 @@ func _on_create_file_window_create_file(path: String) -> void:
 	match _forced_index:
 		ItemIndex.DIRECTORY:
 			DirAccess.make_dir_absolute(path)
-			_get_file_tree().update_tree_item()
+			FileSystem.file_system_changed.emit()
 		ItemIndex.MCFUN:
 			var file := FileAccess.open(path, FileAccess.WRITE)
 			file.close()
-			_get_file_tree().update_tree_item()
+			FileSystem.file_system_changed.emit()
 "
 
 [sub_resource type="GDScript" id="GDScript_laydq"]
@@ -191,17 +191,16 @@ func _on_delete() -> void:
 ## 复制。
 func copy(path : String, to_path : String) -> void:
 	FileSystem.copy_directory(path, to_path)
-	_get_file_tree().update_tree_item()
 	_get_file_system().copyed_file.emit(path, to_path)
 ## 重命名/移动。
 func rename(path : String, to_path : String) -> void:
 	DirAccess.rename_absolute(path, to_path)
-	_get_file_tree().update_tree_item()
+	FileSystem.file_system_changed.emit()
 	_get_file_system().renamed_file.emit(path, to_path)
 ## 删除。
 func delete(path : String) -> void:
 	FileSystem.remove_directory(path)
-	_get_file_tree().update_tree_item()
+	FileSystem.file_system_changed.emit()
 	_get_file_system().removed_directory.emit(path)
 
 func _on_delete_file_window_confirmed() -> void:
@@ -246,9 +245,9 @@ func _on_cover_file_window_confirmed() -> void:
 script/source = "extends FileTree
 
 func _ready() -> void:
+	super()
 	root_name = \"res://\"
 	root_path = ProjectManager.get_current_project().get_project_config().get_project_path()
-	update_tree_item()
 "
 
 [sub_resource type="GDScript" id="GDScript_l16b6"]
@@ -265,12 +264,15 @@ func _ready() -> void:
 	current_dir = ProjectManager.get_current_project().get_project_config().get_project_path()
 "
 
-[node name="FileSystem" type="Window" unique_id=816334499]
+[node name="FileSystem" type="Window" unique_id=816334499 node_paths=PackedStringArray("essent_nodes")]
 oversampling_override = 1.0
 title = "File System"
 position = Vector2i(0, 36)
 size = Vector2i(1152, 648)
 script = ExtResource("1_3atx5")
+essent_nodes = {
+&"FileTree": NodePath("VBoxContainer/FileTree")
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=929658408]
 anchors_preset = 15
