@@ -1,0 +1,8 @@
+[title]Description[/title]
+
+Dictionary; enclosed in curly braces.
+If the string does not start with a curly brace, it is added to the expectation list and skipped.
+
+[title]Detail[/title]
+
+[b]rule:[/b] Rule. The rule used for the contents.

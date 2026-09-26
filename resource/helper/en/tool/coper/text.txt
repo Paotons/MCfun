@@ -1,0 +1,20 @@
+[title]Description[/title]
+
+Copy Helper is located at [code]Project List >> coper[/code] and can quickly copy each line of a [code]mcfunction[/code]. You can take it into the game and run it via command blocks.
+
+[title]Select a File[/title]
+
+Open Copy Helper via [code]coper[/code] in the top toolbar of the project list.
+You can select the file to copy here. Supported formats: [code]mcfunction, zip[/code].
+If it is a [code]zip[/code] file, you also need to select the [code]mcfunction[/code] inside the archive.
+
+[title]Copy Commands[/title]
+
+After selecting a file, if the contents have no other problems, you can adjust the parameters and copy. The copied content goes to your clipboard.
+[code]offset:[/code] The next position to copy; updated automatically after each copy.
+[code]length:[/code] How many lines to copy at once. Maximum is 30.
+
+[code]Copy line:[/code] Copies the current line and moves the offset.
+[code]Copy normal:[/code] Copies continuously according to the configured [code]length[/code].
+
+[b]Note:[/b] During normal copy, due to system limitations, it cannot be instant. Each copy actually has a one-frame interval.

@@ -1,0 +1,15 @@
+[title]Description[/title]
+
+Error hints shown below the editor.
+
+[b]Note:[/b] Some error hints may be incorrect; errors are for reference only.
+
+[title]Expand[/title]
+
+Click an error entry to show all errors. You can scroll to view more error content, or drag the edge to increase the height.
+
+[b]Note:[/b] If you edit the text while it is expanded, the UI updates and may cause performance overhead.
+
+[title]Jump[/title]
+
+Click an expanded error entry to jump to the error's location.

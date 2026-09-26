@@ -1,0 +1,8 @@
+[title]Description[/title]
+
+Quotation; a string enclosed in quotes.
+If the string does not start with a quote, it is added to the expectation list and skipped.
+
+[title]Detail[/title]
+
+[b]rule:[/b] Rule. The rule used for the contents.

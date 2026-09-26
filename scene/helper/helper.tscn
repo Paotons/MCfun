@@ -3,9 +3,12 @@
 [ext_resource type="Script" uid="uid://d25eanpg2d10t" path="res://scene/helper/helper.gd" id="1_ri6ce"]
 
 [sub_resource type="GDScript" id="GDScript_tnxvb"]
+resource_name = "Tree"
 script/source = "extends Tree
 ## 显示帮助的树。
 
+const ROOT_PATH := \"res://resource/helper/\"
+const DEFAULT_LANGUAGE := \"en\"
 ## 目录被选中。
 signal directory_selected(directory : String)
 
@@ -18,7 +21,16 @@ var _tree_items : Array[TreeItem]
 var _tree_directories : PackedStringArray
 
 func _ready() -> void:
+	TranslationSystem.local_changed.connect(_on_translation_system_local_changed, CONNECT_DEFERRED)
+	_update_language()
+
+func _update_language() -> void:
+	var lanagu := TranslationSystem.local
+	root_path = ROOT_PATH.path_join(lanagu if DirAccess.dir_exists_absolute(ROOT_PATH.path_join(lanagu)) else DEFAULT_LANGUAGE)
 	updata_tree_item()
+	
+	# HACK 清空富文本显示内容。
+	directory_selected.emit(\"\")
 
 func updata_tree_item() -> void:
 	clear()
@@ -37,7 +49,9 @@ func updata_tree_item() -> void:
 	root.set_text(0, \"root\")
 	
 	if init_cfg != null:
-		for dir : String in init_cfg.get_value(\"sort\", \"list\", DirAccess.get_directories_at(root_path)):
+		var sort_list : PackedStringArray = init_cfg.get_value(\"sort\", \"list\", DirAccess.get_directories_at(root_path))
+		sort_list.reverse()
+		for dir : String in sort_list:
 			if not DirAccess.dir_exists_absolute(root_path.path_join(dir)):
 				push_error(\"Path \\\"%s\\\" isn't exists.\" % root_path.path_join(dir))
 				continue
@@ -96,6 +110,9 @@ func _on_rich_text_label_goto_file(file: String) -> void:
 	if index == -1:
 		return
 	_tree_items[index].select(0)
+
+func _on_translation_system_local_changed() -> void:
+	_update_language()
 "
 
 [sub_resource type="GDScript" id="GDScript_ri6ce"]

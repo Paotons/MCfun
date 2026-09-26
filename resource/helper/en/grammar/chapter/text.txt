@@ -1,0 +1,8 @@
+[title]Description[/title]
+
+These are the various entries in [file grammar/entry]Grammar >> Chapter[/file].
+
+[title]V1[/title]
+For plain strings, see [file grammar/chapter/string]Grammar >> Chapter >> String[/file].
+For [code]minecraft:apple[/code], see [file grammar/chapter/spaceitem]Grammar >> Chapter >> Space Item[/file].
+For [code]mob.zombie.hit[/code], see [file grammar/chapter/path]Grammar >> Chapter >> Path[/file].

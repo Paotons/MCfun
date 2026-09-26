@@ -1,0 +1,4 @@
+[title]Introduction[/title]
+MCfun is short for [code]Minecraft Function[/code]; it can also be read as [code]Minecraft is fun[/code].
+
+As the name suggests, this is a tool that helps Minecraft players write functions and commands.

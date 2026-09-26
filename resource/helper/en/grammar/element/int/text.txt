@@ -1,0 +1,10 @@
+[title]Description[/title]
+
+Integer.
+If the string does not start with a digit or a sign, it is added to the expectation list and skipped.
+
+[title]Detail[/title]
+
+[b]min:[/b] Integer. Minimum value; out-of-range raises an error.
+[b]max:[/b] Integer. Maximum value; out-of-range raises an error.
+[b]suffixs:[/b] String array. Units. [b]Note:[/b] Order also affects unit parsing. For example, ["", "a"] and ["a", ""] against [code]1a[/code]: the former parses the unit as empty, the latter parses it as a.

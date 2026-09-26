@@ -1,0 +1,14 @@
+[title]Config[/title]
+
+[b]Project name:[/b] The name of this project.
+[b]Project path:[/b] The path of this project. Not editable; only used for copying.
+[b]Project version:[/b] The version shown after export. Default 1.0.0.
+[b]Project description:[/b] Shown in the resource pack description after export.
+[b]Min engine version:[/b] The Minecraft version this resource pack runs on. Default 1.20.0.
+
+[b]Note:[/b] If the resource pack does not show up, it is very likely the [code]min engine version[/code] is misconfigured.
+
+[title]Grammar[/title]
+
+[b]Grammar directory:[/b] The grammar configuration used to edit the project.
+

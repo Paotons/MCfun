@@ -1,0 +1,8 @@
+[title]Description[/title]
+
+Array; enclosed in square brackets.
+If the string does not start with a square bracket, it is added to the expectation list and skipped.
+
+[title]Detail[/title]
+
+[b]rule:[/b] Rule. The rule used for the contents.

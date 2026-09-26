@@ -1,0 +1,3 @@
+[file edit/setting]Editor UI[/file]
+[file edit/setting]Editor Settings[/file]
+[file edit/error]Editor Error Hints[/file]

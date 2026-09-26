@@ -1,0 +1,9 @@
+[title]Description[/title]
+
+Float.
+If the string does not start with a digit or a sign, it is added to the expectation list and skipped.
+
+[title]Detail[/title]
+
+[b]min:[/b] Float. Minimum value; out-of-range raises an error.
+[b]max:[/b] Float. Maximum value; out-of-range raises an error.

@@ -1,0 +1,11 @@
+[title]Description[/title]
+Native commands are not part of Minecraft itself. They are stored inside the software and act as its extensions. They are converted to Minecraft commands on export.
+
+A native command begins with [code]&[/code]. For example, [code]&tp[/code].
+
+[title]Categories[/title]
+
+[file native/tp]Teleport tp[/file]
+[file native/scoreboard]Score / Scoreboard scoreboard[/file]
+[file native/fill]Fill fill[/file]
+[file native/string]String string[/file]

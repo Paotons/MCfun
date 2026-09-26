@@ -1,0 +1,15 @@
+[title]Description[/title]
+
+Export can package the project into a behavior pack directly usable by [code]Minecraft[/code].
+
+[title]Settings[/title]
+
+[b]Include annotations:[/b] Export annotations as well.
+[b]Include empty lines:[/b] Export lines with no content.
+
+[b]Note:[/b] Some versions of [code]Minecraft[/code] do not support annotations; confirm before exporting annotations.
+
+[title]Exported files:[/title]
+
+[b]manifest.json :[/b] The main file, including the project name and version.
+[b]functions/* :[/b] Functions, including all exported functions.

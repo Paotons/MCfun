@@ -1,0 +1,10 @@
+[title]Description[/title]
+
+Fills a region.
+
+[title]Rectangular Fill[/title]
+
+[code]&fill default <from> <to> <block> <mode>/(<replace> <block>)[/code]
+
+This command works like the vanilla fill, but supports large regions with no [code]32768[/code] block limit.
+[b]Note:[/b] Block components are not supported yet.

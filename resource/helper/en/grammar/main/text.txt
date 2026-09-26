@@ -1,0 +1,23 @@
+[title]Description[/title]
+
+The main file of grammar rules; the entry point.
+
+[b]format_version:[/b] The parsed version.
+
+[title]V1[/title]
+
+[code]
+{
+	"format_version" : 1,
+	
+	"files" : {
+		"process" : "process.json",
+		"law" : "law.json",
+		"entry" : "entry.json"
+	}
+}[/code]
+
+[b]files:[/b] Defines the paths of the various files.
+[b]files.process:[/b] Path to the process file. See [file grammar/process]Grammar >> Process[/file].
+[b]files.law:[/b] Path to the law file. See [file grammar/law]Grammar >> Law[/file].
+[b]files.entry[/b] Path to the entry file. See [file grammar/entry]Grammar >> Chapter[/file].

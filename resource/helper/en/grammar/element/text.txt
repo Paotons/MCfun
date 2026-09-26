@@ -1,0 +1,47 @@
+[title]Description[/title]
+
+A command can be broken down into various elements.
+
+For example:
+[code]execute as @a run give @s minecraft:apple 64[/code]
+can be broken down into:
+[b]execute:[/b] Command head.
+[b]as:[/b] Option.
+[b]@a:[/b] Target selector.
+[b]run:[/b] Option.
+[b]give @s minecraft:apple 64:[/b] Sub-command, which can of course be broken down further.
+
+[title]Types[/title]
+
+Currently, elements support various types.
+
+[b]null:[/b] No type; acts as a placeholder.
+[b]bool:[/b] Boolean; represents [code]false[/code] and [code]true[/code].
+[b]int:[/b] Integer; represents numbers like [code]64[/code].
+[b]float:[/b] Float; represents numbers with a decimal point like [code]0.5[/code].
+[b]option:[/b] Option; usually a set of fixed choices.
+[b]rich_string:[/b] Rich string; supports [code]§[/code] display.
+[b]word:[/b] Word; supports characters from various languages, hyphens, and digits. Typically used for player names.
+[b]string:[/b] String; supports anything as long as it isn't whitespace-indented.
+[b]spaceitem:[/b] Space item; sometimes written as [code]space_item[/code]. Represents [code]apple[/code] or [code]minecraft:apple[/code].
+[b]point_path:[/b] Point path; can represent [code]mob.cat[/code].
+[b]file_path:[/b] File path; can represent [code]main/myfun.mcfunction[/code].
+[b]coord:[/b] Coordinate; has three forms: [code]5, ~5, ^5[/code]. Supports floats.
+[b]coords:[/b] Multiple coordinates; typically used to represent positions. Can represent [code]~~~[/code] or [code]^^^3[/code].
+[b]selector:[/b] Target selector; can represent [code]@e\[type=player\][/code] or even more complex selectors, and also supports player names.
+[b]array:[/b] Similar to an array, enclosed in square brackets. This is the body of a target selector.
+[b]dictionary:[/b] Similar to a dictionary, enclosed in curly braces.
+[b]command:[/b] A whole command.
+
+[title]Data Structure[/title]
+
+The data describes each element. It has [code]type, detail, items, description, cmd, custom[/code].
+For example: [code]{"type" : "int", "description" : "Score"}[/code]
+This is an int element data and recognizes [code]1, 0, 100, -1[/code].
+
+[b]type:[/b] Type; the element type. Defaults to [code]null[/code].
+[b]detail:[/b] Detail; used to constrain an element or express its range. Different types have different conditions.
+[b]items:[/b] Items; usually the sub-data of an element, commonly used for [code]option[/code] choices.
+[b]description:[/b] Description; used for hints. Defaults to Unknow.
+[b]cmd:[/b] Commands; used for advanced usage and can control the editor. See [file grammar/element/cmd]Commands[/file].
+[b]custom:[/b] Custom data; currently has no use.

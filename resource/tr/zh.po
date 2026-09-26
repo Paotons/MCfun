@@ -170,6 +170,9 @@ msgstr "设置"
 msgid "translation"
 msgstr "翻译"
 
+msgid "language"
+msgstr "语言"
+
 msgid "Import"
 msgstr "导入"
 
@@ -538,7 +541,8 @@ msgstr "文件保存"
 
 msgid "UnSave & Exit"
 msgstr "不保存并退出"
-### 关于窗口
+### 窗口
+## 关于
 msgid "Creater"
 msgstr "创建者"
 
@@ -554,8 +558,16 @@ msgstr "特别感谢"
 msgid "Mojang created the main body of the game\n\nGodot provided the engine\n\nDeepSeek handled the miscellaneous tasks"
 msgstr "Mojang 创造了游戏主体\n\nGodot 提供了引擎\n\nDeepSeek 干的部分杂事"
 
+## 初始弹窗
+msgid "Check Permissions"
+msgstr "检查权限"
+
 msgid "Please select a folder as the main data directory.\nIf no action is taken, the software sandbox directory will be used by default. This directory is inaccessible to ordinary users.\nIf you want your work to be freely operable, it is recommended to create a separate directory and choose it."
 msgstr "请选择一个文件夹，作为主要数据目录。\n如果不进行操作，默认会使用软件沙盒目录，这个目录普通用户是无法访问的。\n如果你想让你的作品能够随意操作，建议专门创建一个目录，并选择。"
+
+## 退出弹窗
+msgid "Do you want to exit the application?"
+msgstr "你要退出应用程序？"
 
 ### 错误提示
 msgid "Unfind any string."

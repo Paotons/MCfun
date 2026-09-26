@@ -87,23 +87,14 @@ func set_file_index(index : int, to_index : int) -> void:
 	if mini(index, to_index) < 0 or maxi(index, to_index - 1) >= _files.size():
 		push_error("Unvalid index.")
 		return
-	prints("输入：", index, to_index, _files)
 	
 	if index == to_index:
 		return
 	
-	var idx := to_index - 1 if to_index < index else to_index
 	var file := _files[index]
-	if idx == -1:
-		_files.push_front(file)
-	elif idx == _files.size() - 1:
-		_files.push_back(file)
-	else:
-		_files.insert(idx, file)
+	_files.remove_at(index)
+	_files.insert(to_index, file)
 	
-	_files.remove_at(index if to_index >= index else index + 1)
-	
-	print("输出：", _files)
 	move_child(file.button, to_index + initial_children_count)
 	
 	if index == selected_index:

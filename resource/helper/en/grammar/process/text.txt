@@ -1,0 +1,33 @@
+[title]Description[/title]
+
+Tells the editor how the elements of a command should be combined. See element [file grammar/element]Grammar >> Element[/file].
+
+Each element may contain the following members:
+[b]id:[/b] Non-negative integer. An ID; if empty, a random value is taken. Duplicate or negative IDs may cause a crash, so do not duplicate them.
+[b]extends:[/b] Integer; the parent. It is the ID of the previously executed element. -2 means any, -1 means the very beginning. Empty means -2.
+[b]goto:[/b] Integer, or an integer array for options. The ID to jump to on success. If it is an option, the jump target depends on the extra data. Empty means proceed to the next step.
+[b]is_end:[/b] Bool; the end flag. If not empty, on success the flag is updated. If the command ends while the flag is still [code]false[/code], an error is raised.
+
+A line may use [code]{"type" : "file", "file" : "path"}[/code] to load the contents of another file as data. For example: [code]"give" : {"type" : "file", "file" : "process/give.json"}[/code].
+
+[title]V1[/title]
+
+[code] "give" : [{...}, {...}][/code]
+
+This defines the [code]give[/code] command but without a description.
+
+[title]V2[/title]
+
+[code]"give" : {
+	"description" : "Give an item to a player",
+	"data" : [
+		{...},
+		{...}
+	]
+}
+[/code]
+
+[b]description:[/b] Description; the hint word.
+[b]data:[/b] Data.
+
+This defines the [code]give[/code] command with a description.

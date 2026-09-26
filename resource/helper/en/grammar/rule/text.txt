@@ -1,0 +1,22 @@
+[title]Description[/title]
+
+A sub-element of [file grammar/law]Law[/file] that defines various rules.
+
+[title]Categories[/title]
+
+[file grammar/rule/equal_param_backet]Equal Param Bracket equal_param_backet[/file]
+[file grammar/rule/colon_param_backet]Colon Param Bracket colon_param_backet[/file]
+[file grammar/rule/param_backet]Param Bracket param_backet[/file]
+[file grammar/rule/array_backet]Array Bracket array_backet[/file]
+
+[title]V1[/title]
+
+[code]"selector_body" : {
+	"type" : "equal_param_backet",
+	"detail" : ....
+	"data" : ...	
+}[/code]
+
+[b]type:[/b] Defines the type.
+[b]detail:[/b] Defines its detail.
+[b]data:[/b] Defines its data.

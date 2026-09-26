@@ -1,0 +1,12 @@
+[title]Description[/title]
+
+A list is a list of completion data within a command. It updates dynamically as the command changes.
+
+[title]Add[/title]
+
+[code]@list <list_name> add <completion_item>[/code]
+
+[b]list_name:[/b] The list to operate on.
+[b] completion_item:[/b] The completion item to add.
+
+For example: [code]@list tag add my_tag[/code] later Tag completion will have my_tag as an option.

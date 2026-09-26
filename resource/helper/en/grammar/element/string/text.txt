@@ -1,0 +1,7 @@
+[title]Description[/title]
+
+String.
+
+[title]Detail[/title]
+
+[b]long:[/b] Bool. If [code]true[/code], it is a long string.

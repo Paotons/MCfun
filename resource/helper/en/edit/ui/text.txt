@@ -1,0 +1,14 @@
+[title]Overview[/title]
+
+The top-left corner contains various function blocks, each of which can be expanded for more features. Details are as follows.
+
+Project >> Setting, Export, Reload, Exit
+File >> Save, Save All, Undo, Redo, Open, Close, Close All
+Edit >> Undo, Redo, Copy, Cut, Paste, Select All, Select Line, Completion, Uncompletion
+
+The top-right corner contains other function modules: Help and Settings.
+
+On the left is the file list; click to switch files. Opening and closing is supported, but moving is still not implemented. Annoying.
+Below is the display, which can show error hints and can be expanded by clicking; the right side shows the caret position.
+
+In the middle is the text editor, and the minimap on the right can replace scrolling. Related settings have not been added yet.

@@ -1,0 +1,4 @@
+[title]Description[/title]
+
+Multiple coords; a position.
+If it does not start with a coordinate symbol or a digit, it is added to the expectation list and skipped.

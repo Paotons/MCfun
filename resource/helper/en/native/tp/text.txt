@@ -1,0 +1,19 @@
+[title]Description[/title]
+
+Teleport an entity.
+
+[title]With Score[/title]
+
+[code]&tp score <target> <axis> <score_holder> <objective> <mode> <scale> <iteration_count>[/code]
+
+Teleports or offsets the target along the selected axes to the score holder's score on the objective.
+
+[b]target:[/b] Target selector; the entity to teleport.
+[b]axis:[/b] The axes to teleport along; may be [code]x,y,z,xy,xz,yz,xyz[/code].
+[b]score_holder:[/b] Target selector; the score holder to use.
+[b]objective:[/b] Word; the score holder's objective.
+[b]mode:[/b] [code]to[/code] teleports the entity to the position; [code]offset[/code] offsets it based on the current position. Default: [code]set[/code].
+[b]scale:[/b] Float; the scale of the effect. Smaller is more precise. For example, a scale of 0.1 teleports a score of 24 to position 2.4. Default: [code]1.0[/code].
+[b]iteration_count:[/b] Integer. Since bisection is used, a larger iteration count gives a larger maximum teleport distance, at the cost of more commands. The maximum teleport distance is [code](2 ^ iteration_count - 1) * scale[/code]. The default covers 66 million blocks. Default: [code]25[/code].
+
+For example: [code]&tp score @s x @s target to[/code] teleports the named executor to the position of its own score on the objective target.

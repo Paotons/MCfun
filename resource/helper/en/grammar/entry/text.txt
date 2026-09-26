@@ -1,0 +1,22 @@
+[title]Description[/title]
+
+A file that stores various lists.
+
+A line may use [code]{"type" : "file", "file" : "path"}[/code] to load the contents of another file as data. For example: [code]"item" : {"type" : "file", "file" : "entry/item.json"}[/code].
+
+[title]V1[/title]
+
+Example:
+[code]{
+	"chapter" : {
+		"type" : "xxx"
+	},
+	"chapter2" : {
+		"type" : "xxx"
+	}
+}[/code]
+
+[b]chapter:[/b] The name of this category; may be any string.
+[b]chapter.type[/b] The type of this category; may be [code]string,spaceitem,path[/code], or the special [code]file[/code] type.
+
+

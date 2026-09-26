@@ -1,0 +1,11 @@
+[title]Description[/title]
+
+Directly exports the rest of the string. If the editor has trouble parsing some string, this is the original fallback.
+
+[title]Usage[/title]
+
+[code]&string <content>[/code]
+
+[b]content:[/b] Exported as-is.
+
+[b]Example:[/b] [code]&string hello world[/code] exports "hello world"

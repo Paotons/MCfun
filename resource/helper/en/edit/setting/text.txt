@@ -1,0 +1,43 @@
+[title]Highlight[/title]
+
+You can customize the highlight color of each element while editing.
+
+[title]Completion[/title]
+
+[b]Max completion count:[/b] Completion items beyond this threshold are cut off to reduce overhead.
+
+[b]Show hint words:[/b] When enabled, hint words are shown in parentheses. For example:
+[code]cat   (Cat)[/code]
+
+[b]Use hint word weight:[/b] When enabled, typing a hint word prioritizes it in the list. Because it computes hint word similarity, performance cost doubles.
+
+[b]Complete space names:[/b] When disabled, every entry like [code]minecraft:apple[/code] shows only [code]apple[/code]. Enabling adds a small performance cost.
+[title]Behavior[/title]
+
+[b]Double-tap mapping:[/b] This helps with symbol input. If you quickly type the same character twice in a row, it is converted. The default configuration is as follows:
+[code]" " : "\t"
+"s" : "§"
+"." : "~"
+"," : "^"
+"z" : "="
+"n" : "!"
+"a" : "@"
+"q" : "{"
+"p" : "}"
+"w" : "["
+"o" : "]"
+"e" : "<"
+"i" : ">"[/code]
+
+[title]Auto Save[/title]
+
+[b]Auto save:[/b] When enabled, auto saving is allowed.
+
+[b]Save interval:[/b] The time interval between auto saves.
+
+[title]Grammar[/title]
+
+The grammar used by the default editor.
+
+[b]Grammar path:[/b] You can view the grammar path. On every launch, if the directory is missing, the program tries to copy it in.
+[b]Extract grammar:[/b] If the grammar is lost or out of date, you can manually update it.

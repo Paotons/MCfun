@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://daio2odmv7kgw"]
 
 [ext_resource type="Script" uid="uid://1ic2wkh6sbt8" path="res://scene/edit/setting/edit_setting.gd" id="1_h0p1a"]
+[ext_resource type="Script" uid="uid://56u5pn7cbqwn" path="res://scene/edit/language_option.gd" id="2_h54lb"]
 [ext_resource type="PackedScene" uid="uid://cj6k3ve1jedrn" path="res://scene/selected_data_root/selected_data_root.tscn" id="2_igemm"]
 
 [sub_resource type="GDScript" id="GDScript_2n6rp"]
@@ -134,34 +135,6 @@ func _on_item_selected(index: int) -> void:
 	
 	get_viewport().get_window().content_scale_factor = sca
 	get_window().popup_centered_clamped()
-"
-
-[sub_resource type="GDScript" id="GDScript_g7b7a"]
-script/source = "extends OptionButton
-
-const TRANSLATIONS : PackedStringArray = [\"zh\", \"en\"]
-const SELECT_NAME := \"UINormal\"
-
-func _on_visibility_changed() -> void:
-	if visible:
-		var config := ConfigFile.new()
-		if FileAccess.file_exists(FileSystem.config_path):
-			config.load(FileSystem.config_path)
-		select(get_translation_index(config.get_value(SELECT_NAME, \"translation\", OS.get_locale())))
-
-func get_translation_index(nam : String) -> int:
-	var i := TRANSLATIONS.find(nam)
-	return 0 if i == -1 else i
-
-func _on_item_selected(index: int) -> void:
-	var config := ConfigFile.new()
-	if FileAccess.file_exists(FileSystem.config_path):
-		config.load(FileSystem.config_path)
-	var trans := TRANSLATIONS[index]
-	config.set_value(SELECT_NAME, \"translation\", trans)
-	config.save(FileSystem.config_path)
-	
-	TranslationServer.set_locale(trans)
 "
 
 [sub_resource type="GDScript" id="GDScript_bkxbc"]
@@ -371,6 +344,7 @@ func _ready() -> void:
 	update_label(value)
 	super()
 	value_changed.connect(update_label)
+	TranslationSystem.local_changed.connect(_on_translation_system_local_changed)
 
 ## 更新标签。
 func update_label(new_value: float) -> void:
@@ -378,7 +352,7 @@ func update_label(new_value: float) -> void:
 	@warning_ignore(\"integer_division\")
 	var m := t / 60
 	var s := t % 60
-	_get_label().text = tr(_LABEL_MODEL) % (tr(\"%dmin%dsec\") % [m, s] if m != 0 else tr(\"%dsec\") % s)
+	_get_label().text = TranslationSystem.tr(_LABEL_MODEL) % (TranslationSystem.tr(\"%dmin%dsec\") % [m, s] if m != 0 else TranslationSystem.tr(\"%dsec\") % s)
 
 func _get_config_value(config : ConfigFile) -> float:
 	var val : float = config.get_value(config_selector, config_key, default_value)
@@ -388,6 +362,9 @@ func _update_edit(number : float) -> void:
 	var timer := EditBaseControl.get_base_control().get_auto_saving_timer()
 	timer.wait_time = number
 	timer.start()
+
+func _on_translation_system_local_changed() -> void:
+	update_label(value)
 "
 
 [sub_resource type="GDScript" id="GDScript_iw8q2"]
@@ -484,19 +461,19 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer3" unique_id=2035708197]
 layout_mode = 2
-text = "translation"
+text = "language"
 
-[node name="OptionButton" type="OptionButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer3" unique_id=1850526028]
+[node name="LanguageOption" type="OptionButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer3" unique_id=1850526028]
 layout_mode = 2
 size_flags_horizontal = 10
 flat = true
-selected = 0
+selected = 1
 item_count = 2
 popup/item_0/text = "简体中文"
 popup/item_0/id = 0
 popup/item_1/text = "English"
 popup/item_1/id = 1
-script = SubResource("GDScript_g7b7a")
+script = ExtResource("2_h54lb")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal" unique_id=809876429]
 layout_mode = 2
@@ -1066,8 +1043,6 @@ script = SubResource("GDScript_iw8q2")
 [connection signal="close_requested" from="." to="." method="hide"]
 [connection signal="item_selected" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" method="_on_item_selected"]
 [connection signal="visibility_changed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer/OptionButton" method="_on_visibility_changed"]
-[connection signal="item_selected" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer3/OptionButton" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer3/OptionButton" method="_on_item_selected"]
-[connection signal="visibility_changed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer3/OptionButton" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer3/OptionButton" method="_on_visibility_changed"]
 [connection signal="pressed" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer2/Button" to="SelectedDataRootWindow" method="popup_centered_clamped"]
 [connection signal="focus_exited" from="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/VBoxContainer/DoubleInputMap" to="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/EditBehavior/VBoxContainer/DoubleInputMap" method="_on_focus_exited"]
 [connection signal="pressed" from="VBoxContainer/SaveReopen/MarginContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]

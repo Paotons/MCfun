@@ -1,8 +1,24 @@
 extends Node
 ## 全局单例，TranslationServer。
 
+## 语言发生改变。
+signal local_changed()
+
+const _CONFIG_SELECTOR := "UINormal"
+const _CONFIG_SELECTOR_KEY := "translation"
+
+## 翻译的语言。
+var local : String:
+	set = set_lanauage
+
 func _ready() -> void:
-	var config := ConfigFile.new()
-	if FileAccess.file_exists(FileSystem.config_path):
-		config.load(FileSystem.config_path)
-	TranslationServer.set_locale(config.get_value("UINormal", "translation", OS.get_locale()))
+	local = FileSystem.config.get_value(_CONFIG_SELECTOR, _CONFIG_SELECTOR_KEY, OS.get_locale())
+	TranslationServer.set_locale(local)
+
+## 设置语言。
+func set_lanauage(value : String) -> void:
+	local = value
+	TranslationServer.set_locale(local)
+	FileSystem.config.set_value(_CONFIG_SELECTOR, _CONFIG_SELECTOR_KEY, value)
+	local_changed.emit()
+	FileSystem.config.save(FileSystem.config_path)

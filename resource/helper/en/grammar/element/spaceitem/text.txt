@@ -1,0 +1,8 @@
+[title]Description[/title]
+
+Space item.
+If the string does not start with a word, it is added to the expectation list and skipped.
+
+[title]Detail[/title]
+
+[b]chapter:[/b] String. The chapter used.

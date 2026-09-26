@@ -1,0 +1,30 @@
+[title]Categories[/title]
+
+Currently the only file type is [code]*.mcfun[/code].
+
+[title]System[/title]
+
+The file system is located at [code]Editor >> File >> System[/code] and can be used to create or delete files.
+
+[title]Open[/title]
+
+Opened files can be edited.
+
+Quickly open a file via [code]Editor >> File >> Open[/code].
+You can also open files through the file system via [code]Open >> File[/code]. To quickly open all files in a directory, use [code]Open >> Children[/code] in the file system.
+
+[title]Rename[/title]
+
+Located at [code]File >> Rename[/code] in the file system.
+
+[title]Copy[/title]
+
+Located at [code]File >> Copy[/code] in the file system.
+
+[title]Move[/title]
+
+Located at [code]File >> Move[/code] in the file system.
+
+[title]Delete[/title]
+
+Located at [code]File >> Delete[/code] in the file system.

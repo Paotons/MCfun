@@ -1,0 +1,4 @@
+[title]Description[/title]
+
+Word.
+If the string does not start with a word, it is added to the expectation list and skipped.

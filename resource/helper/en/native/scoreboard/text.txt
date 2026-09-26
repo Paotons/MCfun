@@ -1,0 +1,20 @@
+[title]Description[/title]
+
+Manage scoreboards and scores.
+
+[title]Position[/title]
+
+[code]&scoreboard players position <target> <axis> <score_holder> <objective> <mode> <iteration_count>[/code]
+Sets or offsets the score of a score holder on an objective to a target's position along a given axis.
+
+[b]target:[/b] Target selector; the target.
+[b]axis:[/b] The selected axis; may be [code]x,y,z[/code].
+[b]score_holder:[/b] Target selector; the score holder to operate on.
+[b]objective:[/b] Word; the objective to operate on.
+[b]mode:[/b] [code]set[/code] directly sets the score; [code]offset[/code] offsets it based on the current value. Default: [code]set[/code].
+[b]iteration_count:[/b] Integer. Since bisection is used, the maximum execution distance is still limited. A larger iteration count gives a wider range; the maximum range is [code]2 ^ iteration_count - 1[/code]. The default can cover 66 million, Default: [code]25[/code].
+
+[code]&scoreboard players position @s x @s origin[/code] sets the score of the named executor on the objective origin to its own x-axis position.
+
+[b]Limitations:[/b] Because the target selector's [code]distance[/code] only supports integers, scaling is not included; precision is limited to 1.0.
+[b]Note:[/b] This bisection method causes scores to be slightly small.

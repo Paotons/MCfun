@@ -1,0 +1,43 @@
+[title]Description[/title]
+
+Used in an [file grammar/entry]Entry[/file] to represent a path-based category.
+
+A line may use [code]{"type" : "file", "file" : "path"}[/code] to load the contents of another file as data. For example: [code]"cat" : {"type" : "file", "file" : "entry/mob/cat.json"}[/code].
+
+[title]V1[/title]
+
+For example, [code]playsound[/code] can be represented as:
+[code]{
+	"type" : "path",
+	"data" : {
+		"mob" : {
+			"cat" : {
+				"" : false,
+				"hit" : false,
+				"dead" : false
+			}
+		}
+	}
+}[/code]
+This way, [code]mob.cat mob.cat.hit mob.cat.dead[/code] become valid paths.
+
+[b]data:[/b] Represents infinite nesting; you can keep nesting indefinitely. [code]false[/code] is used as a placeholder.
+
+[title]V2[/title]
+
+For example, [code]playsound[/code] can be represented as:
+[code]{
+	"type" : "path",
+	"data" : {
+		"mob" : {
+			"cat" : {
+				"" : "Cat",
+				"hit" : "Cat hurt",
+				"dead" : "Cat death"
+			}
+		}
+	}
+}[/code]
+This way, [code]mob.cat mob.cat.hit mob.cat.dead[/code] become valid paths with corresponding hint words.
+
+[b]data:[/b] Represents infinite nesting; you can keep nesting indefinitely.

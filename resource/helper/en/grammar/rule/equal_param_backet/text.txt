@@ -1,0 +1,17 @@
+[title]Description[/title]
+
+Equal param bracket; similar to a target selector.
+
+[title]Detail[/title]
+
+[code]"detail" : "using_key"[/code] Uses keys; in this case the data should have two keys, [code]"key"[/code] and [code]"value"[/code], defining the key element and the value element respectively.
+
+This may change in the future.
+
+[title]Data[/title]
+
+[code] "data" : {
+	"a" : {...},
+	...
+}[/code]
+The parameter key and the element it maps to.

@@ -1,0 +1,11 @@
+[title]Description[/title]
+
+Colon param bracket; similar to JSON.
+
+[title]Data[/title]
+
+[code] "data" : {
+	"a" : {...},
+	...
+}[/code]
+The parameter key and the element it maps to.

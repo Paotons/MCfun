@@ -1,0 +1,16 @@
+[title]Description[/title]
+
+A whole command.
+
+[title]Categories[/title]
+
+A command can have multiple types. For example, [code]root|normal[/code].
+
+[b]empty:[/b] Empty command; nothing at all.
+[b]root:[/b] Root command; the beginning of a command.
+[b]replace:[/b] Replace command; typically the command after execute run.
+[b]normal:[/b] Normal command; a command that directly exists in Minecraft.
+[b]help:[/b] Help command; a command starting with a question mark in Minecraft.
+[b]annotation:[/b] Annotation; starts with a hash.
+[b]native:[/b] Native command; starts with an ampersand.
+[b]comment:[/b] Comment command; starts with an at sign.

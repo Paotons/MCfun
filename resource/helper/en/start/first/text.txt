@@ -1,0 +1,64 @@
+[title]Create a Project[/title]
+
+Enter the project list, and click [code]New[/code] in the top toolbar.
+Enter a project name; English is recommended.
+You can leave the project directory as default.
+
+After creating, select the project and click [code]Edit[/code] on the right, or click the project again to enter the editor.
+
+[title]Create a File[/title]
+
+Click [code]File >> System[/code] in the top toolbar to enter the file system.
+In the file system, click [code]Add >> mcfun[/code], enter a file name (e.g. [code]Welcome[/code]), and confirm.
+
+Then select the file and click [code]Open >> File[/code] next to it to open the file.
+
+[title]Edit the File[/title]
+
+After opening, the file is automatically selected.
+You can start by typing [code]give @s app[/code], then press [code]Enter[/code] to quickly complete it.
+Now we have the command [code]give @s minecraft:apple[/code].
+
+Then click [code]File >> Save[/code] in the top toolbar; otherwise the file may be lost.
+
+[title]Project Settings[/title]
+
+If you are on the latest Minecraft version, no extra settings are needed; you can export directly.
+
+[code]Project >> Setting[/code] in the top toolbar opens the project settings.
+[code]Project name:[/code] The name of this project.
+[code]Project path:[/code] The path of this project. Not editable; only used for copying.
+[code]Project version:[/code] The version shown after export. Default 1.0.0.
+[code]Project description:[/code] Shown in the resource pack description after export.
+[code]Min engine version:[/code] The Minecraft version this resource pack runs on. Default 1.20.0.
+[b]Note:[/b] If the resource pack does not show up, it is very likely the [code]min engine version[/code] is misconfigured.
+
+[title]Project Export[/title]
+
+Click [code]Project >> Export[/code] in the top toolbar to open the export window.
+You can configure the export path, or just keep the default.
+Click Export and wait.
+When finished, you can copy the path to find the zip, or open it directly.
+
+[b]Note:[/b] If you did not set a data directory at first, the software directory is used by default and may not be directly accessible. Go to [code](Editor) Setting >> GUI >> General >> data directory[/code] to change it.
+[b]Note:[/b] The window cannot be closed during export.
+
+[title]Import into the Game[/title]
+
+Find your world; usually under [code]/storage/emulated/0/Android/data/com.mojang.minecraftpe/files/games/com.mojang/minecraftWorlds/[/code]. You can identify the world by the screenshot inside or by [code]levelname.txt[/code].
+Extract the zip into the [code]behavior_packs[/code] directory; that is enough.
+
+[b]Note:[/b] NetEase behavior packs may be stored inside the app and cannot be used directly. You need to manually copy them into command blocks; [file tool/coper]Copy Helper[/file] can help you quickly copy commands from a function.
+
+[title]Activate the Behavior Pack[/title]
+
+Enter Minecraft, open the world edit screen, and under [code]Behavior Packs >> My Packs[/code] there should be an entry with an error icon. Click and activate it.
+
+[b]Note:[/b] If it does not show up, you may need to restart the game, or the [code]Project Setting >> Min engine version[/code] is misconfigured.
+
+[title]Call the Function[/title]
+
+Enter the world and type [code]/function Welcome/ your file name[/code] to get an apple.
+
+[b]Note:[/b] If it says the function does not exist, you may need [code]/reload[/code] to reload functions.
+

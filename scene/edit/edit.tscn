@@ -77,7 +77,7 @@ func _on_thread() -> ConfigFile:
 	
 	_mutex.lock()
 	main_process.y = LoadingType.MAX
-	main_name = \"Loading data.\"
+	main_name = TranslationServer.translate(\"Loading data.\")
 	main_process.x = LoadingType.PROJECT
 	_mutex.unlock()
 	
@@ -105,7 +105,7 @@ func _on_thread() -> ConfigFile:
 	Thread.set_thread_safety_checks_enabled(true)
 	
 	_mutex.lock()
-	main_name = \"Loading GUI.\"
+	main_name = TranslationServer.translate(\"Loading GUI.\")
 	main_process.x = LoadingType.UI
 	_control_sub_process.y = _UI_LOADING_PROCESS_COUNT
 	_mutex.unlock()
@@ -145,7 +145,7 @@ func _thread_edit_grammar(_config : ConfigFile) -> bool:
 	if not errors.is_empty():
 		var directory := project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.CACHE).path_join(\"grammar\")
 		FileSystem.remove_directory(directory)
-		_popup_error.call_deferred(\"语法内容发生错误：\\n%s\" % \"\\n\".join(errors))
+		_popup_error.call_deferred(TranslationSystem.tr(\"Unvalid grammar:\\n%s\") % \"\\n\".join(errors))
 		return false
 	
 	(func() -> void:
@@ -1486,8 +1486,8 @@ dialog_close_on_escape = false
 [connection signal="load_data" from="Loader" to="ProjectExportSetting/Loader2" method="_on_loader_load_data"]
 [connection signal="load_edit_ui" from="Loader" to="AutoSaveingTimer" method="_on_loader_load_edit_ui"]
 [connection signal="load_ui" from="Loader" to="Base/Split" method="load_from_config"]
-[connection signal="load_ui" from="Loader" to="Base/Split/Split3" method="load_from_config"]
 [connection signal="load_ui" from="Loader" to="Base/Split/Split3" method="_on_loader_load_ui"]
+[connection signal="load_ui" from="Loader" to="Base/Split/Split3" method="load_from_config"]
 [connection signal="load_ui" from="Loader" to="Base/Split/Split3/FileList/MarginContainer/FileListContainer/Loader" method="_on_loader_load_ui"]
 [connection signal="load_ui" from="Loader" to="Base/Split/Split3/MarginContainer/FileTree" method="_on_loader_load_ui"]
 [connection signal="load_ui" from="Loader" to="Base/Split/Split2" method="load_from_config"]

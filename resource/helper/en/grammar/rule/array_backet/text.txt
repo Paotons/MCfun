@@ -1,0 +1,14 @@
+[title]Description[/title]
+
+Array bracket.
+
+[title]Detail[/title]
+
+[code]"detail" : "is_same"[/code] Uses the same key; in this case the data has only one value.
+
+This may change in the future.
+
+[title]Data[/title]
+
+[code] "data" : [{...}][/code]
+The corresponding element.

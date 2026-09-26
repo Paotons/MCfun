@@ -1,0 +1,16 @@
+[title]Description[/title]
+
+Option; provides a set of choices.
+Does not skip; with no valid choice, an error is raised by default.
+
+[title]Extra Data[/title]
+
+Can be a string array or a dictionary array.
+
+[code]["as", "at"][/code] defines the as and at options.
+[code][{"as" : "As"}, {"at" : "At"}][/code] not only defines as and at, but also attaches hint words.
+
+[title]Detail[/title]
+
+[b]using_entry:[/b] If [code]true[/code], a chapter is used. In this case, the extra data should be a string array, where each string is the chapter name that provides the options. The corresponding chapter should be a string chapter.
+[b]is_probing:[/b] If [code]true[/code], when no matching option is found, it is silently ignored instead of raising an error.

@@ -1,0 +1,33 @@
+[title]Description[/title]
+
+Used in an [file grammar/entry]Entry[/file] as an element that defines various string values.
+
+[title]V1[/title]
+
+For example, [code]gamemode[/code] can be written as:
+[code]{
+	"type" : "string",
+	"data" : [
+		"a",
+		"c",
+		"s"
+	]
+}[/code]
+
+This way, [code]gamemode[/code] has the three values [code]a, c, s[/code].
+
+[code]data:[/code] Used to define the various strings.
+
+[title]V2[/title]
+
+For example, [code]gamemode[/code] can be written as:
+[code]{
+	"type" : "string",
+	"data" : {
+		"a" : "Adventure Mode",
+		"c" : "Creative Mode",
+		"s" : "Survival Mode"
+	}
+}[/code]
+
+This way, [code]gamemode[/code] has the three values [code]a, c, s[/code] with corresponding hint words.

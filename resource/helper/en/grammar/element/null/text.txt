@@ -1,0 +1,4 @@
+[title]Description[/title]
+
+Represents nothing; acts as a placeholder.
+Does not skip.

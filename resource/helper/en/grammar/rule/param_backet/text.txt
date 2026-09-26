@@ -1,0 +1,8 @@
+[title]Description[/title]
+
+Param bracket; has exactly one parameter.
+
+[title]Data[/title]
+
+[code] "data" : [{...}][/code]
+The corresponding element.

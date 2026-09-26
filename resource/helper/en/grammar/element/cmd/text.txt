@@ -1,0 +1,26 @@
+[title]Description[/title]
+
+Advanced usage of an element; a string array stored within the element. It is not fully developed yet, and some features still have issues.
+
+[title]List[/title]
+
+Every command has a list. You can use [code]list[/code] to control this list.
+
+[code]list <list_name> add self[/code] adds the current element's string to the list.
+
+[title]Completion[/title]
+
+Controls completion. You can use [code]completion[/code] to control completion.
+
+[code]completion list <list_name>[/code] shows the list completion menu.
+
+[b]Note:[/b] This feature is not complete. Currently only [code]string, word, selector[/code] are supported.
+
+[title]Expectation List[/title]
+
+Controls the expectation list, which also controls completion. You can use [code]expectation[/code] to control completion.
+Every time a run occurs, if an element errors, it is automatically added to the expectation list.
+
+[code]expectation clear[/code] clears the expectation list.
+
+[b]Note:[/b] This feature is not complete. Currently only [code]null[/code] is supported.

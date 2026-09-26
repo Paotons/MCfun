@@ -1,0 +1,11 @@
+[title]Grammar[/title]
+
+Defines how commands are assembled.
+
+[b]Note:[/b] This is not yet fully mature; an invalid grammar may cause a crash.
+
+[title]Structure[/title]
+
+[file grammar/process]Process[/file] defines how a command is walked.
+[file grammar/law]Law[/file] defines rules for specific elements in a command.
+[file grammar/entry]Entry[/file] defines which values a specific element can take.

@@ -1,0 +1,9 @@
+[title]Description[/title]
+
+Comments start with @ and are ignored during export. They are used to change editor behavior. For example: [code]@list tag add my_tag[/code] so that later Tag completion has my_tag as an option.
+
+[b]Note:[/b] This feature is not yet complete.
+
+[title]Categories[/title]
+
+[file comment/list]Control completion data list[/file]
