@@ -1,0 +1,10 @@
+{
+	"zh": {
+		"type": "file",
+		"file": "translation/zh.json"
+	},
+	"en": {
+		"type": "file",
+		"file": "translation/en.json"
+	}
+}

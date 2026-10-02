@@ -55,11 +55,11 @@ static func create(text : String, offset : int, rule : ElementRule = null) -> Po
 	if valid_str.ends_with("."):
 		element.params.append(null)
 		path.append("")
-		element.create_error(element.get_valid_end(), TranslationSystem.tr("Can't end with \"%s\".") % ".")
+		element.create_error(element.get_valid_end(), TranslationSystem.t("Can't end with \"%s\".") % ".")
 	
 	var chapter := rule.get_chapter() as GrammarPathChapter
 	if chapter != null and not chapter.has_path(path):
-		element.create_error(offset, TranslationSystem.tr("Unfind the path."))
+		element.create_error(offset, TranslationSystem.t("Unfind the path."))
 	return element
 
 ## 获取路径。

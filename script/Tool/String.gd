@@ -177,3 +177,10 @@ static func is_child_path(parent : String, child : String) -> bool:
 ## 去除父路径。
 static func remove_parent_path(parent : String, child : String) -> String:
 	return child.substr(parent.length() + (1 if not parent.ends_with("/") else 0))
+## 把字符串数组变换成字符串名称数组。
+static func to_stringname_array(value : PackedStringArray) -> Array[String]:
+	var result : Array[String]
+	result.resize(value.size())
+	for i in value.size():
+		result[i] = StringName(value[i])
+	return result

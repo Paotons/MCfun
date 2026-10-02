@@ -34,5 +34,3 @@ func has_column(column : int) -> bool:
 	is_faild_assert()
 	column -= string_offset
 	return 0 < column and column <= string.length()
-
-

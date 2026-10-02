@@ -42,5 +42,3 @@ func _update_command(command : BaseCommandElement, text : String, pos : Vector2i
 			return command.update(text, pos.x)
 		i += 1
 	return null
-
-

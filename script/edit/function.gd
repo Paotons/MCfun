@@ -24,7 +24,13 @@ const DEFAULT_DOUBLE_INPUT_MAP : Dictionary[String, String] = {
 ## 指令数据。
 var _command_elements : Dictionary[int, BaseCommandElement]
 ## 语法。
-var grammar : Grammar
+var grammar : Grammar:
+	set(value):
+		if grammar != null:
+			grammar.translation.local_changed.disconnect(_on_grammar_translation_local_changed)
+		grammar = value
+		if value != null:
+			value.translation.local_changed.connect(_on_grammar_translation_local_changed)
 
 @export_group("code_expleation")
 ## 最大补全提示数量。
@@ -292,3 +298,7 @@ func _on_line_added(_line : int, _line_id : int) -> void:
 	pass
 func _on_line_removed(_line : int, line_id : int) -> void:
 	_command_elements.erase(line_id)
+
+func _on_grammar_translation_local_changed() -> void:
+	clear_hint()
+	add_code_hint()

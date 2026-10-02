@@ -1,56 +1,56 @@
 {
 	"type" : "path",
 	"data" : {
-		"animation": {
-			"player" :{
+		"animation" : {
+			"player" : {
 				"attack" : {
-					"rotations": "攻击旋转",
-					"spear": "三叉戟攻击",
-					"shield": "盾牌格挡"
+					"rotations" : "Attack Rotation",
+					"spear" : "Spear Attack",
+					"shield" : "Shield Block"
 				},
 				"move" : {
-					"": "移动动作",
-					"legs" :{
-						"": "腿部移动",
-						"inverted": "腿部反转移动"
+					"" : "Move",
+					"legs" : {
+						"" : "Legs Move",
+						"inverted" : "Legs Move Inverted"
 					}
 				},
-				"riding" :{
-					"legs": "骑乘腿部动作"
+				"riding" : {
+					"legs" : "Riding Legs"
 				},
-				"sleeping": "睡觉",
-				"swim": "游泳",
+				"sleeping" : "Sleeping",
+				"swim" : "Swim",
 				"using_item" : {
-					"": "使用物品",
-					"in_air": "空中使用物品"
+					"" : "Using Item",
+					"in_air" : "Using Item In Air"
 				},
-				"crossbow_hold": "手持弩",
-				"crossbow_charge": "弩上弦"
+				"crossbow_hold" : "Crossbow Hold",
+				"crossbow_charge" : "Crossbow Charge"
 			},
 			"wolf" : {
-				"angry": "狼愤怒",
-				"walk": "狼行走",
-				"baby_land": "小狼落地"
+				"angry" : "Wolf Angry",
+				"walk" : "Wolf Walk",
+				"baby_land" : "Wolf Baby Land"
 			},
 			"fox" : {
-				"sleep": "狐狸睡觉",
-				"walk": "狐狸行走"
+				"sleep" : "Fox Sleep",
+				"walk" : "Fox Walk"
 			},
 			"cat" : {
-				"sleep": "猫睡觉"
+				"sleep" : "Cat Sleep"
 			},
 			"horse" : {
-				"gallop": "马飞奔",
-				"jump": "马跳跃"
+				"gallop" : "Horse Gallop",
+				"jump" : "Horse Jump"
 			},
 			"villager" : {
-				"celebrate": "村民庆祝",
-				"work": "村民工作",
-				"trade": "村民交易"
+				"celebrate" : "Villager Celebrate",
+				"work" : "Villager Work",
+				"trade" : "Villager Trade"
 			},
 			"armor_stand" : {
-				"riposte_pose": "盔甲架回刺",
-				"salute_pose": "盔甲架敬礼"
+				"riposte_pose" : "Armor Stand Riposte Pose",
+				"salute_pose" : "Armor Stand Salute Pose"
 			}
 		}
 	}

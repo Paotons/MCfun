@@ -1,5 +1,5 @@
 class_name GrammarLawCompiler
-extends GrammarCompiler
+extends BaseGrammarCompiler
 ## 语法规则解析器。
 
 enum LawMeta {

@@ -1,6 +1,6 @@
 @abstract
 class_name GrammarRuleCompiler
-extends GrammarCompiler
+extends BaseGrammarCompiler
 ## 语法规则解析器。
 ##
 ## 抽象类，你不应该实例化。
@@ -21,4 +21,3 @@ var law : Dictionary
 var rule_name : String
 ## 指令列表。
 var cmd_list_types : PackedStringArray
-

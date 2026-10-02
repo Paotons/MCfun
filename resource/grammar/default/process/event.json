@@ -1,11 +1,11 @@
 {
-	"description" : "触发指定对象事件",
+	"description" : "Trigger an entity event",
 	"data" : [
-		{"id" : 0, "extends" : -1, "goto" : [1], "type" : "option", "items" : [{"entity" : "实体"}], "description" : "事件类型"},
+		{"id" : 0, "extends" : -1, "goto" : [1], "type" : "option", "items" : [{"entity" : "Entity"}], "description" : "Event type"},
 		{"goto" : 999},
 		
-		{"id" : 1, "extends" : 0, "type" : "selector", "description" : "对象实体"},
-		{"id" : 2, "extends" : 1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["entity_event"], "is_end" : true, "description" : "事件名称"},
+		{"id" : 1, "extends" : 0, "type" : "selector", "description" : "Target"},
+		{"id" : 2, "extends" : 1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["entity_event"], "is_end" : true, "description" : "Event name"},
 		{"goto" : 999},
 		
 		{"id" : 999},

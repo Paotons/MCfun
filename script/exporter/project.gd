@@ -10,7 +10,7 @@ static func export(project : Project, setting : ProjectExportSetting) -> void:
 	
 	setting.mutex.lock()
 	setting.main_process = ProjectExportSetting.MainProcess.START
-	setting.current_process = "Start."
+	setting.current_process = TranslationSystem.t("Start.")
 	setting.sub_process = Vector2i(-1, -1)
 	setting.mutex.unlock()
 	
@@ -28,13 +28,14 @@ static func export(project : Project, setting : ProjectExportSetting) -> void:
 	DirAccess.make_dir_absolute(path.path_join("functions"))
 	_export_create_functions(project, setting, packer)
 	
+	TranslationSystem.t("")
 	packer.close()
 
 # 创建主要文件。
 static func _export_create_manifset(project : Project, setting : ProjectExportSetting, packer : ZIPPacker) -> void:
 	setting.mutex.lock()
 	setting.main_process = ProjectExportSetting.MainProcess.MANIFEST
-	setting.current_process = "Creating leader-file."
+	setting.current_process = TranslationSystem.t("Creating leader-file.")
 	setting.sub_process = Vector2i(1, 1)
 	setting.mutex.unlock()
 	
@@ -46,7 +47,7 @@ static func _export_create_manifset(project : Project, setting : ProjectExportSe
 static func _export_create_functions(project : Project, setting : ProjectExportSetting, packer : ZIPPacker) -> void:
 	setting.mutex.lock()
 	setting.main_process = ProjectExportSetting.MainProcess.FUNCTIONS
-	setting.current_process = "Compiling function."
+	setting.current_process = TranslationSystem.t("Compiling function.")
 	setting.sub_process = Vector2i(-1, -1)
 	setting.mutex.unlock()
 	
@@ -55,11 +56,12 @@ static func _export_create_functions(project : Project, setting : ProjectExportS
 		var fun_path := fun_paths[i]
 		
 		setting.mutex.lock()
-		setting.current_process = TranslationSystem.tr("Compiling function.") + "[%s]" % [fun_path.get_file()]
+		setting.current_process = TranslationSystem.t("Compiling function.") + "[%s]" % [fun_path.get_file()]
 		setting.sub_process =Vector2i(i, fun_paths.size())
 		setting.mutex.unlock()
 		
 		_export_create_function(project, fun_path, setting, packer)
+		
 # 创建函数。
 static func _export_create_function(project : Project, fun_path : String, setting : ProjectExportSetting, packer : ZIPPacker) -> void:
 	var local := project.get_project_config().global_path_to_local(fun_path)

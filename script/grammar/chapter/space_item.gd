@@ -87,4 +87,4 @@ func _get_space_items_count(space : String) -> int:
 func _get_space_items(space : String) -> PackedStringArray:
 	return main_data[space][_SPACE_ITEM_ITEMS]
 func _get_space_displays(space : String) -> PackedStringArray:
-	return main_data[space][_SPACE_ITEM_DIZPLAYS]
+	return EditManager.get_grammar_translation().ts(main_data[space][_SPACE_ITEM_DIZPLAYS])

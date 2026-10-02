@@ -1,24 +1,24 @@
 {
-	"type": "path",
-	"data": {
-		"slot": {
-			"weapon": {
-				"mainhand": "主手",
-				"offhand": "副手"
+	"type" : "path",
+	"data" : {
+		"slot" : {
+			"weapon" : {
+				"mainhand" : "Mainhand",
+				"offhand" : "Offhand"
 			},
-			"armor": {
-				"head": "头盔",
-				"chest": "胸甲",
-				"legs": "护腿",
-				"feet": "靴子"
+			"armor" : {
+				"head" : "Head",
+				"chest" : "Chest",
+				"legs" : "Legs",
+				"feet" : "Feet"
 			},
-			"hotbar": "快捷栏",
-			"inventory": "物品栏",
-			"enderchest": "末影箱",
-			"mule_chest": "骡子箱子",
-			"saddle": "鞍",
-			"horse_armor": "马铠",
-			"pig_saddle": "猪鞍"
+			"hotbar" : "Hotbar",
+			"inventory" : "Inventory",
+			"enderchest" : "Ender Chest",
+			"mule_chest" : "Mule Chest",
+			"saddle" : "Saddle",
+			"horse_armor" : "Horse Armor",
+			"pig_saddle" : "Pig Saddle"
 		}
 	}
 }

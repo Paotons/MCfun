@@ -42,7 +42,7 @@ static func create(text : String, offset : int, start := "{", end := "}", rule :
 	while index < length:
 		var sult := ColonParamElement.create(text, index, rule)
 		if sult.is_faild:
-			element.create_error(index, TranslationSystem.tr("Unfind param."))
+			element.create_error(index, TranslationSystem.t("Unfind param."))
 			element.params.append(null)
 			var split := text.find(",", index)
 			if split == -1:

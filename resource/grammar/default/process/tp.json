@@ -1,28 +1,28 @@
 {
-	"description" : "传送实体",
+	"description" : "Teleport entities",
 	"data" : [
-		{"id" : 0, "extends" : -1, "goto" : 2, "type" : "selector", "is_end" : true, "description" : "对象"},
-		{"id" : 1, "extends" : -1, "type" : "coords", "is_end" : true, "description" : "目标位置"},
+		{"id" : 0, "extends" : -1, "goto" : 2, "type" : "selector", "is_end" : true, "description" : "Target"},
+		{"id" : 1, "extends" : -1, "type" : "coords", "is_end" : true, "description" : "Destination position"},
 		{"extends" : 1, "goto" : 5, "cmd" : ["expectation clear"]},
 		{"goto" : 999},
 		
-		{"id" : 2, "extends" : 0, "goto" : 998, "type" : "selector", "is_end" : true, "description" : "目标对象"},
-		{"id" : 3, "extends" : 0, "type" : "coords", "is_end" : true, "description" : "目标位置"},
+		{"id" : 2, "extends" : 0, "goto" : 998, "type" : "selector", "is_end" : true, "description" : "Destination entity"},
+		{"id" : 3, "extends" : 0, "type" : "coords", "is_end" : true, "description" : "Destination position"},
 		{"id" : 4, "extends" : 3, "goto" : 5, "cmd" : ["expectation clear"]},
 		{"goto" : 999},
 		
 		{"id" : 5},
-		{"id" : 6, "extends" : 5, "goto" : [9], "type" : "option", "detail" : {"is_probing" : true}, "items" : [{"facing" : "面向目标"}], "description" : "面向目标"},
-		{"id" : 7, "extends" : 5, "type" : "coord", "is_end" : false, "description" : "水平方向"},
-		{"id" : 8, "extends" : 7, "goto" : 998, "type" : "coord", "is_end" : true, "description" : "垂直方向"},
+		{"id" : 6, "extends" : 5, "goto" : [9], "type" : "option", "detail" : {"is_probing" : true}, "items" : [{"facing" : "Facing"}], "description" : "Facing"},
+		{"id" : 7, "extends" : 5, "type" : "coord", "is_end" : false, "description" : "Yaw"},
+		{"id" : 8, "extends" : 7, "goto" : 998, "type" : "coord", "is_end" : true, "description" : "Pitch"},
 		{"goto" : 999},
-		{"id" : 9, "extends" : 6, "goto" : 998, "type" : "coords", "description" : "面向位置"},
-		{"id" : 10, "extends" : 6, "type" : "selector", "description" : "面向对象"},
+		{"id" : 9, "extends" : 6, "goto" : 998, "type" : "coords", "description" : "Facing position"},
+		{"id" : 10, "extends" : 6, "type" : "selector", "description" : "Facing entity"},
 		{"extends" : 10, "goto" : 998, "cmd" : ["expectation clear"]},
 		
 		{"goto" : 999},
 		
-		{"id" : 998, "type" : "bool", "description" : "更新区块"},
+		{"id" : 998, "type" : "bool", "description" : "Update blocks"},
 		{"id" : 999}
 	]
 }

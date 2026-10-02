@@ -43,13 +43,7 @@ func get_data() -> Dictionary:
 func get_head_completion_data() -> FunctionCompletionData:
 	if _head_completion_data != null:
 		return _head_completion_data
-	
-	var data := FunctionCompletionData.new()
-	data.insert_texts.append_array(get_heads())
-	data.display_texts.append_array(get_descriptions())
-	data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
-	_head_completion_data = data
-	
+	_update_head_completion_data()
 	return _head_completion_data
 
 ## 返回指令的一个项。
@@ -160,4 +154,17 @@ func _get_command_data(head : String) -> Array:
 	return main_data[head][_COMMAND_DATA]
 # 返回指令的描述。
 func _get_command_description(head : String) -> String:
-	return main_data[head][_COMMAND_DESCRIPTION]
+	return EditManager.get_grammar_translation().t(main_data[head][_COMMAND_DESCRIPTION])
+# 更新指令头补全数据。
+func _update_head_completion_data() -> void:
+	var data := FunctionCompletionData.new()
+	data.insert_texts.append_array(get_heads())
+	data.display_texts.append_array(get_descriptions())
+	data.fill_insert_mode(FunctionCompletionData.InsertMode.WORLD)
+	_head_completion_data = data
+
+func _on_translation_system_changed() -> void:
+	_update_head_completion_data()
+## [b]Protected:[/b]连接翻译器。
+func _follow_translation(translation : GrammarTranslation) -> void:
+	translation.local_changed.connect.call_deferred(_on_translation_system_changed)

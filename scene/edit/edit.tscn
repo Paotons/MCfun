@@ -97,7 +97,7 @@ func _on_thread() -> ConfigFile:
 	if not errors.is_empty():
 		var directory := project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.CACHE).path_join(\"grammar\")
 		FileSystem.remove_directory(directory)
-		_popup_error.call_deferred(TranslationSystem.tr(\"Unvaild grammar:\\n%s\") % \"\\n\".join(errors))
+		_popup_error.call_deferred(TranslationSystem.t(\"Unvaild grammar:\\n%s\") % \"\\n\".join(errors))
 		return config
 	
 	Thread.set_thread_safety_checks_enabled(false)
@@ -105,7 +105,7 @@ func _on_thread() -> ConfigFile:
 	Thread.set_thread_safety_checks_enabled(true)
 	
 	_mutex.lock()
-	main_name = TranslationServer.translate(\"Loading GUI.\")
+	main_name = TranslationSystem.t(\"Loading GUI.\")
 	main_process.x = LoadingType.UI
 	_control_sub_process.y = _UI_LOADING_PROCESS_COUNT
 	_mutex.unlock()
@@ -118,7 +118,8 @@ func _on_thread() -> ConfigFile:
 func _process(_delta: float) -> void:
 	if _thread.is_started() and not _thread.is_alive():
 		var config : ConfigFile = _thread.wait_to_finish()
-		load_ui.emit(config)
+		if EditManager.get_edit().grammar != null:
+			load_ui.emit(config)
 		
 		_base_control.set_loading.call_deferred(\"\", \"\")
 		_base_control.hide_lading.call_deferred()
@@ -145,7 +146,7 @@ func _thread_edit_grammar(_config : ConfigFile) -> bool:
 	if not errors.is_empty():
 		var directory := project.get_project_cache().get_cache_path(ProjectChache.DirectoryType.CACHE).path_join(\"grammar\")
 		FileSystem.remove_directory(directory)
-		_popup_error.call_deferred(TranslationSystem.tr(\"Unvalid grammar:\\n%s\") % \"\\n\".join(errors))
+		_popup_error.call_deferred(TranslationSystem.t(\"Unvalid grammar:\\n%s\") % \"\\n\".join(errors))
 		return false
 	
 	(func() -> void:

@@ -325,4 +325,3 @@ func _compile_type(from : Dictionary) -> bool:
 	
 	compiled_result[META_TYPE] = type
 	return true
-

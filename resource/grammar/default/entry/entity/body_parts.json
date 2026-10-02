@@ -1,7 +1,7 @@
 {
 	"type" : "string",
 	"data" : {
-		"eyes" : "眼睛",
-		"feet" : "脚"
+		"eyes" : "Eyes",
+		"feet" : "Feet"
 	}
 }

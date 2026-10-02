@@ -1,15 +1,15 @@
 {
-	"description" : "添加或删除迷雾设置文件",
+	"description" : "Add or remove fog settings",
 	"data" : [
-		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "对象实体"},
-		{"id" : 1, "extends" : 0, "goto" : [2, 2, 3], "type" : "option", "items" : [{"pop" : "移除最近添加的"}, {"remove" : "移除"}, {"push" : "添加"}]},
+		{"id" : 0, "extends" : -1, "type" : "selector", "description" : "Target"},
+		{"id" : 1, "extends" : 0, "goto" : [2, 2, 3], "type" : "option", "items" : [{"pop" : "Pop"}, {"remove" : "Remove"}, {"push" : "Push"}]},
 		{"goto" : 999},
 		
-		{"id" : 2, "extends" : 1, "type" : "word", "is_end" : true, "cmd" : ["completion list fog"], "description" : "迷雾名称"},
+		{"id" : 2, "extends" : 1, "type" : "word", "is_end" : true, "cmd" : ["completion list fog"], "description" : "Fog ID"},
 		{"goto" : 999},
 		
-		{"id" : 3, "extends" : 1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["fog"], "description" : "迷雾类型"},
-		{"id" : 4, "extends" : 3, "type" : "word", "is_end" : true, "cmd" : ["list fog add self"], "description" : "迷雾名称"},
+		{"id" : 3, "extends" : 1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["fog"], "description" : "Fog type"},
+		{"id" : 4, "extends" : 3, "type" : "word", "is_end" : true, "cmd" : ["list fog add self"], "description" : "Fog ID"},
 		{"goto" : 999},
 		
 		{"id" : 999},

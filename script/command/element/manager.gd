@@ -52,4 +52,3 @@ static func string_to_command_type(string : String) -> int:
 			if _COMMAND_TYPE_STRING_MAP[key] == value:
 				res |= key
 	return res
-

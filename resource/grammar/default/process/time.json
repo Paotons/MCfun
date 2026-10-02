@@ -1,14 +1,14 @@
 {
-	"description" : "更改或查询世界时间",
+	"description" : "Change or query world time",
 	"data" : [
-		{"id" : 0, "extends" : -1, "goto" : [1, 1, 2], "type" : "option", "items" : ["set", "add", "query"], "description" : "操作模式"},
+		{"id" : 0, "extends" : -1, "goto" : [1, 1, 2], "type" : "option", "items" : ["set", "add", "query"], "description" : "Mode"},
 		{"goto" : 999},
 		
-		{"id" : 1, "extends" : 0, "goto" : 999, "type" : "int", "is_end" : true, "description" : "时间"},
-		{"id" : 2, "extends" : 0, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["time_spec"], "description" : "时间名称"},
+		{"id" : 1, "extends" : 0, "goto" : 999, "type" : "int", "is_end" : true, "description" : "Time"},
+		{"id" : 2, "extends" : 0, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["time_spec"], "description" : "Time spec"},
 		{"id" : 3, "extends" : 2, "goto" : 999, "is_end" : true},
 		{"goto" : 999},
-		{"id" : 4, "extends" : 0, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["time_query"], "description" : "时间类别"},
+		{"id" : 4, "extends" : 0, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["time_query"], "description" : "Time query"},
 		{"id" : 5, "extends" : 4, "goto" : 999, "is_end" : true},
 		{"goto" : 999},
 		

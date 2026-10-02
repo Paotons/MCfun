@@ -4,5 +4,3 @@ extends RefCounted
 
 ## 指令元素。
 var command : BaseCommandElement
-
-

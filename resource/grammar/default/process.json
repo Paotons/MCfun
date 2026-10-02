@@ -1,70 +1,274 @@
 {
-	"alwaysday" : {"type" : "file", "file" : "process/alwaysday.json"},
-	"camera" : {"type" : "file", "file" : "process/camera.json"},
-	"camerashake" : {"type" : "file", "file" : "process/camerashake.json"},
-	"clear" : {"type" : "file", "file" : "process/clear.json"},
-	"clearspawnpoint" : {"type" : "file", "file" : "process/clear_spawnpoint.json"},
-	"clone" : {"type" : "file", "file" : "process/clone.json"},
-	"connect" : {"type" : "file", "file" : "process/connect.json"},
-	"damage" : {"type" : "file", "file" : "process/damage.json"},
-	"daylock" : {"type" : "file", "file" : "process/daylock.json"},
-	"deop" : {"type" : "file", "file" : "process/deop.json"},
-	"dialogue" : {"type" : "file", "file" : "process/dialogue.json"},
-	"difficulty" : {"type" : "file", "file" : "process/difficulty.json"},
-	"effect" : {"type" : "file", "file" : "process/effect.json"},
-	"enchant" : {"type" : "file", "file" : "process/enchant.json"},
-	"event" : {"type" : "file", "file" : "process/event.json"},
-	"execute" : {"type" : "file", "file" : "process/execute.json"},
-	"fill" : {"type" : "file", "file" : "process/fill.json"},
-	"fog" : {"type" : "file", "file" : "process/fog.json"},
-	"function" : {"type" : "file", "file" : "process/function.json"},
-	"gamemode" : {"type" : "file", "file" : "process/gamemode.json"},
-	"gamerule" : {"type" : "file", "file" : "process/gamerule.json"},
-	"gametest" : {"type" : "file", "file" : "process/gametest.json"},
-	"give" : {"type" : "file", "file" : "process/give.json"},
-	"help" : {"type" : "file", "file" : "process/help.json"},
-	"hud" : {"type" : "file", "file" : "process/hud.json"},
-	"inputpremission" : {"type" : "file", "file" : "process/input_premission.json"},
-	"kick" : {"type" : "file", "file" : "process/kick.json"},
-	"kill" : {"type" : "file", "file" : "process/kill.json"},
-	"list" : {"type" : "file", "file" : "process/list.json"},
-	"locate" : {"type" : "file", "file" : "process/locate.json"},
-	"loot" : {"type" : "file", "file" : "process/loot.json"},
-	"me" : {"type" : "file", "file" : "process/me.json"},
-	"particle" : {"type" : "file", "file" : "process/particle.json"},
-	"playanimation" : {"type" : "file", "file" : "process/playanimation.json"},
-	"playsound" : {"type" : "file", "file" : "process/playsound.json"},
-	"reload" : {"type" : "file", "file" : "process/reload.json"},
-	"replaceitem" : {"type" : "file", "file" : "process/replaceitem.json"},
-	"ride" : {"type" : "file", "file" : "process/ride.json"},
-	"say" : {"type" : "file", "file" : "process/say.json"},
-	"schedule" : {"type" : "file", "file" : "process/schedule.json"},
-	"script" : {"type" : "file", "file" : "process/script.json"},
-	"scriptevent" : {"type" : "file", "file" : "process/scriptevent.json"},
-	"scoreboard" : {"type" : "file", "file" : "process/scoreboard.json"},
-	"setblock" : {"type" : "file", "file" : "process/setblock.json"},
-	"setmaxplayers" : {"type" : "file", "file" : "process/setmaxplayers.json"},
-	"setworldspawn" : {"type" : "file", "file" : "process/setworldspawn.json"},
-	"spawnpoint" : {"type" : "file", "file" : "process/spawnpoint.json"},
-	"spreadplayers" : {"type" : "file", "file" : "process/spreadplayers.json"},
-	"stopsound" : {"type" : "file", "file" : "process/stopsound.json"},
-	"structure" : {"type" : "file", "file" : "process/structure.json"},
-	"summon" : {"type" : "file", "file" : "process/summon.json"},
-	"tag" : {"type" : "file", "file" : "process/tag.json"},
-	"teleport" : {"type" : "file", "file" : "process/teleport.json"},
-	"tell" : {"type" : "file", "file" : "process/tell.json"},
-	"tellraw" : {"type" : "file", "file" : "process/tellraw.json"},
-	"testfor" : {"type" : "file", "file" : "process/testfor.json"},
-	"testforblock" : {"type" : "file", "file" : "process/testforblock.json"},
-	"testforblocks" : {"type" : "file", "file" : "process/testforblocks.json"},
-	"tickingarea" : {"type" : "file", "file" : "process/tickingarea.json"},
-	"time" : {"type" : "file", "file" : "process/time.json"},
-	"title" : {"type" : "file", "file" : "process/title.json"},
-	"titleraw" : {"type" : "file", "file" : "process/titleraw.json"},
-	"toggledownfall" : {"type" : "file", "file" : "process/toggle_downfall.json"},
-	"tp" : {"type" : "file", "file" : "process/tp.json"},
-	"w" : {"type" : "file", "file" : "process/w.json"},
-	"weather" : {"type" : "file", "file" : "process/weather.json"},
-	"wsserver" : {"type" : "file", "file" : "process/wsserver.json"},
-	"xp" : {"type" : "file", "file" : "process/xp.json"},
+	"alwaysday": {
+		"type": "file",
+		"file": "process/alwaysday.json"
+	},
+	"camera": {
+		"type": "file",
+		"file": "process/camera.json"
+	},
+	"camerashake": {
+		"type": "file",
+		"file": "process/camerashake.json"
+	},
+	"clear": {
+		"type": "file",
+		"file": "process/clear.json"
+	},
+	"clearspawnpoint": {
+		"type": "file",
+		"file": "process/clear_spawnpoint.json"
+	},
+	"clone": {
+		"type": "file",
+		"file": "process/clone.json"
+	},
+	"connect": {
+		"type": "file",
+		"file": "process/connect.json"
+	},
+	"damage": {
+		"type": "file",
+		"file": "process/damage.json"
+	},
+	"daylock": {
+		"type": "file",
+		"file": "process/daylock.json"
+	},
+	"deop": {
+		"type": "file",
+		"file": "process/deop.json"
+	},
+	"dialogue": {
+		"type": "file",
+		"file": "process/dialogue.json"
+	},
+	"difficulty": {
+		"type": "file",
+		"file": "process/difficulty.json"
+	},
+	"effect": {
+		"type": "file",
+		"file": "process/effect.json"
+	},
+	"enchant": {
+		"type": "file",
+		"file": "process/enchant.json"
+	},
+	"event": {
+		"type": "file",
+		"file": "process/event.json"
+	},
+	"execute": {
+		"type": "file",
+		"file": "process/execute.json"
+	},
+	"fill": {
+		"type": "file",
+		"file": "process/fill.json"
+	},
+	"fog": {
+		"type": "file",
+		"file": "process/fog.json"
+	},
+	"function": {
+		"type": "file",
+		"file": "process/function.json"
+	},
+	"gamemode": {
+		"type": "file",
+		"file": "process/gamemode.json"
+	},
+	"gamerule": {
+		"type": "file",
+		"file": "process/gamerule.json"
+	},
+	"gametest": {
+		"type": "file",
+		"file": "process/gametest.json"
+	},
+	"give": {
+		"type": "file",
+		"file": "process/give.json"
+	},
+	"help": {
+		"type": "file",
+		"file": "process/help.json"
+	},
+	"hud": {
+		"type": "file",
+		"file": "process/hud.json"
+	},
+	"inputpremission": {
+		"type": "file",
+		"file": "process/input_premission.json"
+	},
+	"kick": {
+		"type": "file",
+		"file": "process/kick.json"
+	},
+	"kill": {
+		"type": "file",
+		"file": "process/kill.json"
+	},
+	"list": {
+		"type": "file",
+		"file": "process/list.json"
+	},
+	"locate": {
+		"type": "file",
+		"file": "process/locate.json"
+	},
+	"loot": {
+		"type": "file",
+		"file": "process/loot.json"
+	},
+	"me": {
+		"type": "file",
+		"file": "process/me.json"
+	},
+	"particle": {
+		"type": "file",
+		"file": "process/particle.json"
+	},
+	"playanimation": {
+		"type": "file",
+		"file": "process/playanimation.json"
+	},
+	"playsound": {
+		"type": "file",
+		"file": "process/playsound.json"
+	},
+	"reload": {
+		"type": "file",
+		"file": "process/reload.json"
+	},
+	"replaceitem": {
+		"type": "file",
+		"file": "process/replaceitem.json"
+	},
+	"ride": {
+		"type": "file",
+		"file": "process/ride.json"
+	},
+	"say": {
+		"type": "file",
+		"file": "process/say.json"
+	},
+	"schedule": {
+		"type": "file",
+		"file": "process/schedule.json"
+	},
+	"script": {
+		"type": "file",
+		"file": "process/script.json"
+	},
+	"scriptevent": {
+		"type": "file",
+		"file": "process/scriptevent.json"
+	},
+	"scoreboard": {
+		"type": "file",
+		"file": "process/scoreboard.json"
+	},
+	"setblock": {
+		"type": "file",
+		"file": "process/setblock.json"
+	},
+	"setmaxplayers": {
+		"type": "file",
+		"file": "process/setmaxplayers.json"
+	},
+	"setworldspawn": {
+		"type": "file",
+		"file": "process/setworldspawn.json"
+	},
+	"spawnpoint": {
+		"type": "file",
+		"file": "process/spawnpoint.json"
+	},
+	"spreadplayers": {
+		"type": "file",
+		"file": "process/spreadplayers.json"
+	},
+	"stopsound": {
+		"type": "file",
+		"file": "process/stopsound.json"
+	},
+	"structure": {
+		"type": "file",
+		"file": "process/structure.json"
+	},
+	"summon": {
+		"type": "file",
+		"file": "process/summon.json"
+	},
+	"tag": {
+		"type": "file",
+		"file": "process/tag.json"
+	},
+	"teleport": {
+		"type": "file",
+		"file": "process/teleport.json"
+	},
+	"tell": {
+		"type": "file",
+		"file": "process/tell.json"
+	},
+	"tellraw": {
+		"type": "file",
+		"file": "process/tellraw.json"
+	},
+	"testfor": {
+		"type": "file",
+		"file": "process/testfor.json"
+	},
+	"testforblock": {
+		"type": "file",
+		"file": "process/testforblock.json"
+	},
+	"testforblocks": {
+		"type": "file",
+		"file": "process/testforblocks.json"
+	},
+	"tickingarea": {
+		"type": "file",
+		"file": "process/tickingarea.json"
+	},
+	"time": {
+		"type": "file",
+		"file": "process/time.json"
+	},
+	"title": {
+		"type": "file",
+		"file": "process/title.json"
+	},
+	"titleraw": {
+		"type": "file",
+		"file": "process/titleraw.json"
+	},
+	"toggledownfall": {
+		"type": "file",
+		"file": "process/toggle_downfall.json"
+	},
+	"tp": {
+		"type": "file",
+		"file": "process/tp.json"
+	},
+	"w": {
+		"type": "file",
+		"file": "process/w.json"
+	},
+	"weather": {
+		"type": "file",
+		"file": "process/weather.json"
+	},
+	"wsserver": {
+		"type": "file",
+		"file": "process/wsserver.json"
+	},
+	"xp": {
+		"type": "file",
+		"file": "process/xp.json"
+	}
 }

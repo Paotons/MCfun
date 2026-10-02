@@ -1,13 +1,12 @@
 {
-	
-	"block_quotation" : {"type" : "param_backet", "data" : [{"type" : "spaceitem", "detail" : {"chapter" : "block"}, "description" : "方块名称"}]},
+	"block_quotation" : {"type" : "param_backet", "data" : [{"type" : "spaceitem", "detail" : {"chapter" : "block"}, "description" : "Block"}]},
 	"blocks_quotation" : {"type" : "array_backet", "data" : [{"type" : "quotation", "detail" : "block_quotation"}]},
 	"empty_colon_param_backet" : {"type" : "colon_param_backet", "data" : {}},
-	"item_quotation" : {"type" : "param_backet", "data" : [{"type" : "spaceitem", "detail" : {"chapter" : "item"}, "description" : "物品名称"}]},
-	"rich_string_quotation" : {"type" : "param_backet", "data" : [{"type" : "rich_string", "detail" : {"long" : true}, "description" : "文本"}]},
-	"selector_quotation" : {"type" : "param_backet", "data" : [{"type" : "selector", "description" : "目标对象"}]},
-	"scoreboard_objective_quotation" : {"type" : "param_backet", "data" : [{"type" : "word", "cmd" : ["completion list scoreboard_objective"], "description" : "计分版"}]},
-	"scoreboard_player_quotation" : {"type" : "param_backet", "data" : [{"type" : "selector", "cmd" : ["completion list scoreboard_player"], "description" : "目标对象"}]},
+	"item_quotation" : {"type" : "param_backet", "data" : [{"type" : "spaceitem", "detail" : {"chapter" : "item"}, "description" : "Item"}]},
+	"rich_string_quotation" : {"type" : "param_backet", "data" : [{"type" : "rich_string", "detail" : {"long" : true}, "description" : "Text"}]},
+	"selector_quotation" : {"type" : "param_backet", "data" : [{"type" : "selector", "description" : "Target"}]},
+	"scoreboard_objective_quotation" : {"type" : "param_backet", "data" : [{"type" : "word", "cmd" : ["completion list scoreboard_objective"], "description" : "Objective"}]},
+	"scoreboard_player_quotation" : {"type" : "param_backet", "data" : [{"type" : "selector", "cmd" : ["completion list scoreboard_player"], "description" : "Target"}]},
 	
 	"selector_body" : {"type" : "file", "file" : "law/selector/selector.json"},
 	"selector_hasitem" : {"type" : "file", "file" : "law/selector/hasitem.json"},
@@ -18,5 +17,5 @@
 	"item_component_item_lock_mode" : {"type" : "file", "file" : "law/item_component/item_lock_mode.json"},
 	"t_show" : {"type" : "file", "file" : "law/t_show/t_show.json"},
 	"t_show_rawtext" : {"type" : "file", "file" : "law/t_show/rawtext.json"},
-	"t_show_score" : {"type" : "file", "file" : "law/t_show/score.json"},
+	"t_show_score" : {"type" : "file", "file" : "law/t_show/score.json"}
 }

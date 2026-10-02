@@ -34,41 +34,74 @@ func is_valid() -> bool:
 func _set_is_valid(enabled := true) -> void:
 	_is_valid = enabled
 ## [b]Protected:[/b]用于解析时，判断变量是否为指定类型，如果成功，返回 [code]true[/code]，如果失败，会记一次错误，并返回 [code]false[/code]。
-func _test_value_type(value : Variant, types : int, value_name := "Value") -> bool:
+func _test_value_type(value : Variant, types : int, nam := "Value") -> bool:
 	if types >> typeof(value) & 1 != 0:
 		return true
 	else:
-		errors.append("%s should be %s, but is %s." % [value_name, _type_strings(types), type_string(typeof(value))])
+		errors.append("%s should be %s, but is %s." % [nam, _type_strings(types), type_string(typeof(value))])
 		return false
 ## [b]Protescted:[/b]用于解析时，判断字典值的类型是否为指定类型，如果成功，返回 [code]true[/code]，如果失败，会记下错误，并返回 [code]false[/code]。。
-func _test_dictionary_value_types(dict : Dictionary, types : int, dict_name := "Dict") -> bool:
+func _test_dictionary_value_types(dict : Dictionary, types : int, nam := "Dict") -> bool:
 	var ok := true
 	for key in dict:
 		if types >> typeof(dict[key]) & 1 == 0:
-			errors.append("%s[%s] should be %s, but is %s." % [dict_name, key, _type_strings(types), type_string(typeof(dict[key]))])
+			errors.append("%s[%s] should be %s, but is %s." % [nam, key, _type_strings(types), type_string(typeof(dict[key]))])
 			ok = false
 	return ok
 ## [b]Protescted:[/b]用于解析时，判断字典键的类型是否为指定类型，如果成功，返回 [code]true[/code]，如果失败，会记下错误，并返回 [code]false[/code]。
-func _test_dictionary_key_types(dict : Dictionary, types : int, dict_name := "Dict") -> bool:
+func _test_dictionary_key_types(dict : Dictionary, types : int, nam := "Dict") -> bool:
 	var ok := true
 	for key in dict:
 		if types >> typeof(key) & 1 == 0:
-			errors.append("%s keys should be %s, but %s is %s." % [dict_name, _type_strings(types), key, type_string(typeof(key))])
+			errors.append("%s keys should be %s, but %s is %s." % [nam, _type_strings(types), key, type_string(typeof(key))])
 			ok = false
 	return ok
+## [b]Protescted:[/b]用于解析时，判断一个嵌套字典是否包含一个样本的数据类型，如果成功，返回 [code]true[/code]，如果失败，会记下错误，并返回 [code]false[/code]。
+func _test_dictionary_from_example(dict : Dictionary, example : Dictionary, nam := "Dict") -> bool:
+	var dicts : Array[Dictionary] = [dict]
+	var examples : Array[Dictionary] = [example]
+	var nams : Array[String] = [nam]
+	var is_ok := true
+	
+	while not dicts.is_empty():
+		var d := dicts.pop_back() as Dictionary
+		var e := examples.pop_back() as Dictionary
+		var n := nams.pop_back() as String
+		
+		for key in e:
+			if not d.has(key):
+				errors.append("%s should has key \"%s\"." % [n, key])
+				is_ok = false
+			elif e[key] is Dictionary:
+				if _test_value_type(d[key], 1 << TYPE_DICTIONARY, "%s[%s]" % [n, key]):
+					dicts.append(d[key])
+					examples.append(e[key])
+					nams.append("%s[%s]" % [n, key])
+				else:
+					is_ok = false
+			elif e[key] is int:
+				is_ok = _test_value_type(d[key], e[key], "%s[%s]" % [n, key])
+	return is_ok
+
 ## [b]Protescted:[/b]用于解析时，判断变量类型是否为指定类型的数组，指定长度，如果成功，返回 [code]true[/code]，如果失败，会记下错误，并返回 [code]false[/code]。
-func _test_array_types(arr : Array, types : int, arr_name := "Arr", size := -1) -> bool:
+func _test_array_types(arr : Array, types : int, nam := "Arr", size := -1) -> bool:
 	var ok := true
 	for i in arr.size():
 		if types >> typeof(arr[i]) & 1 == 0:
-			errors.append("%s[%s] should be %s, but is %s." % [arr_name, i, _type_strings(types), type_string(typeof(arr[i]))])
+			errors.append("%s[%s] should be %s, but is %s." % [nam, i, _type_strings(types), type_string(typeof(arr[i]))])
 			ok = false
 	if size >= 0 and arr.size() != size:
-		errors.append("%s size should be %d, but is %d." % [arr_name, size, arr.size()])
+		errors.append("%s size should be %d, but is %d." % [nam, size, arr.size()])
 	return ok
 ## [b]Protescted:[/b]用于解析时，判断数组类型是否为指定类型，指定长度，如果成功，返回 [code]true[/code]，如果失败，会记下错误，并返回 [code]false[/code]。
-func _test_value_array_types(value : Variant, types : int, value_name := "Value", size := -1) -> bool:
-	return _test_value_type(value, 1 << TYPE_ARRAY, value_name) and _test_array_types(value, types, value_name, size)
+func _test_value_array_types(value : Variant, types : int, nam := "Value", size := -1) -> bool:
+	return _test_value_type(value, 1 << TYPE_ARRAY, nam) and _test_array_types(value, types, nam, size)
+## [b]Protescted:[/b]用于解析时，判断JSON是否有解析错误，如果没有，返回 [code]true[/code]，如果有，会记下错误，并返回 [code]false[/code]。
+func _test_json(json : JSON, nam := "json") -> bool:
+	if json.get_error_line() != 0:
+		errors.append("%s json has error\n[%d] : %s." % [nam, json.get_error_line(), json.get_error_message()])
+		return false
+	return true
 
 ## [b]Protected:[/b]用于解析。[br]
 ## 如果 [param dict] 有 [param key]，[br]
@@ -78,7 +111,7 @@ func _test_value_array_types(value : Variant, types : int, value_name := "Value"
 ## 如果 [param force] 为 [code]false[/code] 时，屏蔽没有键报的错。其他情况下都会存入错误，并返回 [code]false[/code]。
 func _try_dictionary_key(
 	dict : Dictionary,
-	dict_name : String,
+	nam : String,
 	key : Variant,
 	to_key : Variant = key,
 	force := true,
@@ -88,7 +121,7 @@ func _try_dictionary_key(
 	
 	if not dict.has(key):
 		if force:
-			errors.append("%s not has %s." % [dict_name, key])
+			errors.append("%s not has %s." % [nam, key])
 			return false
 		else:
 			return true
@@ -99,10 +132,10 @@ func _try_dictionary_key(
 	compiled_result[to_key] = transform.call(dict[key]) if not transform.is_null() else dict[key]
 	return true
 ## [b]Protected:[/b]用于解析。见 [method _try_dictionary_key]。只是直接采用的值。
-func _try_dictionary_key_direct(dict : Dictionary, dict_name : String, key : Variant, to_key : Variant = key, force := true) -> bool:
+func _try_dictionary_key_direct(dict : Dictionary, nam : String, key : Variant, to_key : Variant = key, force := true) -> bool:
 	if not dict.has(key):
 		if force:
-			errors.append("%s not has %s." % [dict_name, key])
+			errors.append("%s not has %s." % [nam, key])
 			return false
 		else:
 			return true
@@ -124,4 +157,3 @@ func _type_strings(types : int) -> String:
 		index += 1
 		types >>= 1
 	return "|".join(result)
-

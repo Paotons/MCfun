@@ -23,7 +23,7 @@ func get_items() -> PackedStringArray:
 	return main_data[_MetaType.ITEMS]
 ## 获取物品的显示。
 func get_displays() -> PackedStringArray:
-	return main_data[_MetaType.DISPLAYS]
+	return EditManager.get_grammar_translation().ts(main_data[_MetaType.DISPLAYS])
 
 ## 如果有指定物体，返回 [code]true[/code]。
 func has_item(item : String) -> bool:

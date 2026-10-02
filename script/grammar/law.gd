@@ -61,4 +61,3 @@ func get_rule(name : String) -> GrammarRule:
 ## 返回指令列表类型。
 func get_cmd_list_types() -> PackedStringArray:
 	return _cmd_list_types
-

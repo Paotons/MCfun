@@ -1,7 +1,7 @@
 {
 	"type" : "string",
 	"data" : {
-		"replace" : "替换所有方块",
-		"masked" : "排除空气",
+		"replace" : "Replace All",
+		"masked" : "Skip Air"
 	}
 }

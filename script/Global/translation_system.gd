@@ -15,6 +15,10 @@ func _ready() -> void:
 	local = FileSystem.config.get_value(_CONFIG_SELECTOR, _CONFIG_SELECTOR_KEY, OS.get_locale())
 	TranslationServer.set_locale(local)
 
+## 翻译。与[method Node.tr]相比，该函数允许在任何情况下调用。
+func t(message : StringName, context := &"") -> StringName:
+	return TranslationServer.translate(message, context)
+
 ## 设置语言。
 func set_lanauage(value : String) -> void:
 	local = value

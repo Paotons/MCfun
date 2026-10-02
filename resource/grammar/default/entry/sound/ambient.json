@@ -1,43 +1,43 @@
 {
-	"description": "环境音效设置",
-	"cave" : "洞穴环境音",
+	"description": "Ambient Sound Settings",
+	"cave" : "Cave Ambient",
 	"basalt_deltas" : {
-		"description": "玄武岩三角洲群系环境音",
-		"additions" : "附加音效",
-		"loop" : "循环音效",
-		"mood" : "氛围音效"
+		"description": "Basalt Deltas Biome Ambient",
+		"additions" : "Ambient Additions",
+		"loop" : "Ambient Loop",
+		"mood" : "Ambient Mood"
 	},
 	"crimson_forest" : {
-		"description": "绯红森林群系环境音",
-		"additions" : "附加音效",
-		"loop" : "循环音效",
-		"mood" : "氛围音效"
+		"description": "Crimson Forest Biome Ambient",
+		"additions" : "Ambient Additions",
+		"loop" : "Ambient Loop",
+		"mood" : "Ambient Mood"
 	},
 	"nether_wastes" : {
-		"description": "下界荒地群系环境音",
-		"additions" : "附加音效",
-		"loop" : "循环音效",
-		"mood" : "氛围音效"
+		"description": "Nether Wastes Biome Ambient",
+		"additions" : "Ambient Additions",
+		"loop" : "Ambient Loop",
+		"mood" : "Ambient Mood"
 	},
 	"soul_sand_valley" : {
-		"description": "灵魂沙峡谷群系环境音",
-		"additions" : "附加音效",
-		"loop" : "循环音效",
-		"mood" : "氛围音效"
+		"description": "Soul Sand Valley Biome Ambient",
+		"additions" : "Ambient Additions",
+		"loop" : "Ambient Loop",
+		"mood" : "Ambient Mood"
 	},
 	"warped_forest" : {
-		"description": "诡异森林群系环境音",
-		"additions" : "附加音效",
-		"loop" : "循环音效",
-		"mood" : "氛围音效"
+		"description": "Warped Forest Biome Ambient",
+		"additions" : "Ambient Additions",
+		"loop" : "Ambient Loop",
+		"mood" : "Ambient Mood"
 	},
 	"weather" : {
-		"description": "天气环境音",
+		"description": "Weather Ambient",
 		"lightning" : {
-			"description": "闪电音效",
-			"impact" : "闪电冲击音"
+			"description": "Lightning Sound",
+			"impact" : "Lightning Impact"
 		},
-		"rain" : "雨声",
-		"thunder" : "雷声"
+		"rain" : "Rain Sound",
+		"thunder" : "Thunder Sound"
 	}
 }

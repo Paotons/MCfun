@@ -171,7 +171,7 @@ func remove_directory(path : String) -> void:
 		var parent := queue_parents.pop_back() as DirAccess
 		parent.remove(directory.get_current_dir().get_file())
 		queue_directories.remove_at(queue_directories.size() - 1)
-	file_system_changed.emit()
+	file_system_changed.emit.call_deferred()
 ## 递归复制文件/目录。
 func copy_directory(from : String, to : String, chmod_flags := -1) -> void:
 	if FileAccess.file_exists(from):
@@ -201,7 +201,7 @@ func copy_directory(from : String, to : String, chmod_flags := -1) -> void:
 				to_directory.make_dir(dir)
 			queue_directories.append(DirAccess.open(directory.get_current_dir().path_join(dir)))
 			queue_to_directories.append(DirAccess.open(to_directory.get_current_dir().path_join(dir)))
-	file_system_changed.emit()
+	file_system_changed.emit.call_deferred()
 ## 返回修改时间戳。
 func get_access_time(path : String) -> int:
 	if FileAccess.file_exists(path):

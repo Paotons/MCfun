@@ -1,5 +1,5 @@
 class_name GrammarEntryCompiler
-extends GrammarCompiler
+extends BaseGrammarCompiler
 ## 解析账目的类。
 ##
 ## 能够将字典转化成 [GrammarEntry] 可用的数据。
@@ -73,5 +73,3 @@ func _compile_chapter_type(from : Dictionary, to : Dictionary, name : String) ->
 	
 	to[GrammarChapter.ChapterMeta.TYPE] = type
 	return true
-
-

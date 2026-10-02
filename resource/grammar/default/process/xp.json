@@ -1,7 +1,7 @@
 {
-	"description" : "管理玩家经验",
+	"description" : "Manage player experience",
 	"data" : [
-		{"id" : 0, "extends" : -1, "type" : "int", "detail" : {"suffixs" : ["L", ""]}, "is_end" : true, "description" : "数量"},
-		{"id" : 1, "extends" : 0, "type" : "selector", "description" : "目标"}
+		{"id" : 0, "extends" : -1, "type" : "int", "detail" : {"suffixs" : ["L", ""]}, "is_end" : true, "description" : "Count"},
+		{"id" : 1, "extends" : 0, "type" : "selector", "description" : "Target"}
 	]
 }

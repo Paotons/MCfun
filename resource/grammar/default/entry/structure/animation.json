@@ -1,8 +1,8 @@
 {
 	"type" : "string",
 	"data" : {
-		"none": "无动画",
-		"block_by_block": "逐个方块",
-		"layer_by_layer": "逐层生成"
+		"none" : "No Animation",
+		"block_by_block" : "Block by Block",
+		"layer_by_layer" : "Layer by Layer"
 	}
 }

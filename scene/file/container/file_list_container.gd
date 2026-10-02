@@ -62,7 +62,7 @@ func move_file_up(idx : int) -> void:
 	set_file_index(idx, idx - 1)
 ## 向下移动文件。
 func move_file_down(idx : int) -> void:
-	if idx < 0 or idx > _files.size() - 1:
+	if idx < 0 or idx >= _files.size() - 1:
 		return
 	set_file_index(idx, idx + 1)
 

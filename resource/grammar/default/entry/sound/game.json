@@ -1,40 +1,40 @@
 {
-    "player" : {
-        "attack" : {
-            "knockback" : "击退攻击",
-            "strong" : "强力攻击",
-            "weak" : "虚弱攻击"
-        },
-        "die" : "玩家死亡",
-        "hurt" : "玩家受伤",
-        "hurt_drown" : "溺水伤害",
-        "hurt_fall" : "摔落伤害",
-        "hurt_fire" : "火焰伤害",
-        "hurt_freeze" : "冰冻伤害",
-        "hurt_on_fire" : "着火伤害",
-        "thorns" : {
-            "hit" : "荆棘反伤"
-        }
-    },
-    "player_levelup" : "玩家升级",
-    "potion" : {
-        "smash" : "药瓶破碎"
-    },
-    "raid" : {
-        "horn" : "袭击号角"
-    },
-    "tnt_primed" : "TNT点燃",
-    "weather" : {
-        "rain" : "下雨",
-        "thunder" : "打雷"
-    },
-    "wolf" : {
-        "bark" : "狼吠",
-        "growl" : "狼咆哮",
-        "howl" : "狼嚎",
-        "pant" : "狼喘息",
-        "shake" : "狼抖毛",
-        "step" : "狼脚步声",
-        "whine" : "狼呜咽"
-    }
+	"player" : {
+		"attack" : {
+			"knockback" : "Player Attack Knockback",
+			"strong" : "Player Attack Strong",
+			"weak" : "Player Attack Weak"
+		},
+		"die" : "Player Die",
+		"hurt" : "Player Hurt",
+		"hurt_drown" : "Player Hurt Drown",
+		"hurt_fall" : "Player Hurt Fall",
+		"hurt_fire" : "Player Hurt Fire",
+		"hurt_freeze" : "Player Hurt Freeze",
+		"hurt_on_fire" : "Player Hurt On Fire",
+		"thorns" : {
+			"hit" : "Player Thorns Hit"
+		}
+	},
+	"player_levelup" : "Player Level Up",
+	"potion" : {
+		"smash" : "Potion Smash"
+	},
+	"raid" : {
+		"horn" : "Raid Horn"
+	},
+	"tnt_primed" : "TNT Primed",
+	"weather" : {
+		"rain" : "Weather Rain",
+		"thunder" : "Weather Thunder"
+	},
+	"wolf" : {
+		"bark" : "Wolf Bark Sound",
+		"growl" : "Wolf Growl Sound",
+		"howl" : "Wolf Howl Sound",
+		"pant" : "Wolf Pant Sound",
+		"shake" : "Wolf Shake Sound",
+		"step" : "Wolf Step Sound",
+		"whine" : "Wolf Whine Sound"
+	}
 }

@@ -2,7 +2,7 @@ class_name GrammarPathChapterCompiler
 extends GrammarChapterCompiler
 ## 路径解析器。
 
-class _Path extends GrammarCompiler:
+class _Path extends BaseGrammarCompiler:
 	enum _PathMeta {
 		# 表示可直接结尾。
 		IS_END,
@@ -26,7 +26,6 @@ class _Path extends GrammarCompiler:
 	
 	func _compile(data : Variant) -> void:
 		var from : Dictionary = data
-		dictionary_file_replace(from, compiler_data.base_directory)
 		
 		compiled_result = {}
 		
@@ -38,26 +37,26 @@ class _Path extends GrammarCompiler:
 		var mumber : PackedStringArray
 		var group_mumber : PackedStringArray
 		var group_data : Array[Dictionary]
-		var mumber_displays : PackedStringArray
+		var mumber_displays : Array[StringName]
 		
 		if from.has(""):
 			compiled_result[_PathMeta.IS_END] = true
-			compiled_result[_PathMeta.DISPLAY] = from[""] if from[""] is String else ""
+			compiled_result[_PathMeta.DISPLAY] = StringName(from[""]) if from[""] is String else &""
 			from.erase("")
 		else:
 			compiled_result[_PathMeta.IS_END] = false
-			compiled_result[_PathMeta.DISPLAY] = ""
+			compiled_result[_PathMeta.DISPLAY] = &""
 		
 		for key : String in from:
 			var value = from[key]
 			
 			if value is bool:
 				mumber.append(key)
-				mumber_displays.append("")
+				mumber_displays.append(&"")
 			
 			elif value is String:
 				mumber.append(key)
-				mumber_displays.append(value)
+				mumber_displays.append(StringName(value))
 			
 			elif value is Dictionary:
 				group_mumber.append(key)
@@ -100,6 +99,3 @@ func _compile(data : Variant) -> void:
 		return
 	compiled_result[ChapterMeta.DATA] = obj.get_result()
 	_set_is_valid(true)
-
-
-

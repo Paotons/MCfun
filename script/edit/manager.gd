@@ -52,6 +52,9 @@ func get_grammar_native_process() -> GrammarProcess:
 ## 返回注解进程。
 func get_grammar_comment_process() -> GrammarProcess:
 	return function_edit.grammar.get_process(Grammar.ProcessType.COMMENT)
+## 返回语法翻译。
+func get_grammar_translation() -> GrammarTranslation:
+	return function_edit.grammar.get_translation()
 ## 获取规则。
 func get_grammar_law() -> GrammarLaw:
 	return function_edit.grammar.get_law()

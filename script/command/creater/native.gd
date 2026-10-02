@@ -5,7 +5,7 @@ extends ProcessCommandElementCreater
 ## 完全从无开始创建。
 func run_from_empty(text : String, process : CommandElementCreaterProcess) -> void:
 	if text[process.offset] != "&":
-		create_error(0, TranslationSystem.tr("Native command should begin with \"&\"."))
+		create_error(0, TranslationSystem.t("Native command should begin with \"&\"."))
 		return get_command()
 	
 	get_command().is_faild = false
@@ -37,7 +37,7 @@ func _do_head(text : String, process : CommandElementCreaterProcess) -> bool:
 	get_command().head_string = head
 	
 	if not process.grammar.has_head(head):
-		create_error(result.get_valid_start(), TranslationSystem.tr("Unfind head \"%s\".") % [head])
+		create_error(result.get_valid_start(), TranslationSystem.t("Unfind head \"%s\".") % [head])
 		return false
 	
 	process.offset = result.get_valid_end()

@@ -1,5 +1,5 @@
 class_name ElementCMDCompiler
-extends GrammarCompiler
+extends BaseGrammarCompiler
 ## 元素命令解析器。
 
 ## 元素名称。
@@ -7,7 +7,7 @@ var element_name : String
 ## 列表类型。
 var list_types : PackedStringArray
 
-class CMD extends GrammarCompiler:
+class CMD extends BaseGrammarCompiler:
 	enum Head {
 		## 列表。
 		LIST,
@@ -108,6 +108,3 @@ func _compile_string(string : String) -> bool:
 		return true
 	errors.append("%s not has cmd \"%s\"." % [element_name, string])
 	return false
-
-
-

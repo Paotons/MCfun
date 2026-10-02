@@ -1,9 +1,9 @@
 {
-	"format_version" : 1,
-	
-	"files" : {
-		"process" : "process.json",
-		"entry" : "entry.json",
-		"law" : "law.json",
+	"format_version": 1.0,
+	"files": {
+		"process": "process.json",
+		"entry": "entry.json",
+		"law": "law.json",
+		"translation": "translation.json"
 	}
 }

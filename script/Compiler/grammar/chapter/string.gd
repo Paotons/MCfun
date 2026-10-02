@@ -2,7 +2,7 @@ class_name GrammarStringChapterCompiler
 extends GrammarChapterCompiler
 ## 章目字符串解析器。
 
-class _Item extends GrammarCompiler:
+class _Item extends BaseGrammarCompiler:
 	enum _MetaType {
 		# 物品。
 		ITEMS,
@@ -36,10 +36,10 @@ class _Item extends GrammarCompiler:
 		if not _test_dictionary_value_types(from, 1 << TYPE_STRING, "%s[data]" % chapter):
 			return
 		var keys := from.keys()
-		var values : Array # 出于顺序安全，不敢用 values()
+		var values : Array[StringName] # 出于顺序安全，不敢用 values()
 		values.resize(keys.size())
 		for i in keys.size():
-			values[i] = from[keys[i]]
+			values[i] = StringName(from[keys[i]])
 		compiled_result[_MetaType.ITEMS] = keys
 		compiled_result[_MetaType.DISPLAYS] = values
 		_set_is_valid(true)
@@ -63,5 +63,3 @@ func _compile(data : Variant) -> void:
 	
 	compiled_result[ChapterMeta.DATA] = obj.get_result()
 	_set_is_valid(true)
-
-

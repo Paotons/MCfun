@@ -1,6 +1,6 @@
 {
-	"description" : "丛服务器踢出一名玩家",
+	"description" : "Kick a player from the server",
 	"data" : [
-		{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true, "description" : "玩家"}
+		{"id" : 0, "extends" : -1, "type" : "selector", "is_end" : true, "description" : "Player"}
 	]
 }

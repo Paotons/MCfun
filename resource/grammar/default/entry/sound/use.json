@@ -1,54 +1,54 @@
 {
-    "anvil" : {
-        "use" : "使用铁砧"
-    },
-    "button" : {
-        "click" : "点击按钮"
-    },
-    "cartography_table" : {
-        "take_result" : "取出制图台结果"
-    },
-    "character" : {
-        "create" : "创建角色",
-        "delete" : "删除角色",
-        "join" : "加入角色",
-        "leave" : "离开角色",
-        "load" : "加载角色",
-        "rename" : "重命名角色",
-        "select" : "选择角色",
-        "swap" : "交换角色"
-    },
-    "chest" : {
-        "open" : "打开箱子",
-        "slot" : "箱子槽位操作"
-    },
-    "dropdown" : {
-        "select" : "选择下拉选项"
-    },
-    "hover" : {
-        "generic" : "悬停通用"
-    },
-    "inspect" : {
-        "slot" : "检查槽位"
-    },
-    "loom" : {
-        "select_pattern" : "选择织布机图案",
-        "take_result" : "取出织布机结果"
-    },
-    "map" : {
-        "close" : "关闭地图",
-        "close_fail" : "关闭地图失败",
-        "open" : "打开地图"
-    },
-    "stonecutter" : {
-        "take_result" : "取出切石机结果"
-    },
-    "toast" : {
-        "in" : "吐司进入",
-        "out" : "吐司退出"
-    },
-    "trade" : {
-        "scribe" : "交易书写",
-        "select" : "选择交易"
-    }
+	"anvil" : {
+		"use" : "Use Anvil"
+	},
+	"button" : {
+		"click" : "Use Button Click"
+	},
+	"cartography_table" : {
+		"take_result" : "Use Cartography Table Take Result"
+	},
+	"character" : {
+		"create" : "Use Character Create",
+		"delete" : "Use Character Delete",
+		"join" : "Use Character Join",
+		"leave" : "Use Character Leave",
+		"load" : "Use Character Load",
+		"rename" : "Use Character Rename",
+		"select" : "Use Character Select",
+		"swap" : "Use Character Swap"
+	},
+	"chest" : {
+		"open" : "Use Chest Open",
+		"slot" : "Use Chest Slot"
+	},
+	"dropdown" : {
+		"select" : "Use Dropdown Select"
+	},
+	"hover" : {
+		"generic" : "Use Hover Generic"
+	},
+	"inspect" : {
+		"slot" : "Use Inspect Slot"
+	},
+	"loom" : {
+		"select_pattern" : "Use Loom Select Pattern",
+		"take_result" : "Use Loom Take Result"
+	},
+	"map" : {
+		"close" : "Use Map Close",
+		"close_fail" : "Use Map Close Fail",
+		"open" : "Use Map Open"
+	},
+	"stonecutter" : {
+		"take_result" : "Use Stonecutter Take Result"
+	},
+	"toast" : {
+		"in" : "Use Toast In",
+		"out" : "Use Toast Out"
+	},
+	"trade" : {
+		"scribe" : "Use Trade Scribe",
+		"select" : "Use Trade Select"
+	}
 }

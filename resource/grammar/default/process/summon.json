@@ -1,27 +1,27 @@
 {
-	"description" : "生成一个实体",
+	"description" : "Summon an entity",
 	"data" : [
-		{"id" : 0, "extends" : -1, "goto" : 1, "type" : "spaceitem", "detail" : {"chapter" : "entity"}, "is_end" : true, "description" : "实体类型"},
+		{"id" : 0, "extends" : -1, "goto" : 1, "type" : "spaceitem", "detail" : {"chapter" : "entity"}, "is_end" : true, "description" : "Entity type"},
 		{"goto" : 999},
 		
-		{"id" : 1, "extends" : 0, "goto" : 5, "type" : "coords", "description" : "位置"},
-		{"id" : 2, "extends" : 0, "type" : "rich_string", "description" : "名称"},
+		{"id" : 1, "extends" : 0, "goto" : 5, "type" : "coords", "description" : "Position"},
+		{"id" : 2, "extends" : 0, "type" : "rich_string", "description" : "Name"},
 		{"id" : 3, "extends" : 2, "goto" : 4, "cmd" : ["expectation clear"]},
 		{"goto" : 999},
 		
-		{"id" : 4, "type" : "coords", "description" : "位置"},
+		{"id" : 4, "type" : "coords", "description" : "Position"},
 		{"goto" : 999},
 		
-		{"id" : 5, "extends" : 1, "goto" : [8], "type" : "option", "detail" : {"is_probing" : true}, "items" : [{"facing" : "面向目标"}], "is_end" : false, "description" : "面向目标"},
-		{"id" : 6, "extends" : 1, "type" : "coord", "is_end" : false, "description" : "横向方向"},
-		{"id" : 7, "extends" : 6, "goto" : 10, "type" : "coord", "is_end" : true, "description" : "纵向方向"},
+		{"id" : 5, "extends" : 1, "goto" : [8], "type" : "option", "detail" : {"is_probing" : true}, "items" : [{"facing" : "Facing"}], "is_end" : false, "description" : "Facing"},
+		{"id" : 6, "extends" : 1, "type" : "coord", "is_end" : false, "description" : "Yaw"},
+		{"id" : 7, "extends" : 6, "goto" : 10, "type" : "coord", "is_end" : true, "description" : "Pitch"},
 		{"goto" : 999},
-		{"id" : 8, "extends" : 5, "goto" : 10, "type" : "coords", "is_end" : true, "description" : "面向位置"},
-		{"id" : 9, "extends" : 5, "goto" : 10, "type" : "selector", "is_end" : true, "description" : "面向对象"},
+		{"id" : 8, "extends" : 5, "goto" : 10, "type" : "coords", "is_end" : true, "description" : "Facing position"},
+		{"id" : 9, "extends" : 5, "goto" : 10, "type" : "selector", "is_end" : true, "description" : "Facing entity"},
 		{"goto" : 999},
 		
-		{"id" : 10, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["entity_event"], "description" : "实体事件"},
-		{"id" : 11, "type" : "rich_string", "detail" : {"long" : true}, "description" : "名称"},
+		{"id" : 10, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["entity_event"], "description" : "Entity event"},
+		{"id" : 11, "type" : "rich_string", "detail" : {"long" : true}, "description" : "Name"},
 		{"goto" : 999},
 		
 		{"id" : 999}

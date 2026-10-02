@@ -1,652 +1,652 @@
 {
 	"block" : {
 		"bamboo" : {
-			"break" : "破坏竹子",
-			"fall" : "竹子落下",
-			"hit" : "击打竹子",
-			"place" : "放置竹子",
-			"step" : "在竹子上行走"
+			"break" : "Bamboo Break",
+			"fall" : "Bamboo Fall",
+			"hit" : "Bamboo Hit",
+			"place" : "Bamboo Place",
+			"step" : "Bamboo Step"
 		},
 		"bamboo_sapling" : {
-			"break" : "破坏竹笋",
-			"place" : "放置竹笋"
+			"break" : "Bamboo Sapling Break",
+			"place" : "Bamboo Sapling Place"
 		},
 		"barrel" : {
-			"close" : "关闭桶",
-			"open" : "打开桶"
+			"close" : "Barrel Close",
+			"open" : "Barrel Open"
 		},
 		"basalt" : {
-			"break" : "破坏玄武岩",
-			"fall" : "玄武岩落下",
-			"hit" : "击打玄武岩",
-			"place" : "放置玄武岩",
-			"step" : "在玄武岩上行走"
+			"break" : "Basalt Break",
+			"fall" : "Basalt Fall",
+			"hit" : "Basalt Hit",
+			"place" : "Basalt Place",
+			"step" : "Basalt Step"
 		},
 		"beacon" : {
-			"activate" : "激活信标",
-			"ambient" : "信标环境音效",
-			"deactivate" : "停用信标",
-			"power" : "信标能量"
+			"activate" : "Beacon Activate",
+			"ambient" : "Beacon Ambient",
+			"deactivate" : "Beacon Deactivate",
+			"power" : "Beacon Power"
 		},
 		"beehive" : {
-			"drip" : "蜜蜂滴落",
-			"enter" : "蜜蜂进入蜂巢",
-			"exit" : "蜜蜂离开蜂巢",
-			"shear" : "剪切蜂巢",
-			"work" : "蜜蜂工作"
+			"drip" : "Beehive Drip",
+			"enter" : "Beehive Enter",
+			"exit" : "Beehive Exit",
+			"shear" : "Beehive Shear",
+			"work" : "Beehive Work"
 		},
 		"bell" : {
-			"hit" : "敲击钟",
-			"resonate" : "钟共鸣"
+			"hit" : "Bell Hit",
+			"resonate" : "Bell Resonate"
 		},
 		"blastfurnace" : {
-			"fire_crackle" : "高炉火焰噼啪声"
+			"fire_crackle" : "Blast Furnace Fire Crackle"
 		},
 		"bone_block" : {
-			"break" : "破坏骨块",
-			"fall" : "骨块落下",
-			"hit" : "击打骨块",
-			"place" : "放置骨块",
-			"step" : "在骨块上行走"
+			"break" : "Bone Block Break",
+			"fall" : "Bone Block Fall",
+			"hit" : "Bone Block Hit",
+			"place" : "Bone Block Place",
+			"step" : "Bone Block Step"
 		},
 		"brewing_stand" : {
-			"brew" : "酿造台酿造"
+			"brew" : "Brewing Stand Brew"
 		},
 		"bubble_column" : {
-			"bubble" : "气泡柱气泡",
-			"upwards_ambient" : "上升气泡环境音",
-			"upwards_inside" : "气泡柱内部上升音",
-			"whirlpool_ambient" : "漩涡气泡环境音",
-			"whirlpool_inside" : "气泡柱内部漩涡音"
+			"bubble" : "Bubble Column Bubble",
+			"upwards_ambient" : "Bubble Column Upwards Ambient",
+			"upwards_inside" : "Bubble Column Upwards Inside",
+			"whirlpool_ambient" : "Bubble Column Whirlpool Ambient",
+			"whirlpool_inside" : "Bubble Column Whirlpool Inside"
 		},
 		"button" : {
-			"click" : "按钮点击",
-			"click_off" : "按钮关闭点击",
-			"click_on" : "按钮开启点击"
+			"click" : "Button Click",
+			"click_off" : "Button Click Off",
+			"click_on" : "Button Click On"
 		},
 		"cake" : {
-			"add_candle" : "蛋糕添加蜡烛",
-			"eat" : "吃蛋糕"
+			"add_candle" : "Cake Add Candle",
+			"eat" : "Cake Eat"
 		},
 		"calcite" : {
-			"break" : "破坏方解石",
-			"fall" : "方解石落下",
-			"hit" : "击打方解石",
-			"place" : "放置方解石",
-			"step" : "在方解石上行走"
+			"break" : "Calcite Break",
+			"fall" : "Calcite Fall",
+			"hit" : "Calcite Hit",
+			"place" : "Calcite Place",
+			"step" : "Calcite Step"
 		},
 		"campfire" : {
-			"crackle" : "营火噼啪声"
+			"crackle" : "Campfire Crackle"
 		},
 		"candle" : {
-			"ambient" : "蜡烛环境音",
-			"break" : "破坏蜡烛",
-			"extinguish" : "熄灭蜡烛",
-			"fall" : "蜡烛落下",
-			"hit" : "击打蜡烛",
-			"place" : "放置蜡烛",
-			"step" : "在蜡烛上行走"
+			"ambient" : "Candle Ambient",
+			"break" : "Candle Break",
+			"extinguish" : "Candle Extinguish",
+			"fall" : "Candle Fall",
+			"hit" : "Candle Hit",
+			"place" : "Candle Place",
+			"step" : "Candle Step"
 		},
 		"cave_vines" : {
-			"break" : "破坏洞穴藤蔓",
-			"fall" : "洞穴藤蔓落下",
-			"hit" : "击打洞穴藤蔓",
-			"pick_berries" : "采摘发光浆果",
-			"place" : "放置洞穴藤蔓",
-			"step" : "在洞穴藤蔓上行走"
+			"break" : "Cave Vines Break",
+			"fall" : "Cave Vines Fall",
+			"hit" : "Cave Vines Hit",
+			"pick_berries" : "Cave Vines Pick Berries",
+			"place" : "Cave Vines Place",
+			"step" : "Cave Vines Step"
 		},
 		"chain" : {
-			"break" : "破坏锁链",
-			"fall" : "锁链落下",
-			"hit" : "击打锁链",
-			"place" : "放置锁链",
-			"step" : "在锁链上行走"
+			"break" : "Chain Break",
+			"fall" : "Chain Fall",
+			"hit" : "Chain Hit",
+			"place" : "Chain Place",
+			"step" : "Chain Step"
 		},
 		"chest" : {
-			"close" : "关闭箱子",
-			"lock" : "锁定箱子",
-			"open" : "打开箱子"
+			"close" : "Chest Close",
+			"lock" : "Chest Lock",
+			"open" : "Chest Open"
 		},
 		"chorus_flower" : {
-			"death" : "紫颂花死亡",
-			"grow" : "紫颂花生长"
+			"death" : "Chorus Flower Death",
+			"grow" : "Chorus Flower Grow"
 		},
 		"composter" : {
-			"empty" : "清空堆肥桶",
-			"fill" : "填充堆肥桶",
-			"fill_success" : "成功堆肥",
-			"ready" : "堆肥完成"
+			"empty" : "Composter Empty",
+			"fill" : "Composter Fill",
+			"fill_success" : "Composter Fill Success",
+			"ready" : "Composter Ready"
 		},
 		"conduit" : {
-			"activate" : "激活潮涌核心",
-			"ambient" : "潮涌核心环境音",
-			"attack" : "潮涌核心攻击",
-			"deactivate" : "停用潮涌核心",
-			"short" : "潮涌核心短音"
+			"activate" : "Conduit Activate",
+			"ambient" : "Conduit Ambient",
+			"attack" : "Conduit Attack",
+			"deactivate" : "Conduit Deactivate",
+			"short" : "Conduit Short"
 		},
 		"copper" : {
-			"break" : "破坏铜块",
-			"fall" : "铜块落下",
-			"hit" : "击打铜块",
-			"place" : "放置铜块",
-			"step" : "在铜块上行走"
+			"break" : "Copper Break",
+			"fall" : "Copper Fall",
+			"hit" : "Copper Hit",
+			"place" : "Copper Place",
+			"step" : "Copper Step"
 		},
 		"coral_block" : {
-			"break" : "破坏珊瑚块",
-			"fall" : "珊瑚块落下",
-			"hit" : "击打珊瑚块",
-			"place" : "放置珊瑚块",
-			"step" : "在珊瑚块上行走"
+			"break" : "Coral Block Break",
+			"fall" : "Coral Block Fall",
+			"hit" : "Coral Block Hit",
+			"place" : "Coral Block Place",
+			"step" : "Coral Block Step"
 		},
 		"deepslate" : {
-			"break" : "破坏深板岩",
-			"fall" : "深板岩落下",
-			"hit" : "击打深板岩",
-			"place" : "放置深板岩",
-			"step" : "在深板岩上行走"
+			"break" : "Deepslate Break",
+			"fall" : "Deepslate Fall",
+			"hit" : "Deepslate Hit",
+			"place" : "Deepslate Place",
+			"step" : "Deepslate Step"
 		},
 		"deepslate_bricks" : {
-			"break" : "破坏深板岩砖",
-			"fall" : "深板岩砖落下",
-			"hit" : "击打深板岩砖",
-			"place" : "放置深板岩砖",
-			"step" : "在深板岩砖上行走"
+			"break" : "Deepslate Bricks Break",
+			"fall" : "Deepslate Bricks Fall",
+			"hit" : "Deepslate Bricks Hit",
+			"place" : "Deepslate Bricks Place",
+			"step" : "Deepslate Bricks Step"
 		},
 		"deepslate_tiles" : {
-			"break" : "破坏深板岩瓦",
-			"fall" : "深板岩瓦落下",
-			"hit" : "击打深板岩瓦",
-			"place" : "放置深板岩瓦",
-			"step" : "在深板岩瓦上行走"
+			"break" : "Deepslate Tiles Break",
+			"fall" : "Deepslate Tiles Fall",
+			"hit" : "Deepslate Tiles Hit",
+			"place" : "Deepslate Tiles Place",
+			"step" : "Deepslate Tiles Step"
 		},
 		"door" : {
-			"close" : "关闭门",
-			"open" : "开门"
+			"close" : "Door Close",
+			"open" : "Door Open"
 		},
 		"dripstone_block" : {
-			"break" : "破坏滴水石块",
-			"fall" : "滴水石块落下",
-			"hit" : "击打滴水石块",
-			"place" : "放置滴水石块",
-			"step" : "在滴水石块上行走"
+			"break" : "Dripstone Block Break",
+			"fall" : "Dripstone Block Fall",
+			"hit" : "Dripstone Block Hit",
+			"place" : "Dripstone Block Place",
+			"step" : "Dripstone Block Step"
 		},
 		"enchanting_table" : {
-			"use" : "使用附魔台"
+			"use" : "Enchanting Table Use"
 		},
 		"ender_chest" : {
-			"close" : "关闭末影箱",
-			"open" : "打开末影箱"
+			"close" : "Ender Chest Close",
+			"open" : "Ender Chest Open"
 		},
 		"fence_gate" : {
-			"close" : "关闭栅栏门",
-			"open" : "打开栅栏门"
+			"close" : "Fence Gate Close",
+			"open" : "Fence Gate Open"
 		},
 		"fire" : {
-			"ambient" : "火焰环境音",
-			"extinguish" : "火焰熄灭"
+			"ambient" : "Fire Ambient",
+			"extinguish" : "Fire Extinguish"
 		},
 		"fletching_table" : {
-			"use" : "使用制箭台"
+			"use" : "Fletching Table Use"
 		},
 		"flowering_azalea" : {
-			"break" : "破坏盛开的杜鹃花丛",
-			"fall" : "盛开的杜鹃花丛落下",
-			"hit" : "击打盛开的杜鹃花丛",
-			"place" : "放置盛开的杜鹃花丛",
-			"step" : "在盛开的杜鹃花丛上行走"
+			"break" : "Flowering Azalea Break",
+			"fall" : "Flowering Azalea Fall",
+			"hit" : "Flowering Azalea Hit",
+			"place" : "Flowering Azalea Place",
+			"step" : "Flowering Azalea Step"
 		},
 		"frog_spawn" : {
-			"break" : "破坏青蛙卵",
-			"fall" : "青蛙卵落下",
-			"hit" : "击打青蛙卵",
-			"place" : "放置青蛙卵",
-			"step" : "在青蛙卵上行走"
+			"break" : "Frog Spawn Break",
+			"fall" : "Frog Spawn Fall",
+			"hit" : "Frog Spawn Hit",
+			"place" : "Frog Spawn Place",
+			"step" : "Frog Spawn Step"
 		},
 		"froglight" : {
-			"break" : "破坏蛙光体",
-			"fall" : "蛙光体落下",
-			"hit" : "击打蛙光体",
-			"place" : "放置蛙光体",
-			"step" : "在蛙光体上行走"
+			"break" : "Froglight Break",
+			"fall" : "Froglight Fall",
+			"hit" : "Froglight Hit",
+			"place" : "Froglight Place",
+			"step" : "Froglight Step"
 		},
 		"fungus" : {
-			"break" : "破坏菌类",
-			"fall" : "菌类落下",
-			"hit" : "击打菌类",
-			"place" : "放置菌类",
-			"step" : "在菌类上行走"
+			"break" : "Fungus Break",
+			"fall" : "Fungus Fall",
+			"hit" : "Fungus Hit",
+			"place" : "Fungus Place",
+			"step" : "Fungus Step"
 		},
 		"furnace" : {
-			"fire_crackle" : "熔炉火焰噼啪声"
+			"fire_crackle" : "Furnace Fire Crackle"
 		},
 		"glass" : {
-			"break" : "破坏玻璃",
-			"fall" : "玻璃落下",
-			"hit" : "击打玻璃",
-			"place" : "放置玻璃",
-			"step" : "在玻璃上行走"
+			"break" : "Glass Break",
+			"fall" : "Glass Fall",
+			"hit" : "Glass Hit",
+			"place" : "Glass Place",
+			"step" : "Glass Step"
 		},
 		"grass" : {
-			"break" : "破坏草方块",
-			"fall" : "草方块落下",
-			"hit" : "击打草方块",
-			"place" : "放置草方块",
-			"step" : "在草方块上行走"
+			"break" : "Grass Break",
+			"fall" : "Grass Fall",
+			"hit" : "Grass Hit",
+			"place" : "Grass Place",
+			"step" : "Grass Step"
 		},
 		"gravel" : {
-			"break" : "破坏沙砾",
-			"fall" : "沙砾落下",
-			"hit" : "击打沙砾",
-			"place" : "放置沙砾",
-			"step" : "在沙砾上行走"
+			"break" : "Gravel Break",
+			"fall" : "Gravel Fall",
+			"hit" : "Gravel Hit",
+			"place" : "Gravel Place",
+			"step" : "Gravel Step"
 		},
 		"grindstone" : {
-			"use" : "使用砂轮"
+			"use" : "Grindstone Use"
 		},
 		"hanging_roots" : {
-			"break" : "破坏垂根",
-			"fall" : "垂根落下",
-			"hit" : "击打垂根",
-			"place" : "放置垂根",
-			"step" : "在垂根上行走"
+			"break" : "Hanging Roots Break",
+			"fall" : "Hanging Roots Fall",
+			"hit" : "Hanging Roots Hit",
+			"place" : "Hanging Roots Place",
+			"step" : "Hanging Roots Step"
 		},
 		"honey_block" : {
-			"break" : "破坏蜜脾块",
-			"fall" : "蜜脾块落下",
-			"hit" : "击打蜜脾块",
-			"place" : "放置蜜脾块",
-			"slide" : "在蜜脾块上滑动",
-			"step" : "在蜜脾块上行走"
+			"break" : "Honey Block Break",
+			"fall" : "Honey Block Fall",
+			"hit" : "Honey Block Hit",
+			"place" : "Honey Block Place",
+			"slide" : "Honey Block Slide",
+			"step" : "Honey Block Step"
 		},
 		"iron_bars" : {
-			"break" : "破坏铁栏杆",
-			"fall" : "铁栏杆落下",
-			"hit" : "击打铁栏杆",
-			"place" : "放置铁栏杆",
-			"step" : "在铁栏杆上行走"
+			"break" : "Iron Bars Break",
+			"fall" : "Iron Bars Fall",
+			"hit" : "Iron Bars Hit",
+			"place" : "Iron Bars Place",
+			"step" : "Iron Bars Step"
 		},
 		"iron_door" : {
-			"close" : "关闭铁门",
-			"open" : "打开铁门"
+			"close" : "Iron Door Close",
+			"open" : "Iron Door Open"
 		},
 		"iron_trapdoor" : {
-			"close" : "关闭铁活板门",
-			"open" : "打开铁活板门"
+			"close" : "Iron Trapdoor Close",
+			"open" : "Iron Trapdoor Open"
 		},
 		"ladder" : {
-			"break" : "破坏梯子",
-			"fall" : "梯子落下",
-			"hit" : "击打梯子",
-			"place" : "放置梯子",
-			"step" : "在梯子上行走"
+			"break" : "Ladder Break",
+			"fall" : "Ladder Fall",
+			"hit" : "Ladder Hit",
+			"place" : "Ladder Place",
+			"step" : "Ladder Step"
 		},
 		"lantern" : {
-			"break" : "破坏灯笼",
-			"fall" : "灯笼落下",
-			"hit" : "击打灯笼",
-			"place" : "放置灯笼",
-			"step" : "在灯笼上行走"
+			"break" : "Lantern Break",
+			"fall" : "Lantern Fall",
+			"hit" : "Lantern Hit",
+			"place" : "Lantern Place",
+			"step" : "Lantern Step"
 		},
 		"large_amethyst_bud" : {
-			"break" : "破坏大型紫晶芽",
-			"fall" : "大型紫晶芽落下",
-			"hit" : "击打大型紫晶芽",
-			"place" : "放置大型紫晶芽",
-			"step" : "在大型紫晶芽上行走"
+			"break" : "Large Amethyst Bud Break",
+			"fall" : "Large Amethyst Bud Fall",
+			"hit" : "Large Amethyst Bud Hit",
+			"place" : "Large Amethyst Bud Place",
+			"step" : "Large Amethyst Bud Step"
 		},
 		"lavacaeldron" : {
-			"extinguish" : "熔岩熄灭"
+			"extinguish" : "Lava Cauldron Extinguish"
 		},
 		"lectern" : {
-			"book" : "讲台翻书"
+			"book" : "Lectern Book"
 		},
 		"lever" : {
-			"click" : "拉杆点击",
-			"click_off" : "拉杆关闭",
-			"click_on" : "拉杆开启"
+			"click" : "Lever Click",
+			"click_off" : "Lever Click Off",
+			"click_on" : "Lever Click On"
 		},
 		"lodestone" : {
-			"break" : "破坏磁石",
-			"fall" : "磁石落下",
-			"hit" : "击打磁石",
-			"place" : "放置磁石",
-			"step" : "在磁石上行走"
+			"break" : "Lodestone Break",
+			"fall" : "Lodestone Fall",
+			"hit" : "Lodestone Hit",
+			"place" : "Lodestone Place",
+			"step" : "Lodestone Step"
 		},
 		"loom" : {
-			"use" : "使用织布机"
+			"use" : "Loom Use"
 		},
 		"mangrove_roots" : {
-			"break" : "破坏红树根",
-			"fall" : "红树根落下",
-			"hit" : "击打红树根",
-			"place" : "放置红树根",
-			"step" : "在红树根上行走"
+			"break" : "Mangrove Roots Break",
+			"fall" : "Mangrove Roots Fall",
+			"hit" : "Mangrove Roots Hit",
+			"place" : "Mangrove Roots Place",
+			"step" : "Mangrove Roots Step"
 		},
 		"medium_amethyst_bud" : {
-			"break" : "破坏中型紫晶芽",
-			"fall" : "中型紫晶芽落下",
-			"hit" : "击打中型紫晶芽",
-			"place" : "放置中型紫晶芽",
-			"step" : "在大型紫晶芽上行走"
+			"break" : "Medium Amethyst Bud Break",
+			"fall" : "Medium Amethyst Bud Fall",
+			"hit" : "Medium Amethyst Bud Hit",
+			"place" : "Medium Amethyst Bud Place",
+			"step" : "Medium Amethyst Bud Step"
 		},
 		"moss_block" : {
-			"break" : "破坏苔藓块",
-			"fall" : "苔藓块落下",
-			"hit" : "击打苔藓块",
-			"place" : "放置苔藓块",
-			"step" : "在苔藓块上行走"
+			"break" : "Moss Block Break",
+			"fall" : "Moss Block Fall",
+			"hit" : "Moss Block Hit",
+			"place" : "Moss Block Place",
+			"step" : "Moss Block Step"
 		},
 		"moss_carpet" : {
-			"break" : "破坏苔藓地毯",
-			"fall" : "苔藓地毯落下",
-			"hit" : "击打苔藓地毯",
-			"place" : "放置苔藓地毯",
-			"step" : "在苔藓地毯上行走"
+			"break" : "Moss Carpet Break",
+			"fall" : "Moss Carpet Fall",
+			"hit" : "Moss Carpet Hit",
+			"place" : "Moss Carpet Place",
+			"step" : "Moss Carpet Step"
 		},
 		"mud" : {
-			"break" : "破坏泥巴",
-			"fall" : "泥巴落下",
-			"hit" : "击打泥巴",
-			"place" : "放置泥巴",
-			"step" : "在泥巴上行走"
+			"break" : "Mud Break",
+			"fall" : "Mud Fall",
+			"hit" : "Mud Hit",
+			"place" : "Mud Place",
+			"step" : "Mud Step"
 		},
 		"mud_bricks" : {
-			"break" : "破坏泥砖",
-			"fall" : "泥砖落下",
-			"hit" : "击打泥砖",
-			"place" : "放置泥砖",
-			"step" : "在泥砖上行走"
+			"break" : "Mud Bricks Break",
+			"fall" : "Mud Bricks Fall",
+			"hit" : "Mud Bricks Hit",
+			"place" : "Mud Bricks Place",
+			"step" : "Mud Bricks Step"
 		},
 		"muddy_mangrove_roots" : {
-			"break" : "破坏沾泥的红树根",
-			"fall" : "沾泥的红树根落下",
-			"hit" : "击打沾泥的红树根",
-			"place" : "放置沾泥的红树根",
-			"step" : "在沾泥的红树根上行走"
+			"break" : "Muddy Mangrove Roots Break",
+			"fall" : "Muddy Mangrove Roots Fall",
+			"hit" : "Muddy Mangrove Roots Hit",
+			"place" : "Muddy Mangrove Roots Place",
+			"step" : "Muddy Mangrove Roots Step"
 		},
 		"nether_brick" : {
-			"break" : "破坏下界砖",
-			"fall" : "下界砖落下",
-			"hit" : "击打下界砖",
-			"place" : "放置下界砖",
-			"step" : "在下界砖上行走"
+			"break" : "Nether Brick Break",
+			"fall" : "Nether Brick Fall",
+			"hit" : "Nether Brick Hit",
+			"place" : "Nether Brick Place",
+			"step" : "Nether Brick Step"
 		},
 		"nether_gold_ore" : {
-			"break" : "破坏下界金矿",
-			"fall" : "下界金矿落下",
-			"hit" : "击打下界金矿",
-			"place" : "放置下界金矿",
-			"step" : "在下界金矿上行走"
+			"break" : "Nether Gold Ore Break",
+			"fall" : "Nether Gold Ore Fall",
+			"hit" : "Nether Gold Ore Hit",
+			"place" : "Nether Gold Ore Place",
+			"step" : "Nether Gold Ore Step"
 		},
 		"nether_sprouts" : {
-			"break" : "破坏下界苗",
-			"fall" : "下界苗落下",
-			"hit" : "击打下界苗",
-			"place" : "放置下界苗",
-			"step" : "在下界苗上行走"
+			"break" : "Nether Sprouts Break",
+			"fall" : "Nether Sprouts Fall",
+			"hit" : "Nether Sprouts Hit",
+			"place" : "Nether Sprouts Place",
+			"step" : "Nether Sprouts Step"
 		},
 		"nether_wart" : {
-			"break" : "破坏下界疣",
-			"fall" : "下界疣落下",
-			"hit" : "击打下界疣",
-			"place" : "放置下界疣",
-			"step" : "在下界疣上行走"
+			"break" : "Nether Wart Break",
+			"fall" : "Nether Wart Fall",
+			"hit" : "Nether Wart Hit",
+			"place" : "Nether Wart Place",
+			"step" : "Nether Wart Step"
 		},
 		"netherite_block" : {
-			"break" : "破坏下界合金块",
-			"fall" : "下界合金块落下",
-			"hit" : "击打下界合金块",
-			"place" : "放置下界合金块",
-			"step" : "在下界合金块上行走"
+			"break" : "Netherite Block Break",
+			"fall" : "Netherite Block Fall",
+			"hit" : "Netherite Block Hit",
+			"place" : "Netherite Block Place",
+			"step" : "Netherite Block Step"
 		},
 		"netherrack" : {
-			"break" : "破坏下界岩",
-			"fall" : "下界岩落下",
-			"hit" : "击打下界岩",
-			"place" : "放置下界岩",
-			"step" : "在下界岩上行走"
+			"break" : "Netherrack Break",
+			"fall" : "Netherrack Fall",
+			"hit" : "Netherrack Hit",
+			"place" : "Netherrack Place",
+			"step" : "Netherrack Step"
 		},
 		"note_block" : {
-			"basedrum" : "底鼓音效",
-			"banjo" : "班卓琴音效",
-			"bass" : "贝斯音效",
-			"bell" : "钟琴音效",
-			"bit" : "比特音效",
-			"chime" : "风铃音效",
-			"cow_bell" : "牛铃音效",
-			"didgeridoo" : "迪吉里杜管音效",
-			"flute" : "长笛音效",
-			"guitar" : "吉他音效",
-			"harp" : "竖琴音效",
-			"hat" : "踩镲音效",
-			"iron_xylophone" : "铁木琴音效",
-			"pling" : "叮铃声效",
-			"snare" : "小鼓音效",
-			"xylophone" : "木琴音效"
+			"basedrum" : "Note Block Basedrum",
+			"banjo" : "Note Block Banjo",
+			"bass" : "Note Block Bass",
+			"bell" : "Note Block Bell",
+			"bit" : "Note Block Bit",
+			"chime" : "Note Block Chime",
+			"cow_bell" : "Note Block Cow Bell",
+			"didgeridoo" : "Note Block Didgeridoo",
+			"flute" : "Note Block Flute",
+			"guitar" : "Note Block Guitar",
+			"harp" : "Note Block Harp",
+			"hat" : "Note Block Hat",
+			"iron_xylophone" : "Note Block Iron Xylophone",
+			"pling" : "Note Block Pling",
+			"snare" : "Note Block Snare",
+			"xylophone" : "Note Block Xylophone"
 		},
 		"nylium" : {
-			"break" : "破坏菌岩",
-			"fall" : "菌岩落下",
-			"hit" : "击打菌岩",
-			"place" : "放置菌岩",
-			"step" : "在菌岩上行走"
+			"break" : "Nylium Break",
+			"fall" : "Nylium Fall",
+			"hit" : "Nylium Hit",
+			"place" : "Nylium Place",
+			"step" : "Nylium Step"
 		},
 		"pointed_dripstone" : {
-			"break" : "破坏滴水石锥",
-			"drip_water" : "滴水石锥滴水",
-			"drip_lava" : "滴水石锥滴熔岩",
-			"fall" : "滴水石锥落下",
-			"hit" : "击打滴水石锥",
-			"land" : "滴水石锥落地",
-			"place" : "放置滴水石锥",
-			"step" : "在滴水石锥上行走"
+			"break" : "Pointed Dripstone Break",
+			"drip_water" : "Pointed Dripstone Drip Water",
+			"drip_lava" : "Pointed Dripstone Drip Lava",
+			"fall" : "Pointed Dripstone Fall",
+			"hit" : "Pointed Dripstone Hit",
+			"land" : "Pointed Dripstone Land",
+			"place" : "Pointed Dripstone Place",
+			"step" : "Pointed Dripstone Step"
 		},
 		"polished_deepslate" : {
-			"break" : "破坏磨制深板岩",
-			"fall" : "磨制深板岩落下",
-			"hit" : "击打磨制深板岩",
-			"place" : "放置磨制深板岩",
-			"step" : "在磨制深板岩上行走"
+			"break" : "Polished Deepslate Break",
+			"fall" : "Polished Deepslate Fall",
+			"hit" : "Polished Deepslate Hit",
+			"place" : "Polished Deepslate Place",
+			"step" : "Polished Deepslate Step"
 		},
 		"powder_snow" : {
-			"break" : "破坏细雪",
-			"fall" : "细雪落下",
-			"hit" : "击打细雪",
-			"place" : "放置细雪",
-			"step" : "在细雪上行走"
+			"break" : "Powder Snow Break",
+			"fall" : "Powder Snow Fall",
+			"hit" : "Powder Snow Hit",
+			"place" : "Powder Snow Place",
+			"step" : "Powder Snow Step"
 		},
 		"pumpkin" : {
-			"carve" : "雕刻南瓜"
+			"carve" : "Pumpkin Carve"
 		},
 		"roots" : {
-			"break" : "破坏菌索",
-			"fall" : "菌索落下",
-			"hit" : "击打菌索",
-			"place" : "放置菌索",
-			"step" : "在菌索上行走"
+			"break" : "Roots Break",
+			"fall" : "Roots Fall",
+			"hit" : "Roots Hit",
+			"place" : "Roots Place",
+			"step" : "Roots Step"
 		},
 		"sand" : {
-			"break" : "破坏沙子",
-			"fall" : "沙子落下",
-			"hit" : "击打沙子",
-			"place" : "放置沙子",
-			"step" : "在沙子上行走"
+			"break" : "Sand Break",
+			"fall" : "Sand Fall",
+			"hit" : "Sand Hit",
+			"place" : "Sand Place",
+			"step" : "Sand Step"
 		},
 		"scaffolding" : {
-			"break" : "破坏脚手架",
-			"climb" : "爬脚手架",
-			"fall" : "脚手架落下",
-			"hit" : "击打脚手架",
-			"place" : "放置脚手架",
-			"step" : "在脚手架上行走"
+			"break" : "Scaffolding Break",
+			"climb" : "Scaffolding Climb",
+			"fall" : "Scaffolding Fall",
+			"hit" : "Scaffolding Hit",
+			"place" : "Scaffolding Place",
+			"step" : "Scaffolding Step"
 		},
 		"sculk" : {
-			"break" : "破坏幽匿块",
-			"fall" : "幽匿块落下",
-			"hit" : "击打幽匿块",
-			"place" : "放置幽匿块",
-			"step" : "在幽匿块上行走"
+			"break" : "Sculk Break",
+			"fall" : "Sculk Fall",
+			"hit" : "Sculk Hit",
+			"place" : "Sculk Place",
+			"step" : "Sculk Step"
 		},
 		"sculk_catalyst" : {
-			"bloom" : "幽匿催发体绽放",
-			"break" : "破坏幽匿催发体",
-			"fall" : "幽匿催发体落下",
-			"hit" : "击打幽匿催发体",
-			"place" : "放置幽匿催发体",
-			"step" : "在幽匿催发体上行走"
+			"bloom" : "Sculk Catalyst Bloom",
+			"break" : "Sculk Catalyst Break",
+			"fall" : "Sculk Catalyst Fall",
+			"hit" : "Sculk Catalyst Hit",
+			"place" : "Sculk Catalyst Place",
+			"step" : "Sculk Catalyst Step"
 		},
 		"sculk_sensor" : {
-			"break" : "破坏幽匿感测体",
-			"clicking" : "幽匿感测体点击",
-			"clicking_stop" : "幽匿感测体停止点击",
-			"fall" : "幽匿感测体落下",
-			"hit" : "击打幽匿感测体",
-			"place" : "放置幽匿感测体",
-			"step" : "在幽匿感测体上行走"
+			"break" : "Sculk Sensor Break",
+			"clicking" : "Sculk Sensor Clicking",
+			"clicking_stop" : "Sculk Sensor Clicking Stop",
+			"fall" : "Sculk Sensor Fall",
+			"hit" : "Sculk Sensor Hit",
+			"place" : "Sculk Sensor Place",
+			"step" : "Sculk Sensor Step"
 		},
 		"sculk_shrieker" : {
-			"break" : "破坏幽匿尖啸体",
-			"fall" : "幽匿尖啸体落下",
-			"hit" : "击打幽匿尖啸体",
-			"place" : "放置幽匿尖啸体",
-			"shriek" : "幽匿尖啸体尖啸",
-			"step" : "在幽匿尖啸体上行走"
+			"break" : "Sculk Shrieker Break",
+			"fall" : "Sculk Shrieker Fall",
+			"hit" : "Sculk Shrieker Hit",
+			"place" : "Sculk Shrieker Place",
+			"shriek" : "Sculk Shrieker Shriek",
+			"step" : "Sculk Shrieker Step"
 		},
 		"sculk_vein" : {
-			"break" : "破坏幽匿脉络",
-			"fall" : "幽匿脉络落下",
-			"hit" : "击打幽匿脉络",
-			"place" : "放置幽匿脉络",
-			"step" : "在幽匿脉络上行走"
+			"break" : "Sculk Vein Break",
+			"fall" : "Sculk Vein Fall",
+			"hit" : "Sculk Vein Hit",
+			"place" : "Sculk Vein Place",
+			"step" : "Sculk Vein Step"
 		},
 		"shroomlight" : {
-			"break" : "破坏菌光体",
-			"fall" : "菌光体落下",
-			"hit" : "击打菌光体",
-			"place" : "放置菌光体",
-			"step" : "在菌光体上行走"
+			"break" : "Shroomlight Break",
+			"fall" : "Shroomlight Fall",
+			"hit" : "Shroomlight Hit",
+			"place" : "Shroomlight Place",
+			"step" : "Shroomlight Step"
 		},
 		"shulker_box" : {
-			"close" : "关闭潜影盒",
-			"open" : "打开潜影盒"
+			"close" : "Shulker Box Close Sound",
+			"open" : "Shulker Box Open Sound"
 		},
 		"sign" : {
-			"dye" : "告示牌染色",
-			"ink_sac" : "使用墨囊"
+			"dye" : "Sign Dye",
+			"ink_sac" : "Sign Ink Sac"
 		},
 		"slime_block" : {
-			"break" : "破坏黏液块",
-			"fall" : "黏液块落下",
-			"hit" : "击打黏液块",
-			"place" : "放置黏液块",
-			"step" : "在黏液块上行走"
+			"break" : "Slime Block Break",
+			"fall" : "Slime Block Fall",
+			"hit" : "Slime Block Hit",
+			"place" : "Slime Block Place",
+			"step" : "Slime Block Step"
 		},
 		"small_amethyst_bud" : {
-			"break" : "破坏小型紫晶芽",
-			"fall" : "小型紫晶芽落下",
-			"hit" : "击打小型紫晶芽",
-			"place" : "放置小型紫晶芽",
-			"step" : "在小型紫晶芽上行走"
+			"break" : "Small Amethyst Bud Break",
+			"fall" : "Small Amethyst Bud Fall",
+			"hit" : "Small Amethyst Bud Hit",
+			"place" : "Small Amethyst Bud Place",
+			"step" : "Small Amethyst Bud Step"
 		},
 		"smithing_table" : {
-			"use" : "使用锻造台"
+			"use" : "Smithing Table Use"
 		},
 		"smoker" : {
-			"fire_crackle" : "烟熏炉火焰噼啪声"
+			"fire_crackle" : "Smoker Fire Crackle"
 		},
 		"snow" : {
-			"break" : "破坏雪",
-			"fall" : "雪落下",
-			"hit" : "击打雪",
-			"place" : "放置雪",
-			"step" : "在雪上行走"
+			"break" : "Snow Break",
+			"fall" : "Snow Fall",
+			"hit" : "Snow Hit",
+			"place" : "Snow Place",
+			"step" : "Snow Step"
 		},
 		"soul_sand" : {
-			"break" : "破坏灵魂沙",
-			"fall" : "灵魂沙落下",
-			"hit" : "击打灵魂沙",
-			"place" : "放置灵魂沙",
-			"step" : "在灵魂沙上行走"
+			"break" : "Soul Sand Break",
+			"fall" : "Soul Sand Fall",
+			"hit" : "Soul Sand Hit",
+			"place" : "Soul Sand Place",
+			"step" : "Soul Sand Step"
 		},
 		"soul_soil" : {
-			"break" : "破坏灵魂土",
-			"fall" : "灵魂土落下",
-			"hit" : "击打灵魂土",
-			"place" : "放置灵魂土",
-			"step" : "在灵魂土上行走"
+			"break" : "Soul Soil Break",
+			"fall" : "Soul Soil Fall",
+			"hit" : "Soul Soil Hit",
+			"place" : "Soul Soil Place",
+			"step" : "Soul Soil Step"
 		},
 		"spore_blossom" : {
-			"break" : "破坏孢子花",
-			"fall" : "孢子花落下",
-			"hit" : "击打孢子花",
-			"place" : "放置孢子花",
-			"step" : "在孢子花上行走"
+			"break" : "Spore Blossom Break",
+			"fall" : "Spore Blossom Fall",
+			"hit" : "Spore Blossom Hit",
+			"place" : "Spore Blossom Place",
+			"step" : "Spore Blossom Step"
 		},
 		"stem" : {
-			"break" : "破坏菌柄",
-			"fall" : "菌柄落下",
-			"hit" : "击打菌柄",
-			"place" : "放置菌柄",
-			"step" : "在菌柄上行走"
+			"break" : "Stem Break",
+			"fall" : "Stem Fall",
+			"hit" : "Stem Hit",
+			"place" : "Stem Place",
+			"step" : "Stem Step"
 		},
 		"stone" : {
-			"break" : "破坏石头",
-			"fall" : "石头落下",
-			"hit" : "击打石头",
-			"place" : "放置石头",
-			"step" : "在石头上行走"
+			"break" : "Stone Break Sound",
+			"fall" : "Stone Fall Sound",
+			"hit" : "Stone Hit Sound",
+			"place" : "Stone Place Sound",
+			"step" : "Stone Step Sound"
 		},
 		"sweet_berry_bush" : {
-			"break" : "破坏甜浆果丛",
-			"pick" : "采摘甜浆果",
-			"place" : "放置甜浆果丛"
+			"break" : "Sweet Berry Bush Break Sound",
+			"pick" : "Sweet Berry Bush Pick",
+			"place" : "Sweet Berry Bush Place Sound"
 		},
 		"trapdoor" : {
-			"close" : "关闭活板门",
-			"open" : "打开活板门"
+			"close" : "Trapdoor Close Sound",
+			"open" : "Trapdoor Open Sound"
 		},
 		"tripwire" : {
-			"attach" : "绊线钩连接",
-			"click_off" : "绊线钩关闭",
-			"click_on" : "绊线钩开启",
-			"detach" : "绊线钩断开"
+			"attach" : "Tripwire Attach",
+			"click_off" : "Tripwire Click Off Sound",
+			"click_on" : "Tripwire Click On Sound",
+			"detach" : "Tripwire Detach"
 		},
 		"tuff" : {
-			"break" : "破坏凝灰岩",
-			"fall" : "凝灰岩落下",
-			"hit" : "击打凝灰岩",
-			"place" : "放置凝灰岩",
-			"step" : "在凝灰岩上行走"
+			"break" : "Tuff Break Sound",
+			"fall" : "Tuff Fall Sound",
+			"hit" : "Tuff Hit Sound",
+			"place" : "Tuff Place Sound",
+			"step" : "Tuff Step Sound"
 		},
 		"vault" : {
-			"activate" : "激活 vault",
-			"ambient" : "vault 环境音",
-			"deactivate" : "停用 vault",
-			"eject_item" : "vault 弹射物品",
-			"insert_item" : "vault 插入物品",
-			"open" : "打开 vault",
-			"open_shutter" : "vault 百叶窗开启"
+			"activate" : "Vault Activate",
+			"ambient" : "Vault Ambient",
+			"deactivate" : "Vault Deactivate",
+			"eject_item" : "Vault Eject Item",
+			"insert_item" : "Vault Insert Item",
+			"open" : "Vault Open",
+			"open_shutter" : "Vault Open Shutter"
 		},
 		"vine" : {
-			"break" : "破坏藤蔓",
-			"fall" : "藤蔓落下",
-			"hit" : "击打藤蔓",
-			"place" : "放置藤蔓",
-			"step" : "在藤蔓上行走"
+			"break" : "Vine Break Sound",
+			"fall" : "Vine Fall Sound",
+			"hit" : "Vine Hit Sound",
+			"place" : "Vine Place Sound",
+			"step" : "Vine Step Sound"
 		},
 		"wood" : {
-			"break" : "破坏木头",
-			"fall" : "木头落下",
-			"hit" : "击打木头",
-			"place" : "放置木头",
-			"step" : "在木头上行走"
+			"break" : "Wood Break Sound",
+			"fall" : "Wood Fall Sound",
+			"hit" : "Wood Hit Sound",
+			"place" : "Wood Place Sound",
+			"step" : "Wood Step Sound"
 		},
 		"wool" : {
-			"break" : "破坏羊毛",
-			"fall" : "羊毛落下",
-			"hit" : "击打羊毛",
-			"place" : "放置羊毛",
-			"step" : "在羊毛上行走"
+			"break" : "Wool Break Sound",
+			"fall" : "Wool Fall Sound",
+			"hit" : "Wool Hit Sound",
+			"place" : "Wool Place Sound",
+			"step" : "Wool Step Sound"
 		}
 	}
 }

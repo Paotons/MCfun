@@ -1,5 +1,5 @@
 class_name GrammarProcessCompiler
-extends GrammarCompiler
+extends BaseGrammarCompiler
 
 ## 进程名称。
 var process_name := "Process"
@@ -16,7 +16,7 @@ enum ProcessMeta {
 	CMD_LIST_TYPES,
 }
 
-class _CommandData extends GrammarCompiler:
+class _CommandData extends BaseGrammarCompiler:
 	var command_name : String
 	var cmd_list_types : PackedStringArray
 	func _compile(data : Variant) -> void:
@@ -119,4 +119,3 @@ func _compile_v2(key : String, from : Dictionary) -> bool:
 func _append_cmd_list_types(types : PackedStringArray) -> void:
 	var cmd_list_types : PackedStringArray = compiled_result[ProcessMeta.CMD_LIST_TYPES]
 	cmd_list_types.append_array(types)
-

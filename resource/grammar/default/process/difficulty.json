@@ -1,8 +1,7 @@
 {
-	"description" : "设置游戏难度",
+	"description" : "Set the game difficulty",
 	"data" : [
-		{"ID" : 0, "extends" : -1, "type" : "int", "is_end" : true, "description" : "难度"},
-		{"id" : 1, "extends" : -1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["difficulty"], "is_end" : true, "description" : "难度"}
+		{"ID" : 0, "extends" : -1, "type" : "int", "is_end" : true, "description" : "Difficulty"},
+		{"id" : 1, "extends" : -1, "type" : "option", "detail" : {"using_entry" : true}, "items" : ["difficulty"], "is_end" : true, "description" : "Difficulty"}
 	]
 }
-

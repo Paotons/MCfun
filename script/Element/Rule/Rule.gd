@@ -69,10 +69,7 @@ func get_description(idx := 0) -> String:
 	if not has_description():
 		return "Unknow"
 	var description = data_main[META_DESCRIPTION]
-	if description is PackedStringArray:
-		return description[mini(description.size() - 1, idx)]
-	else:
-		return description
+	return EditManager.get_grammar_translation().t(description[mini(description.size() - 1, idx)] if description is PackedStringArray else description)
 
 ## 获取项。
 func get_items() -> Array:

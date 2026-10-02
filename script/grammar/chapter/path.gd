@@ -144,7 +144,7 @@ static func _get_paths(tree : Dictionary, path := PackedStringArray()) -> Array[
 # 返回这个数下指定路径的显示。
 static func _get_path_displays(tree : Dictionary) -> PackedStringArray:
 	if tree.is_empty(): return []
-	var res : PackedStringArray
+	var res : Array[StringName]
 	
 	var queue_trees : Array[Dictionary] = [tree]
 	
@@ -157,7 +157,7 @@ static func _get_path_displays(tree : Dictionary) -> PackedStringArray:
 		
 		if not (tree[_PathMeta.GROUP_MUMBER] as PackedStringArray).is_empty():
 			queue_trees.append_array(tree[_PathMeta.GROUP_DATA])
-	return res
+	return EditManager.get_grammar_translation().ts(res)
 
 # 获取树下所有的路径数量。
 static func _get_paths_count(tree : Dictionary) -> int:
@@ -177,10 +177,10 @@ static func _get_paths_count(tree : Dictionary) -> int:
 	return res
 
 static func _get_tree_display(tree : Dictionary) -> String:
-	return tree[_PathMeta.DISPLAY]
+	return EditManager.get_grammar_translation().t(tree[_PathMeta.DISPLAY])
 static func _get_tree_mumber(tree : Dictionary) -> PackedStringArray:
 	return tree[_PathMeta.MUMBER]
 static func _get_tree_group_mumber(tree : Dictionary) -> Array[Dictionary]:
 	return tree[_PathMeta.GROUP_DATA]
 static func _get_tree_mumber_displays(tree : Dictionary) -> PackedStringArray:
-	return tree[_PathMeta.MUMBER_DISPLAYS]
+	return EditManager.get_grammar_translation().ts(tree[_PathMeta.MUMBER_DISPLAYS])

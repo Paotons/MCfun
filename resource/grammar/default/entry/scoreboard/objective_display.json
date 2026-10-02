@@ -1,8 +1,8 @@
 {
 	"type" : "string",
 	"data" : {
-		"belowname" : "昵称下",
-		"list" : "列表",
-		"sidebar" : "侧边栏"
+		"belowname" : "Below Name",
+		"list" : "List Display",
+		"sidebar" : "Sidebar"
 	}
 }

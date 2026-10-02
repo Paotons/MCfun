@@ -1,8 +1,8 @@
 {
-	"type": "path",
-	"data": {
-		"slot": {
-			"container": "容器"
+	"type" : "path",
+	"data" : {
+		"slot" : {
+			"container" : "Container"
 		}
 	}
 }

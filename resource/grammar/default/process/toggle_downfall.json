@@ -1,5 +1,5 @@
 {
-	"description" : "天气切换",
+	"description" : "Toggle weather",
 	"data" : [
 		{"id" : 0, "extends" : -1, "is_end" : true}
 	]

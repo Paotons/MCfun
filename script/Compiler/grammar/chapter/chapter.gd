@@ -1,6 +1,6 @@
 @abstract
 class_name GrammarChapterCompiler
-extends GrammarCompiler
+extends BaseGrammarCompiler
 ## 章节解析器。
 ##
 ## 抽象类，不能实例化。

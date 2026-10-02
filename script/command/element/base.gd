@@ -123,4 +123,3 @@ func get_valid_element_index(idx : int) -> int:
 func set_line(line : int) -> void:
 	var edit := EditManager.get_edit()
 	_line_id = edit.get_line_id(line)
-

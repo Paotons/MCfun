@@ -33,7 +33,7 @@ static func _create_string_element(element : BaseStringElement, text : String, o
 		element.is_faild = false
 		return element
 	else:
-		element.create_error(offset, TranslationSystem.tr("Unfind any string."))
+		element.create_error(offset, TranslationSystem.t("Unfind any string."))
 		return element
 
 ## 获取最近的字符串的开头。

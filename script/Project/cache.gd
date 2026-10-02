@@ -108,4 +108,3 @@ func _is_grammar_taged_faild() -> bool:
 ## [b]friend [Project]:[/b]初始化项目缓存。
 static func _init_chache(path : String) -> void:
 	DirAccess.make_dir_recursive_absolute(path.path_join(_CHACHE_DIRECTORY))
-

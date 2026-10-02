@@ -2,7 +2,7 @@ class_name GrammarSpaceItemChapterCompiler
 extends GrammarChapterCompiler
 ## 物品空间章目解析器。
 
-class _Space extends GrammarCompiler:
+class _Space extends BaseGrammarCompiler:
 	var chapter : String
 	
 	func _compile(data : Variant) -> void:
@@ -26,7 +26,7 @@ class _Space extends GrammarCompiler:
 			compiled_result[space]= obj.get_result()
 		_set_is_valid(true)
 
-class _Item extends GrammarCompiler:
+class _Item extends BaseGrammarCompiler:
 	var chapter : String
 	var space : String
 	
@@ -55,10 +55,10 @@ class _Item extends GrammarCompiler:
 		if not _test_dictionary_value_types(from, 1 << TYPE_STRING, "%s[data][%s]" % [chapter, space]):
 			return
 		var keys := from.keys()
-		var values : Array
+		var values : Array[StringName]
 		values.resize(keys.size())
 		for i in keys.size():
-			values[i] = from[keys[i]]
+			values[i] = StringName(from[keys[i]])
 		compiled_result[_ITEM_ITEMS] = keys
 		compiled_result[_ITEM_DIZPLAYS] = values
 		_set_is_valid(true)
@@ -84,7 +84,3 @@ func _compile(data : Variant) -> void:
 	compiled_result[ChapterMeta.DATA] = obj.get_result()
 	_set_is_valid(true)
 	return
-
-
-
-

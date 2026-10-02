@@ -95,7 +95,7 @@ func _add_command_errors(command : BaseCommandElement) -> void:
 	var erros : PackedStringArray
 	for err in command.errors:
 		erros.append(err.string)
-	_add_error("\"%s\" has error:\n%s" % [text, "\n".join(erros)])
+	_add_error(TranslationSystem.t("\"%s\" has error:\n%s") % [text, "\n".join(erros)])
 
 func _add_error(error : String) -> void:
 	setting.mutex.lock()

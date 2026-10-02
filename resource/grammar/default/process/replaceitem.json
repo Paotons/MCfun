@@ -1,22 +1,22 @@
 {
-	"description" : "替换物品栏中的物品",
+	"description" : "Replace items in an inventory",
 	"data" : [
-		{"id" : 0, "extends" : -1, "goto" : [1, 3], "type" : "option", "items" : ["entity", "block"], "description" : "对象类型"},
+		{"id" : 0, "extends" : -1, "goto" : [1, 3], "type" : "option", "items" : ["entity", "block"], "description" : "Type"},
 		{"goto" : 999},
 		
-		{"id" : 1, "extends" : 0, "type" : "selector", "description" : "目标对象"},
-		{"id" : 2, "extends" : 1, "goto" : 5, "type" : "point_path", "detail" : {"chapter" : "slot_entity"}, "description" : "替换位置"},
+		{"id" : 1, "extends" : 0, "type" : "selector", "description" : "Target"},
+		{"id" : 2, "extends" : 1, "goto" : 5, "type" : "point_path", "detail" : {"chapter" : "slot_entity"}, "description" : "Slot"},
 		{"goto" : 999},
 		
-		{"id" : 3, "entends" : 0, "type" : "coords", "description" : "对象位置"},
-		{"id" : 4, "extends" : 3, "goto" : 5, "type" : "point_path", "detail" : {"chapter" : "slot_block"}, "description" : "替换位置"},
+		{"id" : 3, "extends" : 0, "type" : "coords", "description" : "Container position"},
+		{"id" : 4, "extends" : 3, "goto" : 5, "type" : "point_path", "detail" : {"chapter" : "slot_block"}, "description" : "Slot"},
 		{"goto" : 999},
 		
-		{"id" : 5, "type" : "int", "description" : "替换位置序列"},
-		{"id" : 6, "extends" : 5, "type" : "spaceitem", "detail" : {"chapter" : "item"}, "is_end" : true, "description" : "物品名称"},
-		{"id" : 7, "extends" : 6, "type" : "int", "description" : "数量"},
-		{"id" : 8, "extends" : 7, "type" : "int", "description" : "数据组"},
-		{"id" : 9, "extends" : 8, "type" : "dictionary", "detail" : {"rule" : "item_component"}, "description" : "物品组件"},
+		{"id" : 5, "type" : "int", "description" : "Slot index"},
+		{"id" : 6, "extends" : 5, "type" : "spaceitem", "detail" : {"chapter" : "item"}, "is_end" : true, "description" : "Item"},
+		{"id" : 7, "extends" : 6, "type" : "int", "description" : "Count"},
+		{"id" : 8, "extends" : 7, "type" : "int", "description" : "Data"},
+		{"id" : 9, "extends" : 8, "type" : "dictionary", "detail" : {"rule" : "item_component"}, "description" : "Item components"},
 		{"goto" : 999},
 		
 		{"id" : 999}

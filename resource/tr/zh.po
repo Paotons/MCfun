@@ -51,6 +51,45 @@ msgstr "目录 & 文件："
 msgid "Path:"
 msgstr "路径："
 
+msgid "You don't have permission to access contents of this folder."
+msgstr "你没有权限访问这个目录。"
+
+msgid "Open a Directory"
+msgstr "打开目录"
+
+msgid "Select Current Folder"
+msgstr "选择当前目录"
+
+msgid "Select This Folder"
+msgstr "选择这个目录"
+
+msgid "Filter:"
+msgstr "过滤："
+
+msgid "Sort by Name (Ascending)"
+msgstr "按名称（升序）"
+
+msgid "Sort by Name (Descending)"
+msgstr "按名称（降序）"
+
+msgid "Sort by Type (Ascending)"
+msgstr "按类型（升序）"
+
+msgid "Sort by Type (Descending)"
+msgstr "按类型（降序）"
+
+msgid "Sort by Modified Time (Newest First)"
+msgstr "按时间（升序）"
+
+msgid "Sort by Modified Time (Oldest First)"
+msgstr "按时间（降序）"
+
+msgid "Name:"
+msgstr "名称："
+
+msgid "Create Folder"
+msgstr "创建目录"
+
 ## 常见动词
 msgid "Add"
 msgstr "添加"
@@ -683,6 +722,9 @@ msgstr "无效开头。"
 
 msgid "Annotaition must begin with #."
 msgstr "注释必须以\"#\"开头。"
+
+msgid "\"%s\" has error:\n%s"
+msgstr "\"%s\"有错误：\n%s"
 
 ### 导出设置窗口
 msgid "Project Export"

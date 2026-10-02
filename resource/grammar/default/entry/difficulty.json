@@ -1,13 +1,13 @@
 {
 	"type" : "string",
 	"data" : {
-		"peaceful" : "和平",
-		"easy" : "简单",
-		"normal" : "普通",
-		"hard" : "困难",
-		"p" : "和平",
-		"e" : "简单",
-		"n" : "普通",
-		"h" : "困难"
+		"peaceful" : "Peaceful",
+		"easy" : "Easy",
+		"normal" : "Normal",
+		"hard" : "Hard",
+		"p" : "Peaceful",
+		"e" : "Easy",
+		"n" : "Normal",
+		"h" : "Hard"
 	}
 }
