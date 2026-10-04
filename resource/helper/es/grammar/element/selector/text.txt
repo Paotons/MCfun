@@ -1,0 +1,7 @@
+[title]Descripción[/title]
+
+Selector de objetivos.
+
+[title]Detalle[/title]
+
+[b]using_asterisk:[/b] booleano. Si es [code]true[/code], se permite el asterisco.

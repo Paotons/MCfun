@@ -1,0 +1,26 @@
+[title]설명[/title]
+
+요소의 고급 용도로, 요소 안에 문자열 배열로 존재합니다. 현재 완전히 개발되지 않았으며, 일부 기능에는 문제가 있습니다.
+
+[title]리스트[/title]
+
+모든 명령어에는 리스트가 있습니다. [code]list[/code] 로 이 리스트를 제어할 수 있습니다.
+
+[code]list <리스트 이름> add self[/code] 는 현재 요소의 문자열을 리스트에 추가합니다.
+
+[title]자동 완성[/title]
+
+자동 완성을 제어합니다. [code]completion[/code] 으로 자동 완성을 제어할 수 있습니다.
+
+[code]completion list <리스트 이름>[/code] 은 리스트 자동 완성 목록을 표시합니다.
+
+[b]주의:[/b] 이 기능은 완전히 구현되지 않았으며, 현재 [code]string, word, selector[/code] 만 지원합니다.
+
+[title]예상 목록[/title]
+
+예상 목록을 제어하며, 예상 목록도 자동 완성을 제어합니다. [code]expectation[/code] 으로 자동 완성을 제어할 수 있습니다.
+매번 실행 시 요소에 오류가 발생하면 자동으로 예상 목록에 추가됩니다.
+
+[code]expectation clear[/code] 는 예상 목록을 비웁니다.
+
+[b]주의:[/b] 이 기능은 완전히 구현되지 않았으며, 현재 [code]null[/code] 만 지원합니다.

@@ -1,0 +1,14 @@
+[title]설명[/title]
+
+배열 괄호.
+
+[title]세부 사항[/title]
+
+[code]"detail" : "is_same"[/code] 키를 사용하며, 이때 데이터는 값이 하나뿐입니다.
+
+나중에 변경될 수 있습니다.
+
+[title]데이터[/title]
+
+[code] "data" : [{...}][/code]
+해당하는 요소입니다.

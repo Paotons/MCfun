@@ -17,6 +17,10 @@ const _CONFIG_PATH := ".project.cfg"
 ## 项目配置文件。
 var _config : ConfigFile
 
+## 直接返回文件。
+func get_file() ->  ConfigFile:
+	return _config
+
 #region 项目。
 ## 获取路径
 func get_project_path() -> String:

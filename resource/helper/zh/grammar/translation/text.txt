@@ -1,0 +1,30 @@
+[title]描述[/title]
+
+用于定义语法的翻译。
+
+[title]构成[/title]
+
+[code]{
+	"zh" : {...}
+}[/code]
+
+键是语言名称，值是语言数据。其中语言数据有两种类型。
+
+[title]语言数据1[/title]
+
+[code]{
+	"apple" : "苹果",
+	"stone" : "石头"
+}[/code]
+
+第一种语言类型，就是个映射表。将出现的字码换成映射的。
+当然，翻译表特别大，你可以使用[code]{"type" : "file", "file" : path}[/code]替换。
+
+[title]语言数据2[/title]
+
+[code]{
+	"type" : "po_file",
+	"file" : path
+}[/code]
+
+第二种语言类型，就是一个po文件。选用一个po文件进行映射。

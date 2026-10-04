@@ -1,0 +1,11 @@
+[title]Описание[/title]
+Встроенные команды — это не оригинальные команды Minecraft; они хранятся внутри приложения как его расширения. При экспорте преобразуются в команды Minecraft.
+
+Встроенная команда начинается с [code]&[/code]. Например, [code]&tp[/code]
+
+[title]Категории[/title]
+
+[file native/tp]Телепортация tp[/file]
+[file native/scoreboard]Счёт / Табло scoreboard[/file]
+[file native/fill]Заполнение fill[/file]
+[file native/string]Строка string[/file]

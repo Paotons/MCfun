@@ -1,0 +1,8 @@
+[title]Descripción[/title]
+
+Comillas; una cadena entre comillas.
+Si la cadena no empieza por una comilla, se añade a las expectativas y se omite.
+
+[title]Detalle[/title]
+
+[b]rule:[/b] regla. La regla usada para el contenido.

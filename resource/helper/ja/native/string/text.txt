@@ -1,0 +1,11 @@
+[title]説明[/title]
+
+後続の文字列をそのままエクスポートできます。エディタで文字列の解析に問題がある場合、これが最も原始的な後盾です。
+
+[title]使用[/title]
+
+[code]&string <内容>[/code]
+
+[b]内容：[/b]エクスポート時にそのままエクスポートされます。
+
+[b]例：[/b][code]&string hello world[/code] は "hello world" をエクスポートします。

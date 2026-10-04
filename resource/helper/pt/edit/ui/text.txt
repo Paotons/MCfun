@@ -1,0 +1,14 @@
+[title]Visão geral[/title]
+
+O canto superior esquerdo contém vários blocos de funções, cada um pode ser expandido para mais recursos. A seguir, os detalhes.
+
+Projeto >> Configuração, Exportar, Recarregar, Sair
+Arquivo >> Salvar, Salvar Tudo, Desfazer, Refazer, Abrir, Fechar, Fechar Tudo
+Editar >> Desfazer, Refazer, Copiar, Recortar, Colar, Selecionar Tudo, Selecionar Linha, Autocompletar, Cancelar Autocompletar
+
+O canto superior direito contém outros módulos de funções: Ajuda e Configurações.
+
+À esquerda está a lista de arquivos; clique para alternar entre arquivos. Abrir e fechar são suportados, mas mover ainda não foi implementado. Irritante.
+Abaixo está a exibição, que pode mostrar mensagens de erro e pode ser expandida ao clicar; à direita é mostrada a posição do cursor.
+
+No meio está o editor de texto, e o minimapa à direita pode substituir a rolagem. Ainda não foram adicionadas configurações relacionadas.

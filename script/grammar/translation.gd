@@ -4,30 +4,38 @@ extends Resource
 ##
 ## 用于将语法中的描述部分，翻译成各种语言。
 
-## 翻译发生改变。
+## 语言发生改变。
 signal local_changed
 
 ## 翻译资源。
 var translations : Dictionary[StringName, Translation]
 
+## 语言。
+@export var local : String:
+	set(value):
+		local = value
+		_local = StringName(value)
+		local_changed.emit()
+## 如果为 [code]true[/code]，则开启语言同步。
+@export var sync_enabled := true
 var _local : StringName
 
 func _init() -> void:
-	_update_local()
+	sync_local()
 	TranslationSystem.local_changed.connect.call_deferred(_on_translation_system_local_changed)
 
 ## 设置数据。
 func set_data(data : Dictionary) -> void:
-	for local : String in data:
-		var tl := _create_translation(data[local])
-		tl.locale = local
-		translations[StringName(local)] = tl
+	for loca : String in data:
+		var tl := _create_translation(data[loca])
+		tl.locale = loca
+		translations[StringName(loca)] = tl
 
 ## 返回数据。
 func get_data() -> Dictionary:
 	var result : Dictionary
-	for local in translations:
-		result[local] = _get_translation_data(translations[local])
+	for loca in translations:
+		result[loca] = _get_translation_data(translations[loca])
 	return result
 
 # 创建翻译器。
@@ -58,11 +66,12 @@ static func _get_translation_data(translation : Translation) -> Dictionary:
 	return result
 
 func _on_translation_system_local_changed() -> void:
-	_update_local()
+	if sync_enabled:
+		sync_local()
 
-# 更新语言。
-func _update_local() -> void:
-	_local = StringName(TranslationSystem.local)
+## 同步语言。
+func sync_local() -> void:
+	local = StringName(TranslationSystem.local)
 	local_changed.emit()
 
 ## 翻译。
@@ -77,3 +86,12 @@ func ts(messages : Array[StringName], contexts : Array[StringName] = []) -> Pack
 	for i in messages.size():
 		result[i] = t(messages[i], contexts[i])
 	return result
+## 返回加载的语言。
+func get_loaded_local() -> PackedStringArray:
+	var res : PackedStringArray
+	for loca : StringName in translations.keys():
+		res.append(String(loca))
+	return res
+## 如果有加载的语言，返回 [code]true[/code]。
+func has_loaded_local(loca : String) -> bool:
+	return translations.has(StringName(loca))

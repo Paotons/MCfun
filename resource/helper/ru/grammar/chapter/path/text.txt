@@ -1,0 +1,43 @@
+[title]Описание[/title]
+
+Используется в списке [file grammar/entry]Грамматика>>Список[/file] для обозначения категории путей.
+
+Строка может использовать [code]{"type" : "file", "file" : "path"}[/code] для загрузки содержимого другого файла в качестве данных. Например: [code]"cat" : {"type" : "file", "file" : "entry/mob/cat.json"}[/code]
+
+[title]V1[/title]
+
+Для [code]playsound[/code] можно записать так:
+[code]{
+	"type" : "path",
+	"data" : {
+		"mob" : {
+			"cat" : {
+				"" : false,
+				"hit" : false,
+				"dead" : false
+			}
+		}
+	}
+}[/code]
+Таким образом можно задать [code]mob.cat mob.cat.hit mob.cat.deat[/code].
+
+[b]data:[/b] обозначает бесконечную вложенность; можно вкладывать сколько угодно. [code]false[/code] используется как заполнитель.
+
+[title]V1[/title]
+
+Для [code]playsound[/code] можно записать так:
+[code]{
+	"type" : "path",
+	"data" : {
+		"mob" : {
+			"cat" : {
+				"" : "Кошка",
+				"hit" : "Кошка ранена",
+				"dead" : "Кошка погибла"
+			}
+		}
+	}
+}[/code]
+Таким образом можно задать [code]mob.cat mob.cat.hit mob.cat.deat[/code] вместе с соответствующими подсказками.
+
+[b]data:[/b] обозначает бесконечную вложенность; можно вкладывать сколько угодно.

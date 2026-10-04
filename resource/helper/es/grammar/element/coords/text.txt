@@ -1,0 +1,4 @@
+[title]Descripción[/title]
+
+Varias coordenadas; una posición.
+Si no empieza por un símbolo de coordenada o un dígito, se añade a las expectativas y se omite.

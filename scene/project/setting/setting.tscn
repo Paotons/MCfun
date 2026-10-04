@@ -5,9 +5,17 @@ script/source = "extends Window
 
 ## 重启项目。
 signal reload_project
+## 加载UI。
+signal load_ui
 
 func _on_reload_project_button_pressed() -> void:
 	reload_project.emit()
+
+func load_ui_request() -> void:
+	load_ui.emit()
+
+func _on_loader_load_ui(_config: ConfigFile) -> void:
+	load_ui_request()
 "
 
 [sub_resource type="GDScript" id="GDScript_najlv"]
@@ -134,7 +142,6 @@ func _on_editing_toggled(toggled : bool) -> void:
 		_cache_text = new_text
 		set_text(new_text)
 	ProjectManager.get_current_project().get_project_config().set_project_version(varsion)
-
 "
 
 [sub_resource type="GDScript" id="GDScript_lyttk"]
@@ -222,6 +229,59 @@ func _on_editing_toggled(toggled_on: bool) -> void:
 	_save()
 "
 
+[sub_resource type="GDScript" id="GDScript_wfwjo"]
+script/source = "extends OptionButton
+
+## 所有语言。
+var locals : PackedStringArray
+
+## 更新列表。
+func update_list() -> void:
+	clear()
+	if not EditManager.has_edit():
+		return
+	var ls := PackedStringArray([\"*\"])
+	ls.append_array(EditManager.get_grammar_translation().get_loaded_local())
+	for l in ls:
+		add_item(\"%s (%s)\" % [TranslationSystem.get_local_english_name(l), TranslationSystem.get_local_name(l)])
+	locals = ls
+
+# 更新选择。
+func _update_selected() -> void:
+	if not EditManager.has_edit():
+		return
+	
+	var local := get_project_grammar_language()
+	var index := locals.find(local)
+	select(0 if index == -1 else index)
+
+func _on_item_selected(index: int) -> void:
+	_set_local(locals[index])
+func _on_visibility_changed() -> void:
+	_update_selected()
+
+func _set_local(local : String) -> void:
+	var t := EditManager.get_grammar_translation()
+	if not t.has_loaded_local(local):
+		t.sync_enabled = true
+		t.sync_local()
+	else:
+		t.sync_enabled = false
+		t.local = local
+	
+	var cfg := ProjectManager.get_current_project().get_project_config()
+	cfg.get_file().set_value(\"Grammar\", \"language\", local)
+	cfg.save()
+
+## 返回项目的语法语言。
+func get_project_grammar_language() -> String:
+	return ProjectManager.get_current_project().get_project_config().get_file().get_value(\"Grammar\", \"language\", \"*\")
+
+func _on_project_setting_load_ui() -> void:
+	update_list()
+	_set_local(get_project_grammar_language())
+"
+
 [sub_resource type="GDScript" id="GDScript_7qvvl"]
 script/source = "extends Button
 
@@ -247,13 +307,6 @@ wrap_controls = true
 transient = true
 exclusive = true
 script = SubResource("GDScript_2rgxv")
-
-[node name="Panel" type="Panel" parent="." unique_id=1862995989]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1935366874]
 anchors_preset = 15
@@ -366,7 +419,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer" unique_id=983016244]
 layout_mode = 2
-text = "grammar path"
+text = "path"
 
 [node name="GrammarPath" type="LineEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer" unique_id=1727898882]
 custom_minimum_size = Vector2(200, 0)
@@ -378,12 +431,31 @@ script = SubResource("GDScript_2yo8v")
 layout_mode = 2
 text = "LOC"
 
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer" unique_id=257019839]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer3" unique_id=1642452594]
+layout_mode = 2
+text = "language"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer3" unique_id=1052740566]
+auto_translate_mode = 2
+layout_mode = 2
+size_flags_horizontal = 10
+selected = 1
+item_count = 2
+popup/item_0/text = "简体中文"
+popup/item_0/id = 0
+popup/item_1/text = "English"
+popup/item_1/id = 1
+script = SubResource("GDScript_wfwjo")
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer" unique_id=369103287]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer2" unique_id=1958944843]
 layout_mode = 2
-text = "grammar cache"
+text = "cache"
 
 [node name="Button" type="Button" parent="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer2" unique_id=1884380911]
 layout_mode = 2
@@ -422,9 +494,12 @@ access = 2
 script = SubResource("GDScript_2f5xw")
 
 [connection signal="close_requested" from="." to="." method="hide"]
+[connection signal="load_ui" from="." to="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer3/OptionButton" method="_on_project_setting_load_ui"]
 [connection signal="editing_toggled" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName/LineEdit" to="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/NormalConfig/ProjectName/LineEdit" method="_on_editing_toggled"]
 [connection signal="editing_toggled" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/GrammarPath" to="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/GrammarPath" method="_on_editing_toggled"]
 [connection signal="pressed" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer/Button" to="GrammarPath" method="popup_file_dialog"]
+[connection signal="item_selected" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer3/OptionButton" to="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer3/OptionButton" method="_on_item_selected"]
+[connection signal="visibility_changed" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer3/OptionButton" to="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer3/OptionButton" method="_on_visibility_changed"]
 [connection signal="pressed" from="VBoxContainer/HSplitContainer/MarginContainer/MarginContainer/EditGrammer/HBoxContainer2/Button" to="VBoxContainer/ReloadProject" method="show"]
 [connection signal="pressed" from="VBoxContainer/ReloadProject/HBoxContainer/ReloadProjectButton" to="." method="_on_reload_project_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="hide"]

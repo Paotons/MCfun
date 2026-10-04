@@ -1,0 +1,35 @@
+[title]描述[/title]
+
+用於表示列表 [file grammar/entry]語法>>列表[/file] 空間物品的元素。
+
+[title]V1[/title]
+
+表示物品名稱 [code]item[/code] 就可以表示為。
+[code]{
+	"type" : "spaceitem",
+	"data" : {
+		"minecraft" : [
+			"apple",
+			"stone"
+		]
+	}
+}[/code]
+這樣物品就可以知道有 [code]minecraft:apple[/code] 和 [code]minecraft:stone[/code] 了。
+
+[b]data:[/b] 第一層表示空間名，空間名後面才是物品。
+
+[title]V2[/title]
+
+表示物品名稱 [code]item[/code] 就可以表示為。
+[code]{
+	"type" : "spaceitem",
+	"data" : {
+		"minecraft" : {
+			"apple" : "蘋果",
+			"stone" : "石頭"
+		}
+	}
+}[/code]
+這樣物品就可以知道有 [code]minecraft:apple[/code] 和 [code]minecraft:stone[/code] 了，並且伴隨著對應的提示詞。
+
+[b]data:[/b] 第一層表示空間名，空間名後面才是物品。

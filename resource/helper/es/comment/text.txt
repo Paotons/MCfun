@@ -1,0 +1,9 @@
+[title]Descripción[/title]
+
+Las anotaciones comienzan con @ y se ignoran al exportar; se usan para cambiar el comportamiento del editor. Por ejemplo: [code]@list tag add my_tag[/code] para que la autocompletación de Tag tenga la opción my_tag.
+
+[b]Nota:[/b] esta función aún no está completa.
+
+[title]Categorías[/title]
+
+[file comment/list]Controlar datos de autocompletado list[/file]

@@ -1,0 +1,30 @@
+[title]Description[/title]
+
+Used to define grammar translation.
+
+[title]Structure[/title]
+
+[code]{
+	"zh" : {...}
+}[/code]
+
+The key is the language name, and the value is the language data. There are two types of language data.
+
+[title]Language Data 1[/title]
+
+[code]{
+	"apple" : "苹果",
+	"stone" : "石头"
+}[/code]
+
+The first language type is just a mapping table. It replaces the appearing keys with the mapped values.
+Of course, since the translation table can be very large, you may use [code]{"type" : "file", "file" : path}[/code] to substitute it.
+
+[title]Language Data 2[/title]
+
+[code]{
+	"type" : "po_file",
+	"file" : path
+}[/code]
+
+The second language type is a PO file. It picks a PO file for mapping.

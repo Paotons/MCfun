@@ -1,0 +1,3 @@
+[file edit/setting]Interface do editor[/file]
+[file edit/setting]Configurações do editor[/file]
+[file edit/error]Mensagens de erro do editor[/file]

@@ -1,0 +1,7 @@
+[title]설명[/title]
+
+편집기에게 일부 요소의 구체적인 요구 사항을 알려줍니다. 예를 들어 [code]array[/code] 와 [code]dictionary[/code] 요소는 [file grammar/element]문법>>요소[/file] 참고.
+
+또한 [code]{"type" : "file", "file" : "path"}[/code] 를 사용해 다른 파일의 내용을 데이터로 불러올 수 있습니다. 예: [code]"item" : {"type" : "file", "file" : "law/item.json"}[/code]
+
+반드시 [code]selector_body[/code] 대상 선택자의 몸통을 포함해야 하며, [code]selector[/code] 를 어떻게 규정할지 알려주는 데 사용됩니다.

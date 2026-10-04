@@ -1,0 +1,35 @@
+[title]Descrição[/title]
+
+Usado em uma [file grammar/entry]Gramática>>Entrada[/file] para representar itens de espaço (namespace:nome).
+
+[title]V1[/title]
+
+Para representar um nome de item [code]item[/code], você pode escrever:
+[code]{
+	"type" : "spaceitem",
+	"data" : {
+		"minecraft" : [
+			"apple",
+			"stone"
+		]
+	}
+}[/code]
+Assim, [code]minecraft:apple[/code] e [code]minecraft:stone[/code] tornam-se itens válidos.
+
+[b]data:[/b] O primeiro nível representa o namespace; o nome do item vem depois do namespace.
+
+[title]V2[/title]
+
+Para representar um nome de item [code]item[/code], você pode escrever:
+[code]{
+	"type" : "spaceitem",
+	"data" : {
+		"minecraft" : {
+			"apple" : "Maçã",
+			"stone" : "Pedra"
+		}
+	}
+}[/code]
+Assim, [code]minecraft:apple[/code] e [code]minecraft:stone[/code] tornam-se itens válidos com dicas correspondentes.
+
+[b]data:[/b] O primeiro nível representa o namespace; o nome do item vem depois do namespace.

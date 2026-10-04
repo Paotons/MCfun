@@ -1,0 +1,33 @@
+[title]설명[/title]
+
+목록 [file grammar/entry]문법>>목록[/file] 에서 각종 문자열을 정의하는 데 사용되는 요소입니다.
+
+[title]V1[/title]
+
+예를 들어 [code]gamemode[/code] 는 다음과 같이 나타낼 수 있습니다.
+[code]{
+	"type" : "string",
+	"data" : [
+		"a",
+		"c",
+		"s"
+	]
+}[/code]
+
+이렇게 하면 [code]gramemode[/code] 에 [code]a,c,s[/code] 세 가지 모드가 있다는 것을 알 수 있습니다.
+
+[code]data:[/code] 각종 문자열을 정의하는 데 사용됩니다.
+
+[title]V2[/title]
+
+예를 들어 [code]gamemode[/code] 는 다음과 같이 나타낼 수 있습니다.
+[code]{
+	"type" : "string",
+	"data" : {
+		"a" : "모험 모드",
+		"c" : "크리에이티브 모드",
+		"s" : "서바이벌 모드"
+	}
+}[/code]
+
+이렇게 하면 [code]gramemode[/code] 에 [code]a,c,s[/code] 세 가지 모드가 있다는 것을 알 수 있으며, 대응하는 힌트 단어가 함께 표시됩니다.

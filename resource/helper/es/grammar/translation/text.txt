@@ -1,0 +1,30 @@
+[title]Descripción[/title]
+
+Se usa para definir las traducciones de la gramática.
+
+[title]Estructura[/title]
+
+[code]{
+	"zh" : {...}
+}[/code]
+
+La clave es el nombre del idioma y el valor son los datos del idioma. Hay dos tipos de datos de idioma.
+
+[title]Tipo 1 de datos de idioma[/title]
+
+[code]{
+	"apple" : "manzana",
+	"stone" : "piedra"
+}[/code]
+
+El primer tipo de idioma es simplemente una tabla de mapeo. Sustituye las claves que aparecen por las del mapeo.
+Por supuesto, si la tabla de traducción es muy grande, puedes usar [code]{"type" : "file", "file" : path}[/code] para reemplazarla.
+
+[title]Tipo 2 de datos de idioma[/title]
+
+[code]{
+	"type" : "po_file",
+	"file" : path
+}[/code]
+
+El segundo tipo de idioma es un archivo po. Se elige un archivo po para el mapeo.

@@ -1,0 +1,10 @@
+[title]Descrição[/title]
+
+Inteiro.
+Se a cadeia não começar com um dígito ou sinal, ela é adicionada à lista de expectativas e ignorada.
+
+[title]Detalhe[/title]
+
+[b]min:[/b] Inteiro. Valor mínimo; fora do intervalo gera erro.
+[b]max:[/b] Inteiro. Valor máximo; fora do intervalo gera erro.
+[b]suffixs:[/b] Array de cadeias. Unidades. [b]Nota:[/b] A ordem também afeta a análise da unidade. Por exemplo, ["", "a"] e ["a", ""] contra [code]1a[/code]: o primeiro analisa a unidade como vazia, o segundo como a.

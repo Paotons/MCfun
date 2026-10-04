@@ -1,0 +1,730 @@
+msgid ""
+msgstr ""
+"Language: zh_TW\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "close"
+msgstr "關閉"
+
+msgid "Close"
+msgstr "關閉"
+
+msgid "OK"
+msgstr "確定"
+
+msgid "ok"
+msgstr "確定"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "cancel"
+msgstr "取消"
+
+msgid "LOC"
+msgstr "定位"
+
+msgid "Empty"
+msgstr "空"
+
+msgid "Exit"
+msgstr "退出"
+
+msgid "Loading"
+msgstr "載入中"
+
+msgid "File System"
+msgstr "檔案系統"
+
+msgid "Recent:"
+msgstr "最近："
+
+msgid "Favorites:"
+msgstr "收藏："
+
+msgid "Directories & Files:"
+msgstr "目錄 & 檔案："
+
+msgid "Path:"
+msgstr "路徑："
+
+msgid "You don't have permission to access contents of this folder."
+msgstr "你沒有權限存取這個目錄。"
+
+msgid "Open a Directory"
+msgstr "開啟目錄"
+
+msgid "Select Current Folder"
+msgstr "選擇目前目錄"
+
+msgid "Select This Folder"
+msgstr "選擇這個目錄"
+
+msgid "Filter:"
+msgstr "過濾："
+
+msgid "Sort by Name (Ascending)"
+msgstr "按名稱（升序）"
+
+msgid "Sort by Name (Descending)"
+msgstr "按名稱（降序）"
+
+msgid "Sort by Type (Ascending)"
+msgstr "按類型（升序）"
+
+msgid "Sort by Type (Descending)"
+msgstr "按類型（降序）"
+
+msgid "Sort by Modified Time (Newest First)"
+msgstr "按時間（最新在前）"
+
+msgid "Sort by Modified Time (Oldest First)"
+msgstr "按時間（最舊在前）"
+
+msgid "Name:"
+msgstr "名稱："
+
+msgid "Create Folder"
+msgstr "建立目錄"
+
+msgid "Add"
+msgstr "新增"
+
+msgid "add"
+msgstr "新增"
+
+msgid "Get"
+msgstr "取得"
+
+msgid "get"
+msgstr "取得"
+
+msgid "Create"
+msgstr "建立"
+
+msgid "create"
+msgstr "建立"
+
+msgid "New"
+msgstr "新建"
+
+msgid "new"
+msgstr "新建"
+
+msgid "Start."
+msgstr "開始。"
+
+msgid "Empty filename."
+msgstr "空檔案名。"
+
+msgid "Empty directoryname."
+msgstr "空目錄名。"
+
+msgid "Empty file."
+msgstr "空檔案。"
+
+msgid "Empty directory."
+msgstr "空目錄。"
+
+msgid "Filetype must be mcfunction or zip."
+msgstr "檔案類型必須為 mcfunction 或 zip 格式。"
+
+msgid "Unfind file."
+msgstr "沒有找到檔案。"
+
+msgid "Notfind file."
+msgstr "沒有找到檔案。"
+
+msgid "Notfind directory."
+msgstr "沒有找到目錄。"
+
+msgid "Unfind directory."
+msgstr "沒有找到目錄。"
+
+msgid "Valid file."
+msgstr "檔案有效。"
+
+msgid "Valid directory."
+msgstr "目錄有效。"
+
+msgid "Already exist same-name filename."
+msgstr "已經存在同名檔案。"
+
+msgid "Already exist same-name filename, will be coverd."
+msgstr "已經存在同名檔案，將會被覆蓋。"
+
+msgid "Alrady exist same-name directoryname."
+msgstr "已經存在同名目錄。"
+
+msgid "Already exist same-name directory, will be coverd."
+msgstr "已經存在同名目錄，將會被覆蓋。"
+
+msgid "You can create file!"
+msgstr "你能夠建立檔案了！"
+
+msgid "You can create directory!"
+msgstr "你能夠建立目錄了！"
+
+msgid "Unvalid filename."
+msgstr "無效檔案名。"
+
+msgid "Unvalid directory."
+msgstr "無效目錄。"
+
+msgid "offset"
+msgstr "偏移"
+
+msgid "length"
+msgstr "長度"
+
+msgid "path"
+msgstr "路徑"
+
+msgid "name"
+msgstr "名稱"
+
+msgid "scale"
+msgstr "縮放"
+
+msgid "behavior"
+msgstr "行為"
+
+msgid "file"
+msgstr "檔案"
+
+msgid "File"
+msgstr "檔案"
+
+msgid "Setting"
+msgstr "設定"
+
+msgid "translation"
+msgstr "翻譯"
+
+msgid "language"
+msgstr "語言"
+
+msgid "Import"
+msgstr "匯入"
+
+msgid "GUI"
+msgstr "使用者介面"
+
+msgid "General"
+msgstr "一般"
+
+msgid "Edit"
+msgstr "編輯器"
+
+msgid "Highlight"
+msgstr "醒目提示"
+
+msgid "Completion"
+msgstr "補全"
+
+msgid "Appearance"
+msgstr "外觀"
+
+msgid "Behavior"
+msgstr "行為"
+
+msgid "Grammar"
+msgstr "語法"
+
+msgid "Project lost."
+msgstr "專案遺失。"
+
+msgid "Function Copyer"
+msgstr "函式複製幫手"
+
+msgid "Copy line"
+msgstr "複製一行"
+
+msgid "Copy normal"
+msgstr "正常複製"
+
+msgid "%d lines."
+msgstr "%d 行。"
+
+msgid "Running"
+msgstr "執行"
+
+msgid "AutoSaving"
+msgstr "自動儲存"
+
+msgid "data directory"
+msgstr "資料目錄"
+
+msgid "Choose Data Directory Please"
+msgstr "請選擇資料目錄。"
+
+msgid "Project List"
+msgstr "專案清單"
+
+msgid "import"
+msgstr "匯入"
+
+msgid "setting"
+msgstr "設定"
+
+msgid "coper"
+msgstr "複製幫手"
+
+msgid "Help"
+msgstr "說明"
+
+msgid "Command Head"
+msgstr "指令開頭"
+
+msgid "normal command"
+msgstr "普通指令"
+
+msgid "native command"
+msgstr "本機指令"
+
+msgid "comment command"
+msgstr "註解指令"
+
+msgid "Element"
+msgstr "元素"
+
+msgid "number"
+msgstr "數字"
+
+msgid "bool"
+msgstr "布林"
+
+msgid "mumber"
+msgstr "成員"
+
+msgid "point path"
+msgstr "點號路徑"
+
+msgid "selector"
+msgstr "目標選擇器"
+
+msgid "space"
+msgstr "空間"
+
+msgid "name"
+msgstr "名稱"
+
+msgid "option"
+msgstr "選項"
+
+msgid "error option"
+msgstr "錯誤選項"
+
+msgid "string"
+msgstr "字串"
+
+msgid "special string"
+msgstr "特殊字串"
+
+msgid "annotation"
+msgstr "註解"
+
+msgid "Coord"
+msgstr "座標"
+
+msgid "x"
+msgstr "x"
+
+msgid "y"
+msgstr "y"
+
+msgid "z"
+msgstr "z"
+
+msgid "help"
+msgstr "說明"
+
+msgid "remove"
+msgstr "移除"
+
+msgid "edit"
+msgstr "編輯"
+
+msgid "max completion operation count"
+msgstr "最大補全選項數量"
+
+msgid "showing tip"
+msgstr "顯示提示詞"
+
+msgid "tip weight (note: This function may have an impact on performance.)"
+msgstr "提示詞權重 （注意：該功能可能會帶來效能影響。）"
+
+msgid "spacename completion"
+msgstr "空間名稱補全"
+
+msgid "caret blink"
+msgstr "游標閃爍"
+
+msgid "double reflecting"
+msgstr "雙擊對應"
+
+msgid "reflecting strings"
+msgstr "對應字串"
+
+msgid "border enter"
+msgstr "邊界換行"
+
+msgid "grammar path"
+msgstr "語法路徑"
+
+msgid "get grammar"
+msgstr "提取語法"
+
+msgid "auto saving"
+msgstr "自動儲存"
+
+msgid "%dsec"
+msgstr "%d秒"
+
+msgid "%dmin%dsec"
+msgstr "%d分%d秒"
+
+msgid "saving space (%s)"
+msgstr "儲存間隔 （%s）"
+
+msgid "To apply the changes in the configuration file, a reload is necessary."
+msgstr "設定檔已變更，是否重新啟動。"
+
+msgid "Save & Reload"
+msgstr "儲存並重新啟動"
+
+msgid "Already exist same-name project."
+msgstr "已存在同名專案。"
+
+msgid "You can create project!"
+msgstr "你能夠建立專案了！"
+
+msgid "Unvaild project-directory."
+msgstr "無效專案目錄。"
+
+msgid "You can import project!"
+msgstr "你能夠匯入專案了！"
+
+msgid "project name"
+msgstr "專案名稱"
+
+msgid "project path"
+msgstr "專案路徑"
+
+msgid "Project Setting"
+msgstr "專案設定"
+
+msgid "project version"
+msgstr "專案版本"
+
+msgid "project description"
+msgstr "專案描述"
+
+msgid "min game version"
+msgstr "最低遊戲版本"
+
+msgid "Config"
+msgstr "設定檔"
+
+msgid "grammar cache"
+msgstr "語法快取"
+
+msgid "Delete & Recompute"
+msgstr "刪除並重新計算"
+
+msgid "Project settings have been changed. Do you want to reload the project?"
+msgstr "專案設定已變更，是否重新啟動專案？"
+
+msgid "Loading data."
+msgstr "正在載入資料。"
+
+msgid "Unvalid grammar:\n%s"
+msgstr "語法發生錯誤：\n%s"
+
+msgid "Loading GUI."
+msgstr "正在載入介面。"
+
+msgid "reload"
+msgstr "重新啟動"
+
+msgid "Project"
+msgstr "專案"
+
+msgid "Export"
+msgstr "匯出"
+
+msgid "Reload"
+msgstr "重新載入"
+
+msgid "Exit to List"
+msgstr "退出至清單"
+
+msgid "Save"
+msgstr "儲存"
+
+msgid "Save All"
+msgstr "全部儲存"
+
+msgid "Undo"
+msgstr "復原"
+
+msgid "Redo"
+msgstr "重做"
+
+msgid "Open"
+msgstr "開啟"
+
+msgid "Move Up"
+msgstr "向上移動"
+
+msgid "Move Down"
+msgstr "向下移動"
+
+msgid "Close"
+msgstr "關閉"
+
+msgid "Clear"
+msgstr "清空"
+
+msgid "System"
+msgstr "系統"
+
+msgid "Cut"
+msgstr "剪下"
+
+msgid "Copy"
+msgstr "複製"
+
+msgid "Paste"
+msgstr "貼上"
+
+msgid "Select All"
+msgstr "全選"
+
+msgid "Select Line"
+msgstr "選取一行"
+
+msgid "Uncompletion"
+msgstr "取消補全"
+
+msgid "New Project"
+msgstr "建立新專案"
+
+msgid "Import Project"
+msgstr "匯入專案"
+
+msgid "About Me"
+msgstr "關於我"
+
+msgid "Directory"
+msgstr "目錄"
+
+msgid "Children"
+msgstr "子檔案"
+
+msgid "Rename"
+msgstr "重新命名"
+
+msgid "Delete"
+msgstr "刪除"
+
+msgid "Create File"
+msgstr "建立檔案"
+
+msgid "Empty filename."
+msgstr "空檔案名。"
+
+msgid "Error (%d, %d) %s"
+msgstr "錯誤 （%d, %d） %s"
+
+msgid "%d lines %d column: "
+msgstr "%d 行 %d 列："
+
+msgid "The file has not been saved. Do you want to exit?"
+msgstr "檔案尚未儲存，是否退出。"
+
+msgid "Save & Exit"
+msgstr "儲存並退出"
+
+msgid "Save & Close"
+msgstr "儲存並關閉"
+
+msgid "Unsave & Close"
+msgstr "不儲存並關閉"
+
+msgid "File Saving"
+msgstr "檔案儲存"
+
+msgid "UnSave & Exit"
+msgstr "不儲存並退出"
+
+msgid "Creater"
+msgstr "建立者"
+
+msgid "Keeper"
+msgstr "維護者"
+
+msgid "Developer"
+msgstr "開發者"
+
+msgid "Special Thanks"
+msgstr "特別感謝"
+
+msgid "Mojang created the main body of the game\n\nGodot provided the engine\n\nDeepSeek handled the miscellaneous tasks"
+msgstr "Mojang 創造了遊戲主體\n\nGodot 提供了引擎\n\nDeepSeek 處理了部分雜項"
+
+msgid "Check Permissions"
+msgstr "檢查權限"
+
+msgid "Please select a folder as the main data directory.\nIf no action is taken, the software sandbox directory will be used by default. This directory is inaccessible to ordinary users.\nIf you want your work to be freely operable, it is recommended to create a separate directory and choose it."
+msgstr "請選擇一個資料夾，作為主要資料目錄。\n如果不進行操作，預設會使用軟體沙盒目錄，這個目錄一般使用者無法存取。\n如果你想讓你的作品能夠隨意操作，建議專門建立一個目錄，並選擇。"
+
+msgid "Do you want to exit the application?"
+msgstr "你要退出應用程式？"
+
+msgid "Unfind any string."
+msgstr "沒有找到字串。"
+
+msgid "Unvalid option \"%s\"."
+msgstr "不可用選項\"%s\"。"
+
+msgid "Key not has closed backet."
+msgstr "鍵沒有閉合括號。"
+
+msgid "Rule unfind property \"%s\"."
+msgstr "沒有找到屬性\"%s\"。"
+
+msgid "Unfind colon flag."
+msgstr "沒有找到冒號。"
+
+msgid "Unfind value."
+msgstr "沒有找到值。"
+
+msgid "Unfind coord."
+msgstr "沒有找到座標軸。"
+
+msgid "Unfind valid coord for %d."
+msgstr "沒有找到第%d的有效座標軸。"
+
+msgid "Unfind key \"%s\" in rule."
+msgstr "沒有找到規則中\"%s\"的鍵。"
+
+msgid "Unfind equal flag."
+msgstr "沒有找到等號。"
+
+msgid "Range is %d~%d, but is %d."
+msgstr "範圍應該在 %d~%d 不包含 %d"
+
+msgid "Range is %f~%f, but is %f."
+msgstr "範圍應該在 %f~%f 不包含 %f"
+
+msgid "String \"%s\" is unvalid float."
+msgstr "字串\"%s\"不是有效浮點。"
+
+msgid "String \"%s\" is unvalid int."
+msgstr "字串\"%s\"不是有效整數。"
+
+msgid "Unfind int suffix %s in %s."
+msgstr "沒有找到後綴 %s 在 %s 中。"
+
+msgid "Can't end with \"%s\"."
+msgstr "無法以\"%s\"結尾。"
+
+msgid "Unfind the path."
+msgstr "找不到這條路徑。"
+
+msgid "Unfind scope."
+msgstr "找不到範圍。"
+
+msgid "The flag \".\" has cunted %d."
+msgstr "點號數量 %d 異常。"
+
+msgid "Unvaild selector."
+msgstr "無效目標選擇器。"
+
+msgid "Not is begin with \"@\"."
+msgstr "不是以\"@\"開頭。"
+
+msgid "Unfind any word."
+msgstr "沒有找到詞。"
+
+msgid "Unfind param."
+msgstr "沒有找到參數。"
+
+msgid "Not begin with %s."
+msgstr "不以\"%s\"開頭。"
+
+msgid "Unfind end backet \"%s\"."
+msgstr "沒有找到反括號\"%s\""
+
+msgid "Unfind brother backet."
+msgstr "沒有找到兄弟括號。"
+
+msgid "Not begin with quotation."
+msgstr "不以引號開頭。"
+
+msgid "Unfind command."
+msgstr "沒有找到指令。"
+
+msgid "Command should be %s, but is %s."
+msgstr "指令應該是 %s 但是說 %s"
+
+msgid "More string \"%s\"."
+msgstr "多餘的字串\"%s\"。"
+
+msgid "Can't end."
+msgstr "無法結束。"
+
+msgid "Native command should begin with \"&\"."
+msgstr "本機指令應該以\"&\"開頭。"
+
+msgid "Comment command should begin with \"@\"."
+msgstr "註解指令應該以\"@\"開頭。"
+
+msgid "Unfind head \"%s\"."
+msgstr "沒有找到\"%s\"指令開頭。"
+
+msgid "Unfind help."
+msgstr "找不到說明。"
+
+msgid "Unvaild beginning."
+msgstr "無效開頭。"
+
+msgid "Annotaition must begin with #."
+msgstr "註解必須以\"#\"開頭。"
+
+msgid "\"%s\" has error:\n%s"
+msgstr "\"%s\"有錯誤：\n%s"
+
+msgid "Project Export"
+msgstr "專案匯出"
+
+msgid "error behavior"
+msgstr "錯誤處理"
+
+msgid "retain annotation"
+msgstr "保留註解"
+
+msgid "retain empty-line"
+msgstr "保留空行"
+
+msgid "ignore"
+msgstr "忽視"
+
+msgid "direct export"
+msgstr "直接匯出"
+
+msgid "Exporting"
+msgstr "正在匯出"
+
+msgid "Export successful."
+msgstr "匯出成功。"
+
+msgid "Simply extract the file to the behavior_packs directory in your map and enable the behavior pack."
+msgstr "只需把檔案解壓縮到地圖目錄behavior_packs並啟用行為包即可。"
+
+msgid "Creating leader-file."
+msgstr "正在建立引導檔案。"
+
+msgid "Compiling function."
+msgstr "正在編譯函式。"

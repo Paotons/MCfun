@@ -1,0 +1,22 @@
+[title]描述[/title]
+
+用於存儲各種列表的文件。
+
+並允許行使用 [code]{"type" : "file", "file" : "path"}[/code] 加載其他文件都內容，作為數據。例如：[code]"item" : {"type" : "file", "file" : "entry/item.json"}[/code]
+
+[title]V1[/title]
+
+實例：
+[code]{
+	"chapter" : {
+		"type" : "xxx"
+	},
+	"chapter2" : {
+		"type" : "xxx"
+	}
+}[/code]
+
+[b]chapter:[/b] 用於存儲這個分類的名稱，可以為任意字符。
+[b]chapter.type[/b] 用於表示這個分類的類型，可以為[code]string,spaceitem,path[/code] 還有特殊的 [code]file[/code] 類型。
+
+

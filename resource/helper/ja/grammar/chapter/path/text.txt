@@ -1,0 +1,43 @@
+[title]説明[/title]
+
+リスト [file grammar/entry]文法>>リスト[/file] においてパスの分類を表すために使用します。
+
+また、行が [code]{"type" : "file", "file" : "path"}[/code] を使用して他のファイルの内容をデータとして読み込むことを許可します。例：[code]"cat" : {"type" : "file", "file" : "entry/mob/cat.json"}[/code]
+
+[title]V1[/title]
+
+[code]playsound[/code] を表す場合、次のように表せます：
+[code]{
+	"type" : "path",
+	"data" : {
+		"mob" : {
+			"cat" : {
+				"" : false,
+				"hit" : false,
+				"dead" : false
+			}
+		}
+	}
+}[/code]
+これで [code]mob.cat mob.cat.hit mob.cat.deat[/code] と表せます。
+
+[b]data:[/b] 無限にネストでき、いくらでもネストできます。其中の [code]false[/code] はプレースホルダーとして使用します。
+
+[title]V1[/title]
+
+[code]playsound[/code] を表す場合、次のように表せます：
+[code]{
+	"type" : "path",
+	"data" : {
+		"mob" : {
+			"cat" : {
+				"" : "ネコ",
+				"hit" : "ネコが怪我",
+				"dead" : "ネコが死亡"
+			}
+		}
+	}
+}[/code]
+これで [code]mob.cat mob.cat.hit mob.cat.deat[/code] と表せ、対応するヒントワードも付きます。
+
+[b]data:[/b] 無限にネストでき、いくらでもネストできます。

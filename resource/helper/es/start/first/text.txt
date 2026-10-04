@@ -1,0 +1,64 @@
+[title]Crear un proyecto[/title]
+
+Entra en la lista de proyectos y haz clic en [code]Nuevo[/code] en la barra de herramientas superior.
+Introduce el nombre del proyecto; se recomienda usar inglés.
+Puedes dejar el directorio del proyecto por defecto.
+
+Tras crearlo, selecciona el proyecto y haz clic en [code]Editar[/code] a la derecha, o vuelve a hacer clic en el proyecto para entrar en el editor.
+
+[title]Crear un archivo[/title]
+
+Haz clic en [code]Archivo>>Sistema[/code] en la barra de herramientas superior para entrar en el sistema de archivos.
+En el sistema de archivos, busca [code]Añadir>>mcfun[/code] arriba, introduce un nombre de archivo (aquí usamos [code]Welcome[/code]) y confirma.
+
+Luego selecciona el archivo y haz clic en [code]Abrir>>Archivo[/code] al lado para abrirlo.
+
+[title]Editar el archivo[/title]
+
+Al abrir el archivo, se selecciona automáticamente.
+Puedes empezar escribiendo [code]give @s app[/code]; en ese momento, pulsa [code]Enter/Salto de línea[/code] para autocompletar rápidamente.
+Así habremos editado la línea de comando [code]give @s minecraft:apple[/code].
+
+Luego haz clic en [code]Archivo>>Guardar[/code] en la barra superior; de lo contrario el archivo podría perderse.
+
+[title]Ajustes del proyecto[/title]
+
+Si usas la última versión de Minecraft, no necesitas configurar nada; puedes exportar directamente.
+
+[code]Proyecto>>Ajustes[/code] en la barra superior abre los ajustes del proyecto.
+[code]Nombre del proyecto:[/code] el nombre de este proyecto.
+[code]Ruta del proyecto:[/code] la ruta de este proyecto. No editable; solo para copiar.
+[code]Versión del proyecto:[/code] la versión que quieres mostrar tras exportar. Por defecto 1.0.0.
+[code]Descripción del proyecto:[/code] se muestra en la descripción del paquete de recursos tras exportar.
+[code]Versión mínima del juego:[/code] la versión de Minecraft en la que se ejecuta este paquete de recursos. Por defecto 1.20.0.
+[b]Nota:[/b] si no aparece en el paquete de recursos, es muy probable que [code]Versión mínima del juego[/code] esté mal configurada.
+
+[title]Exportación del proyecto[/title]
+
+Haz clic en [code]Proyecto>>Exportar[/code] en la barra superior para abrir la ventana de exportación.
+Puedes configurar la ruta de exportación, o dejar la predeterminada.
+Haz clic en Exportar y espera.
+Cuando termine, puedes copiar la ruta para encontrar el zip o abrirlo directamente.
+
+[b]Nota:[/b] si no configuraste un directorio de datos al principio, se usará por defecto el directorio del software, que puede no ser accesible directamente. Ve a [code](Editor) Ajustes>>Interfaz>>General>>directorio de datos[/code] para cambiarlo.
+[b]Nota:[/b] la ventana no se puede cerrar durante la exportación.
+
+[title]Importar en el juego[/title]
+
+Encuentra tu mundo; normalmente está en el directorio [code]/storage/emulated/0/Android/data/com.mojang.minecraftpe/files/games/com.mojang/minecraftWorlds/[/code]. Puedes identificar el nombre del mundo por la captura de pantalla interior o por [code]levelname.txt[/code].
+Descomprime el zip en el directorio [code]behavior_packs[/code] del mundo; con eso basta.
+
+[b]Nota:[/b] los paquetes de comportamiento de NetEase pueden estar dentro de la app y no se pueden usar directamente. Hay que copiarlos manualmente en bloques de comandos; [file tool/coper]Copiador[/file] puede ayudarte a copiar rápidamente los comandos de una función.
+
+[title]Activar el paquete de comportamiento[/title]
+
+Entra en Minecraft, abre la pantalla de edición del mundo y en [code]Paquetes de comportamiento>>Mis paquetes[/code] debería aparecer una opción con un icono de error. Haz clic en ella y actívala.
+
+[b]Nota:[/b] si no aparece, puede que necesites reiniciar el juego, o que [code]Ajustes del proyecto>>Versión mínima del juego[/code] esté mal configurada.
+
+[title]Llamar a la función[/title]
+
+Entra en el mundo y escribe [code]/function Welcome/ el nombre de tu archivo[/code] y obtendrás una manzana.
+
+[b]Nota:[/b] si dice que la función no existe, puede que necesites [code]/reload[/code] para recargar las funciones.
+

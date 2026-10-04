@@ -1,0 +1,11 @@
+[title]語法[/title]
+
+用於定義指令怎麼組合。
+
+[b]注意：[/b] 目前還不這麼成熟，錯誤語法可能會引起崩潰。
+
+[title]構成[/title]
+
+[file grammar/process]流程[/file] 指定指令怎麼走。
+[file grammar/law]規則[/file] 指定指令特定元素的規則。
+[file grammar/entry]列表[/file] 指定元素特定元素可以填哪些。

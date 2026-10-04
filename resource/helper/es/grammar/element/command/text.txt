@@ -1,0 +1,16 @@
+[title]Descripción[/title]
+
+Un comando completo.
+
+[title]Categorías[/title]
+
+Un comando puede tener varios tipos. Por ejemplo, [code]root|normal[/code].
+
+[b]empty:[/b] comando vacío; nada en absoluto.
+[b]root:[/b] comando raíz; el comienzo de un comando.
+[b]replace:[/b] comando de reemplazo; normalmente el que va después de execute run.
+[b]normal:[/b] comando normal; un comando que existe directamente en Minecraft.
+[b]help:[/b] comando de ayuda; en Minecraft, el que empieza por signo de interrogación.
+[b]annotation:[/b] anotación; empieza por almohadilla.
+[b]native:[/b] comando nativo; empieza por ampersand.
+[b]comment:[/b] comando de comentario; empieza por arroba.

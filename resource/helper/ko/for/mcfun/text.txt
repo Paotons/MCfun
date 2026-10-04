@@ -1,0 +1,4 @@
+[title]소개[/title]
+MCfun은 [code]Minecraft Function/마인크래프트 함수[/code]의 약자이며, [code]Minectaft is fun/마인크래프트는 재미있다[/code]로도 이해할 수 있습니다.
+
+이름 그대로, Minecraft 플레이어가 함수/명령어를 작성하도록 돕는 도구입니다.

@@ -1,0 +1,9 @@
+[title]描述[/title]
+
+註解由@開頭，導出時忽視，用於改變編輯器行為。例如：[code]@list tag add my_tag[/code] 這樣後續補全 Tag 時有 my_tag 選項。
+
+[b]注意：[/b]目前該功能並沒有完善。
+
+[title]分類[/title]
+
+[file comment/list]控制補全數據 list[/file]

@@ -1,0 +1,11 @@
+[title]Gramática[/title]
+
+Se usa para definir cómo se combinan los comandos.
+
+[b]Nota:[/b] todavía no es muy maduro; una gramática errónea puede provocar un fallo.
+
+[title]Estructura[/title]
+
+[file grammar/process]Proceso[/file] define cómo avanza un comando.
+[file grammar/law]Ley[/file] define las reglas de elementos específicos de un comando.
+[file grammar/entry]Lista[/file] define qué valores puede tomar un elemento específico.

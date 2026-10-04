@@ -1,0 +1,33 @@
+[title]説明[/title]
+
+リスト [file grammar/entry]文法>>リスト[/file] の中の要素を表すために使用し、最初に各種文字列を定義するために使います。
+
+[title]V1[/title]
+
+例えば [code]gamemode[/code] は次のように表せます：
+[code]{
+	"type" : "string",
+	"data" : [
+		"a",
+		"c",
+		"s"
+	]
+}[/code]
+
+これで [code]gramemode[/code] に [code]a,c,s[/code] の3つのモードがあると表せます。
+
+[code]data:[/code] 各種文字列を定義するために使用します。
+
+[title]V2[/title]
+
+例えば [code]gamemode[/code] は次のように表せます：
+[code]{
+	"type" : "string",
+	"data" : {
+		"a" : "アドベンチャーモード",
+		"c" : "クリエイティブモード",
+		"s" : "サバイバルモード"
+	}
+}[/code]
+
+これで [code]gramemode[/code] に [code]a,c,s[/code] の3つのモードがあると表せ、対応するヒントワードも付きます。

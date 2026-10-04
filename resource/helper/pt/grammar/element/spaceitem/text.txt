@@ -1,0 +1,8 @@
+[title]Descrição[/title]
+
+Item de espaço.
+Se a cadeia não começar com uma palavra, ela é adicionada à lista de expectativas e ignorada.
+
+[title]Detalhe[/title]
+
+[b]chapter:[/b] Cadeia. O capítulo usado.

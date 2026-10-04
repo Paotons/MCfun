@@ -1,0 +1,30 @@
+[title]Categorías[/title]
+
+Actualmente el único tipo de archivo es [code]*.mcfun[/code]。
+
+[title]Sistema[/title]
+
+El sistema de archivos está en [code]Editor>>Archivo>>Sistema[/code] y sirve para crear o eliminar archivos。
+
+[title]Abrir[/title]
+
+Los archivos abiertos se pueden editar。
+
+Abrir un archivo rápidamente en [code]Editor>>Archivo>>Abrir[/code]。
+También puedes abrir archivos desde el sistema de archivos, en [code]Abrir>>Archivo[/code]。Para abrir rápidamente todos los archivos de un directorio, usa [code]Abrir>>Archivos secundarios[/code] del sistema de archivos。
+
+[title]Renombrar[/title]
+
+En el sistema de archivos: [code]Archivo>>Renombrar[/code]。
+
+[title]Copiar[/title]
+
+En el sistema de archivos: [code]Archivo>>Copiar[/code]。
+
+[title]Mover[/title]
+
+En el sistema de archivos: [code]Archivo>>Mover[/code]。
+
+[title]Eliminar[/title]
+
+En el sistema de archivos: [code]Archivo>>Eliminar[/code]。

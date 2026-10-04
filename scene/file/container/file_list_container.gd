@@ -267,6 +267,7 @@ func _add_file_button(index : int = -1) -> void:
 	button.button_group = _button_group
 	button.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	button.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_INHERIT
 	add_child(button)
 	_files[index].button = button
 # 移除文件按钮。

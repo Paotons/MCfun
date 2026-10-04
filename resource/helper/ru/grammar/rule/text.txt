@@ -1,0 +1,22 @@
+[title]Описание[/title]
+
+Подэлемент [file grammar/law]Законов[/file], определяющий различные правила.
+
+[title]Категории[/title]
+
+[file grammar/rule/equal_param_backet]Параметр через равно equal_param_backet[/file]
+[file grammar/rule/colon_param_backet]Параметр через двоеточие colon_param_backet[/file]
+[file grammar/rule/param_backet]Скобки параметра param_backet[/file]
+[file grammar/rule/array_backet]Скобки массива array_backet[/file]
+
+[title]V1[/title]
+
+[code]"selsctor_body" : {
+	"type" : "equal_param_backet",
+	"detail" : ....
+	"data" : ...	
+}[/code]
+
+[b]type:[/b]задаёт тип.
+[b]detail:[/b]задаёт детали.
+[b]data:[/b]задаёт данные.

@@ -1,0 +1,7 @@
+[title]설명[/title]
+
+대상 선택자.
+
+[title]세부 사항[/title]
+
+[b]using_asterisk:[/b] 불리언. [code]true[/code] 이면 별표(*) 사용을 허용합니다.

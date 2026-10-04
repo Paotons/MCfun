@@ -1,0 +1,8 @@
+[title]Descripción[/title]
+
+Paréntesis de parámetros; tiene exactamente un parámetro.
+
+[title]Datos[/title]
+
+[code] "data" : [{...}][/code]
+El elemento correspondiente.

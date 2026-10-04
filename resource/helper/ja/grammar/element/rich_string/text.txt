@@ -1,0 +1,7 @@
+[title]説明[/title]
+
+リッチ文字列。
+
+[title]詳細[/title]
+
+[b]long:[/b] ブール。[code]true[/code] の場合、長い文字列です。

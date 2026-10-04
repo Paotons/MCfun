@@ -1,0 +1,11 @@
+[title]문법[/title]
+
+명령어가 어떻게 조합되는지를 정의합니다.
+
+[b]주의:[/b] 아직 충분히 성숙하지 않아, 잘못된 문법은 충돌을 일으킬 수 있습니다.
+
+[title]구성[/title]
+
+[file grammar/process]흐름[/file] 명령어가 어떻게 진행되는지 지정합니다.
+[file grammar/law]규칙[/file] 명령어 특정 요소의 규칙을 지정합니다.
+[file grammar/entry]목록[/file] 특정 요소에 어떤 값을 넣을 수 있는지 지정합니다.

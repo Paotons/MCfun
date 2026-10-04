@@ -1,0 +1,26 @@
+[title]Descrição[/title]
+
+Uso avançado de um elemento; um array de cadeias armazenado dentro do elemento. Ainda não está totalmente desenvolvido e alguns recursos ainda têm problemas.
+
+[title]Lista[/title]
+
+Todo comando tem uma lista. Você pode usar [code]list[/code] para controlar essa lista.
+
+[code]list <nome_da_lista> add self[/code] adiciona a cadeia do elemento atual à lista.
+
+[title]Complementação[/title]
+
+Controla a complementação. Você pode usar [code]completion[/code] para controlar a complementação.
+
+[code]completion list <nome_da_lista>[/code] mostra o menu de complementação da lista.
+
+[b]Nota:[/b] Este recurso não está completo. Atualmente apenas [code]string, word, selector[/code] são suportados.
+
+[title]Lista de Expectativas[/title]
+
+Controla a lista de expectativas, que também controla a complementação. Você pode usar [code]expectation[/code] para controlar a complementação.
+Toda vez que uma execução ocorre, se um elemento der erro, ele é automaticamente adicionado à lista de expectativas.
+
+[code]expectation clear[/code] limpa a lista de expectativas.
+
+b]Nota:[/b] Este recurso não está completo. Atualmente apenas [code]null[/code] é suportado.

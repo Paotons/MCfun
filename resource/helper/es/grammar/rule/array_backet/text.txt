@@ -1,0 +1,14 @@
+[title]Descripción[/title]
+
+Paréntesis de arreglo.
+
+[title]Detalle[/title]
+
+[code]"detail" : "is_same"[/code] usa la misma clave; en ese caso, los datos tienen un solo valor.
+
+Esto puede cambiar en el futuro.
+
+[title]Datos[/title]
+
+[code] "data" : [{...}][/code]
+El elemento correspondiente.

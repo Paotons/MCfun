@@ -1,0 +1,15 @@
+[title]Descrição[/title]
+
+A exportação empacota o projeto em um pacote de comportamento diretamente utilizável pelo [code]Minecraft[/code].
+
+[title]Configurações[/title]
+
+[b]Incluir anotações:[/b] Exporta as anotações também.
+[b]Incluir linhas vazias:[/b] Exporta linhas sem conteúdo.
+
+[b]Nota:[/b] Algumas versões do [code]Minecraft[/code] não suportam anotações; confirme antes de exportar anotações.
+
+[title]Arquivos exportados:[/title]
+
+[b]mainfest.json :[/b] O arquivo principal, contendo o nome e a versão do projeto.
+[b]functiins/* :[/b] Funções, contendo todas as funções exportadas.

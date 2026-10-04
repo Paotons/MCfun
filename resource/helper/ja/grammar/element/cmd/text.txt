@@ -1,0 +1,26 @@
+[title]説明[/title]
+
+要素の高度な使い方で、要素内に存在する文字列配列です。現在は完全には開発されておらず、一部の機能にはまだ問題があります。
+
+[title]リスト[/title]
+
+各コマンドにはリストがあります。[code]list[/code] でこのリストを制御できます。
+
+[code]list <リスト名> add self[/code] で現在の要素の文字列をリストに追加できます。
+
+[title]補完[/title]
+
+補完を制御します。[code]completion[/code] で補完を制御できます。
+
+[code]completion list <リスト名>[/code] でリスト補完メニューを表示します。
+
+[b]注意：[/b]この機能は不完全で、現在は [code]string, word, selector[/code] のみサポートしています。
+
+[title]期待リスト[/title]
+
+期待リストを制御します。期待リストも補完を制御します。[code]expectation[/code] で補完を制御できます。
+実行のたびに要素でエラーが発生すると、自動的に期待リストに追加されます。
+
+[code]expectation clear[/code] で期待リストをクリアします。
+
+[b]注意：[/b]この機能は不完全で、現在は [code]null[/code] のみサポートしています。

@@ -1,0 +1,43 @@
+[title]Descripción[/title]
+
+Se usa en [file grammar/entry]Gramática>>Lista[/file] para representar la categoría de rutas.
+
+Además, una línea puede usar [code]{"type" : "file", "file" : "path"}[/code] para cargar el contenido de otro archivo como datos. Por ejemplo: [code]"cat" : {"type" : "file", "file" : "entry/mob/cat.json"}[/code]
+
+[title]V1[/title]
+
+[code]playsound[/code] se puede representar como:
+[code]{
+	"type" : "path",
+	"data" : {
+		"mob" : {
+			"cat" : {
+				"" : false,
+				"hit" : false,
+				"dead" : false
+			}
+		}
+	}
+}[/code]
+Así se pueden representar [code]mob.cat mob.cat.hit mob.cat.deat[/code].
+
+[b]data:[/b] representa anidamiento infinito; se puede anidar indefinidamente. [code]false[/code] se usa como marcador de posición.
+
+[title]V2[/title]
+
+[code]playsound[/code] se puede representar como:
+[code]{
+	"type" : "path",
+	"data" : {
+		"mob" : {
+			"cat" : {
+				"" : "gato",
+				"hit" : "gato herido",
+				"dead" : "gato muerto"
+			}
+		}
+	}
+}[/code]
+Así se pueden representar [code]mob.cat mob.cat.hit mob.cat.deat[/code], junto con las sugerencias correspondientes.
+
+[b]data:[/b] representa anidamiento infinito; se puede anidar indefinidamente.

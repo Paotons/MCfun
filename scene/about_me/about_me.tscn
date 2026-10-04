@@ -85,11 +85,13 @@ layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=795752185]
+auto_translate_mode = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "MC"
 
 [node name="Label2" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=961866406]
+auto_translate_mode = 2
 layout_mode = 2
 mouse_filter = 0
 theme_override_font_sizes/font_size = 32
@@ -97,6 +99,7 @@ text = "f"
 script = SubResource("GDScript_7yhjt")
 
 [node name="Label3" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1188857032]
+auto_translate_mode = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "un"
@@ -107,8 +110,9 @@ layout_mode = 2
 alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=515419801]
+auto_translate_mode = 2
 layout_mode = 2
-text = "v1.0.ry.8"
+text = "v1.1.alpha.3.0"
 script = SubResource("GDScript_e344j")
 
 [node name="Creater" type="HBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1031317699]
@@ -128,6 +132,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1130111758]
+auto_translate_mode = 2
 layout_mode = 2
 text = "泡桐树(Paotons)"
 
@@ -148,6 +153,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Label3" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=183486867]
+auto_translate_mode = 2
 layout_mode = 2
 text = "泡桐树(Paotons)
 
@@ -170,6 +176,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Label4" type="Label" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=2137116850]
+auto_translate_mode = 2
 layout_mode = 2
 text = "泡桐树(Paotons)
 

@@ -1,0 +1,8 @@
+[title]Описание[/title]
+
+Это различные элементы списка [file grammar/entry]Грамматика>>Разделы[/file].
+
+[title]V1[/title]
+Обычные строки: [file grammar/chapter/string]Грамматика>>Разделы>>Строка[/file]
+Для [code]minecraft:apple[/code]: [file grammar/chapter/spaceitem]Грамматика>>Разделы>>Пространственные предметы[/file]
+Для [code]mob.zombile.hit[/code]: [file grammar/chapter/path]Грамматика>>Разделы>>Путь[/file]

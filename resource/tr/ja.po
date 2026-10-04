@@ -1,0 +1,730 @@
+msgid ""
+msgstr ""
+"Language: ja\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "close"
+msgstr "閉じる"
+
+msgid "Close"
+msgstr "閉じる"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "ok"
+msgstr "OK"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "cancel"
+msgstr "キャンセル"
+
+msgid "LOC"
+msgstr "位置"
+
+msgid "Empty"
+msgstr "空"
+
+msgid "Exit"
+msgstr "終了"
+
+msgid "Loading"
+msgstr "読み込み中"
+
+msgid "File System"
+msgstr "ファイルシステム"
+
+msgid "Recent:"
+msgstr "最近："
+
+msgid "Favorites:"
+msgstr "お気に入り："
+
+msgid "Directories & Files:"
+msgstr "ディレクトリとファイル："
+
+msgid "Path:"
+msgstr "パス："
+
+msgid "You don't have permission to access contents of this folder."
+msgstr "このフォルダの内容にアクセスする権限がありません。"
+
+msgid "Open a Directory"
+msgstr "ディレクトリを開く"
+
+msgid "Select Current Folder"
+msgstr "現在のフォルダを選択"
+
+msgid "Select This Folder"
+msgstr "このフォルダを選択"
+
+msgid "Filter:"
+msgstr "フィルター："
+
+msgid "Sort by Name (Ascending)"
+msgstr "名前で並べ替え（昇順）"
+
+msgid "Sort by Name (Descending)"
+msgstr "名前で並べ替え（降順）"
+
+msgid "Sort by Type (Ascending)"
+msgstr "種類で並べ替え（昇順）"
+
+msgid "Sort by Type (Descending)"
+msgstr "種類で並べ替え（降順）"
+
+msgid "Sort by Modified Time (Newest First)"
+msgstr "更新日時で並べ替え（新しい順）"
+
+msgid "Sort by Modified Time (Oldest First)"
+msgstr "更新日時で並べ替え（古い順）"
+
+msgid "Name:"
+msgstr "名前："
+
+msgid "Create Folder"
+msgstr "フォルダを作成"
+
+msgid "Add"
+msgstr "追加"
+
+msgid "add"
+msgstr "追加"
+
+msgid "Get"
+msgstr "取得"
+
+msgid "get"
+msgstr "取得"
+
+msgid "Create"
+msgstr "作成"
+
+msgid "create"
+msgstr "作成"
+
+msgid "New"
+msgstr "新規"
+
+msgid "new"
+msgstr "新規"
+
+msgid "Start."
+msgstr "開始。"
+
+msgid "Empty filename."
+msgstr "空のファイル名。"
+
+msgid "Empty directoryname."
+msgstr "空のディレクトリ名。"
+
+msgid "Empty file."
+msgstr "空のファイル。"
+
+msgid "Empty directory."
+msgstr "空のディレクトリ。"
+
+msgid "Filetype must be mcfunction or zip."
+msgstr "ファイルタイプは mcfunction または zip 形式である必要があります。"
+
+msgid "Unfind file."
+msgstr "ファイルが見つかりません。"
+
+msgid "Notfind file."
+msgstr "ファイルが見つかりません。"
+
+msgid "Notfind directory."
+msgstr "ディレクトリが見つかりません。"
+
+msgid "Unfind directory."
+msgstr "ディレクトリが見つかりません。"
+
+msgid "Valid file."
+msgstr "有効なファイル。"
+
+msgid "Valid directory."
+msgstr "有効なディレクトリ。"
+
+msgid "Already exist same-name filename."
+msgstr "同名のファイルが既に存在します。"
+
+msgid "Already exist same-name filename, will be coverd."
+msgstr "同名のファイルが既に存在します。上書きされます。"
+
+msgid "Alrady exist same-name directoryname."
+msgstr "同名のディレクトリが既に存在します。"
+
+msgid "Already exist same-name directory, will be coverd."
+msgstr "同名のディレクトリが既に存在します。上書きされます。"
+
+msgid "You can create file!"
+msgstr "ファイルを作成できます！"
+
+msgid "You can create directory!"
+msgstr "ディレクトリを作成できます！"
+
+msgid "Unvalid filename."
+msgstr "無効なファイル名。"
+
+msgid "Unvalid directory."
+msgstr "無効なディレクトリ。"
+
+msgid "offset"
+msgstr "オフセット"
+
+msgid "length"
+msgstr "長さ"
+
+msgid "path"
+msgstr "パス"
+
+msgid "name"
+msgstr "名前"
+
+msgid "scale"
+msgstr "拡大縮小"
+
+msgid "behavior"
+msgstr "動作"
+
+msgid "file"
+msgstr "ファイル"
+
+msgid "File"
+msgstr "ファイル"
+
+msgid "Setting"
+msgstr "設定"
+
+msgid "translation"
+msgstr "翻訳"
+
+msgid "language"
+msgstr "言語"
+
+msgid "Import"
+msgstr "インポート"
+
+msgid "GUI"
+msgstr "ユーザーインターフェース"
+
+msgid "General"
+msgstr "一般"
+
+msgid "Edit"
+msgstr "エディタ"
+
+msgid "Highlight"
+msgstr "ハイライト"
+
+msgid "Completion"
+msgstr "補完"
+
+msgid "Appearance"
+msgstr "外観"
+
+msgid "Behavior"
+msgstr "動作"
+
+msgid "Grammar"
+msgstr "文法"
+
+msgid "Project lost."
+msgstr "プロジェクトが見つかりません。"
+
+msgid "Function Copyer"
+msgstr "関数コピーヘルパー"
+
+msgid "Copy line"
+msgstr "1行コピー"
+
+msgid "Copy normal"
+msgstr "通常コピー"
+
+msgid "%d lines."
+msgstr "%d 行。"
+
+msgid "Running"
+msgstr "実行"
+
+msgid "AutoSaving"
+msgstr "自動保存"
+
+msgid "data directory"
+msgstr "データディレクトリ"
+
+msgid "Choose Data Directory Please"
+msgstr "データディレクトリを選択してください。"
+
+msgid "Project List"
+msgstr "プロジェクト一覧"
+
+msgid "import"
+msgstr "インポート"
+
+msgid "setting"
+msgstr "設定"
+
+msgid "coper"
+msgstr "コピーヘルパー"
+
+msgid "Help"
+msgstr "ヘルプ"
+
+msgid "Command Head"
+msgstr "コマンドヘッド"
+
+msgid "normal command"
+msgstr "通常コマンド"
+
+msgid "native command"
+msgstr "ネイティブコマンド"
+
+msgid "comment command"
+msgstr "コメントコマンド"
+
+msgid "Element"
+msgstr "要素"
+
+msgid "number"
+msgstr "数値"
+
+msgid "bool"
+msgstr "真偽値"
+
+msgid "mumber"
+msgstr "メンバー"
+
+msgid "point path"
+msgstr "ドットパス"
+
+msgid "selector"
+msgstr "ターゲットセレクター"
+
+msgid "space"
+msgstr "名前空間"
+
+msgid "name"
+msgstr "名前"
+
+msgid "option"
+msgstr "オプション"
+
+msgid "error option"
+msgstr "エラーオプション"
+
+msgid "string"
+msgstr "文字列"
+
+msgid "special string"
+msgstr "特殊文字列"
+
+msgid "annotation"
+msgstr "注釈"
+
+msgid "Coord"
+msgstr "座標"
+
+msgid "x"
+msgstr "x"
+
+msgid "y"
+msgstr "y"
+
+msgid "z"
+msgstr "z"
+
+msgid "help"
+msgstr "ヘルプ"
+
+msgid "remove"
+msgstr "削除"
+
+msgid "edit"
+msgstr "編集"
+
+msgid "max completion operation count"
+msgstr "補完候補の最大数"
+
+msgid "showing tip"
+msgstr "ヒントを表示"
+
+msgid "tip weight (note: This function may have an impact on performance.)"
+msgstr "ヒントの重み （注意：この機能はパフォーマンスに影響を与える可能性があります。）"
+
+msgid "spacename completion"
+msgstr "名前空間の補完"
+
+msgid "caret blink"
+msgstr "カーソルの点滅"
+
+msgid "double reflecting"
+msgstr "ダブルタップ変換"
+
+msgid "reflecting strings"
+msgstr "変換文字列"
+
+msgid "border enter"
+msgstr "境界で折り返し"
+
+msgid "grammar path"
+msgstr "文法パス"
+
+msgid "get grammar"
+msgstr "文法を取得"
+
+msgid "auto saving"
+msgstr "自動保存"
+
+msgid "%dsec"
+msgstr "%d秒"
+
+msgid "%dmin%dsec"
+msgstr "%d分%d秒"
+
+msgid "saving space (%s)"
+msgstr "保存間隔 （%s）"
+
+msgid "To apply the changes in the configuration file, a reload is necessary."
+msgstr "設定ファイルが変更されました。再起動しますか。"
+
+msgid "Save & Reload"
+msgstr "保存して再起動"
+
+msgid "Already exist same-name project."
+msgstr "同名のプロジェクトが既に存在します。"
+
+msgid "You can create project!"
+msgstr "プロジェクトを作成できます！"
+
+msgid "Unvaild project-directory."
+msgstr "無効なプロジェクトディレクトリ。"
+
+msgid "You can import project!"
+msgstr "プロジェクトをインポートできます！"
+
+msgid "project name"
+msgstr "プロジェクト名"
+
+msgid "project path"
+msgstr "プロジェクトパス"
+
+msgid "Project Setting"
+msgstr "プロジェクト設定"
+
+msgid "project version"
+msgstr "プロジェクトバージョン"
+
+msgid "project description"
+msgstr "プロジェクトの説明"
+
+msgid "min game version"
+msgstr "最低ゲームバージョン"
+
+msgid "Config"
+msgstr "設定ファイル"
+
+msgid "grammar cache"
+msgstr "文法キャッシュ"
+
+msgid "Delete & Recompute"
+msgstr "削除して再計算"
+
+msgid "Project settings have been changed. Do you want to reload the project?"
+msgstr "プロジェクト設定が変更されました。プロジェクトを再読み込みしますか？"
+
+msgid "Loading data."
+msgstr "データを読み込み中。"
+
+msgid "Unvalid grammar:\n%s"
+msgstr "文法エラー：\n%s"
+
+msgid "Loading GUI."
+msgstr "インターフェースを読み込み中。"
+
+msgid "reload"
+msgstr "再起動"
+
+msgid "Project"
+msgstr "プロジェクト"
+
+msgid "Export"
+msgstr "エクスポート"
+
+msgid "Reload"
+msgstr "再読み込み"
+
+msgid "Exit to List"
+msgstr "一覧へ戻る"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Save All"
+msgstr "すべて保存"
+
+msgid "Undo"
+msgstr "元に戻す"
+
+msgid "Redo"
+msgstr "やり直す"
+
+msgid "Open"
+msgstr "開く"
+
+msgid "Move Up"
+msgstr "上に移動"
+
+msgid "Move Down"
+msgstr "下に移動"
+
+msgid "Close"
+msgstr "閉じる"
+
+msgid "Clear"
+msgstr "クリア"
+
+msgid "System"
+msgstr "システム"
+
+msgid "Cut"
+msgstr "切り取り"
+
+msgid "Copy"
+msgstr "コピー"
+
+msgid "Paste"
+msgstr "貼り付け"
+
+msgid "Select All"
+msgstr "すべて選択"
+
+msgid "Select Line"
+msgstr "行を選択"
+
+msgid "Uncompletion"
+msgstr "補完をキャンセル"
+
+msgid "New Project"
+msgstr "新規プロジェクト"
+
+msgid "Import Project"
+msgstr "プロジェクトをインポート"
+
+msgid "About Me"
+msgstr "このアプリについて"
+
+msgid "Directory"
+msgstr "ディレクトリ"
+
+msgid "Children"
+msgstr "子ファイル"
+
+msgid "Rename"
+msgstr "名前を変更"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid "Create File"
+msgstr "ファイルを作成"
+
+msgid "Empty filename."
+msgstr "空のファイル名。"
+
+msgid "Error (%d, %d) %s"
+msgstr "エラー （%d, %d） %s"
+
+msgid "%d lines %d column: "
+msgstr "%d 行 %d 列："
+
+msgid "The file has not been saved. Do you want to exit?"
+msgstr "ファイルが保存されていません。終了しますか？"
+
+msgid "Save & Exit"
+msgstr "保存して終了"
+
+msgid "Save & Close"
+msgstr "保存して閉じる"
+
+msgid "Unsave & Close"
+msgstr "保存せず閉じる"
+
+msgid "File Saving"
+msgstr "ファイル保存"
+
+msgid "UnSave & Exit"
+msgstr "保存せず終了"
+
+msgid "Creater"
+msgstr "作成者"
+
+msgid "Keeper"
+msgstr "保守担当"
+
+msgid "Developer"
+msgstr "開発者"
+
+msgid "Special Thanks"
+msgstr "特別協力"
+
+msgid "Mojang created the main body of the game\n\nGodot provided the engine\n\nDeepSeek handled the miscellaneous tasks"
+msgstr "Mojang がゲーム本体を制作\n\nGodot がエンジンを提供\n\nDeepSeek がその他雑務を担当"
+
+msgid "Check Permissions"
+msgstr "権限を確認"
+
+msgid "Please select a folder as the main data directory.\nIf no action is taken, the software sandbox directory will be used by default. This directory is inaccessible to ordinary users.\nIf you want your work to be freely operable, it is recommended to create a separate directory and choose it."
+msgstr "メインデータディレクトリとしてフォルダを選択してください。\n操作を行わない場合、デフォルトでソフトのサンドボックスディレクトリが使用されます。このディレクトリは一般ユーザーからはアクセスできません。\n作品を自由に操作したい場合は、専用のディレクトリを作成して選択することをお勧めします。"
+
+msgid "Do you want to exit the application?"
+msgstr "アプリケーションを終了しますか？"
+
+msgid "Unfind any string."
+msgstr "文字列が見つかりません。"
+
+msgid "Unvalid option \"%s\"."
+msgstr "無効なオプション\"%s\"。"
+
+msgid "Key not has closed backet."
+msgstr "キーに閉じ括弧がありません。"
+
+msgid "Rule unfind property \"%s\"."
+msgstr "プロパティ\"%s\"が見つかりません。"
+
+msgid "Unfind colon flag."
+msgstr "コロンが見つかりません。"
+
+msgid "Unfind value."
+msgstr "値が見つかりません。"
+
+msgid "Unfind coord."
+msgstr "座標軸が見つかりません。"
+
+msgid "Unfind valid coord for %d."
+msgstr "%d 番目の有効な座標軸が見つかりません。"
+
+msgid "Unfind key \"%s\" in rule."
+msgstr "ルール内にキー\"%s\"が見つかりません。"
+
+msgid "Unfind equal flag."
+msgstr "等号が見つかりません。"
+
+msgid "Range is %d~%d, but is %d."
+msgstr "範囲は %d~%d である必要がありますが、%d です。"
+
+msgid "Range is %f~%f, but is %f."
+msgstr "範囲は %f~%f である必要がありますが、%f です。"
+
+msgid "String \"%s\" is unvalid float."
+msgstr "文字列\"%s\"は有効な浮動小数点数ではありません。"
+
+msgid "String \"%s\" is unvalid int."
+msgstr "文字列\"%s\"は有効な整数ではありません。"
+
+msgid "Unfind int suffix %s in %s."
+msgstr "%s 内にサフィックス %s が見つかりません。"
+
+msgid "Can't end with \"%s\"."
+msgstr "\"%s\"で終了できません。"
+
+msgid "Unfind the path."
+msgstr "パスが見つかりません。"
+
+msgid "Unfind scope."
+msgstr "範囲が見つかりません。"
+
+msgid "The flag \".\" has cunted %d."
+msgstr "ドットの数 %d が異常です。"
+
+msgid "Unvaild selector."
+msgstr "無効なターゲットセレクター。"
+
+msgid "Not is begin with \"@\"."
+msgstr "\"@\"で始まっていません。"
+
+msgid "Unfind any word."
+msgstr "単語が見つかりません。"
+
+msgid "Unfind param."
+msgstr "パラメータが見つかりません。"
+
+msgid "Not begin with %s."
+msgstr "\"%s\"で始まっていません。"
+
+msgid "Unfind end backet \"%s\"."
+msgstr "閉じ括弧\"%s\"が見つかりません。"
+
+msgid "Unfind brother backet."
+msgstr "対応する括弧が見つかりません。"
+
+msgid "Not begin with quotation."
+msgstr "引用符で始まっていません。"
+
+msgid "Unfind command."
+msgstr "コマンドが見つかりません。"
+
+msgid "Command should be %s, but is %s."
+msgstr "コマンドは %s である必要がありますが、%s です。"
+
+msgid "More string \"%s\"."
+msgstr "余分な文字列\"%s\"。"
+
+msgid "Can't end."
+msgstr "終了できません。"
+
+msgid "Native command should begin with \"&\"."
+msgstr "ネイティブコマンドは\"&\"で始まる必要があります。"
+
+msgid "Comment command should begin with \"@\"."
+msgstr "コメントコマンドは\"@\"で始まる必要があります。"
+
+msgid "Unfind head \"%s\"."
+msgstr "\"%s\"ヘッドが見つかりません。"
+
+msgid "Unfind help."
+msgstr "ヘルプが見つかりません。"
+
+msgid "Unvaild beginning."
+msgstr "無効な開始。"
+
+msgid "Annotaition must begin with #."
+msgstr "注釈は\"#\"で始まる必要があります。"
+
+msgid "\"%s\" has error:\n%s"
+msgstr "\"%s\"にエラーがあります：\n%s"
+
+msgid "Project Export"
+msgstr "プロジェクトのエクスポート"
+
+msgid "error behavior"
+msgstr "エラー処理"
+
+msgid "retain annotation"
+msgstr "注釈を保持"
+
+msgid "retain empty-line"
+msgstr "空行を保持"
+
+msgid "ignore"
+msgstr "無視"
+
+msgid "direct export"
+msgstr "直接エクスポート"
+
+msgid "Exporting"
+msgstr "エクスポート中"
+
+msgid "Export successful."
+msgstr "エクスポート成功。"
+
+msgid "Simply extract the file to the behavior_packs directory in your map and enable the behavior pack."
+msgstr "ファイルをマップの behavior_packs ディレクトリに解凍し、ビヘイビアパックを有効にするだけです。"
+
+msgid "Creating leader-file."
+msgstr "リードファイルを作成中。"
+
+msgid "Compiling function."
+msgstr "関数をコンパイル中。"

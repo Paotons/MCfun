@@ -1,0 +1,47 @@
+[title]説明[/title]
+
+1つのコマンドは各種要素に分解できます。
+
+例えば：
+[code]execute as @a run give @s minecraft:apple 64[/code]
+は次のように分解できます：
+[b]execute:[/b] コマンドヘッド。
+[b]as:[/b] オプション。
+[b]@a:[/b] ターゲットセレクター。
+[b]run:[/b] オプション。
+[b]give @s minecraft:apple 64:[/b] サブコマンド。もちろんさらに分解もできます。
+
+[title]種類[/title]
+
+現在、要素は多くの種類をサポートしています。
+
+[b]null:[/b] 種類なし。プレースホルダーを表します。
+[b]bool:[/b] ブール型。[code]false[/code] と [code]true[/code] の2つの選択肢を表せます。
+[b]int:[/b] 整数型。[code]64[/code] などの各種の数字を表せます。
+[b]float:[/b] 浮動小数点型。[code]0.5[/code] などの小数点付きの数字を表せます。
+[b]option:[/b] オプション。通常はいくつかの固定選択肢です。
+[b]rich_string:[/b] リッチテキスト。[code]§[/code] 表示をサポートします。
+[b]word:[/b] 単語。各国言語の文字とハイフンと数字のみをサポートし、通常はプレイヤー名を表します。
+[b]string:[/b] 文字列。空白インデントでなければサポートします。
+[b]spaceitem:[/b] 名前空間アイテム。[code]space_item[/code] と書かれることもあり、[code]apple[/code] や [code]minecraft:apple[/code] を表せます。
+[b]point_path:[/b] ドットパス。[code]mob.cat[/code] を表すのに使えます。
+[b]file_path:[/b] ファイルパス。[code]main/myfun.mcfunction[/code] を表すのに使えます。
+[b]coord:[/b] 軸。[code]5, ~5, ^5[/code] の3つの書き方があり、浮動小数点をサポートします。
+[b]coords:[/b] 複数の軸。座標を表すのによく使われ、[code]~~~[/code] や [code]^^^3[/code] などの各種座標を表せます。
+[b]selector:[/b] ターゲットセレクター。[code]@e\[type=player\][/code] や、さらに複雑な選択を表せ、プレイヤー名もサポートします。
+[b]array:[/b] 配列のようなもの。角括弧で囲まれたもので、ターゲットセレクターの本体部分です。
+[b]dictionary:[/b] 辞書のようなもの。波括弧で囲まれたものです。
+[b]command:[/b] コマンド。1つのコマンド全体です。
+
+[title]データ構造[/title]
+
+データとは、各要素を表すデータの組です。[code]type, detail, items, description, cmd, custom[/code] があります。
+例：[code]{"type" : "int", "description" : "スコア"}[/code]
+これは int 型の要素データで、[code]1, 0, 100, -1[/code] を認識できます。
+
+[b]type:[/b] 種類。要素の種類を表し、デフォルトは [code]null[/code]。
+[b]detail:[/b] 詳細。要素を制約したり範囲を表したりするのに使い、種類によって条件が異なります。
+[b]items:[/b] 付加物。通常は要素のサブデータで、[code]option[/code] の選択肢によく使われます。
+[b]description:[/b] 説明。ヒントに使い、デフォルトは Unknow。
+[b]cmd:[/b] コマンド。高度な使い方に使い、エディタを操作するのに使えます。[file grammar/element/cmd]コマンド[/file] を参照。
+[b]custom:[/b] カスタムデータ。現在は何の用途もありません。

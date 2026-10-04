@@ -1,0 +1,22 @@
+[title]Описание[/title]
+
+Файл для хранения различных списков.
+
+Строка может использовать [code]{"type" : "file", "file" : "path"}[/code] для загрузки содержимого другого файла в качестве данных. Например: [code]"item" : {"type" : "file", "file" : "entry/item.json"}[/code]
+
+[title]V1[/title]
+
+Пример:
+[code]{
+	"chapter" : {
+		"type" : "xxx"
+	},
+	"chapter2" : {
+		"type" : "xxx"
+	}
+}[/code]
+
+[b]chapter:[/b] имя данной категории; может быть любой строкой.
+[b]chapter.type[/b] тип данной категории; может быть [code]string,spaceitem,path[/code], а также особый тип [code]file[/code].
+
+

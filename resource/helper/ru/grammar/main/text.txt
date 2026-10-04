@@ -1,0 +1,23 @@
+[title]Описание[/title]
+
+Главный файл правил грамматики, точка входа.
+
+[b]format_version:[/b] версия парсинга.
+
+[title]V1[/title]
+
+[code]
+{
+	"format_version" : 1,
+	
+	"files" : {
+		"process" : "process.json",
+		"law" : "law.json",
+		"entry" : "entry.json"
+	}
+}[/code]
+
+[b]files:[/b] задаёт пути различных файлов.
+[b]files.process:[/b] путь к файлу процесса. Подробнее см. [file grammar/process]Грамматика>>Процесс[/file]
+[b]files.law:[/b] путь к файлу правил. Подробнее см. [file grammar/law]Грамматика>>Законы[/file]
+[b]files.entry[/b] путь к файлу списков. Подробнее см. [file grammar/entry]Грамматика>>Разделы[/file]

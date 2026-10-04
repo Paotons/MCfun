@@ -1,0 +1,26 @@
+[title]Descripción[/title]
+
+Uso avanzado de los elementos; es un arreglo de cadenas dentro del elemento. Aún no está completo y algunas funciones todavía tienen problemas.
+
+[title]Lista[/title]
+
+Cada comando tiene una lista. Puedes usar [code]list[/code] para controlarla.
+
+[code]list <nombre_lista> add self[/code] añade la cadena del elemento actual a la lista.
+
+[title]Autocompletado[/title]
+
+Controla el autocompletado. Puedes usar [code]completion[/code] para controlarlo.
+
+[code]completion list <nombre_lista>[/code] muestra el menú de autocompletado de la lista.
+
+[b]Nota:[/b] esta función no está completa; por ahora solo admite [code]string, word, selector[/code].
+
+[title]Lista de expectativas[/title]
+
+Controla la lista de expectativas, que también controla el autocompletado. Puedes usar [code]expectation[/code] para controlarlo.
+Cada vez que se ejecuta y un elemento da error, se añade automáticamente a la lista de expectativas.
+
+[code]expectation clear[/code] vacía la lista de expectativas.
+
+[b]Nota:[/b] esta función no está completa; por ahora solo admite [code]null[/code].

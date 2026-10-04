@@ -1,0 +1,17 @@
+[title]描述[/title]
+
+等號參數括號，類似目標選擇器。
+
+[title]細節[/title]
+
+[code]"detail" : "using_key"[/code] 使用鍵，這個時候，數據應該有 [code]"key"[/code] 和 [code]"value"[/code] 兩個鍵。分別定義鍵和值的元素。
+
+以後可能會進行更改。
+
+[title]數據[/title]
+
+[code] "data" : {
+	"a" : {...},
+	...
+}[/code]
+為參數的頭和其對應的元素。

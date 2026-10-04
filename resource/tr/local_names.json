@@ -1,0 +1,82 @@
+{
+	"zh": {
+		"name": "简体中文",
+		"english": "Chinese (Simplified)"
+	},
+	"zh_TW": {
+		"name": "繁體中文",
+		"english": "Chinese (Traditional)"
+	},
+	"en": {
+		"name": "English",
+		"english": "English"
+	},
+	"ja": {
+		"name": "日本語",
+		"english": "Japanese"
+	},
+	"ko": {
+		"name": "한국어",
+		"english": "Korean"
+	},
+	"ru": {
+		"name": "Русский",
+		"english": "Russian"
+	},
+	"es": {
+		"name": "Español",
+		"english": "Spanish"
+	},
+	"pt": {
+		"name": "Português",
+		"english": "Portuguese"
+	},
+	"fr": {
+		"name": "Français",
+		"english": "French"
+	},
+	"de": {
+		"name": "Deutsch",
+		"english": "German"
+	},
+	"it": {
+		"name": "Italiano",
+		"english": "Italian"
+	},
+	"pl": {
+		"name": "Polski",
+		"english": "Polish"
+	},
+	"tr": {
+		"name": "Türkçe",
+		"english": "Turkish"
+	},
+	"id": {
+		"name": "Bahasa Indonesia",
+		"english": "Indonesian"
+	},
+	"th": {
+		"name": "ไทย",
+		"english": "Thai"
+	},
+	"vi": {
+		"name": "Tiếng Việt",
+		"english": "Vietnamese"
+	},
+	"ar": {
+		"name": "العربية",
+		"english": "Arabic"
+	},
+	"hi": {
+		"name": "हिन्दी",
+		"english": "Hindi"
+	},
+	"uk": {
+		"name": "Українська",
+		"english": "Ukrainian"
+	},
+	"nl": {
+		"name": "Nederlands",
+		"english": "Dutch"
+	}
+}

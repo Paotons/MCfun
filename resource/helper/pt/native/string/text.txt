@@ -1,0 +1,11 @@
+[title]Descrição[/title]
+
+Exporta diretamente o restante da cadeia. Se o editor tiver problemas para analisar alguma cadeia, este é o fallback original.
+
+[title]Uso[/title]
+
+[code]&string <conteúdo>[/code]
+
+[b]conteúdo:[/b] Exportado como está.
+
+[b]Exemplo:[/b][code]&string hello world[/code] exporta "hello world"

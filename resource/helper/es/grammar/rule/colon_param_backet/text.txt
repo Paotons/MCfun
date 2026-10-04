@@ -1,0 +1,11 @@
+[title]Descripción[/title]
+
+Paréntesis de parámetros con dos puntos; similar a JSON.
+
+[title]Datos[/title]
+
+[code] "data" : {
+	"a" : {...},
+	...
+}[/code]
+La clave del parámetro y el elemento al que corresponde.

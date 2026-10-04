@@ -1,0 +1,11 @@
+[title]Descripción[/title]
+Los comandos nativos no forman parte de Minecraft en sí; están dentro del software y actúan como extensiones suyas. Al exportar se convierten en comandos de Minecraft.
+
+Un comando nativo empieza con [code]&[/code]. Por ejemplo, [code]&tp[/code].
+
+[title]Categorías[/title]
+
+[file native/tp]Teletransporte tp[/file]
+[file native/scoreboard]Puntuación / Marcador scoreboard[/file]
+[file native/fill]Relleno fill[/file]
+[file native/string]Cadena string[/file]

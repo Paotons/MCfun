@@ -1,0 +1,16 @@
+[title]Descrição[/title]
+
+Opção; fornece um conjunto de escolhas.
+Não é ignorado; sem escolha válida, um erro é gerado por padrão.
+
+[title]Dados Extra[/title]
+
+Pode ser um array de cadeias ou um array de dicionários.
+
+[code]["as", "at"][/code] define as opções as e at.
+[code][{"as" : "Como"}, {"at" : "Em"}][/code] não apenas define as e at, mas também anexa dicas.
+
+[title]Detalhe[/title]
+
+[b]using_entry:[/b] Se [code]true[/code], um capítulo é usado. Nesse caso, os dados extra devem ser um array de cadeias, onde cada cadeia é o nome do capítulo que fornece as opções. O capítulo correspondente deve ser um capítulo de cadeia.
+[b]is_probing:[/b] Se [code]true[/code], quando nenhuma opção correspondente é encontrada, ela é silenciosamente ignorada em vez de gerar erro.

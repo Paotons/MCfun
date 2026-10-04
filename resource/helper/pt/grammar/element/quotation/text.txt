@@ -1,0 +1,8 @@
+[title]Descrição[/title]
+
+Aspas; uma cadeia entre aspas.
+Se a cadeia não começar com uma aspa, ela é adicionada à lista de expectativas e ignorada.
+
+[title]Detalhe[/title]
+
+[b]rule:[/b] Regra. A regra usada para o conteúdo.

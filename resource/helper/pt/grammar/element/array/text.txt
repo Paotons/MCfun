@@ -1,0 +1,8 @@
+[title]Descrição[/title]
+
+Array; entre colchetes.
+Se a cadeia não começar com colchete, ela é adicionada à lista de expectativas e ignorada.
+
+[title]Detalhe[/title]
+
+[b]rule:[/b] Regra. A regra usada para o conteúdo.

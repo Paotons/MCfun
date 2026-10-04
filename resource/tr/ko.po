@@ -1,0 +1,730 @@
+msgid ""
+msgstr ""
+"Language: ko\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "close"
+msgstr "닫기"
+
+msgid "Close"
+msgstr "닫기"
+
+msgid "OK"
+msgstr "확인"
+
+msgid "ok"
+msgstr "확인"
+
+msgid "Cancel"
+msgstr "취소"
+
+msgid "cancel"
+msgstr "취소"
+
+msgid "LOC"
+msgstr "위치"
+
+msgid "Empty"
+msgstr "비어 있음"
+
+msgid "Exit"
+msgstr "종료"
+
+msgid "Loading"
+msgstr "로딩 중"
+
+msgid "File System"
+msgstr "파일 시스템"
+
+msgid "Recent:"
+msgstr "최근:"
+
+msgid "Favorites:"
+msgstr "즐겨찾기:"
+
+msgid "Directories & Files:"
+msgstr "디렉터리 및 파일:"
+
+msgid "Path:"
+msgstr "경로:"
+
+msgid "You don't have permission to access contents of this folder."
+msgstr "이 폴더의 내용에 액세스할 권한이 없습니다."
+
+msgid "Open a Directory"
+msgstr "디렉터리 열기"
+
+msgid "Select Current Folder"
+msgstr "현재 폴더 선택"
+
+msgid "Select This Folder"
+msgstr "이 폴더 선택"
+
+msgid "Filter:"
+msgstr "필터:"
+
+msgid "Sort by Name (Ascending)"
+msgstr "이름순 정렬 (오름차순)"
+
+msgid "Sort by Name (Descending)"
+msgstr "이름순 정렬 (내림차순)"
+
+msgid "Sort by Type (Ascending)"
+msgstr "종류순 정렬 (오름차순)"
+
+msgid "Sort by Type (Descending)"
+msgstr "종류순 정렬 (내림차순)"
+
+msgid "Sort by Modified Time (Newest First)"
+msgstr "수정 시간순 정렬 (최신순)"
+
+msgid "Sort by Modified Time (Oldest First)"
+msgstr "수정 시간순 정렬 (오래된순)"
+
+msgid "Name:"
+msgstr "이름:"
+
+msgid "Create Folder"
+msgstr "폴더 만들기"
+
+msgid "Add"
+msgstr "추가"
+
+msgid "add"
+msgstr "추가"
+
+msgid "Get"
+msgstr "가져오기"
+
+msgid "get"
+msgstr "가져오기"
+
+msgid "Create"
+msgstr "만들기"
+
+msgid "create"
+msgstr "만들기"
+
+msgid "New"
+msgstr "새로 만들기"
+
+msgid "new"
+msgstr "새로 만들기"
+
+msgid "Start."
+msgstr "시작."
+
+msgid "Empty filename."
+msgstr "빈 파일 이름."
+
+msgid "Empty directoryname."
+msgstr "빈 디렉터리 이름."
+
+msgid "Empty file."
+msgstr "빈 파일."
+
+msgid "Empty directory."
+msgstr "빈 디렉터리."
+
+msgid "Filetype must be mcfunction or zip."
+msgstr "파일 형식은 mcfunction 또는 zip이어야 합니다."
+
+msgid "Unfind file."
+msgstr "파일을 찾을 수 없습니다."
+
+msgid "Notfind file."
+msgstr "파일을 찾을 수 없습니다."
+
+msgid "Notfind directory."
+msgstr "디렉터리를 찾을 수 없습니다."
+
+msgid "Unfind directory."
+msgstr "디렉터리를 찾을 수 없습니다."
+
+msgid "Valid file."
+msgstr "유효한 파일."
+
+msgid "Valid directory."
+msgstr "유효한 디렉터리."
+
+msgid "Already exist same-name filename."
+msgstr "같은 이름의 파일이 이미 있습니다."
+
+msgid "Already exist same-name filename, will be coverd."
+msgstr "같은 이름의 파일이 이미 있습니다. 덮어씁니다."
+
+msgid "Alrady exist same-name directoryname."
+msgstr "같은 이름의 디렉터리가 이미 있습니다."
+
+msgid "Already exist same-name directory, will be coverd."
+msgstr "같은 이름의 디렉터리가 이미 있습니다. 덮어씁니다."
+
+msgid "You can create file!"
+msgstr "파일을 만들 수 있습니다!"
+
+msgid "You can create directory!"
+msgstr "디렉터리를 만들 수 있습니다!"
+
+msgid "Unvalid filename."
+msgstr "유효하지 않은 파일 이름."
+
+msgid "Unvalid directory."
+msgstr "유효하지 않은 디렉터리."
+
+msgid "offset"
+msgstr "오프셋"
+
+msgid "length"
+msgstr "길이"
+
+msgid "path"
+msgstr "경로"
+
+msgid "name"
+msgstr "이름"
+
+msgid "scale"
+msgstr "배율"
+
+msgid "behavior"
+msgstr "동작"
+
+msgid "file"
+msgstr "파일"
+
+msgid "File"
+msgstr "파일"
+
+msgid "Setting"
+msgstr "설정"
+
+msgid "translation"
+msgstr "번역"
+
+msgid "language"
+msgstr "언어"
+
+msgid "Import"
+msgstr "가져오기"
+
+msgid "GUI"
+msgstr "사용자 인터페이스"
+
+msgid "General"
+msgstr "일반"
+
+msgid "Edit"
+msgstr "편집기"
+
+msgid "Highlight"
+msgstr "강조 표시"
+
+msgid "Completion"
+msgstr "자동 완성"
+
+msgid "Appearance"
+msgstr "모양"
+
+msgid "Behavior"
+msgstr "동작"
+
+msgid "Grammar"
+msgstr "문법"
+
+msgid "Project lost."
+msgstr "프로젝트를 잃어버렸습니다."
+
+msgid "Function Copyer"
+msgstr "함수 복사 도우미"
+
+msgid "Copy line"
+msgstr "한 줄 복사"
+
+msgid "Copy normal"
+msgstr "일반 복사"
+
+msgid "%d lines."
+msgstr "%d 줄."
+
+msgid "Running"
+msgstr "실행"
+
+msgid "AutoSaving"
+msgstr "자동 저장"
+
+msgid "data directory"
+msgstr "데이터 디렉터리"
+
+msgid "Choose Data Directory Please"
+msgstr "데이터 디렉터리를 선택하세요."
+
+msgid "Project List"
+msgstr "프로젝트 목록"
+
+msgid "import"
+msgstr "가져오기"
+
+msgid "setting"
+msgstr "설정"
+
+msgid "coper"
+msgstr "복사 도우미"
+
+msgid "Help"
+msgstr "도움말"
+
+msgid "Command Head"
+msgstr "명령어 머리"
+
+msgid "normal command"
+msgstr "일반 명령어"
+
+msgid "native command"
+msgstr "네이티브 명령어"
+
+msgid "comment command"
+msgstr "주석 명령어"
+
+msgid "Element"
+msgstr "요소"
+
+msgid "number"
+msgstr "숫자"
+
+msgid "bool"
+msgstr "불리언"
+
+msgid "mumber"
+msgstr "멤버"
+
+msgid "point path"
+msgstr "점 경로"
+
+msgid "selector"
+msgstr "대상 선택기"
+
+msgid "space"
+msgstr "네임스페이스"
+
+msgid "name"
+msgstr "이름"
+
+msgid "option"
+msgstr "옵션"
+
+msgid "error option"
+msgstr "오류 옵션"
+
+msgid "string"
+msgstr "문자열"
+
+msgid "special string"
+msgstr "특수 문자열"
+
+msgid "annotation"
+msgstr "주석"
+
+msgid "Coord"
+msgstr "좌표"
+
+msgid "x"
+msgstr "x"
+
+msgid "y"
+msgstr "y"
+
+msgid "z"
+msgstr "z"
+
+msgid "help"
+msgstr "도움말"
+
+msgid "remove"
+msgstr "제거"
+
+msgid "edit"
+msgstr "편집"
+
+msgid "max completion operation count"
+msgstr "최대 자동 완성 개수"
+
+msgid "showing tip"
+msgstr "팁 표시"
+
+msgid "tip weight (note: This function may have an impact on performance.)"
+msgstr "팁 가중치 （주의：이 기능은 성능에 영향을 줄 수 있습니다.）"
+
+msgid "spacename completion"
+msgstr "네임스페이스 자동 완성"
+
+msgid "caret blink"
+msgstr "커서 깜박임"
+
+msgid "double reflecting"
+msgstr "더블 탭 변환"
+
+msgid "reflecting strings"
+msgstr "변환 문자열"
+
+msgid "border enter"
+msgstr "경계 줄바꿈"
+
+msgid "grammar path"
+msgstr "문법 경로"
+
+msgid "get grammar"
+msgstr "문법 가져오기"
+
+msgid "auto saving"
+msgstr "자동 저장"
+
+msgid "%dsec"
+msgstr "%d초"
+
+msgid "%dmin%dsec"
+msgstr "%d분%d초"
+
+msgid "saving space (%s)"
+msgstr "저장 간격 （%s）"
+
+msgid "To apply the changes in the configuration file, a reload is necessary."
+msgstr "설정 파일이 변경되었습니다. 다시 시작하시겠습니까."
+
+msgid "Save & Reload"
+msgstr "저장 및 다시 시작"
+
+msgid "Already exist same-name project."
+msgstr "같은 이름의 프로젝트가 이미 있습니다."
+
+msgid "You can create project!"
+msgstr "프로젝트를 만들 수 있습니다!"
+
+msgid "Unvaild project-directory."
+msgstr "유효하지 않은 프로젝트 디렉터리."
+
+msgid "You can import project!"
+msgstr "프로젝트를 가져올 수 있습니다!"
+
+msgid "project name"
+msgstr "프로젝트 이름"
+
+msgid "project path"
+msgstr "프로젝트 경로"
+
+msgid "Project Setting"
+msgstr "프로젝트 설정"
+
+msgid "project version"
+msgstr "프로젝트 버전"
+
+msgid "project description"
+msgstr "프로젝트 설명"
+
+msgid "min game version"
+msgstr "최소 게임 버전"
+
+msgid "Config"
+msgstr "설정 파일"
+
+msgid "grammar cache"
+msgstr "문법 캐시"
+
+msgid "Delete & Recompute"
+msgstr "삭제 및 재계산"
+
+msgid "Project settings have been changed. Do you want to reload the project?"
+msgstr "프로젝트 설정이 변경되었습니다. 프로젝트를 다시 시작하시겠습니까?"
+
+msgid "Loading data."
+msgstr "데이터 로딩 중."
+
+msgid "Unvalid grammar:\n%s"
+msgstr "문법 오류:\n%s"
+
+msgid "Loading GUI."
+msgstr "인터페이스 로딩 중."
+
+msgid "reload"
+msgstr "다시 시작"
+
+msgid "Project"
+msgstr "프로젝트"
+
+msgid "Export"
+msgstr "내보내기"
+
+msgid "Reload"
+msgstr "다시 로드"
+
+msgid "Exit to List"
+msgstr "목록으로 나가기"
+
+msgid "Save"
+msgstr "저장"
+
+msgid "Save All"
+msgstr "모두 저장"
+
+msgid "Undo"
+msgstr "실행 취소"
+
+msgid "Redo"
+msgstr "다시 실행"
+
+msgid "Open"
+msgstr "열기"
+
+msgid "Move Up"
+msgstr "위로 이동"
+
+msgid "Move Down"
+msgstr "아래로 이동"
+
+msgid "Close"
+msgstr "닫기"
+
+msgid "Clear"
+msgstr "비우기"
+
+msgid "System"
+msgstr "시스템"
+
+msgid "Cut"
+msgstr "잘라내기"
+
+msgid "Copy"
+msgstr "복사"
+
+msgid "Paste"
+msgstr "붙여넣기"
+
+msgid "Select All"
+msgstr "모두 선택"
+
+msgid "Select Line"
+msgstr "줄 선택"
+
+msgid "Uncompletion"
+msgstr "자동 완성 취소"
+
+msgid "New Project"
+msgstr "새 프로젝트"
+
+msgid "Import Project"
+msgstr "프로젝트 가져오기"
+
+msgid "About Me"
+msgstr "앱 정보"
+
+msgid "Directory"
+msgstr "디렉터리"
+
+msgid "Children"
+msgstr "하위 파일"
+
+msgid "Rename"
+msgstr "이름 바꾸기"
+
+msgid "Delete"
+msgstr "삭제"
+
+msgid "Create File"
+msgstr "파일 만들기"
+
+msgid "Empty filename."
+msgstr "빈 파일 이름."
+
+msgid "Error (%d, %d) %s"
+msgstr "오류 （%d, %d） %s"
+
+msgid "%d lines %d column: "
+msgstr "%d 줄 %d 열："
+
+msgid "The file has not been saved. Do you want to exit?"
+msgstr "파일이 저장되지 않았습니다. 나가시겠습니까?"
+
+msgid "Save & Exit"
+msgstr "저장 및 나가기"
+
+msgid "Save & Close"
+msgstr "저장 및 닫기"
+
+msgid "Unsave & Close"
+msgstr "저장하지 않고 닫기"
+
+msgid "File Saving"
+msgstr "파일 저장"
+
+msgid "UnSave & Exit"
+msgstr "저장하지 않고 나가기"
+
+msgid "Creater"
+msgstr "제작자"
+
+msgid "Keeper"
+msgstr "유지보수자"
+
+msgid "Developer"
+msgstr "개발자"
+
+msgid "Special Thanks"
+msgstr "특별 감사"
+
+msgid "Mojang created the main body of the game\n\nGodot provided the engine\n\nDeepSeek handled the miscellaneous tasks"
+msgstr "Mojang이 게임 본체를 제작\n\nGodot이 엔진을 제공\n\nDeepSeek이 기타 잡무를 처리"
+
+msgid "Check Permissions"
+msgstr "권한 확인"
+
+msgid "Please select a folder as the main data directory.\nIf no action is taken, the software sandbox directory will be used by default. This directory is inaccessible to ordinary users.\nIf you want your work to be freely operable, it is recommended to create a separate directory and choose it."
+msgstr "주 데이터 디렉터리로 사용할 폴더를 선택하세요.\n아무 작업도 하지 않으면 기본적으로 소프트웨어 샌드박스 디렉터리가 사용됩니다. 이 디렉터리는 일반 사용자가 접근할 수 없습니다.\n작업물을 자유롭게 조작하려면 별도의 디렉터리를 만들고 선택하는 것을 권장합니다."
+
+msgid "Do you want to exit the application?"
+msgstr "애플리케이션을 종료하시겠습니까?"
+
+msgid "Unfind any string."
+msgstr "문자열을 찾을 수 없습니다."
+
+msgid "Unvalid option \"%s\"."
+msgstr "사용할 수 없는 옵션\"%s\"."
+
+msgid "Key not has closed backet."
+msgstr "키에 닫는 괄호가 없습니다."
+
+msgid "Rule unfind property \"%s\"."
+msgstr "속성\"%s\"을(를) 찾을 수 없습니다."
+
+msgid "Unfind colon flag."
+msgstr "콜론을 찾을 수 없습니다."
+
+msgid "Unfind value."
+msgstr "값을 찾을 수 없습니다."
+
+msgid "Unfind coord."
+msgstr "좌표축을 찾을 수 없습니다."
+
+msgid "Unfind valid coord for %d."
+msgstr "%d번째 유효한 좌표축을 찾을 수 없습니다."
+
+msgid "Unfind key \"%s\" in rule."
+msgstr "규칙에서 키\"%s\"을(를) 찾을 수 없습니다."
+
+msgid "Unfind equal flag."
+msgstr "등호를 찾을 수 없습니다."
+
+msgid "Range is %d~%d, but is %d."
+msgstr "범위는 %d~%d 이어야 하지만 %d입니다."
+
+msgid "Range is %f~%f, but is %f."
+msgstr "범위는 %f~%f 이어야 하지만 %f입니다."
+
+msgid "String \"%s\" is unvalid float."
+msgstr "문자열\"%s\"은(는) 유효한 부동 소수점이 아닙니다."
+
+msgid "String \"%s\" is unvalid int."
+msgstr "문자열\"%s\"은(는) 유효한 정수가 아닙니다."
+
+msgid "Unfind int suffix %s in %s."
+msgstr "%s에서 접미사 %s을(를) 찾을 수 없습니다."
+
+msgid "Can't end with \"%s\"."
+msgstr "\"%s\"(으)로 끝낼 수 없습니다."
+
+msgid "Unfind the path."
+msgstr "경로를 찾을 수 없습니다."
+
+msgid "Unfind scope."
+msgstr "범위를 찾을 수 없습니다."
+
+msgid "The flag \".\" has cunted %d."
+msgstr "점 개수 %d이(가) 비정상입니다."
+
+msgid "Unvaild selector."
+msgstr "유효하지 않은 대상 선택기."
+
+msgid "Not is begin with \"@\"."
+msgstr "\"@\"(으)로 시작하지 않습니다."
+
+msgid "Unfind any word."
+msgstr "단어를 찾을 수 없습니다."
+
+msgid "Unfind param."
+msgstr "매개변수를 찾을 수 없습니다."
+
+msgid "Not begin with %s."
+msgstr "\"%s\"(으)로 시작하지 않습니다."
+
+msgid "Unfind end backet \"%s\"."
+msgstr "닫는 괄호\"%s\"을(를) 찾을 수 없습니다."
+
+msgid "Unfind brother backet."
+msgstr "짝이 되는 괄호를 찾을 수 없습니다."
+
+msgid "Not begin with quotation."
+msgstr "따옴표로 시작하지 않습니다."
+
+msgid "Unfind command."
+msgstr "명령어를 찾을 수 없습니다."
+
+msgid "Command should be %s, but is %s."
+msgstr "명령어는 %s이어야 하지만 %s입니다."
+
+msgid "More string \"%s\"."
+msgstr "불필요한 문자열\"%s\"."
+
+msgid "Can't end."
+msgstr "끝낼 수 없습니다."
+
+msgid "Native command should begin with \"&\"."
+msgstr "네이티브 명령어는\"&\"(으)로 시작해야 합니다."
+
+msgid "Comment command should begin with \"@\"."
+msgstr "주석 명령어는\"@\"(으)로 시작해야 합니다."
+
+msgid "Unfind head \"%s\"."
+msgstr "\"%s\" 헤드를 찾을 수 없습니다."
+
+msgid "Unfind help."
+msgstr "도움말을 찾을 수 없습니다."
+
+msgid "Unvaild beginning."
+msgstr "유효하지 않은 시작."
+
+msgid "Annotaition must begin with #."
+msgstr "주석은\"#\"(으)로 시작해야 합니다."
+
+msgid "\"%s\" has error:\n%s"
+msgstr "\"%s\"에 오류가 있습니다:\n%s"
+
+msgid "Project Export"
+msgstr "프로젝트 내보내기"
+
+msgid "error behavior"
+msgstr "오류 처리"
+
+msgid "retain annotation"
+msgstr "주석 유지"
+
+msgid "retain empty-line"
+msgstr "빈 줄 유지"
+
+msgid "ignore"
+msgstr "무시"
+
+msgid "direct export"
+msgstr "직접 내보내기"
+
+msgid "Exporting"
+msgstr "내보내는 중"
+
+msgid "Export successful."
+msgstr "내보내기 성공."
+
+msgid "Simply extract the file to the behavior_packs directory in your map and enable the behavior pack."
+msgstr "파일을 맵의 behavior_packs 디렉터리에 압축 해제하고 행동 팩을 활성화하기만 하면 됩니다."
+
+msgid "Creating leader-file."
+msgstr "리드 파일 생성 중."
+
+msgid "Compiling function."
+msgstr "함수 컴파일 중."

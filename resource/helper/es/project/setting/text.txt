@@ -1,0 +1,14 @@
+[title]Configuración[/title]
+
+[b]Nombre del proyecto:[/b] el nombre de este proyecto.
+[b]Ruta del proyecto:[/b] la ruta de este proyecto. No editable; solo para copiar.
+[b]Versión del proyecto:[/b] la versión que quieres mostrar tras exportar. Por defecto 1.0.0.
+[b]Descripción del proyecto:[/b] se muestra en la descripción del paquete de recursos tras exportar.
+[b]Versión mínima del juego:[/b] la versión de Minecraft en la que se ejecuta este paquete de recursos. Por defecto 1.20.0.
+
+[b]Nota:[/b] si no aparece en el paquete de recursos, es muy probable que [code]Versión mínima del juego[/code] esté mal configurada.
+
+[title]Gramática[/title]
+
+[b]Directorio de gramática:[/b] la configuración de gramática usada para editar el proyecto.
+

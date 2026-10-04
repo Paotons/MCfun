@@ -1,0 +1,33 @@
+[title]描述[/title]
+
+用於告訴編輯器指令的元素該怎麼組合。見元素 [file grammar/element]語法>>元素[/file]
+
+每個元素可包含新成員，分別為：
+[b]id:[/b] 非負整數。ID，如果為空隨機取數。如果重複或為負數可能會崩潰，切記不要重複。
+[b]extends:[/b] 整數，繼承方。為上一個成功執行的元素的 ID。 -2 表示任意，-1表示最先開頭。為空則為 -2。
+[b]goto:[/b] 整數，選項為整數數組，如果成功執行跳轉到的 ID，如果為選項會根據附加數據進行對應跳轉。留空直接執行下一步。
+[b]is_end:[/b] 布爾，結束標識。如果不為空執行成功，會嘗試更改。如果結束後仍然為 [code]false[/code] 會報錯。
+
+並允許行使用 [code]{"type" : "file", "file" : "path"}[/code] 加載其他文件都內容，作為數據。例如：[code]"give" : {"type" : "file", "file" : "proces/give.json"}[/code]
+
+[title]V1[/title]
+
+[code] "give" : [{...}, {...}][/code]
+
+這樣就定義了 [code]give[/code] 指令，但是沒有提示詞。
+
+[title]V2[/title]
+
+[code]"give" : {
+	"descriotion" : "給予玩家物品",
+	"data" : [
+		{...},
+		{...}
+	]
+}
+[/code]
+
+[b]description:[/b] 描述，提示詞。
+[b]data:[/b] 數據。
+
+這樣就定義了 [code]give[/code] 指令，帶有提示詞。

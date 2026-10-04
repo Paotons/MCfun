@@ -1,0 +1,47 @@
+[title]Descripción[/title]
+
+Un comando se puede dividir en distintos elementos.
+
+Por ejemplo:
+[code]execute as @a run give @s minecraft:apple 64[/code]
+se puede dividir en:
+[b]execute:[/b] encabezado del comando.
+[b]as:[/b] opción.
+[b]@a:[/b] selector de objetivos.
+[b]run:[/b] opción.
+[b]give @s minecraft:apple 64:[/b] subcomando; por supuesto, también se puede dividir más.
+
+[title]Tipos[/title]
+
+Actualmente los elementos admiten varios tipos.
+
+[b]null:[/b] sin tipo; actúa como marcador de posición.
+[b]bool:[/b] tipo booleano; puede representar [code]false[/code] y [code]true[/code].
+[b]int:[/b] tipo entero; puede representar números como [code]64[/code].
+[b]float:[/b] tipo flotante; puede representar números con decimales como [code]0.5[/code].
+[b]option:[/b] opción; normalmente un conjunto de opciones fijas.
+[b]rich_string:[/b] cadena enriquecida; admite la visualización de [code]§[/code].
+[b]word:[/b] palabra; admite caracteres de distintos idiomas, guiones y dígitos. Se usa normalmente para nombres de jugador.
+[b]string:[/b] cadena; admite cualquier cosa siempre que no sea espacio en blanco ni tabulación.
+[b]spaceitem:[/b] objeto con espacio de nombres; a veces escrito [code]space_item[/code]. Representa [code]apple[/code] o [code]minecraft:apple[/code].
+[b]point_path:[/b] ruta con puntos; puede representar [code]mob.cat[/code].
+[b]file_path:[/b] ruta de archivo; puede representar [code]main/myfun.mcfunction[/code].
+[b]coord:[/b] coordenada; admite [code]5, ~5, ^5[/code] y valores flotantes.
+[b]coords:[/b] varias coordenadas; se usa para posiciones. Puede representar [code]~~~[/code] o [code]^^^3[/code].
+[b]selector:[/b] selector de objetivos; puede representar [code]@e\[type=player\][/code] o selecciones más complejas, y también admite nombres de jugador.
+[b]array:[/b] similar a un arreglo, entre corchetes. Es la parte del cuerpo de un selector de objetivos.
+[b]dictionary:[/b] similar a un diccionario, entre llaves.
+[b]command:[/b] comando; un comando completo.
+
+[title]Estructura de datos[/title]
+
+Los datos son el conjunto que describe cada elemento. Tiene [code]type, detail, items, description, cmd, custom[/code].
+Por ejemplo: [code]{"type" : "int", "description" : "puntuación"}[/code]
+Estos son los datos de un elemento de tipo int, que reconoce [code]1, 0, 100, -1[/code].
+
+[b]type:[/b] tipo; el tipo del elemento. Por defecto [code]null[/code].
+[b]detail:[/b] detalle; se usa para restringir el elemento o expresar su rango. Cada tipo tiene sus propias condiciones.
+[b]items:[/b] elementos adicionales; normalmente los subdatos del elemento, usados a menudo para las opciones de [code]option[/code].
+[b]description:[/b] descripción; se usa como sugerencia. Por defecto Unknow.
+[b]cmd:[/b] comando; uso avanzado, sirve para controlar el editor. Consulta [file grammar/element/cmd]Comandos[/file].
+[b]custom:[/b] datos personalizados; por ahora sin uso.

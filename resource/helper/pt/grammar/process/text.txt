@@ -1,0 +1,33 @@
+[title]Descrição[/title]
+
+Informa ao editor como os elementos de um comando devem ser combinados. Veja o elemento [file grammar/element]Gramática>>Elemento[/file].
+
+Cada elemento pode conter os seguintes membros:
+[b]id:[/b] Inteiro não negativo. Um ID; se vazio, um valor aleatório é usado. IDs duplicados ou negativos podem causar travamentos, portanto não os duplique.
+[b]extends:[/b] Inteiro; o pai. É o ID do elemento executado anteriormente. -2 significa qualquer, -1 significa o começo. Vazio significa -2.
+[b]goto:[/b] Inteiro, ou um array de inteiros para opções. O ID para o qual pular em caso de sucesso. Se for uma opção, o destino do salto depende dos dados extra. Vazio significa prosseguir para o próximo passo.
+[b]is_end:[/b] Booleano; o sinalizador de fim. Se não estiver vazio, em caso de sucesso o sinalizador é atualizado. Se o comando terminar enquanto o sinalizador ainda for [code]false[/code], um erro é gerado.
+
+Uma linha pode usar [code]{"type" : "file", "file" : "path"}[/code] para carregar o conteúdo de outro arquivo como dados. Por exemplo: [code]"give" : {"type" : "file", "file" : "proces/give.json"}[/code].
+
+[title]V1[/title]
+
+[code] "give" : [{...}, {...}][/code]
+
+Isso define o comando [code]give[/code], mas sem descrição.
+
+[title]V2[/title]
+
+[code]"give" : {
+	"descriotion" : "Dá um item a um jogador",
+	"data" : [
+		{...},
+		{...}
+	]
+}
+[/code]
+
+[b]description:[/b] Descrição; a palavra de dica.
+[b]data:[/b] Dados.
+
+Isso define o comando [code]give[/code] com uma descrição.

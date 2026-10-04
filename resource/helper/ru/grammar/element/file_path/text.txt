@@ -1,0 +1,8 @@
+[title]Описание[/title]
+
+Путь к файлу.
+
+[title]Детали[/title]
+
+[b]extensions:[/b] массив строк. Расширения.
+[b]using_extendsion:[/b] логическое. Если [code]false[/code], расширение не используется.

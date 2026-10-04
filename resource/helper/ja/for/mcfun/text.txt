@@ -1,0 +1,4 @@
+[title]紹介[/title]
+MCfun は [code]Minecraft Function/マイクラの関数[/code] の略称で、[code]Minectaft is fun/マイクラは楽しい[/code] とも解釈できます。
+
+その名の通り、Minecraft プレイヤーが関数・コマンドを書くのを支援するツールです。

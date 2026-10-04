@@ -1,0 +1,12 @@
+[title]Descripción[/title]
+
+Una lista es una lista de datos de autocompletado dentro de un comando, que sigue dinámicamente los cambios del comando.
+
+[title]Añadir[/title]
+
+[code]@list <nombre_lista> add <elemento>[/code]
+
+[b]nombre_lista:[/b] la lista sobre la que operar.
+[b] elemento:[/b] el elemento de autocompletado a añadir.
+
+Por ejemplo: [code]@list tag add my_tag[/code] para que la autocompletación de Tag tenga la opción my_tag.

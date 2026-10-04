@@ -1,0 +1,19 @@
+[title]Descripción[/title]
+
+Teletransporta una entidad.
+
+[title]Con puntuación[/title]
+
+[code]&tp score <objetivo> <eje> <portador> <marcador> <modo> <escala> <iteraciones>[/code]
+
+Teletransporta o desplaza el objetivo, a lo largo de los ejes seleccionados, hasta la puntuación del portador en el marcador.
+
+[b]objetivo:[/b] selector de objetivos; la entidad que teletransportar.
+[b]eje:[/b] los ejes a teletransportar; puede ser [code]x,y,z,xy,xz,yz,xyz[/code].
+[b]portador:[/b] selector de objetivos; el portador de la puntuación a usar.
+[b]marcador:[/b] palabra; el marcador del portador.
+[b]modo:[/b] [code]to[/code] teletransporta la entidad a la posición; [code]offset[/code] la desplaza respecto a la posición actual. Por defecto: [code]set[/code].
+[b]escala:[/b] flotante; la escala del efecto. Cuanto menor, más precisión. Por ejemplo, una escala de 0.1 teletransporta una puntuación de 24 a la posición 2.4. Por defecto: [code]1.0[/code].
+[b]iteraciones:[/b] entero. Como se usa bisección, cuantas más iteraciones, mayor es la distancia máxima de teletransporte, a costa de más comandos. La distancia máxima es [code](2 ^ iteraciones - 1) * escala[/code]. Por defecto cubre 66 millones de bloques. Por defecto: [code]25[/code].
+
+Por ejemplo: [code]&tp score @s x @s target to[/code] teletransporta al ejecutor nombrado a la posición de su propia puntuación en el marcador target.

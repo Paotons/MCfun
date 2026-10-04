@@ -1,0 +1,7 @@
+[title]Descrição[/title]
+
+Cadeia rica.
+
+[title]Detalhe[/title]
+
+[b]long:[/b] Booleano. Se [code]true[/code], é uma cadeia longa.

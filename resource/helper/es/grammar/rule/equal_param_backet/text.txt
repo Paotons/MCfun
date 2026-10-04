@@ -1,0 +1,17 @@
+[title]Descripción[/title]
+
+Paréntesis de parámetros con igual; similar a un selector de objetivos.
+
+[title]Detalle[/title]
+
+[code]"detail" : "using_key"[/code] usa claves; en ese caso, los datos deben tener dos claves, [code]"key"[/code] y [code]"value"[/code], que definen respectivamente el elemento de la clave y el del valor.
+
+Esto puede cambiar en el futuro.
+
+[title]Datos[/title]
+
+[code] "data" : {
+	"a" : {...},
+	...
+}[/code]
+La clave del parámetro y el elemento al que corresponde.

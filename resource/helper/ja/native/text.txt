@@ -1,0 +1,11 @@
+[title]説明[/title]
+ネイティブコマンドとは Minecraft ネイティブではないコマンドで、ソフトウェア内部に保存され、ソフトウェアの拡張内容です。エクスポート時に Minecraft コマンドに変換できます。
+
+[code]&[/code] でネイティブコマンドを開始する必要があります。例：[code]&tp[/code]
+
+[title]分類[/title]
+
+[file native/tp]テレポート tp[/file]
+[file native/scoreboard]スコア/スコアボード scoreboard[/file]
+[file native/fill]フィル fill[/file]
+[file native/string]文字列 string[/file]

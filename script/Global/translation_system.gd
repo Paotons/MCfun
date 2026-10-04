@@ -1,6 +1,9 @@
 extends Node
 ## 全局单例，TranslationServer。
 
+# 各个语言的名称。
+const _LOCAL_NAMES := preload("res://resource/tr/local_names.json").data
+
 ## 语言发生改变。
 signal local_changed()
 
@@ -26,3 +29,9 @@ func set_lanauage(value : String) -> void:
 	FileSystem.config.set_value(_CONFIG_SELECTOR, _CONFIG_SELECTOR_KEY, value)
 	local_changed.emit()
 	FileSystem.config.save(FileSystem.config_path)
+## 返回指定语言的名称，失败返回其本身。
+func get_local_name(loca : String) -> String:
+	return loca if not _LOCAL_NAMES.has(loca) else (_LOCAL_NAMES[loca] as Dictionary).get("name", loca)
+## 返回指定语言在英语下的名称，失败返回其本身。
+func get_local_english_name(loca : String) -> String:
+	return loca if not _LOCAL_NAMES.has(loca) else (_LOCAL_NAMES[loca] as Dictionary).get("english", loca)

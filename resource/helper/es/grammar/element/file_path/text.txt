@@ -1,0 +1,8 @@
+[title]Descripción[/title]
+
+Ruta de archivo.
+
+[title]Detalle[/title]
+
+[b]extensions:[/b] arreglo de cadenas. Las extensiones.
+[b]using_extendsion:[/b] booleano. Si es [code]false[/code], no se usan extensiones.

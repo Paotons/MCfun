@@ -1,0 +1,14 @@
+[title]Resumen[/title]
+
+La esquina superior izquierda de la interfaz contiene varios bloques de funciones, cada uno expandible para más opciones. Aquí los detalles。
+
+Proyecto >> Ajustes, Exportar, Recargar, Salir
+Archivo >> Guardar, Guardar todo, Deshacer, Rehacer, Abrir, Cerrar, Cerrar todo
+Editar >> Deshacer, Rehacer, Copiar, Cortar, Pegar, Seleccionar todo, Seleccionar línea, Autocompletado, Cancelar autocompletado
+
+La esquina superior derecha contiene otros módulos de funciones: Ayuda y Ajustes。
+
+A la izquierda está la lista de archivos; haz clic para cambiar de archivo. Se admite abrir y cerrar, pero mover aún no está implementado. Qué fastidio。
+Debajo está la zona de visualización, que puede mostrar mensajes de error y expandirse al hacer clic; a la derecha se muestra la posición del cursor。
+
+En el centro está el editor de texto, y el minimapa de la derecha puede sustituir el desplazamiento。Todavía no se han añadido ajustes relacionados。

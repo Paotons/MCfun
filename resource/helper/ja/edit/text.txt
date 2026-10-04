@@ -1,0 +1,3 @@
+[file edit/setting]エディタ画面[/file]
+[file edit/setting]エディタ設定[/file]
+[file edit/error]エディタのエラー表示[/file]

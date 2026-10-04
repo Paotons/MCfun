@@ -1,0 +1,7 @@
+[title]Описание[/title]
+
+Сообщает редактору конкретные требования к некоторым элементам. Например, элементы [code]array[/code] и [code]dictionary] — см. [file grammar/element]Грамматика>>Элемент[/file]
+
+Строка может использовать [code]{"type" : "file", "file" : "path"}[/code] для загрузки содержимого другого файла в качестве данных. Например: [code]"item" : {"type" : "file", "file" : "law/item.json"}[/code]
+
+Обязательно должен содержать [code]selector_body[/code] — тело селектора, которое сообщает [code]selector[/code], как его нормализовать.

@@ -1,0 +1,22 @@
+[title]Descripción[/title]
+
+Archivo que almacena diversas listas.
+
+Además, una línea puede usar [code]{"type" : "file", "file" : "path"}[/code] para cargar el contenido de otro archivo como datos. Por ejemplo: [code]"item" : {"type" : "file", "file" : "entry/item.json"}[/code]
+
+[title]V1[/title]
+
+Ejemplo:
+[code]{
+	"chapter" : {
+		"type" : "xxx"
+	},
+	"chapter2" : {
+		"type" : "xxx"
+	}
+}[/code]
+
+[b]chapter:[/b] el nombre de esta categoría; puede ser cualquier cadena.
+[b]chapter.type[/b] el tipo de esta categoría; puede ser [code]string, spaceitem, path[/code] o el tipo especial [code]file[/code].
+
+

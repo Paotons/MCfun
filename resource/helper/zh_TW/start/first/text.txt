@@ -1,0 +1,63 @@
+[title]創建項目[/title]
+
+進入項目列表，點擊上方工具欄的[code]新建[/code]。
+輸入項目名稱，建議使用英語命名。
+項目目錄可以選擇默認。
+
+創建成功，選擇項目點擊右邊的[code]編輯[/code]或者再次點擊項目進編輯列表入。
+
+[title]創建文件[/title]
+
+點擊上方工具欄[code]文件>>系統[/code]進入文件系統。
+文件系統中找到頂部[code]添加>>mcfun[/code]並輸入文件名稱，這裡就用[code]Welcome[/code]並確認。
+
+然後選中文件，點擊旁邊的[code]打開>>文件[/code]，打開文件。
+
+[title]編輯文件[/title]
+
+打開文件，自動選中文件。
+可以先輸入 [code]give @s app[/code]，這個時候按一下 [code]Enter/換行[/code] 可以快速補全。
+這時候我們就編輯好了 [code]give @s minecraft:apple[/code] 一行指令。
+
+然後點擊上面工具欄的[code]文件>>保存[/code]，不然文件可能會丟失。
+
+[title]項目設置[/title]
+
+如果你是最新版 Minecraft，可以不用設置，直接導出。
+
+上方工具欄中的[code]項目>>設置[/code]，可以打開項目設置。
+[code]項目名稱：[/code]這個項目的名稱。
+[code]項目路徑：[/code]這個項目的路徑。不可編輯，僅用於複製。
+[code]項目版本：[/code]導出後你想顯示的版本。默認 1.0.0。
+[code]項目描述：[/code]導出後，用於資源包描述顯示。
+[code]最低遊戲版本：[/code]這個資源包運行的 Mincraft 版本。默認 1.20.0。
+[b]注意:[/b]如果資源包中不顯示，很可能就是[code]最低遊戲版本[/code]配置錯誤。
+
+[title]項目導出[/title]
+
+上方工具欄中點擊[code]項目>>導出[/code]，打開導出窗口。
+可以配置導出路徑，當然默認也可以。
+點擊導出，並等待。
+導出完畢後可能複製路徑找到壓縮包，或者直接打開定位。
+
+[b]注意：[/b]如果最開始沒有設置數據目錄，默認會使用軟件目錄，可能無法直接訪問。需要到[code]（編輯器）設置>>界面>>通用>>數據目錄[/code]進行更改。
+[b]注意：[/b]導出過程中，窗口無法關閉。
+
+[title]導入遊戲[/title]
+
+找到你的地圖，一般都是[code]/storage/emulated/0/Android/data/com.mojang.minecraftpe/files/games/com.mojang/minecraftWorlds/[/code]目錄中。可根據裡面的截圖或者[code]levelname.txt[/code]進行判斷地圖名稱。
+找到地圖將壓縮包解壓到[code]behavior_packs[/code]目錄，就算成功。
+
+[b]注意：[/b]網易行為包可能在軟件內部，不可使用。需要手動複製到指令方塊，使用 [file tool/coper]複製幫手[/file] 可以幫助你快速複製函數中的指令。
+
+[title]激活行為包[/title]
+
+進入 Minecraft，打開世界編輯界面中[code]行為包>>我的包[/code]就應該有一個錯誤圖標的選項。點擊並激活。
+
+[b]注意：[/b]如果沒有顯示，可能需要重進遊戲或者是[code]項目設置>>最低遊戲版本[/code]配置錯誤。
+
+[title]調用函數[/title]
+
+進入世界，輸入 [code]/function Welcome/ 你的文件名[/code]你就獲得了一個蘋果。
+
+[b]注意：[/b]如果顯示沒有函數，可能需要 [code]/reload[/code] 重新加載函數。

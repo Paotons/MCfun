@@ -1,0 +1,15 @@
+[title]Descrição[/title]
+
+Mensagens de erro exibidas abaixo do editor.
+
+[b]Nota:[/b] Algumas mensagens de erro podem estar incorretas; os erros são apenas para referência.
+
+[title]Expandir[/title]
+
+Clique em um erro para mostrar todos os erros. Você pode rolar para ver mais erros ou arrastar a borda para aumentar a altura.
+
+[b]Nota:[/b] Se você editar o texto enquanto estiver expandido, a interface será atualizada e isso pode causar custo de desempenho.
+
+[title]Ir para[/title]
+
+Clique em um erro expandido para ir até a posição do erro.

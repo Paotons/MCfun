@@ -1,0 +1,43 @@
+[title]Resaltado[/title]
+
+Al editar, puedes configurar tú mismo el color de resaltado de cada elemento.
+
+[title]Autocompletado[/title]
+
+[b]Número máximo de autocompletados:[/b] los elementos más allá de este umbral se recortan para reducir la sobrecarga.
+
+[b]Mostrar sugerencia:[/b] cuando está activado, la sugerencia se muestra entre paréntesis. Por ejemplo:
+[code]cat   (gato)[/code]
+
+[b]Usar peso de sugerencia:[/b] cuando está activado, escribir la sugerencia la prioriza en la lista. Como hay que calcular la similitud de la sugerencia, el coste de rendimiento se duplica.
+
+[b]Autocompletar espacio de nombres:[/b] cuando está desactivado, todo lo similar a [code]minecraft:apple[/code] solo muestra [code]apple[/code]. Activarlo añade un pequeño coste de rendimiento.
+[title]Comportamiento[/title]
+
+[b]Mapeo de doble pulsación:[/b] ayuda a introducir símbolos. Si escribes rápido el mismo carácter dos veces seguidas, se convierte. La configuración por defecto es la siguiente:
+[code]" " : "\t"
+"s" : "§"
+"." : "~"
+"," : "^"
+"z" : "="
+"n" : "!"
+"a" : "@"
+"q" : "{"
+"p" : "}"
+"w" : "["
+"o" : "]"
+"e" : "<"
+"i" : ">"[/code]
+
+[title]Guardado automático[/title]
+
+[b]Guardado automático：[/b] cuando está activado, se permite el guardado automático。
+
+[b]Intervalo de guardado：[/b] el intervalo de tiempo entre guardados automáticos。
+
+[title]Gramática[/title]
+
+La gramática del editor por defecto。
+
+[b]Ruta de gramática：[/b] puedes consultar la ruta de la gramática; en cada inicio, si se detecta que el directorio no existe, se intenta copiar。
+[b]Obtener gramática：[/b] si la gramática se pierde o no está actualizada, puedes actualizarla manualmente。

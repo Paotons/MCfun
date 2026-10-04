@@ -1,0 +1,43 @@
+[title]Realce[/title]
+
+Você pode definir a cor de realce de cada elemento durante a edição.
+
+[title]Autocompletar[/title]
+
+[b]Número máximo de complementações:[/b] Itens de complementação além desse limite são descartados para reduzir o custo.
+
+[b]Mostrar dica:[/b] Quando ativado, as dicas são exibidas entre parênteses. Por exemplo:
+[code]cat   (Gato)[/code]
+
+[b]Usar peso da dica:[/b] Quando ativado, digitar uma dica a prioriza na lista. Como é necessário calcular a similaridade da dica, o custo de desempenho dobra.
+
+[b]Complementar nome de espaço:[/b] Quando desativado, tudo como [code]minecraft:apple[/code] mostra apenas [code]apple[/code]. Ativá-lo traz um pequeno custo de desempenho.
+[title]Comportamento[/title]
+
+[b]Mapeamento de toque duplo:[/b] Isso ajuda na digitação de símbolos. Se você digitar o mesmo caractere duas vezes rapidamente, ele é convertido. A configuração padrão é a seguinte:
+[code]" " : "\t"
+"s" : "§"
+"." : "~"
+"," : "^"
+"z" : "="
+"n" : "!"
+"a" : "@"
+"q" : "{"
+"p" : "}"
+"w" : "["
+"o" : "]"
+"e" : "<"
+"i" : ">"[/code]
+
+[title]Salvamento automático[/title]
+
+[b]Salvamento automático:[/b] Quando ativado, permite o salvamento automático.
+
+[b]Intervalo de salvamento:[/b] O intervalo de tempo entre salvamentos automáticos.
+
+[title]Gramática[/title]
+
+A gramática usada pelo editor padrão.
+
+[b]Caminho da gramática:[/b] Você pode ver o caminho da gramática. A cada inicialização, se o diretório não for detectado, o programa tenta copiá-lo.
+[b]Extrair gramática:[/b] Se a gramática for perdida ou estiver desatualizada, você pode atualizá-la manualmente.

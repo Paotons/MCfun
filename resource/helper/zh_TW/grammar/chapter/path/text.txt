@@ -1,0 +1,43 @@
+[title]描述[/title]
+
+用於列表 [file grammar/entry]語法>>列表[/file] 表示路徑的分類。
+
+並允許行使用 [code]{"type" : "file", "file" : "path"}[/code] 加載其他文件都內容，作為數據。例如：[code]"cat" : {"type" : "file", "file" : "entry/mob/cat.json"}[/code]
+
+[title]V1[/title]
+
+表示 [code]playsound[/code] 可以表示為：
+[code]{
+	"type" : "path",
+	"data" : {
+		"mob" : {
+			"cat" : {
+				"" : false,
+				"hit" : false,
+				"dead" : false
+			}
+		}
+	}
+}[/code]
+這樣就可以表示為 [code]mob.cat mob.cat.hit mob.cat.deat[/code] 了。
+
+[b]data:[/b] 表示無限嵌套，可以一直嵌套下去。其中 [code]false[/code] 用於佔位。
+
+[title]V1[/title]
+
+表示 [code]playsound[/code] 可以表示為：
+[code]{
+	"type" : "path",
+	"data" : {
+		"mob" : {
+			"cat" : {
+				"" : "貓",
+				"hit" : "貓受傷",
+				"dead" : "貓死亡"
+			}
+		}
+	}
+}[/code]
+這樣就可以表示為 [code]mob.cat mob.cat.hit mob.cat.deat[/code] 了，並且伴隨著相應的提示詞。
+
+[b]data:[/b] 表示無限嵌套，可以一直嵌套下去。

@@ -1,0 +1,64 @@
+[title]Criar um Projeto[/title]
+
+Entre na lista de projetos e clique em [code]Novo[/code] na barra de ferramentas superior.
+Digite um nome de projeto; inglês é recomendado.
+Você pode deixar o diretório do projeto como padrão.
+
+Após criar, selecione o projeto e clique em [code]Editar[/code] à direita, ou clique no projeto novamente para entrar no editor.
+
+[title]Criar um Arquivo[/title]
+
+Clique em [code]Arquivo>>Sistema[/code] na barra de ferramentas superior para entrar no sistema de arquivos.
+No sistema de arquivos, clique em [code]Adicionar>>mcfun[/code], digite um nome de arquivo (por exemplo, [code]Welcome[/code]) e confirme.
+
+Em seguida, selecione o arquivo e clique em [code]Abrir>>Arquivo[/code] ao lado para abri-lo.
+
+[title]Editar o Arquivo[/title]
+
+Após abrir, o arquivo é selecionado automaticamente.
+Você pode começar digitando [code]give @s app[/code], então pressione [code]Enter[/code] para completá-lo rapidamente.
+Agora temos o comando [code]give @s minecraft:apple[/code].
+
+Em seguida, clique em [code]Arquivo>>Salvar[/code] na barra de ferramentas superior; caso contrário, o arquivo pode ser perdido.
+
+[title]Configurações do Projeto[/title]
+
+Se você estiver na versão mais recente do Minecraft, nenhuma configuração extra é necessária; você pode exportar diretamente.
+
+[code]Projeto>>Configuração[/code] na barra de ferramentas superior abre as configurações do projeto.
+[code]Nome do projeto:[/code] O nome deste projeto.
+[code]Caminho do projeto:[/code] O caminho deste projeto. Não editável; usado apenas para copiar.
+[code]Versão do projeto:[/code] A versão exibida após a exportação. Padrão 1.0.0.
+[code]Descrição do projeto:[/code] Exibida na descrição do pacote de recursos após a exportação.
+[code]Versão mínima do jogo:[/code] A versão do Minecraft em que este pacote de recursos roda. Padrão 1.20.0.
+[b]Nota:[/b] Se o pacote de recursos não aparecer, é muito provável que a [code]versão mínima do jogo[/code] esteja configurada incorretamente.
+
+[title]Exportação do Projeto[/title]
+
+Clique em [code]Projeto>>Exportar[/code] na barra de ferramentas superior para abrir a janela de exportação.
+Você pode configurar o caminho de exportação, ou apenas manter o padrão.
+Clique em Exportar e aguarde.
+Quando terminar, você pode copiar o caminho para encontrar o zip ou abri-lo diretamente.
+
+[b]Nota:[/b] Se você não definiu um diretório de dados no início, o diretório do software é usado por padrão e pode não ser diretamente acessível. Vá em [code](Editor) Configuração>>Interface>>Geral>>diretório de dados[/code] para alterá-lo.
+[b]Nota:[/b] A janela não pode ser fechada durante a exportação.
+
+[title]Importar para o Jogo[/title]
+
+Encontre seu mundo; geralmente em [code]/storage/emulated/0/Android/data/com.mojang.minecraftpe/files/games/com.mojang/minecraftWorlds/[/code]. Você pode identificar o mundo pela captura de tela dentro dele ou pelo [code]levelname.txt[/code].
+Extraia o zip para o diretório [code]behavior_packs[/code]; isso é suficiente.
+
+[b]Nota:[/b] Pacotes de comportamento da NetEase podem estar armazenados dentro do aplicativo e não podem ser usados diretamente. Você precisa copiá-los manualmente para blocos de comando; o [file tool/coper]Copiador de Funções[/file] pode ajudar você a copiar comandos de uma função rapidamente.
+
+[title]Ativar o Pacote de Comportamento[/title]
+
+Entre no Minecraft, abra a tela de edição do mundo e em [code]Pacotes de Comportamento>>Meus Pacotes[/code] deve haver uma entrada com um ícone de erro. Clique e ative-a.
+
+[b]Nota:[/b] Se ela não aparecer, talvez seja necessário reiniciar o jogo, ou a [code]Configuração do Projeto>>Versão mínima do jogo[/code] está configurada incorretamente.
+
+[title]Chamar a Função[/title]
+
+Entre no mundo e digite [code]/function Welcome/ seu nome de arquivo[/code] para obter uma maçã.
+
+[b]Nota:[/b] Se disser que a função não existe, talvez seja necessário [code]/reload[/code] para recarregar as funções.
+

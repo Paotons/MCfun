@@ -1,0 +1,17 @@
+[title]설명[/title]
+
+등호 매개변수 괄호. 대상 선택자와 유사합니다.
+
+[title]세부 사항[/title]
+
+[code]"detail" : "using_key"[/code] 키를 사용하며, 이때 데이터에는 [code]"key"[/code] 와 [code]"value"[/code] 두 개의 키가 있어야 합니다. 각각 키와 값의 요소를 정의합니다.
+
+나중에 변경될 수 있습니다.
+
+[title]데이터[/title]
+
+[code] "data" : {
+	"a" : {...},
+	...
+}[/code]
+매개변수의 키와 그에 대응하는 요소입니다.

@@ -1,0 +1,8 @@
+[title]설명[/title]
+
+파일 경로.
+
+[title]세부 사항[/title]
+
+[b]extensions:[/b] 문자열 배열. 확장자.
+[b]using_extendsion:[/b] 불리언. [code]false[/code] 이면 확장자를 사용하지 않습니다.

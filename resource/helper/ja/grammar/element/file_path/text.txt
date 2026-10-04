@@ -1,0 +1,8 @@
+[title]説明[/title]
+
+ファイルパス。
+
+[title]詳細[/title]
+
+[b]extensions:[/b] 文字列配列。拡張子。
+[b]using_extendsion:[/b] ブール。[code]false[/code] の場合、拡張子を使用しません。

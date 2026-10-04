@@ -1,0 +1,4 @@
+[title]Descripción[/title]
+
+No representa nada; sirve como marcador de posición.
+No se omite.

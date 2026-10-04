@@ -1,0 +1,14 @@
+[title]Descrição[/title]
+
+Parêntese de array.
+
+[title]Detalhe[/title]
+
+[code]"detail" : "is_same"[/code] Usa a mesma chave; nesse caso, os dados têm apenas um valor.
+
+Isso pode mudar no futuro.
+
+[title]Dados[/title]
+
+[code] "data" : [{...}][/code]
+O elemento correspondente.

@@ -1,0 +1,16 @@
+[title]설명[/title]
+
+명령어 한 줄 전체입니다.
+
+[title]분류[/title]
+
+하나의 명령어는 여러 타입을 가질 수 있습니다. 예: [code]root|normal[/code]
+
+[b]empty:[/b] 빈 명령어. 아무것도 없습니다.
+[b]root:[/b] 루트 명령어. 명령어의 시작입니다.
+[b]replace:[/b] 대체 명령어. 일반적으로 execute run 뒤의 명령어입니다.
+[b]normal:[/b] 일반 명령어. Minecraft 에 직접 존재하는 명령어입니다.
+[b]help:[/b] 도움말 명령어. Minecraft 에서 물음표로 시작하는 명령어입니다.
+[b]annotation:[/b] 주석. 우물정자(#)로 시작합니다.
+[b]native:[/b] 네이티브 명령어. 앰퍼샌드(&)로 시작합니다.
+[b]comment:[/b] 주석 명령어. 골뱅이(@)로 시작합니다.

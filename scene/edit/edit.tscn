@@ -1051,8 +1051,8 @@ signal saved_and_edit
 signal direct_exit
 
 func _ready() -> void:
-	add_cancel_button(TranslationSystem.tr(\"Cancel\"))
-	add_button(TranslationSystem.tr(\"Unsave & Exit\"), false, \"1\")
+	add_cancel_button(TranslationSystem.t(\"Cancel\"))
+	add_button(TranslationSystem.t(\"Unsave & Exit\"), false, \"1\")
 
 func _on_confirmed() -> void:
 	saved_and_edit.emit()
@@ -1266,6 +1266,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="FileTree" type="Tree" parent="Base/Split/Split3/MarginContainer" unique_id=1505062678 node_paths=PackedStringArray("essent_nodes")]
+auto_translate_mode = 2
 layout_mode = 2
 script = SubResource("GDScript_cgait")
 essent_nodes = {
@@ -1290,6 +1291,7 @@ essent_nodes = {
 script = SubResource("GDScript_4o8ox")
 
 [node name="FunctionEdit" type="CodeEdit" parent="Base/Split/Split2" unique_id=12574861]
+auto_translate_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
@@ -1474,10 +1476,10 @@ script = SubResource("GDScript_x5ap5")
 
 [node name="ErrorOptionWindow" type="AcceptDialog" parent="." unique_id=440137377]
 oversampling_override = 1.0
-title = "错误"
+title = "Error"
 position = Vector2i(0, 36)
 size = Vector2i(1152, 648)
-ok_button_text = "退出到项目列表"
+ok_button_text = "Exit to List"
 dialog_hide_on_ok = false
 dialog_close_on_escape = false
 
@@ -1493,6 +1495,7 @@ dialog_close_on_escape = false
 [connection signal="load_ui" from="Loader" to="Base/Split/Split3/MarginContainer/FileTree" method="_on_loader_load_ui"]
 [connection signal="load_ui" from="Loader" to="Base/Split/Split2" method="load_from_config"]
 [connection signal="load_ui" from="Loader" to="AutoSaveingTimer" method="_on_loader_load_ui"]
+[connection signal="load_ui" from="Loader" to="ProjectSetting" method="_on_loader_load_ui"]
 [connection signal="load_ui" from="Loader" to="FileSystem/Loader" method="_on_loader_load_ui"]
 [connection signal="load_ui" from="Loader" to="ProjectExportSetting/Loader2" method="_on_loader_load_ui"]
 [connection signal="save" from="Saver" to="Base/Split" method="save_to_config"]

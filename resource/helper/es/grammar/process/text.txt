@@ -1,0 +1,33 @@
+[title]Descripción[/title]
+
+Indica al editor cómo se deben combinar los elementos de un comando. Consulta el elemento [file grammar/element]Gramática>>Elemento[/file].
+
+Cada elemento puede contener los siguientes miembros:
+[b]id:[/b] entero no negativo. Un ID; si está vacío se toma un valor aleatorio. IDs duplicados o negativos pueden provocar un fallo, así que no los repitas.
+[b]extends:[/b] entero; el padre. Es el ID del último elemento ejecutado con éxito. -2 significa cualquiera, -1 significa el principio. Si está vacío, es -2.
+[b]goto:[/b] entero, o un arreglo de enteros para opciones. El ID al que saltar en caso de éxito; si es una opción, el salto depende de los datos adicionales. Si está vacío, pasa al siguiente paso.
+[b]is_end:[/b] booleano; la marca de fin. Si no está vacío, al ejecutarse con éxito se intenta actualizar. Si el comando termina mientras sigue siendo [code]false[/code], se da error.
+
+Además, una línea puede usar [code]{"type" : "file", "file" : "path"}[/code] para cargar el contenido de otro archivo como datos. Por ejemplo: [code]"give" : {"type" : "file", "file" : "proces/give.json"}[/code]
+
+[title]V1[/title]
+
+[code] "give" : [{...}, {...}][/code]
+
+Así se define el comando [code]give[/code], pero sin sugerencia.
+
+[title]V2[/title]
+
+[code]"give" : {
+	"descriotion" : "Dar un objeto al jugador",
+	"data" : [
+		{...},
+		{...}
+	]
+}
+[/code]
+
+[b]description:[/b] descripción; la sugerencia.
+[b]data:[/b] datos.
+
+Así se define el comando [code]give[/code] con sugerencia.

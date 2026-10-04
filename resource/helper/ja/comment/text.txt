@@ -1,0 +1,9 @@
+[title]説明[/title]
+
+注釈は@で始まり、エクスポート時には無視され、エディタの動作を変更するために使用されます。例：[code]@list tag add my_tag[/code] これにより、後続のTag補完時にmy_tagオプションが表示されます。
+
+[b]注意：[/b]現在この機能は完成していません。
+
+[title]分類[/title]
+
+[file comment/list]補完データを制御する list[/file]

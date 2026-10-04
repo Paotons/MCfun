@@ -1,0 +1,7 @@
+[title]Descrição[/title]
+
+Informa ao editor os requisitos específicos de alguns elementos. Por exemplo, os elementos [code]array[/code] e [code]dictionary[/code], veja [file grammar/element]Gramática>>Elemento[/file].
+
+Uma linha pode usar [code]{"type" : "file", "file" : "path"}[/code] para carregar o conteúdo de outro arquivo como dados. Por exemplo: [code]"item" : {"type" : "file", "file" : "law/item.json"}[/code].
+
+Deve conter [code]selector_body[/code], o corpo de um seletor de alvo, que diz ao [code]selector[/code] como ser normalizado.

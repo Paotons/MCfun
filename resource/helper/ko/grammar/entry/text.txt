@@ -1,0 +1,22 @@
+[title]설명[/title]
+
+각종 목록을 저장하는 파일입니다.
+
+또한 [code]{"type" : "file", "file" : "path"}[/code] 를 사용해 다른 파일의 내용을 데이터로 불러올 수 있습니다. 예: [code]"item" : {"type" : "file", "file" : "entry/item.json"}[/code]
+
+[title]V1[/title]
+
+예시:
+[code]{
+	"chapter" : {
+		"type" : "xxx"
+	},
+	"chapter2" : {
+		"type" : "xxx"
+	}
+}[/code]
+
+[b]chapter:[/b] 이 분류의 이름을 저장하는 데 사용되며, 임의의 문자를 사용할 수 있습니다.
+[b]chapter.type[/b] 이 분류의 타입을 나타내며, [code]string,spaceitem,path[/code] 및 특수한 [code]file[/code] 타입을 사용할 수 있습니다.
+
+

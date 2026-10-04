@@ -1,0 +1,8 @@
+[title]Descripción[/title]
+
+Ruta con puntos.
+Si la cadena no empieza por una palabra, se añade a las expectativas y se omite.
+
+[title]Detalle[/title]
+
+[b]chapter:[/b] cadena. El capítulo usado.

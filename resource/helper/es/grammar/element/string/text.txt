@@ -1,0 +1,7 @@
+[title]Descripción[/title]
+
+Cadena.
+
+[title]Detalle[/title]
+
+[b]long:[/b] booleano. Si es [code]true[/code], es una cadena larga.

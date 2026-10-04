@@ -1,0 +1,4 @@
+[file for/mcfun]MCfun[/file]
+[file for/report]報告[/file]
+
+[file for/report]問題・意見を報告する[/file]

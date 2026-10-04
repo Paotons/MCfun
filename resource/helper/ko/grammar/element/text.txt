@@ -1,0 +1,47 @@
+[title]설명[/title]
+
+하나의 명령어는 여러 요소로 나눌 수 있습니다.
+
+예를 들어:
+[code]execute as @a run give @s minecraft:apple 64[/code]
+는 다음과 같이 나눌 수 있습니다.
+[b]execute:[/b] 명령어 헤드.
+[b]as:[/b] 옵션.
+[b]@a:[/b] 대상 선택자.
+[b]run:[/b] 옵션.
+[b]give @s minecraft:apple 64:[/b] 하위 명령어로, 물론 더 나눌 수도 있습니다.
+
+[title]타입[/title]
+
+현재 요소는 여러 타입을 지원합니다.
+
+[b]null:[/b] 타입 없음. 자리 표시용.
+[b]bool:[/b] 불리언 타입. [code]false[/code] 와 [code]true[/code] 두 가지를 나타낼 수 있습니다.
+[b]int:[/b] 정수 타입. [code]64[/code] 같은 각종 숫자를 나타낼 수 있습니다.
+[b]float:[/b] 부동소수점 타입. [code]0.5[/code] 같은 소수점이 있는 숫자를 나타낼 수 있습니다.
+[b]option:[/b] 옵션. 일반적으로 몇 가지 고정된 선택지입니다.
+[b]rich_string:[/b] 리치 텍스트. [code]§[/code] 표시를 지원합니다.
+[b]word:[/b] 단어. 각국 언어의 문자와 연결 기호, 숫자로만 구성되며, 일반적으로 플레이어 이름을 나타냅니다.
+[b]string:[/b] 문자열. 공백 들여쓰기만 아니면 모두 지원합니다.
+[b]spaceitem:[/b] 네임스페이스 아이템. 때때로 [code]space_item[/code] 으로 쓰이며 [code]apple[/code] 또는 [code]minecraft:apple[/code] 을 나타낼 수 있습니다.
+[b]point_path:[/b] 점 경로. [code]mob.cat[/code] 같은 것을 나타낼 수 있습니다.
+[b]file_path:[/b] 파일 경로. [code]main/myfun.mcfunction[/code] 같은 것을 나타낼 수 있습니다.
+[b]coord:[/b] 좌표축. [code]5, ~5, ^5[/code] 세 가지 표기법이 있으며, 부동소수점을 지원합니다.
+[b]coords:[/b] 다중 좌표축. 주로 좌표를 나타내며, [code]~~~[/code] 나 [code]^^^3[/code] 같은 각종 좌표를 나타낼 수 있습니다.
+[b]selector:[/b] 대상 선택자. [code]@e\[type=player\][/code] 같은 것을 나타낼 수 있으며, 더 복잡한 선택도 가능하고, 플레이어 이름도 지원합니다.
+[b]array:[/b] 배열처럼, 대괄호로 감싸진 것. 대상 선택자의 몸통 부분입니다.
+[b]dictionary:[/b] 사전처럼, 중괄호로 감싸진 것입니다.
+[b]command:[/b] 명령어. 명령어 한 줄 전체입니다.
+
+[title]데이터 구조[/title]
+
+데이터는 각 요소의 데이터 그룹을 나타냅니다. [code]type, detail, items, description, cmd, custom[/code] 이 있습니다.
+예: [code]{"type" : "int", "description" : "점수"}[/code]
+이것이 int 타입 요소 데이터이며, [code]1, 0, 100, -1[/code] 을 인식할 수 있습니다.
+
+[b]type:[/b] 타입. 요소의 타입을 나타내며, 기본값은 [code]null[/code] 입니다.
+[b]detail:[/b] 세부 사항. 요소를 제약하거나 요소 범위를 나타내는 데 사용되며, 타입마다 조건이 다릅니다.
+[b]items:[/b] 부속물. 일반적으로 요소의 하위 데이터이며, [code]option[/code] 의 선택지에 자주 쓰입니다.
+[b]description:[/b] 설명. 힌트에 사용되며, 기본값은 Unknow 입니다.
+[b]cmd:[/b] 명령어. 고급 용도로 쓰이며, 편집기를 조작하는 데 사용할 수 있습니다. [file grammar/element/cmd]명령어[/file] 참고.
+[b]custom:[/b] 사용자 정의 데이터. 현재는 아무 용도가 없습니다.

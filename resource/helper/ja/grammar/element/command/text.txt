@@ -1,0 +1,16 @@
+[title]説明[/title]
+
+1つのコマンド全体。
+
+[title]分類[/title]
+
+1つのコマンドは複数の種類を持てます。例えば [code]root|normal[/code]
+
+[b]empty:[/b] 空コマンド。何もありません。
+[b]root:[/b] ルートコマンド。コマンドの先頭です。
+[b]replace:[/b] 置換コマンド。通常は execute run の後ろのコマンドです。
+[b]normal:[/b] 通常コマンド。Minecraft に直接存在するコマンドです。
+[b]help:[/b] ヘルプコマンド。Minecraft では疑問符で始まるコマンドです。
+[b]annotation:[/b] 注釈。シャープ記号で始まります。
+[b]native:[/b] ネイティブコマンド。アンパサンドで始まります。
+[b]comment:[/b] 注釈コマンド。アットマークで始まります。

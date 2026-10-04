@@ -1,0 +1,12 @@
+[title]Descrição[/title]
+
+Uma lista é uma lista de dados de complementação dentro de um comando. Ela é atualizada dinamicamente conforme o comando muda.
+
+[title]Adicionar[/title]
+
+[code]@list <nome_da_lista> add <item_de_complementação>[/code]
+
+[b]nome_da_lista:[/b] A lista sobre a qual operar.
+[b] item_de_complementação:[/b] O item de complementação a adicionar.
+
+Por exemplo: [code]@list tag add my_tag[/code] e depois a complementação de Tag terá a opção my_tag.

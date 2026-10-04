@@ -1,0 +1,33 @@
+[title]Descrição[/title]
+
+Usado em uma [file grammar/entry]Entrada[/file] como um elemento que define vários valores de cadeia.
+
+[title]V1[/title]
+
+Por exemplo, [code]gamemode[/code] pode ser escrito como:
+[code]{
+	"type" : "string",
+	"data" : [
+		"a",
+		"c",
+		"s"
+	]
+}[/code]
+
+Dessa forma, [code]gamemode[/code] tem os três valores [code]a, c, s[/code].
+
+[code]data:[/code] Usado para definir as várias cadeias.
+
+[title]V2[/title]
+
+Por exemplo, [code]gamemode[/code] pode ser escrito como:
+[code]{
+	"type" : "string",
+	"data" : {
+		"a" : "Modo Aventura",
+		"c" : "Modo Criativo",
+		"s" : "Modo Sobrevivência"
+	}
+}[/code]
+
+Dessa forma, [code]gamemode[/code] tem os três valores [code]a, c, s[/code] com dicas correspondentes.

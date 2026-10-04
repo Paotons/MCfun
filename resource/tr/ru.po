@@ -1,0 +1,768 @@
+msgid ""
+msgstr ""
+"Language: ru\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+### 前言
+## 常用
+msgid "close"
+msgstr "закрыть"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "OK"
+msgstr "ОК"
+
+msgid "ok"
+msgstr "ОК"
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "cancel"
+msgstr "отмена"
+
+msgid "LOC"
+msgstr "LOC"
+
+msgid "Empty"
+msgstr "Пусто"
+
+msgid "Exit"
+msgstr "Выход"
+
+msgid "Loading"
+msgstr "Загрузка"
+
+## 文件系统
+msgid "File System"
+msgstr "Файловая система"
+
+msgid "Recent:"
+msgstr "Недавние:"
+
+msgid "Favorites:"
+msgstr "Избранное:"
+
+msgid "Directories & Files:"
+msgstr "Каталоги и файлы:"
+
+msgid "Path:"
+msgstr "Путь:"
+
+msgid "You don't have permission to access contents of this folder."
+msgstr "Нет прав на доступ к содержимому этой папки."
+
+msgid "Open a Directory"
+msgstr "Открыть каталог"
+
+msgid "Select Current Folder"
+msgstr "Выбрать текущую папку"
+
+msgid "Select This Folder"
+msgstr "Выбрать эту папку"
+
+msgid "Filter:"
+msgstr "Фильтр:"
+
+msgid "Sort by Name (Ascending)"
+msgstr "По имени (по возрастанию)"
+
+msgid "Sort by Name (Descending)"
+msgstr "По имени (по убыванию)"
+
+msgid "Sort by Type (Ascending)"
+msgstr "По типу (по возрастанию)"
+
+msgid "Sort by Type (Descending)"
+msgstr "По типу (по убыванию)"
+
+msgid "Sort by Modified Time (Newest First)"
+msgstr "По времени изменения (сначала новые)"
+
+msgid "Sort by Modified Time (Oldest First)"
+msgstr "По времени изменения (сначала старые)"
+
+msgid "Name:"
+msgstr "Имя:"
+
+msgid "Create Folder"
+msgstr "Создать папку"
+
+## 常见动词
+msgid "Add"
+msgstr "Добавить"
+
+msgid "add"
+msgstr "добавить"
+
+msgid "Get"
+msgstr "Извлечь"
+
+msgid "get"
+msgstr "извлечь"
+
+msgid "Create"
+msgstr "Создать"
+
+msgid "create"
+msgstr "создать"
+
+msgid "New"
+msgstr "Новый"
+
+msgid "new"
+msgstr "новый"
+
+## 常用动作。
+msgid "Start."
+msgstr "Начало."
+
+## 路径选择
+msgid "Empty filename."
+msgstr "Пустое имя файла."
+
+msgid "Empty directoryname."
+msgstr "Пустое имя каталога."
+
+msgid "Empty file."
+msgstr "Пустой файл."
+
+msgid "Empty directory."
+msgstr "Пустой каталог."
+
+msgid "Filetype must be mcfunction or zip."
+msgstr "Тип файла должен быть mcfunction или zip."
+
+msgid "Unfind file."
+msgstr "Файл не найден."
+
+msgid "Notfind file."
+msgstr "Файл не найден."
+
+msgid "Notfind directory."
+msgstr "Каталог не найден."
+
+msgid "Unfind directory."
+msgstr "Каталог не найден."
+
+msgid "Valid file."
+msgstr "Файл корректен."
+
+msgid "Valid directory."
+msgstr "Каталог корректен."
+
+msgid "Already exist same-name filename."
+msgstr "Файл с таким именем уже существует."
+
+msgid "Already exist same-name filename, will be coverd."
+msgstr "Файл с таким именем уже существует и будет перезаписан."
+
+msgid "Alrady exist same-name directoryname."
+msgstr "Каталог с таким именем уже существует."
+
+msgid "Already exist same-name directory, will be coverd."
+msgstr "Каталог с таким именем уже существует и будет перезаписан."
+
+msgid "You can create file!"
+msgstr "Можно создать файл!"
+
+msgid "You can create directory!"
+msgstr "Можно создать каталог!"
+
+msgid "Unvalid filename."
+msgstr "Недопустимое имя файла."
+
+msgid "Unvalid directory."
+msgstr "Недопустимый каталог."
+
+## 常用属性
+msgid "offset"
+msgstr "смещение"
+
+msgid "length"
+msgstr "длина"
+
+msgid "path"
+msgstr "путь"
+
+msgid "name"
+msgstr "имя"
+
+msgid "scale"
+msgstr "масштаб"
+
+msgid "behavior"
+msgstr "поведение"
+
+msgid "file"
+msgstr "файл"
+
+msgid "File"
+msgstr "Файл"
+
+### 项目列表界面
+msgid "Setting"
+msgstr "Настройки"
+
+msgid "translation"
+msgstr "перевод"
+
+msgid "language"
+msgstr "язык"
+
+msgid "Import"
+msgstr "Импорт"
+
+msgid "GUI"
+msgstr "Интерфейс"
+
+msgid "General"
+msgstr "Общие"
+
+msgid "Edit"
+msgstr "Редактор"
+
+msgid "Highlight"
+msgstr "Подсветка"
+
+msgid "Completion"
+msgstr "Автодополнение"
+
+msgid "Appearance"
+msgstr "Внешний вид"
+
+msgid "Behavior"
+msgstr "Поведение"
+
+msgid "Grammar"
+msgstr "Грамматика"
+
+msgid "Project lost."
+msgstr "Проект утерян."
+
+### 复制帮手窗口
+msgid "Function Copyer"
+msgstr "Помощник копирования функций"
+
+msgid "Copy line"
+msgstr "Копировать строку"
+
+msgid "Copy normal"
+msgstr "Обычное копирование"
+
+msgid "%d lines."
+msgstr "%d строк."
+
+### 编辑器设置
+## 分类
+msgid "Running"
+msgstr "Выполнение"
+
+msgid "AutoSaving"
+msgstr "Автосохранение"
+
+msgid "data directory"
+msgstr "каталог данных"
+
+msgid "Choose Data Directory Please"
+msgstr "Выберите каталог данных"
+
+msgid "Project List"
+msgstr "Список проектов"
+
+msgid "import"
+msgstr "импорт"
+
+msgid "setting"
+msgstr "настройки"
+
+msgid "coper"
+msgstr "помощник"
+
+msgid "Help"
+msgstr "Справка"
+
+## 高亮
+msgid "Command Head"
+msgstr "Заголовок команды"
+
+msgid "normal command"
+msgstr "обычная команда"
+
+msgid "native command"
+msgstr "встроенная команда"
+
+msgid "comment command"
+msgstr "команда-комментарий"
+
+msgid "Element"
+msgstr "Элемент"
+
+msgid "number"
+msgstr "число"
+
+msgid "bool"
+msgstr "логическое"
+
+msgid "mumber"
+msgstr "член"
+
+msgid "point path"
+msgstr "точечный путь"
+
+msgid "selector"
+msgstr "селектор"
+
+msgid "space"
+msgstr "пространство"
+
+msgid "name"
+msgstr "имя"
+
+msgid "option"
+msgstr "параметр"
+
+msgid "error option"
+msgstr "ошибочный параметр"
+
+msgid "string"
+msgstr "строка"
+
+msgid "special string"
+msgstr "специальная строка"
+
+msgid "annotation"
+msgstr "аннотация"
+
+msgid "Coord"
+msgstr "Координата"
+
+msgid "x"
+msgstr "x"
+
+msgid "y"
+msgstr "y"
+
+msgid "z"
+msgstr "z"
+
+## 补全
+msgid "help"
+msgstr "справка"
+
+msgid "remove"
+msgstr "удалить"
+
+msgid "edit"
+msgstr "редактировать"
+
+msgid "max completion operation count"
+msgstr "максимум вариантов автодополнения"
+
+msgid "showing tip"
+msgstr "показывать подсказки"
+
+msgid "tip weight (note: This function may have an impact on performance.)"
+msgstr "вес подсказок (внимание: может снизить производительность.)"
+
+msgid "spacename completion"
+msgstr "дополнение имён пространств"
+
+## 外观
+msgid "caret blink"
+msgstr "мигание курсора"
+
+## 行为
+msgid "double reflecting"
+msgstr "двойное отражение"
+
+msgid "reflecting strings"
+msgstr "отражаемые строки"
+
+msgid "border enter"
+msgstr "перенос по границе"
+
+## 语法
+msgid "grammar path"
+msgstr "путь грамматики"
+
+msgid "get grammar"
+msgstr "извлечь грамматику"
+
+## 自保存
+msgid "auto saving"
+msgstr "автосохранение"
+
+msgid "%dsec"
+msgstr "%d сек"
+
+msgid "%dmin%dsec"
+msgstr "%d мин %d сек"
+
+msgid "saving space (%s)"
+msgstr "интервал сохранения (%s)"
+
+## 其他
+msgid "To apply the changes in the configuration file, a reload is necessary."
+msgstr "Для применения изменений в конфигурации требуется перезагрузка."
+
+msgid "Save & Reload"
+msgstr "Сохранить и перезагрузить"
+
+msgid "Already exist same-name project."
+msgstr "Проект с таким именем уже существует."
+
+msgid "You can create project!"
+msgstr "Можно создать проект!"
+
+msgid "Unvaild project-directory."
+msgstr "Недопустимый каталог проекта."
+
+msgid "You can import project!"
+msgstr "Можно импортировать проект!"
+
+### 项目设置窗口
+msgid "project name"
+msgstr "имя проекта"
+
+msgid "project path"
+msgstr "путь проекта"
+
+msgid "Project Setting"
+msgstr "Настройки проекта"
+
+msgid "project version"
+msgstr "версия проекта"
+
+msgid "project description"
+msgstr "описание проекта"
+
+msgid "min game version"
+msgstr "минимальная версия игры"
+
+msgid "Config"
+msgstr "Конфигурация"
+
+msgid "grammar cache"
+msgstr "кэш грамматики"
+
+msgid "Delete & Recompute"
+msgstr "Удалить и пересчитать"
+
+msgid "Project settings have been changed. Do you want to reload the project?"
+msgstr "Настройки проекта изменены. Перезагрузить проект?"
+
+### 界面
+## 加载进程
+msgid "Loading data."
+msgstr "Загрузка данных."
+
+msgid "Unvalid grammar:\n%s"
+msgstr "Ошибка грамматики:\n%s"
+
+msgid "Loading GUI."
+msgstr "Загрузка интерфейса."
+
+## 界面
+msgid "reload"
+msgstr "перезагрузить"
+
+msgid "Project"
+msgstr "Проект"
+
+msgid "Export"
+msgstr "Экспорт"
+
+msgid "Reload"
+msgstr "Перезагрузить"
+
+msgid "Exit to List"
+msgstr "Выйти к списку"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Save All"
+msgstr "Сохранить всё"
+
+msgid "Undo"
+msgstr "Отменить"
+
+msgid "Redo"
+msgstr "Повторить"
+
+msgid "Open"
+msgstr "Открыть"
+
+msgid "Move Up"
+msgstr "Вверх"
+
+msgid "Move Down"
+msgstr "Вниз"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Clear"
+msgstr "Очистить"
+
+msgid "System"
+msgstr "Система"
+
+msgid "Cut"
+msgstr "Вырезать"
+
+msgid "Copy"
+msgstr "Копировать"
+
+msgid "Paste"
+msgstr "Вставить"
+
+msgid "Select All"
+msgstr "Выделить всё"
+
+msgid "Select Line"
+msgstr "Выделить строку"
+
+msgid "Uncompletion"
+msgstr "Отменить автодополнение"
+
+msgid "New Project"
+msgstr "Новый проект"
+
+msgid "Import Project"
+msgstr "Импорт проекта"
+
+msgid "About Me"
+msgstr "О программе"
+
+msgid "Directory"
+msgstr "Каталог"
+
+msgid "Children"
+msgstr "Дочерние файлы"
+
+msgid "Rename"
+msgstr "Переименовать"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Create File"
+msgstr "Создать файл"
+
+msgid "Empty filename."
+msgstr "Пустое имя файла."
+
+## 错误处理
+msgid "Error (%d, %d) %s"
+msgstr "Ошибка (%d, %d) %s"
+
+msgid "%d lines %d column: "
+msgstr "%d строк %d столбец: "
+
+msgid "The file has not been saved. Do you want to exit?"
+msgstr "Файл не сохранён. Выйти?"
+
+msgid "Save & Exit"
+msgstr "Сохранить и выйти"
+
+msgid "Save & Close"
+msgstr "Сохранить и закрыть"
+
+msgid "Unsave & Close"
+msgstr "Не сохранять и закрыть"
+
+msgid "File Saving"
+msgstr "Сохранение файла"
+
+msgid "UnSave & Exit"
+msgstr "Не сохранять и выйти"
+### 窗口
+## 关于
+msgid "Creater"
+msgstr "Создатель"
+
+msgid "Keeper"
+msgstr "Сопровождающий"
+
+msgid "Developer"
+msgstr "Разработчик"
+
+msgid "Special Thanks"
+msgstr "Особая благодарность"
+
+msgid "Mojang created the main body of the game\n\nGodot provided the engine\n\nDeepSeek handled the miscellaneous tasks"
+msgstr "Mojang создала основную часть игры\n\nGodot предоставил движок\n\nDeepSeek выполнил вспомогательные задачи"
+
+## 初始弹窗
+msgid "Check Permissions"
+msgstr "Проверить разрешения"
+
+msgid "Please select a folder as the main data directory.\nIf no action is taken, the software sandbox directory will be used by default. This directory is inaccessible to ordinary users.\nIf you want your work to be freely operable, it is recommended to create a separate directory and choose it."
+msgstr "Выберите папку в качестве основного каталога данных.\nЕсли ничего не делать, по умолчанию будет использоваться песочница приложения. Обычные пользователи не могут получить к ней доступ.\nЕсли вы хотите свободно работать с файлами, создайте отдельный каталог и выберите его."
+
+## 退出弹窗
+msgid "Do you want to exit the application?"
+msgstr "Выйти из приложения?"
+
+### 错误提示
+msgid "Unfind any string."
+msgstr "Строка не найдена."
+
+msgid "Unvalid option \"%s\"."
+msgstr "Недопустимый параметр \"%s\"."
+
+msgid "Key not has closed backet."
+msgstr "Ключ не имеет закрывающей скобки."
+
+msgid "Rule unfind property \"%s\"."
+msgstr "Свойство \"%s\" не найдено в правиле."
+
+msgid "Unfind colon flag."
+msgstr "Двоеточие не найдено."
+
+msgid "Unfind value."
+msgstr "Значение не найдено."
+
+msgid "Unfind coord."
+msgstr "Координата не найдена."
+
+msgid "Unfind valid coord for %d."
+msgstr "Не найдена корректная координата для %d."
+
+msgid "Unfind key \"%s\" in rule."
+msgstr "Ключ \"%s\" не найден в правиле."
+
+msgid "Unfind equal flag."
+msgstr "Знак равенства не найден."
+
+msgid "Range is %d~%d, but is %d."
+msgstr "Диапазон %d~%d, но получено %d."
+
+msgid "Range is %f~%f, but is %f."
+msgstr "Диапазон %f~%f, но получено %f."
+
+msgid "String \"%s\" is unvalid float."
+msgstr "Строка \"%s\" не является числом с плавающей точкой."
+
+msgid "String \"%s\" is unvalid int."
+msgstr "Строка \"%s\" не является целым числом."
+
+msgid "Unfind int suffix %s in %s."
+msgstr "Суффикс %s не найден в %s."
+
+msgid "Can't end with \"%s\"."
+msgstr "Нельзя заканчивать на \"%s\"."
+
+msgid "Unfind the path."
+msgstr "Путь не найден."
+
+msgid "Unfind scope."
+msgstr "Диапазон не найден."
+
+msgid "The flag \".\" has cunted %d."
+msgstr "Количество точек \".\" равно %d."
+
+msgid "Unvaild selector."
+msgstr "Недопустимый селектор."
+
+msgid "Not is begin with \"@\"."
+msgstr "Не начинается с \"@\"."
+
+msgid "Unfind any word."
+msgstr "Слово не найдено."
+
+msgid "Unfind param."
+msgstr "Параметр не найден."
+
+msgid "Not begin with %s."
+msgstr "Не начинается с %s."
+
+msgid "Unfind end backet \"%s\"."
+msgstr "Закрывающая скобка \"%s\" не найдена."
+
+msgid "Unfind brother backet."
+msgstr "Парная скобка не найдена."
+
+msgid "Not begin with quotation."
+msgstr "Не начинается с кавычки."
+
+msgid "Unfind brother backet."
+msgstr "Парная скобка не найдена."
+
+msgid "Unfind command."
+msgstr "Команда не найдена."
+
+msgid "Command should be %s, but is %s."
+msgstr "Команда должна быть %s, но получено %s."
+
+msgid "More string \"%s\"."
+msgstr "Лишняя строка \"%s\"."
+
+msgid "Can't end."
+msgstr "Невозможно завершить."
+
+msgid "Native command should begin with \"&\"."
+msgstr "Встроенная команда должна начинаться с \"&\"."
+
+msgid "Comment command should begin with \"@\"."
+msgstr "Команда-комментарий должна начинаться с \"@\"."
+
+msgid "Unfind head \"%s\"."
+msgstr "Заголовок \"%s\" не найден."
+
+msgid "Unfind help."
+msgstr "Справка не найдена."
+
+msgid "Unvaild beginning."
+msgstr "Недопустимое начало."
+
+msgid "Annotaition must begin with #."
+msgstr "Аннотация должна начинаться с #."
+
+msgid "\"%s\" has error:\n%s"
+msgstr "\"%s\" содержит ошибку:\n%s"
+
+### 导出设置窗口
+msgid "Project Export"
+msgstr "Экспорт проекта"
+
+msgid "error behavior"
+msgstr "обработка ошибок"
+
+msgid "retain annotation"
+msgstr "сохранять аннотации"
+
+msgid "retain empty-line"
+msgstr "сохранять пустые строки"
+
+msgid "ignore"
+msgstr "игнорировать"
+
+msgid "direct export"
+msgstr "прямой экспорт"
+
+msgid "path"
+msgstr "путь"
+
+msgid "name"
+msgstr "имя"
+
+msgid "Exporting"
+msgstr "Экспорт"
+
+msgid "Export successful."
+msgstr "Экспорт выполнен."
+
+msgid "Simply extract the file to the behavior_packs directory in your map and enable the behavior pack."
+msgstr "Просто распакуйте файл в каталог behavior_packs вашей карты и включите набор поведения."
+
+### 导出进程。
+msgid "Creating leader-file."
+msgstr "Создание ведущего файла."
+
+msgid "Compiling function."
+msgstr "Компиляция функции."

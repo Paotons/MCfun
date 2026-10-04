@@ -1,0 +1,10 @@
+[title]描述[/title]
+
+填充一定範圍區域。
+
+[title]矩形填充[/title]
+
+[code]&fill default <起點> <終點> <方塊> <模式>/(<replace> <方塊>)[/code]
+
+該指令與原版fill一樣，只是可以支持大範圍區域，沒有 [code]32768[/code] 的數量限制。
+[b]注意：[/b]目前還不支持方塊組件。

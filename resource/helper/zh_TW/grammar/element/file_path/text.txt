@@ -1,0 +1,8 @@
+[title]描述[/title]
+
+文件路徑。
+
+[title]細節[/title]
+
+[b]extensions:[/b] 字符串數組。擴展名。
+[b]using_extendsion:[/b] 布爾。如果為 [code]false[/code] 不會使用擴展名。

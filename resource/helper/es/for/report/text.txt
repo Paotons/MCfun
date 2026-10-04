@@ -1,0 +1,3 @@
+[http https://github.com/Paotons/MCfun.git]Código fuente abierto[/http]
+
+[http https://github.com/Paotons/MCfun/issues]Reportar problema[/http]

@@ -1,0 +1,26 @@
+[title]描述[/title]
+
+元素的高級用法，為字符串數組存在於元素。目前並沒有完全開發，部分功能還有一定問題。
+
+[title]列表[/title]
+
+每條指令都有個列表。可以使用 [code]list[/code] 控制這個列表。
+
+[code]list <列表名> add self[/code] 可將當前元素的字符串加入列表。
+
+[title]補全[/title]
+
+控制補全。可以使用 [code]completion[/code] 控制補全。
+
+[code]completion list <列表名>[/code] 顯示列表補全單。
+
+[b]注意：[/b]該功能沒有做全，目前僅支持 [code]string, word, selector[/code]
+
+[title]期望列表[/title]
+
+控制期望列表，期望列表也控制補全。可以使用 [code]expectation[/code] 控制補全。
+每次運行時如果元素發生錯誤，就會自動加入期望列表。
+
+[code]expectation clear[/code] 清空期望列表。
+
+b]注意：[/b]該功能沒有做全，目前僅支持 [code]null[/code]

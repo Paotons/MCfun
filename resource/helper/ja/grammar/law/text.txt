@@ -1,0 +1,7 @@
+[title]説明[/title]
+
+エディタに、一部の要素の具体的な要件を伝えるために使います。例えば [code]array[/code] と [code]dictionary[/code] 要素は [file grammar/element]文法>>要素[/file] を参照。
+
+また、行が [code]{"type" : "file", "file" : "path"}[/code] を使用して他のファイルの内容をデータとして読み込むことを許可します。例：[code]"item" : {"type" : "file", "file" : "law/item.json"}[/code]
+
+[code]selector_body[/code] ターゲットセレクターの本体を必ず含み、[code]selector[/code] がどう規範化されるかを伝えます。

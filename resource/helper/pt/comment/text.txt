@@ -1,0 +1,9 @@
+[title]Descrição[/title]
+
+Anotações começam com @ e são ignoradas na exportação; servem para alterar o comportamento do editor. Por exemplo: [code]@list tag add my_tag[/code] para que depois a complementação de Tag tenha a opção my_tag.
+
+[b]Nota:[/b] No momento este recurso não está completo.
+
+[title]Categorias[/title]
+
+[file comment/list]Controlar dados de complementação list[/file]

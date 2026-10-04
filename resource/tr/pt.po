@@ -1,0 +1,769 @@
+msgid ""
+msgstr ""
+"Language: pt\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+### 前言
+## 常用
+msgid "close"
+msgstr "Fechar"
+
+msgid "Close"
+msgstr "Fechar"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "ok"
+msgstr "OK"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "cancel"
+msgstr "Cancelar"
+
+msgid "LOC"
+msgstr "Localizar"
+
+msgid "Empty"
+msgstr "Vazio"
+
+msgid "Exit"
+msgstr "Sair"
+
+msgid "Loading"
+msgstr "Carregando"
+
+## 文件系统
+msgid "File System"
+msgstr "Sistema de Arquivos"
+
+msgid "Recent:"
+msgstr "Recentes:"
+
+msgid "Favorites:"
+msgstr "Favoritos:"
+
+msgid "Directories & Files:"
+msgstr "Diretórios e Arquivos:"
+
+msgid "Path:"
+msgstr "Caminho:"
+
+msgid "You don't have permission to access contents of this folder."
+msgstr "Você não tem permissão para acessar o conteúdo desta pasta."
+
+msgid "Open a Directory"
+msgstr "Abrir um Diretório"
+
+msgid "Select Current Folder"
+msgstr "Selecionar Pasta Atual"
+
+msgid "Select This Folder"
+msgstr "Selecionar Esta Pasta"
+
+msgid "Filter:"
+msgstr "Filtro:"
+
+msgid "Sort by Name (Ascending)"
+msgstr "Ordenar por Nome (Crescente)"
+
+msgid "Sort by Name (Descending)"
+msgstr "Ordenar por Nome (Decrescente)"
+
+msgid "Sort by Type (Ascending)"
+msgstr "Ordenar por Tipo (Crescente)"
+
+msgid "Sort by Type (Descending)"
+msgstr "Ordenar por Tipo (Decrescente)"
+
+msgid "Sort by Modified Time (Newest First)"
+msgstr "Ordenar por Data de Modificação (Mais Recente Primeiro)"
+
+msgid "Sort by Modified Time (Oldest First)"
+msgstr "Ordenar por Data de Modificação (Mais Antigo Primeiro)"
+
+msgid "Name:"
+msgstr "Nome:"
+
+msgid "Create Folder"
+msgstr "Criar Pasta"
+
+## 常见动词
+msgid "Add"
+msgstr "Adicionar"
+
+msgid "add"
+msgstr "adicionar"
+
+msgid "Get"
+msgstr "Obter"
+
+msgid "get"
+msgstr "obter"
+
+msgid "Create"
+msgstr "Criar"
+
+msgid "create"
+msgstr "criar"
+
+msgid "New"
+msgstr "Novo"
+
+msgid "new"
+msgstr "novo"
+
+## 常用动作。
+msgid "Start."
+msgstr "Iniciar."
+
+## 路径选择
+msgid "Empty filename."
+msgstr "Nome de arquivo vazio."
+
+msgid "Empty directoryname."
+msgstr "Nome de diretório vazio."
+
+msgid "Empty file."
+msgstr "Arquivo vazio."
+
+msgid "Empty directory."
+msgstr "Diretório vazio."
+
+msgid "Filetype must be mcfunction or zip."
+msgstr "O tipo de arquivo deve ser mcfunction ou zip."
+
+msgid "Unfind file."
+msgstr "Arquivo não encontrado."
+
+msgid "Notfind file."
+msgstr "Arquivo não encontrado."
+
+msgid "Notfind directory."
+msgstr "Diretório não encontrado."
+
+msgid "Unfind directory."
+msgstr "Diretório não encontrado."
+
+msgid "Valid file."
+msgstr "Arquivo válido."
+
+msgid "Valid directory."
+msgstr "Diretório válido."
+
+msgid "Already exist same-name filename."
+msgstr "Já existe um arquivo com o mesmo nome."
+
+msgid "Already exist same-name filename, will be coverd."
+msgstr "Já existe um arquivo com o mesmo nome, será sobrescrito."
+
+msgid "Alrady exist same-name directoryname."
+msgstr "Já existe um diretório com o mesmo nome."
+
+msgid "Already exist same-name directory, will be coverd."
+msgstr "Já existe um diretório com o mesmo nome, será sobrescrito."
+
+msgid "You can create file!"
+msgstr "Você pode criar o arquivo!"
+
+msgid "You can create directory!"
+msgstr "Você pode criar o diretório!"
+
+msgid "Unvalid filename."
+msgstr "Nome de arquivo inválido."
+
+msgid "Unvalid directory."
+msgstr "Diretório inválido."
+
+## 常用属性
+msgid "offset"
+msgstr "deslocamento"
+
+msgid "length"
+msgstr "comprimento"
+
+msgid "path"
+msgstr "caminho"
+
+msgid "name"
+msgstr "nome"
+
+msgid "scale"
+msgstr "escala"
+
+msgid "behavior"
+msgstr "comportamento"
+
+msgid "file"
+msgstr "arquivo"
+
+msgid "File"
+msgstr "Arquivo"
+
+### 项目列表界面
+msgid "Setting"
+msgstr "Configuração"
+
+msgid "translation"
+msgstr "tradução"
+
+msgid "language"
+msgstr "idioma"
+
+msgid "Import"
+msgstr "Importar"
+
+msgid "GUI"
+msgstr "Interface"
+
+msgid "General"
+msgstr "Geral"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Highlight"
+msgstr "Realce"
+
+msgid "Completion"
+msgstr "Autocompletar"
+
+msgid "Appearance"
+msgstr "Aparência"
+
+msgid "Behavior"
+msgstr "Comportamento"
+
+msgid "Grammar"
+msgstr "Gramática"
+
+msgid "Project lost."
+msgstr "Projeto perdido."
+
+### 复制帮手窗口
+msgid "Function Copyer"
+msgstr "Copiador de Funções"
+
+msgid "Copy line"
+msgstr "Copiar linha"
+
+msgid "Copy normal"
+msgstr "Copiar normal"
+
+msgid "%d lines."
+msgstr "%d linhas."
+
+### 编辑器设置
+## 分类
+msgid "Running"
+msgstr "Execução"
+
+msgid "AutoSaving"
+msgstr "Salvamento Automático"
+
+msgid "data directory"
+msgstr "diretório de dados"
+
+msgid "Choose Data Directory Please"
+msgstr "Escolha o Diretório de Dados"
+
+msgid "Project List"
+msgstr "Lista de Projetos"
+
+msgid "import"
+msgstr "importar"
+
+msgid "setting"
+msgstr "configuração"
+
+msgid "coper"
+msgstr "copiador"
+
+msgid "Help"
+msgstr "Ajuda"
+
+## 高亮
+msgid "Command Head"
+msgstr "Cabeçalho do Comando"
+
+msgid "normal command"
+msgstr "comando normal"
+
+msgid "native command"
+msgstr "comando nativo"
+
+msgid "comment command"
+msgstr "comando de comentário"
+
+msgid "Element"
+msgstr "Elemento"
+
+msgid "number"
+msgstr "número"
+
+msgid "bool"
+msgstr "booleano"
+
+msgid "mumber"
+msgstr "membro"
+
+msgid "point path"
+msgstr "caminho de ponto"
+
+msgid "selector"
+msgstr "seletor"
+
+msgid "space"
+msgstr "espaço"
+
+msgid "name"
+msgstr "nome"
+
+msgid "option"
+msgstr "opção"
+
+msgid "error option"
+msgstr "opção de erro"
+
+msgid "string"
+msgstr "cadeia"
+
+msgid "special string"
+msgstr "cadeia especial"
+
+msgid "annotation"
+msgstr "anotação"
+
+msgid "Coord"
+msgstr "Coordenada"
+
+msgid "x"
+msgstr "x"
+
+msgid "y"
+msgstr "y"
+
+msgid "z"
+msgstr "z"
+
+## 补全
+msgid "help"
+msgstr "ajuda"
+
+msgid "remove"
+msgstr "remover"
+
+msgid "edit"
+msgstr "editar"
+
+msgid "max completion operation count"
+msgstr "número máximo de opções de autocompletar"
+
+msgid "showing tip"
+msgstr "mostrar dica"
+
+msgid "tip weight (note: This function may have an impact on performance.)"
+msgstr "peso da dica (nota: esta função pode afetar o desempenho.)"
+
+msgid "spacename completion"
+msgstr "autocompletar nome de espaço"
+
+## 外观
+msgid "caret blink"
+msgstr "cursor piscante"
+
+## 行为
+msgid "double reflecting"
+msgstr "mapeamento de toque duplo"
+
+msgid "reflecting strings"
+msgstr "cadeias de mapeamento"
+
+msgid "border enter"
+msgstr "quebra de linha na borda"
+
+## 语法
+msgid "grammar path"
+msgstr "caminho da gramática"
+
+msgid "get grammar"
+msgstr "obter gramática"
+
+## 自保存
+msgid "auto saving"
+msgstr "salvamento automático"
+
+msgid "%dsec"
+msgstr "%d seg"
+
+msgid "%dmin%dsec"
+msgstr "%d min %d seg"
+
+msgid "saving space (%s)"
+msgstr "intervalo de salvamento (%s)"
+
+## 其他
+msgid "To apply the changes in the configuration file, a reload is necessary."
+msgstr "Para aplicar as alterações no arquivo de configuração, é necessário recarregar."
+
+msgid "Save & Reload"
+msgstr "Salvar e Recarregar"
+
+msgid "Already exist same-name project."
+msgstr "Já existe um projeto com o mesmo nome."
+
+msgid "You can create project!"
+msgstr "Você pode criar o projeto!"
+
+msgid "Unvaild project-directory."
+msgstr "Diretório de projeto inválido."
+
+msgid "You can import project!"
+msgstr "Você pode importar o projeto!"
+
+### 项目设置窗口
+msgid "project name"
+msgstr "nome do projeto"
+
+msgid "project path"
+msgstr "caminho do projeto"
+
+msgid "Project Setting"
+msgstr "Configuração do Projeto"
+
+msgid "project version"
+msgstr "versão do projeto"
+
+msgid "project description"
+msgstr "descrição do projeto"
+
+msgid "min game version"
+msgstr "versão mínima do jogo"
+
+msgid "Config"
+msgstr "Configuração"
+
+msgid "grammar cache"
+msgstr "cache da gramática"
+
+msgid "Delete & Recompute"
+msgstr "Excluir e Recalcular"
+
+msgid "Project settings have been changed. Do you want to reload the project?"
+msgstr "As configurações do projeto foram alteradas. Deseja recarregar o projeto?"
+
+### 界面
+## 加载进程
+msgid "Loading data."
+msgstr "Carregando dados."
+
+msgid "Unvalid grammar:\n%s"
+msgstr "Gramática inválida:\n%s"
+
+msgid "Loading GUI."
+msgstr "Carregando interface."
+
+## 界面
+msgid "reload"
+msgstr "recarregar"
+
+msgid "Project"
+msgstr "Projeto"
+
+msgid "Export"
+msgstr "Exportar"
+
+msgid "Reload"
+msgstr "Recarregar"
+
+msgid "Exit to List"
+msgstr "Sair para a Lista"
+
+msgid "Save"
+msgstr "Salvar"
+
+msgid "Save All"
+msgstr "Salvar Tudo"
+
+msgid "Undo"
+msgstr "Desfazer"
+
+msgid "Redo"
+msgstr "Refazer"
+
+msgid "Open"
+msgstr "Abrir"
+
+msgid "Move Up"
+msgstr "Mover para Cima"
+
+msgid "Move Down"
+msgstr "Mover para Baixo"
+
+msgid "Close"
+msgstr "Fechar"
+
+msgid "Clear"
+msgstr "Limpar"
+
+msgid "System"
+msgstr "Sistema"
+
+msgid "Cut"
+msgstr "Recortar"
+
+msgid "Copy"
+msgstr "Copiar"
+
+msgid "Paste"
+msgstr "Colar"
+
+msgid "Select All"
+msgstr "Selecionar Tudo"
+
+msgid "Select Line"
+msgstr "Selecionar Linha"
+
+msgid "Uncompletion"
+msgstr "Cancelar Autocompletar"
+
+msgid "New Project"
+msgstr "Novo Projeto"
+
+msgid "Import Project"
+msgstr "Importar Projeto"
+
+msgid "About Me"
+msgstr "Sobre"
+
+msgid "Directory"
+msgstr "Diretório"
+
+msgid "Children"
+msgstr "Filhos"
+
+msgid "Rename"
+msgstr "Renomear"
+
+msgid "Delete"
+msgstr "Excluir"
+
+msgid "Create File"
+msgstr "Criar Arquivo"
+
+msgid "Empty filename."
+msgstr "Nome de arquivo vazio."
+
+## 错误处理
+msgid "Error (%d, %d) %s"
+msgstr "Erro (%d, %d) %s"
+
+msgid "%d lines %d column: "
+msgstr "%d linhas %d coluna: "
+
+msgid "The file has not been saved. Do you want to exit?"
+msgstr "O arquivo não foi salvo. Deseja sair?"
+
+msgid "Save & Exit"
+msgstr "Salvar e Sair"
+
+msgid "Save & Close"
+msgstr "Salvar e Fechar"
+
+msgid "Unsave & Close"
+msgstr "Não Salvar e Fechar"
+
+msgid "File Saving"
+msgstr "Salvamento de Arquivo"
+
+msgid "UnSave & Exit"
+msgstr "Não Salvar e Sair"
+
+### 窗口
+## 关于
+msgid "Creater"
+msgstr "Criador"
+
+msgid "Keeper"
+msgstr "Mantenedor"
+
+msgid "Developer"
+msgstr "Desenvolvedor"
+
+msgid "Special Thanks"
+msgstr "Agradecimentos Especiais"
+
+msgid "Mojang created the main body of the game\n\nGodot provided the engine\n\nDeepSeek handled the miscellaneous tasks"
+msgstr "Mojang criou o corpo principal do jogo\n\nGodot forneceu a engine\n\nDeepSeek cuidou das tarefas diversas"
+
+## 初始弹窗
+msgid "Check Permissions"
+msgstr "Verificar Permissões"
+
+msgid "Please select a folder as the main data directory.\nIf no action is taken, the software sandbox directory will be used by default. This directory is inaccessible to ordinary users.\nIf you want your work to be freely operable, it is recommended to create a separate directory and choose it."
+msgstr "Selecione uma pasta como diretório principal de dados.\nSe nenhuma ação for tomada, o diretório sandbox do software será usado por padrão. Este diretório é inacessível para usuários comuns.\nSe você deseja que seu trabalho seja livremente operável, é recomendável criar um diretório separado e escolhê-lo."
+
+## 退出弹窗
+msgid "Do you want to exit the application?"
+msgstr "Deseja sair do aplicativo?"
+
+### 错误提示
+msgid "Unfind any string."
+msgstr "Nenhuma cadeia encontrada."
+
+msgid "Unvalid option \"%s\"."
+msgstr "Opção inválida \"%s\"."
+
+msgid "Key not has closed backet."
+msgstr "A chave não tem colchete de fechamento."
+
+msgid "Rule unfind property \"%s\"."
+msgstr "A regra não encontrou a propriedade \"%s\"."
+
+msgid "Unfind colon flag."
+msgstr "Dois-pontos não encontrado."
+
+msgid "Unfind value."
+msgstr "Valor não encontrado."
+
+msgid "Unfind coord."
+msgstr "Coordenada não encontrada."
+
+msgid "Unfind valid coord for %d."
+msgstr "Coordenada válida não encontrada para %d."
+
+msgid "Unfind key \"%s\" in rule."
+msgstr "Chave \"%s\" não encontrada na regra."
+
+msgid "Unfind equal flag."
+msgstr "Sinal de igual não encontrado."
+
+msgid "Range is %d~%d, but is %d."
+msgstr "O intervalo é %d~%d, mas é %d."
+
+msgid "Range is %f~%f, but is %f."
+msgstr "O intervalo é %f~%f, mas é %f."
+
+msgid "String \"%s\" is unvalid float."
+msgstr "A cadeia \"%s\" não é um float válido."
+
+msgid "String \"%s\" is unvalid int."
+msgstr "A cadeia \"%s\" não é um int válido."
+
+msgid "Unfind int suffix %s in %s."
+msgstr "Sufixo int %s não encontrado em %s."
+
+msgid "Can't end with \"%s\"."
+msgstr "Não pode terminar com \"%s\"."
+
+msgid "Unfind the path."
+msgstr "Caminho não encontrado."
+
+msgid "Unfind scope."
+msgstr "Intervalo não encontrado."
+
+msgid "The flag \".\" has cunted %d."
+msgstr "O sinal \".\" tem contagem %d."
+
+msgid "Unvaild selector."
+msgstr "Seletor inválido."
+
+msgid "Not is begin with \"@\"."
+msgstr "Não começa com \"@\"."
+
+msgid "Unfind any word."
+msgstr "Nenhuma palavra encontrada."
+
+msgid "Unfind param."
+msgstr "Parâmetro não encontrado."
+
+msgid "Not begin with %s."
+msgstr "Não começa com \"%s\"."
+
+msgid "Unfind end backet \"%s\"."
+msgstr "Colchete de fechamento \"%s\" não encontrado."
+
+msgid "Unfind brother backet."
+msgstr "Colchete par não encontrado."
+
+msgid "Not begin with quotation."
+msgstr "Não começa com aspas."
+
+msgid "Unfind brother backet."
+msgstr "Colchete par não encontrado."
+
+msgid "Unfind command."
+msgstr "Comando não encontrado."
+
+msgid "Command should be %s, but is %s."
+msgstr "O comando deveria ser %s, mas é %s."
+
+msgid "More string \"%s\"."
+msgstr "Cadeia extra \"%s\"."
+
+msgid "Can't end."
+msgstr "Não pode terminar."
+
+msgid "Native command should begin with \"&\"."
+msgstr "Comando nativo deve começar com \"&\"."
+
+msgid "Comment command should begin with \"@\"."
+msgstr "Comando de comentário deve começar com \"@\"."
+
+msgid "Unfind head \"%s\"."
+msgstr "Cabeçalho \"%s\" não encontrado."
+
+msgid "Unfind help."
+msgstr "Ajuda não encontrada."
+
+msgid "Unvaild beginning."
+msgstr "Início inválido."
+
+msgid "Annotaition must begin with #."
+msgstr "A anotação deve começar com #."
+
+msgid "\"%s\" has error:\n%s"
+msgstr "\"%s\" tem erro:\n%s"
+
+### 导出设置窗口
+msgid "Project Export"
+msgstr "Exportação do Projeto"
+
+msgid "error behavior"
+msgstr "comportamento de erro"
+
+msgid "retain annotation"
+msgstr "manter anotação"
+
+msgid "retain empty-line"
+msgstr "manter linha vazia"
+
+msgid "ignore"
+msgstr "ignorar"
+
+msgid "direct export"
+msgstr "exportação direta"
+
+msgid "path"
+msgstr "caminho"
+
+msgid "name"
+msgstr "nome"
+
+msgid "Exporting"
+msgstr "Exportando"
+
+msgid "Export successful."
+msgstr "Exportação bem-sucedida."
+
+msgid "Simply extract the file to the behavior_packs directory in your map and enable the behavior pack."
+msgstr "Basta extrair o arquivo para o diretório behavior_packs do seu mapa e ativar o pacote de comportamento."
+
+### 导出进程。
+msgid "Creating leader-file."
+msgstr "Criando arquivo guia."
+
+msgid "Compiling function."
+msgstr "Compilando função."

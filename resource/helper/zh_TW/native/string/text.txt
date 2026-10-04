@@ -1,0 +1,11 @@
+[title]描述[/title]
+
+能夠直接導出後續字符串，如果編輯器裡對某個字符串解析有問題，這是最原始的後盾。
+
+[title]使用[/title]
+
+[code]&string <內容>[/code]
+
+[b]內容：[/b]導出時直接導出。
+
+[b]例如：[/b][code]&string hello world[/code] 導出 "hello world"

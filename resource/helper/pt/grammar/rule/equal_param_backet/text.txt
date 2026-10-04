@@ -1,0 +1,17 @@
+[title]Descrição[/title]
+
+Parêntese de parâmetro de igual; semelhante a um seletor de alvo.
+
+[title]Detalhe[/title]
+
+[code]"detail" : "using_key"[/code] Usa chaves; nesse caso, os dados devem ter duas chaves, [code]"key"[/code] e [code]"value"[/code], definindo o elemento da chave e o elemento do valor, respectivamente.
+
+Isso pode mudar no futuro.
+
+[title]Dados[/title]
+
+[code] "data" : {
+	"a" : {...},
+	...
+}[/code]
+A chave do parâmetro e o elemento ao qual ela mapeia.

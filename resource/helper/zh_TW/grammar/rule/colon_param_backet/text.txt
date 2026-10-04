@@ -1,0 +1,11 @@
+[title]描述[/title]
+
+冒號參數括號，類似JSON。
+
+[title]數據[/title]
+
+[code] "data" : {
+	"a" : {...},
+	...
+}[/code]
+為參數的頭和其對應的元素。

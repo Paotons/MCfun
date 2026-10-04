@@ -1,0 +1,8 @@
+[title]説明[/title]
+
+リスト [file grammar/entry]文法>>章類[/file] の中の各種要素です。
+
+[title]V1[/title]
+普通の文字列を表す [file grammar/chapter/string]文法>>章類>>文字列[/file]
+[code]minecraft:apple[/code] を表す [file grammar/chapter/spaceitem]文法>>章類>>名前空間アイテム[/file]
+[code]mob.zombile.hit[/code] を表す [file grammar/chapter/path]文法>>章類>>パス[/file]

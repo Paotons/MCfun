@@ -1,0 +1,33 @@
+[title]Descripción[/title]
+
+Se usa en [file grammar/entry]Gramática>>Lista[/file] como elemento para definir diversas cadenas.
+
+[title]V1[/title]
+
+Por ejemplo, [code]gamemode[/code] se puede escribir como:
+[code]{
+	"type" : "string",
+	"data" : [
+		"a",
+		"c",
+		"s"
+	]
+}[/code]
+
+Así se indica que [code]gamemode[/code] tiene tres modos: [code]a, c, s[/code].
+
+[code]data:[/code] se usa para definir las distintas cadenas.
+
+[title]V2[/title]
+
+Por ejemplo, [code]gamemode[/code] se puede escribir como:
+[code]{
+	"type" : "string",
+	"data" : {
+		"a" : "Modo aventura",
+		"c" : "Modo creativo",
+		"s" : "Modo supervivencia"
+	}
+}[/code]
+
+Así se indica que [code]gamemode[/code] tiene tres modos: [code]a, c, s[/code], junto con las sugerencias correspondientes.

@@ -1,0 +1,35 @@
+[title]설명[/title]
+
+목록 [file grammar/entry]문법>>목록[/file] 의 네임스페이스 아이템 요소를 나타내는 데 사용됩니다.
+
+[title]V1[/title]
+
+아이템 이름 [code]item[/code] 은 다음과 같이 나타낼 수 있습니다.
+[code]{
+	"type" : "spaceitem",
+	"data" : {
+		"minecraft" : [
+			"apple",
+			"stone"
+		]
+	}
+}[/code]
+이렇게 하면 아이템이 [code]minecraft:apple[/code] 과 [code]minecraft:stone[/code] 을 가진다는 것을 알 수 있습니다.
+
+[b]data:[/b] 첫 번째 층은 네임스페이스를 나타내며, 네임스페이스 뒤에 아이템이 옵니다.
+
+[title]V2[/title]
+
+아이템 이름 [code]item[/code] 은 다음과 같이 나타낼 수 있습니다.
+[code]{
+	"type" : "spaceitem",
+	"data" : {
+		"minecraft" : {
+			"apple" : "사과",
+			"stone" : "돌"
+		}
+	}
+}[/code]
+이렇게 하면 아이템이 [code]minecraft:apple[/code] 과 [code]minecraft:stone[/code] 을 가진다는 것을 알 수 있으며, 대응하는 힌트 단어가 함께 표시됩니다.
+
+[b]data:[/b] 첫 번째 층은 네임스페이스를 나타내며, 네임스페이스 뒤에 아이템이 옵니다.

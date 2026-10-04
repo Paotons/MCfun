@@ -1,0 +1,20 @@
+[title]Descripción[/title]
+
+El Copiador está en [code]Lista de proyectos>>copiador[/code] y permite copiar rápidamente cada línea de comando de un [code]mcfunction[/code]. Puedes llevarlo al juego y ejecutarlo con bloques de comandos.
+
+[title]Seleccionar un archivo[/title]
+
+Abre el Copiador desde [code]copiador[/code] en la barra de herramientas superior de la lista de proyectos.
+Aquí puedes seleccionar el archivo que copiar; se admiten los formatos [code]mcfunction, zip[/code].
+Si es un archivo [code]zip[/code], también debes seleccionar el archivo [code]mcfunction[/code] dentro del comprimido.
+
+[title]Copiar comandos[/title]
+
+Tras seleccionar el archivo, si el contenido no tiene otros problemas, puedes ajustar los parámetros y copiar. El contenido copiado se añade a tu portapapeles.
+[code]Desplazamiento:[/code] la siguiente posición a copiar; se actualiza automáticamente tras cada copia.
+[code]Longitud:[/code] cuántas líneas copiar de una vez. Máximo 30.
+
+[code]Copiar línea:[/code] copia la línea actual y avanza el desplazamiento.
+[code]Copia normal:[/code] copia de forma continua según la [code]Longitud[/code] configurada.
+
+[b]Nota:[/b] durante la copia normal, por limitaciones del sistema, no puede ser instantánea. Cada copia tiene en realidad un intervalo de un fotograma.

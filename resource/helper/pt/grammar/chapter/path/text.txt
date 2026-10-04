@@ -1,0 +1,43 @@
+[title]Descrição[/title]
+
+Usado em uma [file grammar/entry]Gramática>>Entrada[/file] para representar uma categoria baseada em caminho.
+
+Uma linha pode usar [code]{"type" : "file", "file" : "path"}[/code] para carregar o conteúdo de outro arquivo como dados. Por exemplo: [code]"cat" : {"type" : "file", "file" : "entry/mob/cat.json"}[/code].
+
+[title]V1[/title]
+
+Por exemplo, [code]playsound[/code] pode ser representado como:
+[code]{
+	"type" : "path",
+	"data" : {
+		"mob" : {
+			"cat" : {
+				"" : false,
+				"hit" : false,
+				"dead" : false
+			}
+		}
+	}
+}[/code]
+Assim, [code]mob.cat mob.cat.hit mob.cat.deat[/code] tornam-se caminhos válidos.
+
+[b]data:[/b] Representa aninhamento infinito; você pode continuar aninhando indefinidamente. [code]false[/code] é usado como espaço reservado.
+
+[title]V1[/title]
+
+Por exemplo, [code]playsound[/code] pode ser representado como:
+[code]{
+	"type" : "path",
+	"data" : {
+		"mob" : {
+			"cat" : {
+				"" : "Gato",
+				"hit" : "Gato ferido",
+				"dead" : "Gato morto"
+			}
+		}
+	}
+}[/code]
+Assim, [code]mob.cat mob.cat.hit mob.cat.deat[/code] tornam-se caminhos válidos com dicas correspondentes.
+
+[b]data:[/b] Representa aninhamento infinito; você pode continuar aninhando indefinidamente.

@@ -1,0 +1,4 @@
+[title]Descrição[/title]
+
+Não representa nada; atua como espaço reservado.
+Não é ignorado.

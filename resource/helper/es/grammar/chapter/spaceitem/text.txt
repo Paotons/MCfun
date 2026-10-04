@@ -1,0 +1,35 @@
+[title]Descripción[/title]
+
+Se usa en [file grammar/entry]Gramática>>Lista[/file] para representar objetos con espacio de nombres.
+
+[title]V1[/title]
+
+Para representar el nombre de un objeto [code]item[/code], se puede escribir:
+[code]{
+	"type" : "spaceitem",
+	"data" : {
+		"minecraft" : [
+			"apple",
+			"stone"
+		]
+	}
+}[/code]
+Así los objetos reconocen [code]minecraft:apple[/code] y [code]minecraft:stone[/code].
+
+[b]data:[/b] el primer nivel representa el espacio de nombres; el nombre del objeto viene después.
+
+[title]V2[/title]
+
+Para representar el nombre de un objeto [code]item[/code], se puede escribir:
+[code]{
+	"type" : "spaceitem",
+	"data" : {
+		"minecraft" : {
+			"apple" : "manzana",
+			"stone" : "piedra"
+		}
+	}
+}[/code]
+Así los objetos reconocen [code]minecraft:apple[/code] y [code]minecraft:stone[/code], junto con las sugerencias correspondientes.
+
+[b]data:[/b] el primer nivel representa el espacio de nombres; el nombre del objeto viene después.

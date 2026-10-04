@@ -1,0 +1,11 @@
+[title]Gramática[/title]
+
+Define como os comandos são montados.
+
+[b]Nota:[/b] Ainda não está totalmente maduro; uma gramática inválida pode causar travamentos.
+
+[title]Estrutura[/title]
+
+[file grammar/process]Processo[/file] define como um comando é percorrido.
+[file grammar/law]Lei[/file] define regras para elementos específicos em um comando.
+[file grammar/entry]Entrada[/file] define quais valores um elemento específico pode assumir.

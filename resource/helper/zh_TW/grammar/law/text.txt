@@ -1,0 +1,7 @@
+[title]描述[/title]
+
+用於告訴編輯器，有些元素的具體要求。例如 [code]array[/code] 和 [code]dictionary[/code] 元素見 [file grammar/element]語法>>元素[/file]
+
+並允許行使用 [code]{"type" : "file", "file" : "path"}[/code] 加載其他文件都內容，作為數據。例如：[code]"item" : {"type" : "file", "file" : "law/item.json"}[/code]
+
+必須包含 [code]selector_body[/code] 目標選擇器的身體，用來告訴 [code]selector[/code] 要怎麼規範。

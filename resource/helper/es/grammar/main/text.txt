@@ -1,0 +1,23 @@
+[title]Descripción[/title]
+
+Archivo principal de las reglas de gramática; el punto de entrada.
+
+[b]format_version:[/b] la versión que se analiza.
+
+[title]V1[/title]
+
+[code]
+{
+	"format_version" : 1,
+	
+	"files" : {
+		"process" : "process.json",
+		"law" : "law.json",
+		"entry" : "entry.json"
+	}
+}[/code]
+
+[b]files:[/b] define las rutas de los distintos archivos.
+[b]files.process:[/b] ruta del archivo de proceso. Consulta [file grammar/process]Gramática>>Proceso[/file].
+[b]files.law:[/b] ruta del archivo de ley. Consulta [file grammar/law]Gramática>>Regla[/file].
+[b]files.entry[/b] ruta del archivo de lista. Consulta [file grammar/entry]Gramática>>Capítulo[/file].

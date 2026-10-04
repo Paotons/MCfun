@@ -1,0 +1,19 @@
+[title]Descrição[/title]
+
+Teletransporta uma entidade.
+
+[title]Com Pontuação[/title]
+
+[code]&tp score <alvo> <eixo> <portador> <objetivo> <modo> <escala> <iterações>[/code]
+
+Teletransporta ou desloca o alvo ao longo dos eixos selecionados até a pontuação do portador no objetivo.
+
+[b]alvo:[/b] Seletor de alvo; a entidade a teletransportar.
+[b]eixo:[/b] Os eixos ao longo dos quais teletransportar; pode ser [code]x,y,z,xy,xz,yz,xyz[/code].
+[b]portador:[/b] Seletor de alvo; o portador da pontuação a usar.
+[b]objetivo:[/b] Palavra; o objetivo do portador.
+[b]modo:[/b] [code]to[/code] teletransporta a entidade para a posição; [code]offset[/code] desloca com base na posição atual. Padrão: [code]set[/code].
+[b]escala:[/b] Float; a escala do efeito. Menor é mais preciso. Por exemplo, uma escala de 0.1 teletransporta uma pontuação de 24 para a posição 2.4. Padrão: [code]1.0[/code].
+[b]iterações:[/b] Inteiro. Como a bissecção é usada, um número maior de iterações dá uma distância máxima de teletransporte maior, ao custo de mais comandos. A distância máxima de teletransporte é [code](2 ^ iterações - 1) * escala[/code]. O padrão cobre 66 milhões de blocos. Padrão: [code]25[/code].
+
+Por exemplo: [code]&tp score @s x @s target to[/code] teletransporta o executor nomeado para a posição de sua própria pontuação no objetivo target.

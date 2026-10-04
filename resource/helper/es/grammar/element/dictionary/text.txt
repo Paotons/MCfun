@@ -1,0 +1,8 @@
+[title]Descripción[/title]
+
+Diccionario; entre llaves.
+Si la cadena no empieza con una llave, se añade a las expectativas y se omite.
+
+[title]Detalle[/title]
+
+[b]rule:[/b] regla. La regla usada para el contenido.

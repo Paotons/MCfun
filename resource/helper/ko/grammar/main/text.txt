@@ -1,0 +1,23 @@
+[title]설명[/title]
+
+문법 규칙의 메인 파일이자 진입점입니다.
+
+[b]format_version:[/b] 파싱 버전.
+
+[title]V1[/title]
+
+[code]
+{
+	"format_version" : 1,
+	
+	"files" : {
+		"process" : "process.json",
+		"law" : "law.json",
+		"entry" : "entry.json"
+	}
+}[/code]
+
+[b]files:[/b] 각종 파일의 경로를 정의합니다.
+[b]files.process:[/b] 흐름 파일 경로를 지정합니다. 구체적인 내용은 [file grammar/process]문법>>흐름[/file] 참고.
+[b]files.law:[/b] 규칙 파일 경로를 지정합니다. 구체적인 내용은 [file grammar/law]문법>>규칙[/file] 참고.
+[b]files.entry[/b] 목록 파일 경로를 지정합니다. 구체적인 내용은 [file grammar/entry]문법>>챕터[/file] 참고.

@@ -1,0 +1,47 @@
+[title]Descrição[/title]
+
+Um comando pode ser dividido em vários elementos.
+
+Por exemplo:
+[code]execute as @a run give @s minecraft:apple 64[/code]
+pode ser dividido em:
+[b]execute:[/b] Cabeçalho do comando.
+[b]as:[/b] Opção.
+[b]@a:[/b] Seletor de alvo.
+[b]run:[/b] Opção.
+[b]give @s minecraft:apple 64:[/b] Subcomando, que também pode ser dividido ainda mais.
+
+[title]Tipos[/title]
+
+Atualmente, os elementos suportam vários tipos.
+
+[b]null:[/b] Sem tipo; atua como espaço reservado.
+[b]bool:[/b] Booleano; representa [code]false[/code] e [code]true[/code].
+[b]int:[/b] Inteiro; representa números como [code]64[/code].
+[b]float:[/b] Float; representa números com ponto decimal como [code]0.5[/code].
+[b]option:[/b] Opção; geralmente um conjunto fixo de escolhas.
+[b]rich_string:[/b] Cadeia rica; suporta exibição de [code]§[/code].
+[b]word:[/b] Palavra; suporta caracteres de vários idiomas, hífens e dígitos. Normalmente usada para nomes de jogadores.
+[b]string:[/b] Cadeia; suporta qualquer coisa, desde que não seja indentação com espaços.
+[b]spaceitem:[/b] Item de espaço; às vezes escrito como [code]space_item[/code]. Representa [code]apple[/code] ou [code]minecraft:apple[/code].
+[b]point_path:[/b] Caminho de ponto; pode representar [code]mob.cat[/code].
+[b]file_path:[/b] Caminho de arquivo; pode representar [code]main/myfun.mcfunction[/code].
+[b]coord:[/b] Coordenada; tem três formas: [code]5, ~5, ^5[/code]. Suporta floats.
+[b]coords:[/b] Múltiplas coordenadas; normalmente usadas para representar posições. Pode representar [code]~~~[/code] ou [code]^^^3[/code].
+[b]selector:[/b] Seletor de alvo; pode representar [code]@e\[type=player\][/code] ou seletores ainda mais complexos, e também suporta nomes de jogadores.
+[b]array:[/b] Semelhante a um array, entre colchetes. É o corpo de um seletor de alvo.
+[b]dictionary:[/b] Semelhante a um dicionário, entre chaves.
+[b]command:[/b] Um comando inteiro.
+
+[title]Estrutura de Dados[/title]
+
+Os dados descrevem cada elemento. Possui [code]type, detail, items, description, cmd, custom[/code].
+Por exemplo: [code]{"type" : "int", "description" : "Pontuação"}[/code]
+Este é um dado de elemento int e reconhece [code]1, 0, 100, -1[/code].
+
+[b]type:[/b] Tipo; o tipo do elemento. Padrão [code]null[/code].
+[b]detail:[/b] Detalhe; usado para restringir um elemento ou expressar seu intervalo. Tipos diferentes têm condições diferentes.
+[b]items:[/b] Itens; geralmente os sub-dados de um elemento, comumente usados para escolhas de [code]option[/code].
+[b]description:[/b] Descrição; usada para dicas. Padrão Unknow.
+[b]cmd:[/b] Comandos; usado para uso avançado e pode controlar o editor. Veja [file grammar/element/cmd]Comandos[/file].
+[b]custom:[/b] Dados personalizados; atualmente sem uso.

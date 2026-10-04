@@ -1,0 +1,10 @@
+[title]Descrição[/title]
+
+Preenche uma região.
+
+[title]Preenchimento Retangular[/title]
+
+[code]&fill default <origem> <destino> <bloco> <modo>/(<replace> <bloco>)[/code]
+
+Este comando funciona como o fill vanilla, mas suporta regiões grandes sem o limite de [code]32768[/code] blocos.
+[b]Nota:[/b] Componentes de bloco ainda não são suportados.

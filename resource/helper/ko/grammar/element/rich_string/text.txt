@@ -1,0 +1,7 @@
+[title]설명[/title]
+
+리치 문자열.
+
+[title]세부 사항[/title]
+
+[b]long:[/b] 불리언. [code]true[/code] 이면 긴 문자열입니다.

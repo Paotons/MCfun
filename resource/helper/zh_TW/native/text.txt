@@ -1,0 +1,11 @@
+[title]描述[/title]
+本地指令就是非 Minecraft 原生指令，存儲於軟件內部，為軟件擴展內容。導出時能夠轉化為 Minecraft 指令。
+
+需要用 [code]&[/code] 引出本地指令。如 [code]&tp[/code]
+
+[title]分類[/title]
+
+[file native/tp]傳送 tp[/file]
+[file native/scoreboard]分數/計分版 scoreboard[/file]
+[file native/fill]填充 fill[/file]
+[file native/string]字符串 string[/file]

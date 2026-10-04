@@ -1,0 +1,22 @@
+[title]Descripción[/title]
+
+Subelemento de [file grammar/law]Ley[/file]; define las distintas reglas.
+
+[title]Categorías[/title]
+
+[file grammar/rule/equal_param_backet]Parámetro de igual equal_param_backet[/file]
+[file grammar/rule/colon_param_backet]Parámetro de dos puntos colon_param_backet[/file]
+[file grammar/rule/param_backet]Paréntesis de parámetros param_backet[/file]
+[file grammar/rule/array_backet]Paréntesis de arreglo array_backet[/file]
+
+[title]V1[/title]
+
+[code]"selsctor_body" : {
+	"type" : "equal_param_backet",
+	"detail" : ....
+	"data" : ...	
+}[/code]
+
+[b]type:[/b] define el tipo.
+[b]detail:[/b] define su detalle.
+[b]data:[/b] define sus datos.

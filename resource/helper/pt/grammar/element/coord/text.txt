@@ -1,0 +1,4 @@
+[title]Descrição[/title]
+
+Coord.
+Se não começar com um símbolo de coordenada ou dígito, é adicionado à lista de expectativas e ignorado.

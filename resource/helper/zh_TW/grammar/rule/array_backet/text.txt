@@ -1,0 +1,14 @@
+[title]描述[/title]
+
+數組括號。
+
+[title]細節[/title]
+
+[code]"detail" : "is_same"[/code] 使用鍵，這個時候，數據只有一個值。
+
+以後可能會進行更改。
+
+[title]數據[/title]
+
+[code] "data" : [{...}][/code]
+其對應的元素。

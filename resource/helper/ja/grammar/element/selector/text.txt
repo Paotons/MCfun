@@ -1,0 +1,7 @@
+[title]説明[/title]
+
+ターゲットセレクター。
+
+[title]詳細[/title]
+
+[b]using_asterisk:[/b] ブール。[code]true[/code] の場合、アスタリスクの使用を許可します。

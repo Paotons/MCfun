@@ -1,0 +1,10 @@
+[title]Descripción[/title]
+
+Número entero.
+Si la cadena no empieza por un dígito o un signo, se añade a las expectativas y se omite.
+
+[title]Detalle[/title]
+
+[b]min:[/b] entero. Valor mínimo; fuera de rango da error.
+[b]max:[/b] entero. Valor máximo; fuera de rango da error.
+[b]suffixs:[/b] arreglo de cadenas. Unidades. [b]Nota:[/b] el orden también afecta al reconocimiento de unidades. Por ejemplo, ["", "a"] y ["a", ""] frente a [code]1a[/code]: el primero reconoce la unidad como vacía, el segundo como a.

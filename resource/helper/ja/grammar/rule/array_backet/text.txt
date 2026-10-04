@@ -1,0 +1,14 @@
+[title]説明[/title]
+
+配列括弧。
+
+[title]詳細[/title]
+
+[code]"detail" : "is_same"[/code] キーを使用します。このとき、データは1つの値のみです。
+
+今後変更される可能性があります。
+
+[title]データ[/title]
+
+[code] "data" : [{...}][/code]
+対応する要素。

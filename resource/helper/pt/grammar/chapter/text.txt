@@ -1,0 +1,8 @@
+[title]Descrição[/title]
+
+São os vários elementos da lista [file grammar/entry]Gramática>>Capítulo[/file].
+
+[title]V1[/title]
+Para cadeias simples, veja [file grammar/chapter/string]Gramática>>Capítulo>>Cadeia[/file].
+Para [code]minecraft:apple[/code], veja [file grammar/chapter/spaceitem]Gramática>>Capítulo>>Item de espaço[/file].
+Para [code]mob.zombile.hit[/code], veja [file grammar/chapter/path]Gramática>>Capítulo>>Caminho[/file].

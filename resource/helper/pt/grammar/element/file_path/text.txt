@@ -1,0 +1,8 @@
+[title]Descrição[/title]
+
+Caminho de arquivo.
+
+[title]Detalhe[/title]
+
+[b]extensions:[/b] Array de cadeias. As extensões.
+[b]using_extendsion:[/b] Booleano. Se [code]false[/code], as extensões não são usadas.

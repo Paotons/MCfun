@@ -1,0 +1,35 @@
+[title]説明[/title]
+
+リスト [file grammar/entry]文法>>リスト[/file] の名前空間アイテムの要素を表すために使用します。
+
+[title]V1[/title]
+
+アイテム名 [code]item[/code] を表す場合は、次のように表せます。
+[code]{
+	"type" : "spaceitem",
+	"data" : {
+		"minecraft" : [
+			"apple",
+			"stone"
+		]
+	}
+}[/code]
+これでアイテムに [code]minecraft:apple[/code] と [code]minecraft:stone[/code] があることがわかります。
+
+[b]data:[/b] 最初の階層が名前空間名を表し、名前空間名の後ろがアイテムです。
+
+[title]V2[/title]
+
+アイテム名 [code]item[/code] を表す場合は、次のように表せます。
+[code]{
+	"type" : "spaceitem",
+	"data" : {
+		"minecraft" : {
+			"apple" : "リンゴ",
+			"stone" : "石"
+		}
+	}
+}[/code]
+これでアイテムに [code]minecraft:apple[/code] と [code]minecraft:stone[/code] があることがわかり、対応するヒントワードも付きます。
+
+[b]data:[/b] 最初の階層が名前空間名を表し、名前空間名の後ろがアイテムです。

@@ -1,0 +1,9 @@
+[title]Descripción[/title]
+
+Número decimal.
+Si la cadena no empieza por un dígito o un signo, se añade a las expectativas y se omite.
+
+[title]Detalle[/title]
+
+[b]min:[/b] flotante. Valor mínimo; fuera de rango da error.
+[b]max:[/b] flotante. Valor máximo; fuera de rango da error.

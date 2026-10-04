@@ -1,0 +1,22 @@
+[title]説明[/title]
+
+[file grammar/law]規則[/file] の子要素で、各種の規則を定義します。
+
+[title]分類[/title]
+
+[file grammar/rule/equal_param_backet]等号パラメータ equal_param_backet[/file]
+[file grammar/rule/colon_param_backet]コロンパラメータ colon_param_backet[/file]
+[file grammar/rule/param_backet]パラメータ括弧 param_backet[/file]
+[file grammar/rule/array_backet]配列括弧 array_backet[/file]
+
+[title]V1[/title]
+
+[code]"selsctor_body" : {
+	"type" : "equal_param_backet",
+	"detail" : ....
+	"data" : ...	
+}[/code]
+
+[b]type:[/b]種類を定義します。
+[b]detail:[/b]その詳細を定義します。
+[b]data:[/b]そのデータを定義します。

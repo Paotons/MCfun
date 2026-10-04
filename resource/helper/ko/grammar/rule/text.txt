@@ -1,0 +1,22 @@
+[title]설명[/title]
+
+[file grammar/law]규칙[/file] 의 하위 요소로, 각종 규칙을 정의합니다.
+
+[title]분류[/title]
+
+[file grammar/rule/equal_param_backet]등호 매개변수 equal_param_backet[/file]
+[file grammar/rule/colon_param_backet]콜론 매개변수 colon_param_backet[/file]
+[file grammar/rule/param_backet]매개변수 괄호 param_backet[/file]
+[file grammar/rule/array_backet]배열 괄호 array_backet[/file]
+
+[title]V1[/title]
+
+[code]"selsctor_body" : {
+	"type" : "equal_param_backet",
+	"detail" : ....
+	"data" : ...	
+}[/code]
+
+[b]type:[/b] 타입을 정의합니다.
+[b]detail:[/b] 세부 사항을 정의합니다.
+[b]data:[/b] 데이터를 정의합니다.

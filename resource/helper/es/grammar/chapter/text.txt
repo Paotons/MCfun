@@ -1,0 +1,8 @@
+[title]Descripción[/title]
+
+Son los distintos elementos dentro de [file grammar/entry]Gramática>>Capítulo[/file].
+
+[title]V1[/title]
+Para cadenas normales, consulta [file grammar/chapter/string]Gramática>>Capítulo>>Cadena[/file]
+Para [code]minecraft:apple[/code], consulta [file grammar/chapter/spaceitem]Gramática>>Capítulo>>Objeto con espacio de nombres[/file]
+Para [code]mob.zombile.hit[/code], consulta [file grammar/chapter/path]Gramática>>Capítulo>>Ruta[/file]

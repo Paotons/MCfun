@@ -1,0 +1,11 @@
+[title]Descripción[/title]
+
+Exporta directamente el resto de la cadena. Si el editor tiene problemas para analizar alguna cadena, este es el recurso de reserva más básico.
+
+[title]Uso[/title]
+
+[code]&string <contenido>[/code]
+
+[b]contenido:[/b] se exporta tal cual.
+
+[b]Ejemplo:[/b] [code]&string hello world[/code] exporta "hello world"

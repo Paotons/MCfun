@@ -1,0 +1,23 @@
+[title]説明[/title]
+
+文法規則のメインファイル、エントリーポイントです。
+
+[b]format_version:[/b] 解析のバージョン。
+
+[title]V1[/title]
+
+[code]
+{
+	"format_version" : 1,
+	
+	"files" : {
+		"process" : "process.json",
+		"law" : "law.json",
+		"entry" : "entry.json"
+	}
+}[/code]
+
+[b]files:[/b] 各種ファイルのパスを定義します。
+[b]files.process:[/b] プロセスファイルのパスを指定します。具体的な内容は [file grammar/process]文法>>プロセス[/file] を参照。
+[b]files.law:[/b] 規則ファイルのパスを指定します。具体的な内容は [file grammar/law]文法>>規則[/file] を参照。
+[b]files.entry[/b] リストファイルのパスを指定します。具体的な内容は [file grammar/entry]文法>>章類[/file] を参照。

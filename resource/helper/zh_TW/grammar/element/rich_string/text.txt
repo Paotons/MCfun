@@ -1,0 +1,7 @@
+[title]描述[/title]
+
+富字符串。
+
+[title]細節[/title]
+
+[b]long:[/b] 布爾。如果為 [code]true[/code] 為長字符串。

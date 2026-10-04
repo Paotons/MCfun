@@ -1,0 +1,47 @@
+[title]描述[/title]
+
+一條指令可以拆成各種元素。
+
+比如：
+[code]execute as @a run give @s minecraft:apple 64[/code]
+可以拆成：
+[b]execute:[/b] 指令頭。
+[b]as:[/b] 選項。
+[b]@a:[/b] 目標選擇器。
+[b]run:[/b] 選項。
+[b]give @s minecraft:apple 64:[/b] 分指令，當然也可以拆開。
+
+[title]類型[/title]
+
+目前元素支持多種類型。
+
+[b]null:[/b] 沒有類型，表示佔位。
+[b]bool:[/b] 布爾類型，可以表示 [code]false[/code] 和 [code]true[/code] 兩個選擇。
+[b]int:[/b] 整數類型，可以表示 [code]64[/code] 各種數字。
+[b]float:[/b] 浮點類型，可以表示 [code]0.5[/code] 帶小數點的數字。
+[b]option:[/b] 選項，一般都是幾個固定選項。
+[b]rich_string:[/b] 高級字體，支持 [code]§[/code] 顯示。
+[b]word:[/b] 單詞，僅支持各國語言的字符和連字符號和數組組成，一般表示玩家名。
+[b]string:[/b] 字符串，只要不是空格縮進都能支持。
+[b]spaceitem:[/b] 空間物品，有時候寫成 [code]space_item[/code] 可以表示 [code]apple[/code] 或 [code]minecraft:apple[/code]
+[b]point_path:[/b] 點號路徑，可以用來表示 [code]mob.cat[/code]
+[b]file_path:[/b] 文件路徑，可以用來表示 [code]main/myfun.mcfunction[/code]
+[b]coord:[/b] 軸，有 [code]5, ~5, ^5[/code] 三種寫法，支持浮點。
+[b]coords:[/b] 多個軸，常用於表示坐標，可以表示 [code]~~~[/code] 或者 [code]^^^3[/code] 各種坐標。
+[b]selector:[/b] 目標選擇器，可以表示 [code]@e\[type=player\][/code]，甚至是更複雜的選擇，也可以支持玩家名稱。
+[b]array:[/b] 類似數組一樣，中括號包起來的那樣，目標選擇器身體部分。
+[b]dictionary:[/b] 類似字典一樣，大括號包起來的一樣。
+[b]command:[/b] 指令，一整條指令。
+
+[title]數據結構[/title]
+
+數據就是表示每個元素的數據組。有 [code]type, detail, items, description, cmd, custom[/code]
+例如：[code]{"type" : "int", "description" : "分數"}[/code]
+這就是 int 類型的元素數據，可以識別 [code]1, 0, 100, -1[/code]
+
+[b]type:[/b] 類型，表示元素的類型，默認 [code]null[/code]
+[b]detail:[/b] 細節，用於約束元素或者表示元素範圍，不同類型有不同的條件。
+[b]items:[/b] 附加物，一般是元素的分數據，常用於 [code]option[/code] 的選項。
+[b]description:[/b] 描述，用於提示，默認 Unknow
+[b]cmd:[/b] 指令，用於高級用法，可用於操控編輯器。見 [file grammar/element/cmd]指令[/file]
+[b]custom:[/b] 自定義數據，目前沒有任何用處。

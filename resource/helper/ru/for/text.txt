@@ -1,0 +1,4 @@
+[file for/mcfun]MCfun[/file]
+[file for/report]Отчёт[/file]
+
+[file for/report]Сообщить о проблеме / предложение[/file]

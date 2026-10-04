@@ -1,10 +1,10 @@
 {
-	"zh": {
-		"type": "file",
-		"file": "translation/zh.json"
-	},
-	"en": {
-		"type": "file",
-		"file": "translation/en.json"
-	}
+	"zh": {"type": "po_file", "file": "translation/zh.po"},
+	"zh_TW": {"type": "po_file", "file": "translation/zh_TW.po"},
+	"en": {"type": "po_file", "file": "translation/en.po"},
+	"ja": {"type": "po_file", "file": "translation/ja.po"},
+	"ko": {"type": "po_file", "file": "translation/ko.po"},
+	"ru" : {"type" : "po_file", "file" : "translation/ru.po"},
+	"es" : {"type" : "po_file", "file" : "translation/es.po"},
+	"pt" : {"type" : "po_file", "file" : "translation/pt.po"},
 }

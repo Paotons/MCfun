@@ -1,0 +1,20 @@
+[title]Descrição[/title]
+
+Gerencia placares e pontuações.
+
+[title]Posição[/title]
+
+[code]&scoreboard players position <alvo> <eixo> <portador> <objetivo> <modo> <iterações>[/code]
+Define ou desloca a pontuação de um portador em um objetivo para a posição de um alvo ao longo de um eixo.
+
+[b]alvo:[/b] Seletor de alvo; o alvo.
+[b]eixo:[/b] O eixo selecionado; pode ser [code]x,y,z[/code].
+[b]portador:[/b] Seletor de alvo; o portador da pontuação a operar.
+[b]objetivo:[/b] Palavra; o objetivo a operar.
+[b]modo:[/b] [code]set[/code] define diretamente a pontuação; [code]offset[/code] desloca com base no valor atual. Padrão: [code]set[/code].
+[b]iterações:[/b] Inteiro. Como a bissecção é usada, a distância máxima de execução ainda é limitada. Um número maior de iterações dá um alcance maior; o alcance máximo é [code]2 ^ iterações - 1[/code]. O padrão cobre 66 milhões. Padrão: [code]25[/code].
+
+[code]&scoreboard players position @s x @s origin[/code] define a pontuação do executor nomeado no objetivo origin para sua própria posição no eixo x.
+
+[b]Limitações:[/b] Como o [code]distance[/code] do seletor de alvo só suporta inteiros, a escala não é incluída; a precisão é limitada a 1.0.
+[b]Nota:[/b] Este método de bissecção faz as pontuações ficarem ligeiramente menores.

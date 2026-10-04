@@ -464,6 +464,7 @@ layout_mode = 2
 text = "language"
 
 [node name="LanguageOption" type="OptionButton" parent="VBoxContainer/HSplitContainer/scene_parent/ScrollContainer/MarginContainer/Normal/HBoxContainer3" unique_id=1850526028]
+auto_translate_mode = 2
 layout_mode = 2
 size_flags_horizontal = 10
 flat = true

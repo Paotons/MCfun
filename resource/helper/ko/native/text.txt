@@ -1,0 +1,11 @@
+[title]설명[/title]
+네이티브 명령어는 Minecraft 원본 명령어가 아니며, 소프트웨어 내부에 저장되어 소프트웨어의 확장 기능을 구성합니다. 내보낼 때 Minecraft 명령어로 변환됩니다.
+
+[code]&[/code] 로 네이티브 명령어를 시작합니다. 예: [code]&tp[/code]
+
+[title]분류[/title]
+
+[file native/tp]텔레포트 tp[/file]
+[file native/scoreboard]점수/스코어보드 scoreboard[/file]
+[file native/fill]채우기 fill[/file]
+[file native/string]문자열 string[/file]

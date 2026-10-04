@@ -1,0 +1,8 @@
+[title]설명[/title]
+
+목록 [file grammar/entry]문법>>목록[/file] 에 있는 각종 요소입니다.
+
+[title]V1[/title]
+일반 문자열을 나타내는 [file grammar/chapter/string]문법>>챕터>>문자열[/file]
+[code]minecraft:apple[/code] 을 나타내는 [file grammar/chapter/spaceitem]문법>>챕터>>네임스페이스 아이템[/file]
+[code]mob.zombile.hit[/code] 을 나타내는 [file grammar/chapter/path]문법>>챕터>>경로[/file]

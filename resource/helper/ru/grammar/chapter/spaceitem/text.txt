@@ -1,0 +1,35 @@
+[title]Описание[/title]
+
+Используется в списке [file grammar/entry]Грамматика>>Список[/file] для обозначения пространственных предметов.
+
+[title]V1[/title]
+
+Чтобы задать имя предмета [code]item[/code], можно записать:
+[code]{
+	"type" : "spaceitem",
+	"data" : {
+		"minecraft" : [
+			"apple",
+			"stone"
+		]
+	}
+}[/code]
+Так предметами становятся [code]minecraft:apple[/code] и [code]minecraft:stone[/code].
+
+[b]data:[/b] первый уровень — имя пространства; после имени пространства идёт предмет.
+
+[title]V2[/title]
+
+Чтобы задать имя предмета [code]item[/code], можно записать:
+[code]{
+	"type" : "spaceitem",
+	"data" : {
+		"minecraft" : {
+			"apple" : "Яблоко",
+			"stone" : "Камень"
+		}
+	}
+}[/code]
+Так предметами становятся [code]minecraft:apple[/code] и [code]minecraft:stone[/code] вместе с соответствующими подсказками.
+
+[b]data:[/b] первый уровень — имя пространства; после имени пространства идёт предмет.

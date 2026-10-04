@@ -1,0 +1,16 @@
+[title]Descripción[/title]
+
+Opción; un elemento que ofrece varias opciones.
+No se omite; sin opción válida da error por defecto.
+
+[title]Datos adicionales[/title]
+
+Puede ser un arreglo de cadenas o un arreglo de diccionarios.
+
+[code]["as", "at"][/code] define las opciones as y at.
+[code][{"as" : "Como"}, {"at" : "En"}][/code] no solo define las opciones as y at, sino que además añade sugerencias.
+
+[title]Detalle[/title]
+
+[b]using_entry:[/b] si es [code]true[/code], se usa un capítulo. En ese caso, los datos adicionales deben ser un arreglo de cadenas, y cada cadena es el nombre del capítulo que aporta las opciones. El capítulo correspondiente también debe ser un capítulo de cadena.
+[b]is_probing:[/b] si es [code]true[/code], cuando no hay opción coincidente se ignora silenciosamente, sin dar error.

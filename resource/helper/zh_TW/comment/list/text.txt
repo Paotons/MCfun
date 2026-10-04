@@ -1,0 +1,12 @@
+[title]描述[/title]
+
+列表是指令中補全數據的列表，動態跟隨指令變化。
+
+[title]添加[/title]
+
+[code]@list <列表名> add <補全項>[/code]
+
+[b]列表名：[/b] 執行操作的列表。
+[b] 補全項：[/b] 要加入的補全項。
+
+例如：[code]@list tag add my_tag[/code] 後續補全 Tag 時可以有 my_tag 選項。

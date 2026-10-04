@@ -1,0 +1,4 @@
+[file for/mcfun]MCfun[/file]
+[file for/report]보고[/file]
+
+[file for/report]문제/의견을 신고하고 싶습니다[/file]

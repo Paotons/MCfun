@@ -1,0 +1,22 @@
+[title]説明[/title]
+
+各種リストを保存するためのファイルです。
+
+また、行が [code]{"type" : "file", "file" : "path"}[/code] を使用して他のファイルの内容をデータとして読み込むことを許可します。例：[code]"item" : {"type" : "file", "file" : "entry/item.json"}[/code]
+
+[title]V1[/title]
+
+例：
+[code]{
+	"chapter" : {
+		"type" : "xxx"
+	},
+	"chapter2" : {
+		"type" : "xxx"
+	}
+}[/code]
+
+[b]chapter:[/b] この分類の名前を保存するために使います。任意の文字列にできます。
+[b]chapter.type[/b] この分類の種類を表すために使います。[code]string,spaceitem,path[/code] および特殊な [code]file[/code] 種類にできます。
+
+

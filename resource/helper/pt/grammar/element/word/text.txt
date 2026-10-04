@@ -1,0 +1,4 @@
+[title]Descrição[/title]
+
+Palavra.
+Se a cadeia não começar com uma palavra, ela é adicionada à lista de expectativas e ignorada.

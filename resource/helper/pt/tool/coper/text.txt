@@ -1,0 +1,20 @@
+[title]Descrição[/title]
+
+O Copiador de Funções fica em [code]Lista de Projetos>>copiador[/code] e pode copiar rapidamente cada linha de um [code]mcfunction[/code]. Você pode levá-lo para o jogo e executá-lo via blocos de comando.
+
+[title]Selecionar um Arquivo[/title]
+
+Abra o Copiador de Funções via [code]copiador[/code] na barra de ferramentas superior da lista de projetos.
+Você pode selecionar o arquivo a copiar aqui. Formatos suportados: [code]mcfunction, zip[/code].
+Se for um arquivo [code]zip[/code], você também precisa selecionar o [code]mcfunction[/code] dentro do arquivo.
+
+[title]Copiar Comandos[/title]
+
+Após selecionar um arquivo, se o conteúdo não tiver outros problemas, você pode ajustar os parâmetros e copiar. O conteúdo copiado vai para a área de transferência.
+[code]deslocamento:[/code] A próxima posição a copiar; atualizada automaticamente após cada cópia.
+[code]comprimento:[/code] Quantas linhas copiar de uma vez. Máximo é 30.
+
+[code]Copiar linha:[/code] Copia a linha atual e move o deslocamento.
+[code]Copiar normal:[/code] Copia continuamente de acordo com o [code]comprimento[/code] configurado.
+
+[b]Nota:[/b] Durante a cópia normal, devido a limitações do sistema, ela não pode ser instantânea. Cada cópia na verdade tem um intervalo de um quadro.

@@ -1,0 +1,20 @@
+[title]Descripción[/title]
+
+Gestiona marcadores y puntuaciones.
+
+[title]Posición[/title]
+
+[code]&scoreboard players position <objetivo> <eje> <portador> <marcador> <modo> <iteraciones>[/code]
+Establece o desplaza la puntuación de un portador en un marcador a la posición de un objetivo a lo largo de un eje dado.
+
+[b]objetivo:[/b] selector de objetivos; el objetivo.
+[b]eje:[/b] el eje seleccionado; puede ser [code]x,y,z[/code].
+[b]portador:[/b] selector de objetivos; el portador de la puntuación sobre el que operar.
+[b]marcador:[/b] palabra; el marcador sobre el que operar.
+[b]modo:[/b] [code]set[/code] establece directamente la puntuación; [code]offset[/code] la desplaza respecto al valor actual. Por defecto: [code]set[/code].
+[b]iteraciones:[/b] entero. Como se usa bisección, la distancia máxima de ejecución sigue siendo limitada. Cuantas más iteraciones, mayor alcance; el alcance máximo es [code]2 ^ iteraciones - 1[/code]. Por defecto cubre 66 millones. Por defecto: [code]25[/code].
+
+[code]&scoreboard players position @s x @s origin[/code] establece la puntuación del ejecutor nombrado en el marcador origin a su propia posición en el eje x.
+
+[b]Limitaciones:[/b] como el [code]distance[/code] del selector de objetivos solo admite enteros, no se incluye escalado; la precisión se limita a 1.0.
+[b]Nota:[/b] este método de bisección hace que las puntuaciones queden ligeramente bajas.
